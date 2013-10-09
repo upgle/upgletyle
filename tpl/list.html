@@ -2,6 +2,7 @@
 <include target="./header.html" />
 <ul class="x_nav x_nav-tabs">
 	<li class="x_active"|cond="$act=='dispUpgletyleAdminList'"><a href="{getUrl('act','dispUpgletyleAdminList','module_srl','')}">{$lang->cmd_upgletyle_list}</a></li>
+	<li class="x_active"|cond="$act=='dispUpgletyleAdminTextyleList'"><a href="{getUrl('act','dispUpgletyleAdminList','module_srl','')}">{$lang->cmd_textyle_list}</a></li>
 	<li class="x_active"|cond="$act=='dispUpgletyleAdminInsert'"><a href="{getUrl('act','dispUpgletyleAdminInsert','module_srl')}">{$lang->cmd_upgletyle_creation}</a></li>
 	<li class="x_active"|cond="$act=='dispUpgletyleAdminCustomMenu'"><a href="{getUrl('act','dispUpgletyleAdminCustomMenu','module_srl')}">{$lang->cmd_upgletyle_custom_menu}</a></li>
 	<li class="x_active"|cond="$act=='dispUpgletyleAdminBlogApiConfig'"><a href="{getUrl('act','dispUpgletyleAdminBlogApiConfig','module_srl')}">{$lang->cmd_upgletyle_blogapi_service}</a></li>
@@ -21,6 +22,7 @@
 			<th scope="col">{$lang->regdate}</th>
 			<th scope="col">{$lang->cmd_setup}</th>
 			<th scope="col">{$lang->cmd_delete}</th>
+			<th scope="col">{$lang->switch_textyle}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -40,6 +42,9 @@
 			</td>
 			<td>
 				<a href="{getUrl('act','dispUpgletyleAdminDelete','module_srl',$val->getModuleSrl())}" title="{htmlspecialchars($lang->cmd_delete)}" class="xe-ui-button-gray">{$lang->cmd_delete}</a>
+			</td>
+			<td>
+				<a href="{getUrl('act','dispUpgletyleAdminDelete','module_srl',$val->getModuleSrl())}" title="{htmlspecialchars($lang->switch_textyle)}" class="xe-ui-button-gray">{$lang->switch_textyle}</a>
 			</td>
 		</tr>
 	</tbody>

@@ -373,6 +373,7 @@
     $lang->cmd_go_help = '도움말';
     $lang->cmd_upgletyle_setup = '기본 설정';
     $lang->cmd_upgletyle_list = 'Upgletyle 목록';
+    $lang->cmd_textyle_list = 'Textyle 목록';
     $lang->cmd_upgletyle_creation = 'Upgletyle 생성';
     $lang->cmd_upgletyle_modify = 'Upgletyle 수정';
     $lang->cmd_upgletyle_custom_menu = 'Upgletyle 메뉴 편집';
@@ -484,4 +485,7 @@
 	$lang->msg_write_comment = '댓글쓰기';
 	$lang->msg_mobile_skin_use_not = '현재 모바일 스킨을 사용하지 않고 있습니다. 사용하려면 스킨적용 버튼을 누르세요.';
 	$lang->skip_content = '본문 건너뛰기';
+
+	$lang->switch_textyle = '텍스타일 변환';
+	$lang->switch_upgletyle = '업글타일 변환';
 ?>

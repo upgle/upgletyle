@@ -97,6 +97,14 @@
         }
 
         /**
+         * @brief Textyle return list
+         **/
+        function getTextyleList($args) {
+            $output = executeQueryArray('upgletyle.getTextyleList', $args);
+            return $output;
+        }
+
+        /**
          * @brief Upgletyle return
          **/
         function getUpgletyle($module_srl=0) {
