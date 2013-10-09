@@ -1,0 +1,12 @@
+<filter name="upgletyle_login" module="upgletyle" act="procUpgletyleLogin">
+    <form>
+        <node target="user_id" required="true" />
+        <node target="password" required="true" />
+    </form>
+    <parameter />
+    <response callback_func="completeUpgletyleLogin">
+        <tag name="error" />
+        <tag name="stat" />
+        <tag name="message" />
+    </response>
+</filter>

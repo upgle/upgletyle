@@ -1,0 +1,9 @@
+<filter name="export_upgletyle" module="upgletyle" act="procUpgletyleAdminExport">
+    <form>
+        <node target="export_type" required="true" />
+    </form>
+    <response callback_func="completeRequestExportUpgletyle">
+        <tag name="error" />
+        <tag name="message" />
+    </response>
+</filter>

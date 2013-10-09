@@ -1,0 +1,9 @@
+<load target="js/upgletyle.js" />
+<div class="x_page-header">
+	<h1>
+		{$lang->upgletyle} {$lang->cmd_management}
+		<a href="#abuotUpgletyle" data-toggle class="x_icon-question-sign">도움말</a>
+		<a href="{getUrl('act','dispUpgletyleAdminList','module_srl')}" cond="$act!='dispUpgletyleAdminList'" class="x_btn" style="position:absolute;right:0;bottom:4px"><i class="x_icon-arrow-left">{$lang->cmd_back}</i></a>
+	</h1>
+</div>
+<p class="x_alert x_alert-info" id="abuotUpgletyle" hidden>{nl2br($lang->about_upgletyle)}</p>

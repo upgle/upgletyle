@@ -1,0 +1,27 @@
+<!--%import("filter/delete_upgletyle.xml")-->
+<!--%import("js/textle.js")-->
+<!--#include("header.html")-->
+
+<form action="./" method="get" onsubmit="return procFilter(this, delete_upgletyle)" class="section">
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="site_srl" value="{$upgletyle_info->site_srl}" />
+	<h1>{$lang->confirm_delete}</h1>
+	<table class="x_table x_table-striped x_table-hover">
+		<thead>
+			<th scope="col">{$lang->module_name}</th>
+			<th scope="col">{$lang->upgletyle_title}</th>
+			<th scope="col" cond="isSiteId($upgletyle_info->domain)">Site ID</th>
+			<th scope="col" cond="!isSiteId($upgletyle_info->domain)">{$lang->domain}</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$upgletyle_info->mid}</td>
+				<td>{$upgletyle_info->upgletyle_title}</td>
+				<td><a href="{getSiteUrl($upgletyle_info->domain)}">{$upgletyle_info->domain}</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="x_clearfix">
+		<input type="submit" value="{$lang->cmd_delete}" class="x_btn x_btn-danger x_pull-right" />
+	</div>
+</form>

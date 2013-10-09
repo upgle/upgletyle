@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* NHN (developers@xpressengine.com) */
+
+/* upgletyleContent */
+.upgletyleContent{font-size:12px;line-height:1.6}
+.upgletyleContent h1{font-size:24px}
+.upgletyleContent h2{font-size:20px}
+.upgletyleContent h3{font-size:18px}
+.upgletyleContent h4{font-size:16px}
+.upgletyleContent h5{font-size:14px}
+.upgletyleContent h6{font-size:12px}
+
+/* Attached File */
+.upgletyleContent dl.attachedFile{margin:1em 0;padding:1em 0;background:#f9f9f9;border:1px solid #eee}
+.upgletyleContent dl.attachedFile dt{padding:0 2em .5em 2em;margin:0 0 1em 0;font-weight:bold;text-indent:1em;border-bottom:1px solid #eee;background:#f9f9f9 url(../img/iconClip.gif) no-repeat 2em .3em;font-size:12px}
+.upgletyleContent dl.attachedFile em{font-size:11px;font-weight:normal;font-style:normal;margin:0 5px}
+.upgletyleContent dl.attachedFile dd{margin:0;padding:0 2em;color:#8b8b8b;font-size:11px}
+.upgletyleContent dl.attachedFile dd a{text-decoration:none;color:#0092cf;margin-right:10px}
+.upgletyleContent dl.attachedFile dd a:hover,
+.upgletyleContent dl.attachedFile dd a:active,
+.upgletyleContent dl.attachedFile dd a:focus{text-decoration:underline}
+
+/* Blockquote */
+.upgletyleContent blockquote{margin-left:0;margin-right:0;padding:1em 40px;background:#f6f6f6;-moz-border-radius:5px;-webkit-border-radius:5px}
+
+/* Horizontal Rule */
+.upgletyleContent hr{display:block;position:static;border-bottom:0;height:1px;overflow:hidden;color:#e2e2e2;clear:both}
+.upgletyleContent .upgletyleToggler{border-bottom:1px solid #e2e2e2;text-align:right}
+.upgletyleContent .upgletyleToggler button{font-size:12px;border:0;padding:0 0 0 20px;font-weight:bold;color:#0092cf;overflow:visible;background:#fff url(../img/buttonToggleUpDown.gif) no-repeat;cursor:pointer;margin-bottom:-8px;vertical-align:top}
+.upgletyleContent .upgletyleToggler button.toggleShow{background-position:8px -22px}
+.upgletyleContent .upgletyleToggler button.toggleHide{background-position:8px -1px}
+
+/* Write Area Index */
+.upgletyleContent h3.index{border:1px solid #ddd;margin-bottom:-1px;padding:7px 30px;background:#fff;font-size:14px}
+.upgletyleContent ol.index{background:#fff;border:1px solid #ddd;border-top-color:#f2f2f2;font-size:12px;line-height:1.6;margin:0 0 10px 0;padding:15px}
+.upgletyleContent ol.index li{font-weight:bold;color:#555;margin-left:35px}
+.upgletyleContent ol.index li a{color:#648ab9;text-decoration:none;font-weight:normal}
+.upgletyleContent ol.index li a:hover,
+.upgletyleContent ol.index li a:avtive,
+.upgletyleContent ol.index li a:focus{text-decoration:underline}
+
+/* Object */
+.upgletyleContent object,
+.upgletyleContent embed{margin:1em 0}
+
+/* Cite */
+.upgletyleContent cite{display:block;margin:1em 0}
+

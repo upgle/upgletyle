@@ -1,0 +1,10 @@
+<filter name="delete_upgletyle" module="upgletyle" act="procUpgletyleAdminDelete">
+    <form>
+        <node target="site_srl" required="true" />
+    </form>
+    <response callback_func="completeDeleteUpgletyle">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="page" />
+    </response>
+</filter>
