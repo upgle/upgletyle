@@ -1,0 +1,11 @@
+<query id="getTextyleOnly" action="select">
+    <tables>
+        <table name="textyle" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" />
+    </conditions>
+</query>

@@ -1,0 +1,37 @@
+<!--%import("filter/switch_upgletyle.xml")-->
+<!--%import("js/upgletyle.js")-->
+<!--#include("header.html")-->
+
+{@
+    if($upgletyle_info->module == 'upgletyle')
+        $upgletyle_info->after_module = 'textyle';
+    elseif($upgletyle_info->module == 'textyle')
+        $upgletyle_info->after_module = 'upgletyle';
+}
+<form action="./" method="get" onsubmit="return procFilter(this, switch_upgletyle)" class="section">
+	<input type="hidden" name="page" value="{$page}" />
+	<input type="hidden" name="site_srl" value="{$upgletyle_info->site_srl}" />
+	<h1>{$lang->confirm_switch}</h1>
+	<table class="x_table x_table-striped x_table-hover">
+		<thead>
+			<th scope="col">{$lang->module_name}</th>
+			<th scope="col">{$lang->title}</th>
+			<th scope="col" cond="isSiteId($upgletyle_info->domain)">Site ID</th>
+			<th scope="col" cond="!isSiteId($upgletyle_info->domain)">{$lang->domain}</th>
+			<th scope="col">{$lang->before_switch}</th>
+			<th scope="col">{$lang->after_switch}</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$upgletyle_info->mid}</td>
+				<td>{$upgletyle_info->upgletyle_title}</td>
+				<td><a href="{getSiteUrl($upgletyle_info->domain)}">{$upgletyle_info->domain}</a></td>
+				<td>{$upgletyle_info->module}</td>
+				<td>{$upgletyle_info->after_module}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="x_clearfix">
+		<input type="submit" value="{$lang->switch_textyle}"|cond="$upgletyle_info->module=='upgletyle'" value="{$lang->switch_upgletyle}"|cond="$upgletyle_info->module=='textyle'" class="x_btn x_pull-right" />
+	</div>
+</form>

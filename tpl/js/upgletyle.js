@@ -21,6 +21,12 @@ function completeDeleteUpgletyle(ret_obj) {
 	location.href=current_url.setQuery('act','dispUpgletyleAdminList').setQuery('module_srl','');
 }
 
+
+function completeSwitchUpgletyle(ret_obj) {
+	alert(ret_obj['message']);
+	location.href=current_url.setQuery('act','dispUpgletyleAdminList').setQuery('module_srl','');
+}
+
 function completeInsertBlogApiService(ret_obj, response_tags) {
 	alert(ret_obj['message']);
 	location.href=current_url.setQuery('act','dispUpgletyleAdminBlogApiConfig').setQuery('textyle_blogapi_services_srl','');

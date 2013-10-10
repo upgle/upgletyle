@@ -208,10 +208,12 @@
 		<action name="procUpgletyleExport" type="controller" />
 
         <action name="dispUpgletyleAdminList" type="view" standalone="true" admin_index="true" />
+        <action name="dispUpgletyleAdminTextyleList" type="view" standalone="true" />
         <action name="dispUpgletyleAdminInsert" type="view" standalone="true" />
         <action name="dispUpgletyleAdminCustomMenu" type="view" standalone="true" />
         <action name="dispUpgletyleAdminBlogApiConfig" type="view" standalone="true" />
         <action name="dispUpgletyleAdminDelete" type="view" standalone="true" />
+        <action name="dispUpgletyleAdminSwitch" type="view" standalone="true" />
         <action name="dispUpgletyleAdminExportList" type="view" standalone="true" />
         <action name="dispUpgletyleAdminExtraMenu" type="view" standalone="true" />
 
@@ -219,6 +221,7 @@
 		<action name="procUpgletyleAdminUpdate" type="controller" standalone="true" />
         <action name="procUpgletyleAdminDelete" type="controller" standalone="true" />
         <action name="procUpgletyleAdminExport" type="controller" standalone="true" />
+        <action name="procUpgletyleAdminSwitch" type="controller" standalone="true" />
         <action name="procUpgletyleAdminInsertCustomMenu" type="controller" standalone="true" />
         <action name="procUpgletyleAdminDeleteBlogApiServices" type="controller" standalone="true" />
         <action name="procUpgletyleAdminInsertBlogApiServices" type="controller" standalone="true" />

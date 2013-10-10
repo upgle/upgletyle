@@ -49,10 +49,10 @@
 			</td>
             </block>
 			<td cond="$use_textyle && $act=='dispUpgletyleAdminList'">
-				<a href="{getUrl('act','dispUpgletyleAdminDelete','module_srl',$val->getModuleSrl())}" title="{htmlspecialchars($lang->switch_textyle)}" class="xe-ui-button-gray">{$lang->switch_textyle}</a>
+				<a href="{getUrl('act','dispUpgletyleAdminSwitch','module_srl',$val->getModuleSrl())}" title="{htmlspecialchars($lang->switch_textyle)}" class="xe-ui-button-gray">{$lang->switch_textyle}</a>
 			</td>
 			<td cond="$use_textyle && $act=='dispUpgletyleAdminTextyleList'">
-				<a href="{getUrl('act','dispUpgletyleAdminDelete','module_srl',$val->getModuleSrl())}" title="{htmlspecialchars($lang->switch_textyle)}" class="xe-ui-button-gray">{$lang->switch_upgletyle}</a>
+				<a href="{getUrl('act','dispUpgletyleAdminSwitch','module_srl',$val->getModuleSrl())}" title="{htmlspecialchars($lang->switch_textyle)}" class="xe-ui-button-gray">{$lang->switch_upgletyle}</a>
 			</td>
 		</tr>
 	</tbody>
