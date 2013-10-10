@@ -408,9 +408,17 @@ function deletePostItems(page){
 
 function _deletePostItem(params){
 	 var response_tags = new Array('error','message','page','mid');
-	exec_xml('upgletyle', 'procUpgletylePostDelete', params, completeGuestbookItemDelete, response_tags);
+	exec_xml('upgletyle', 'procUpgletylePostDelete', params, completePostItemDelete, response_tags);
 
 }
+
+function completePostItemDelete(ret_obj){
+	var error = ret_obj['error'];
+	var message = ret_obj['message'];
+	alert(message);
+	location.reload();
+}
+
 
 function trashPostItem(srl, page){
 	if(!confirm(xe.lang.msg_confirm_delete)) return false;

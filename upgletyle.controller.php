@@ -1089,14 +1089,21 @@
 
 
         function procUpgletylePostDelete(){
+			global $lang;
+
             $document_srl = Context::get('document_srl');
             if(preg_match('/^([0-9,]+)$/',$document_srl)) $document_srl = explode(',',$document_srl);
             else $document_srl = array($document_srl);
             if(count($document_srl)<1) return new Object(-1,'msg_invalid_request');
 
-            $output = $this->deletePost($document_srl);
-            if(!$output->toBool()) return $output;
-            $this->setMessage('success_trashed');
+			$oTrashAdminController = &getAdminController('trash');
+
+			//module relation data delete...
+			$output = $oTrashAdminController->_relationDataDelete(false, $document_srl);
+			if(!$output->toBool()) return new Object(-1, $output->message);
+			if(!$oTrashAdminController->_emptyTrash($document_srl)) return new Object(-1, $lang->fail_empty);
+
+            $this->setMessage('success_deleted');
         }
 
         function deletePost($document_srl, $is_admin=false){
