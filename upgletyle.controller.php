@@ -691,6 +691,7 @@
         }
 
         function procUpgletylePostsave(){
+
             $oDocumentModel = &getModel('document');
             $oDocumentController = &getController('document');
             $oUpgletyleModel = &getModel('upgletyle');
@@ -766,6 +767,7 @@
                 $oPublish->setTwitter($publish_option->send_twitter);
                 $oPublish->save();
                 
+
                 $var->publish_date_yyyymmdd = preg_replace("/[^0-9]/",'',$var->publish_date_yyyymmdd);
                 if($var->subscription=='Y' && $var->publish_date_yyyymmdd) {
                     $var->publish_date_hh = preg_replace("/[^0-9]/",'',$var->publish_date_hh);
@@ -786,6 +788,7 @@
                         // update module_srl for subscription
                         $args->module_srl = abs($this->module_srl) * -1;
                         $args->category_srl = $var->category_srl;
+						$args->content = $var->content;
                         $output = executeQuery('document.updateDocumentModule', $args);
                         if(!$output->toBool()) return $output;
 
