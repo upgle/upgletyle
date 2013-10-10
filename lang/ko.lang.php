@@ -488,4 +488,8 @@
 
 	$lang->switch_textyle = '텍스타일 변환';
 	$lang->switch_upgletyle = '업글타일 변환';
+	$lang->confirm_switch = '변환하시겠습니까?';
+	$lang->before_switch = '변환 전';
+	$lang->after_switch = '변환 후';
+	$lang->success_switched = '변환이 완료되었습니다.';
 ?>

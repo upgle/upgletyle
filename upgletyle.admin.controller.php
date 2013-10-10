@@ -252,6 +252,103 @@
             return $output;
         }
 
+        function procUpgletyleAdminSwitch() {
+            $site_srl = Context::get('site_srl');
+            if(!$site_srl) return new Object(-1,'msg_invalid_request');
+
+            $oModuleModel = &getModel('module');
+            $site_info = $oModuleModel->getSiteInfo($site_srl);
+            $module_srl = $site_info->index_module_srl;
+			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+
+			if($module_info->module == 'upgletyle') {
+				
+				//get upgletyle data
+				$args->module_srl = $module_srl;
+				$output = executeQuery('upgletyle.getUpgletyleOnly', $args);
+				if(!$output->toBool()) return $output;
+				else $upgletyle_data = $output->data;
+
+				unset($args);
+				$args->upgletyle_title = $upgletyle_data->upgletyle_title;
+				$args->module_srl = $upgletyle_data->module_srl;
+				$args->member_srl = $upgletyle_data->member_srl;
+				$args->post_style = $upgletyle_data->post_style;
+				$args->post_list_count = $upgletyle_data->post_list_count;
+				$args->comment_list_count = $upgletyle_data->comment_list_count;
+				$args->guestbook_list_count = $upgletyle_data->guestbook_list_count;
+				$args->input_email = $upgletyle_data->input_email;
+				$args->input_website = $upgletyle_data->input_website;
+				$args->post_editor_skin = $upgletyle_data->post_editor_skin;
+				$args->post_use_prefix = $upgletyle_data->post_use_prefix;
+				$args->post_use_suffix = $upgletyle_data->post_use_suffix;
+				$args->comment_editor_skin = $upgletyle_data->comment_editor_skin;
+				$args->comment_editor_colorset = $upgletyle_data->comment_editor_colorset;
+				$args->guestbook_editor_skin = $upgletyle_data->guestbook_editor_skin;
+				$args->guestbook_editor_colorset = $upgletyle_data->guestbook_editor_colorset;
+				$args->timezone = $upgletyle_data->timezone;
+				$output = executeQuery('textyle.insertTextyle', $args);
+				if(!$output->toBool()) return $output;
+
+				unset($args);
+				$args->module_srl = $module_srl;
+				$output = executeQuery('upgletyle.deleteUpgletyle', $args);
+				if(!$output->toBool()) return $output;
+
+				unset($args);
+				$args->mid = 'textyle';
+				$args->module = 'textyle';
+			}
+			elseif($module_info->module == 'textyle') {
+
+				//get textyle data
+				$args->module_srl = $module_srl;
+				$output = executeQuery('upgletyle.getTextyleOnly', $args);
+				if(!$output->toBool()) return $output;
+				else $textyle_data = $output->data;
+
+				unset($args);
+				$args->upgletyle_title = $textyle_data->upgletyle_title;
+				$args->module_srl = $textyle_data->module_srl;
+				$args->member_srl = $textyle_data->member_srl;
+				$args->post_style = $textyle_data->post_style;
+				$args->post_list_count = $textyle_data->post_list_count;
+				$args->comment_list_count = $textyle_data->comment_list_count;
+				$args->guestbook_list_count = $textyle_data->guestbook_list_count;
+				$args->input_email = $textyle_data->input_email;
+				$args->input_website = $textyle_data->input_website;
+				$args->post_editor_skin = $textyle_data->post_editor_skin;
+				$args->post_use_prefix = $textyle_data->post_use_prefix;
+				$args->post_use_suffix = $textyle_data->post_use_suffix;
+				$args->comment_editor_skin = $textyle_data->comment_editor_skin;
+				$args->comment_editor_colorset = $textyle_data->comment_editor_colorset;
+				$args->guestbook_editor_skin = $textyle_data->guestbook_editor_skin;
+				$args->guestbook_editor_colorset = $textyle_data->guestbook_editor_colorset;
+				$args->timezone = $textyle_data->timezone;
+				$output = executeQuery('upgletyle.insertUpgletyle', $args);
+				if(!$output->toBool()) return $output;
+
+				unset($args);
+				$args->module_srl = $module_srl;
+				$output = executeQuery('textyle.deleteTextyle', $args);
+				if(!$output->toBool()) return $output;
+
+				unset($args);
+				$args->mid = 'upgletyle';
+				$args->module = 'upgletyle';
+			}
+	
+			$args->site_srl = $site_srl;
+            $args->module_srl = $module_srl;
+            $oModuleController = &getController('module');
+            $output = $oModuleController->updateModule($args);
+            if(!$output->toBool()) return $output;
+
+            $this->add('module','upgletyle');
+            $this->add('page',Context::get('page'));
+            $this->setMessage('success_switched');
+		}
+
         function procUpgletyleAdminDelete() {
             $oModuleController = &getController('module');
             $oCounterController = &getController('counter');

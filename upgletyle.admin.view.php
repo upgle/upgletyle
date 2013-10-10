@@ -126,6 +126,38 @@
             $this->setTemplateFile('upgletyle_delete');
         }
 
+
+        function dispUpgletyleAdminSwitch() {
+            if(!Context::get('module_srl')) return $this->dispUpgletyleAdminList();
+            $module_srl = Context::get('module_srl');
+
+			//get module info
+			$oModuleModel = &getModel('module');
+			$columnList = array('module_srl', 'module');
+			$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl, $columnList);
+
+			if($module_info->module == 'upgletyle') {
+				$oUpgletyleModel = &getModel('upgletyle');
+				$oUpgletyle = $oUpgletyleModel->getUpgletyle($module_srl);
+				$upgletyle_info = $oUpgletyle->getObjectVars();
+			}
+			elseif($module_info->module == 'textyle') {
+				$oTextyleModel = &getModel('textyle');
+				$oTextyle = $oTextyleModel->getTextyle($module_srl);
+				$upgletyle_info = $oTextyle->getObjectVars();
+				$upgletyle_info->upgletyle_title = $upgletyle_info->textyle_title;
+			}
+
+            $oDocumentModel = &getModel('document');
+            $document_count = $oDocumentModel->getDocumentCount($upgletyle_info->module_srl);
+            $upgletyle_info->document_count = $document_count;
+
+            Context::set('upgletyle_info',$upgletyle_info);
+
+            $this->setTemplateFile('upgletyle_switch');
+        }
+
+
         function dispUpgletyleAdminCustomMenu() {
             $oUpgletyleModel = &getModel('upgletyle');
             $custom_menu = $oUpgletyleModel->getUpgletyleCustomMenu();
