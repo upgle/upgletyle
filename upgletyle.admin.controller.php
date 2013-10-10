@@ -270,7 +270,12 @@
 				else $upgletyle_data = $output->data;
 
 				unset($args);
-				$args->upgletyle_title = $upgletyle_data->upgletyle_title;
+				$args->textyle_title = $upgletyle_data->upgletyle_title;
+				$args->textyle_content = $upgletyle_data->upgletyle_content;
+				$args->profile_content = $upgletyle_data->profile_content;
+				$args->post_prefix = $upgletyle_data->post_prefix;
+				$args->post_suffix = $upgletyle_data->post_suffix;
+				$args->subscription_date = $upgletyle_data->subscription_date;
 				$args->module_srl = $upgletyle_data->module_srl;
 				$args->member_srl = $upgletyle_data->member_srl;
 				$args->post_style = $upgletyle_data->post_style;
@@ -308,7 +313,12 @@
 				else $textyle_data = $output->data;
 
 				unset($args);
-				$args->upgletyle_title = $textyle_data->upgletyle_title;
+				$args->upgletyle_title = $textyle_data->textyle_title;
+				$args->upgletyle_content = $textyle_data->textyle_content;
+				$args->profile_content = $textyle_data->profile_content;
+				$args->post_prefix = $textyle_data->post_prefix;
+				$args->post_suffix = $textyle_data->post_suffix;
+				$args->subscription_date = $textyle_data->subscription_date;
 				$args->module_srl = $textyle_data->module_srl;
 				$args->member_srl = $textyle_data->member_srl;
 				$args->post_style = $textyle_data->post_style;
