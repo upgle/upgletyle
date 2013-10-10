@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  upgletyleAdminView
-     * @author NHN (developers@xpressengine.com)
+     * @author UPGLE (admin@upgle.com)
      * @brief  upgletyle module admin view class
      **/
 

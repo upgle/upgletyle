@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  upgletyleSmartphone
-     * @author NHN (developers@xpressengine.com)
+     * @author UPGLE (admin@upgle.com)
      * @brief  upgletyle module SmartPhone IPhone class
      **/
 

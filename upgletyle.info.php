@@ -1,7 +1,7 @@
 <?php
     /**
      * @class  UpgletyleInfo
-     * @author NHN (developers@xpressengine.com)
+     * @author UPGLE (admin@upgle.com)
      * @brief  upgletyle module Upgletyle info class
      **/
 
