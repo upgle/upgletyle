@@ -37,9 +37,41 @@
 
             Context::set('upgletyle_list', $output->data);
             Context::set('page_navigation', $output->page_navigation);
+			Context::Set('use_textyle', $oUpgletyleModel->moduleExistCheck('textyle'));
 
             $this->setTemplateFile('list');
         }
+
+        function dispUpgletyleAdminTextyleList() {
+			global $lang;
+
+            $oUpgletyleModel = &getModel('upgletyle');
+			$use_textyle = $oUpgletyleModel->moduleExistCheck('textyle');
+			if(!$use_textyle) return new Object(-1,'msg_invalid_request');
+
+            $vars = Context::getRequestVars();
+            $oTextyleModel = &getModel('textyle');
+
+            $page = Context::get('page');
+            if(!$page) $page = 1;
+
+            if($vars->search_target && $vars->search_keyword) {
+                $args->{'s_'.$vars->search_target} = strtolower($vars->search_keyword);
+            }
+
+            $args->list_count = 20;
+            $args->page = $page;
+            $args->list_order = 'regdate';
+            $output = $oTextyleModel->getTextyleList($args);
+            if(!$output->toBool()) return $output;
+
+            Context::set('upgletyle_list', $output->data);
+            Context::set('page_navigation', $output->page_navigation);
+			Context::Set('use_textyle', $use_textyle);
+
+            $this->setTemplateFile('list');
+        }
+		
 
         function dispUpgletyleAdminInsert() {
             $oModuleModel = &getModel('module');

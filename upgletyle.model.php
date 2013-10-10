@@ -97,14 +97,6 @@
         }
 
         /**
-         * @brief Textyle return list
-         **/
-        function getTextyleList($args) {
-            $output = executeQueryArray('upgletyle.getTextyleList', $args);
-            return $output;
-        }
-
-        /**
          * @brief Upgletyle return
          **/
         function getUpgletyle($module_srl=0) {
@@ -436,5 +428,11 @@
 
 			return $configs[$module_srl];
 		}
+
+		function moduleExistCheck($module_name) {
+			$path = _XE_PATH_ . 'modules/'.$module_name;
+			return file_exists($path);
+		}
+
 	}
 ?>
