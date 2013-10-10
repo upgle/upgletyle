@@ -413,6 +413,8 @@ function _deletePostItem(params){
 }
 
 function trashPostItem(srl, page){
+	if(!confirm(xe.lang.msg_confirm_delete)) return false;
+
 	var params = new Array();
 	params['document_srl'] = srl;
 	params['page'] = page;
