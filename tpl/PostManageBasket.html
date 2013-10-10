@@ -46,7 +46,7 @@
 									<th scope="col">{$lang->category}</th>
 									<th scope="col">{$lang->comment}</th>
 									<th scope="col">{$lang->trackback}</th>
-									<th scope="col">{$lang->last_updated}</th>
+									<th scope="col">{$lang->last_update}</th>
 									<th scope="col">&nbsp;</th>
 									<th scope="col">&nbsp;</th>
 								</tr>
@@ -58,20 +58,21 @@
 									<td class="noData" colspan="8"><p>{$lang->no_trash}</p></td>
 								</tr>
 								<!--@else-->
-									<!--@foreach($trash_list as $no => $post)-->
+									<!--@foreach($trash_list as $no => $oTrashVO)-->
 
+                                {@ $trash_info = unserialize($oTrashVO->getSerializedObject()); }
 								<tr>
 									<td>
-										<input type="checkbox" name="document_srl" value="{$post->document_srl}" class="inputCheck boxlist" />
+										<input type="checkbox" name="document_srl" value="{$oTrashVO->document_srl}" class="inputCheck boxlist" />
 									</td>
 
-									<td class="title"><a href="#" class="postTitle">{$post->getTitle()}</a></td>
-									<td>{$category_list[$post->get('category_srl')]->title}</td>
-									<td class="small">{$post->getCommentCount()}</td>
-									<td class="small">{$post->getTrackbackCount()}</td>
-									<td class="small">{zdate($post->get('last_update'),'Y.m.d')}</td>
-									<td><span class="btnGray small"><button type="button" onclick="restorePostItem({$post->document_srl},{$page})">{$lang->cmd_restore}</button></span></td>
-									<td><button type="button" class="btnTableData" onclick="deletePostItem({$post->document_srl},{$page})"><span>{$lang->cmd_empty}</span></button></td>
+									<td class="title"><a href="#" class="postTitle">{$oTrashVO->getTitle()}</a></td>
+									<td>{$category_list[$trash_info['category_srl']]->title}</td>
+									<td class="small">{$trash_info['comment_count']}</td>
+									<td class="small">{$trash_info['trackback_count']}</td>
+									<td class="small">{zdate($trash_info['last_update'],'Y.m.d H:i:s')}</td>
+									<td><span class="btnGray small"><button type="button" onclick="restorePostItem({$oTrashVO->document_srl},{$page})">{$lang->cmd_restore}</button></span></td>
+									<td><button type="button" class="btnTableData" onclick="deletePostItem({$oTrashVO->document_srl},{$page})"><span>{$lang->cmd_empty}</span></button></td>
 								</tr>
 									<!--@end-->
 								<!--@end-->

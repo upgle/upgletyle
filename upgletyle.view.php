@@ -1256,11 +1256,12 @@
             $args->search_target = Context::get('search_target');
             $args->search_keyword = Context::get('search_keyword');
             $args->module_srl = $this->module_srl;
-            $output = $oDocumentAdminModel->getDocumentTrashList($args);
+
+			$oTrashModel = getModel('trash');
+			$output = $oTrashModel->getTrashList($args);
+
             Context::set('trash_list',$output->data);
             Context::set('page_navigation', $output->page_navigation);
-
-			debugPrint($output);
 
             $category_list = $oDocumentModel->getCategoryList($this->module_srl);
             Context::set('category_list', $category_list);
