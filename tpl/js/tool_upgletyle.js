@@ -360,20 +360,20 @@ function completeCheckAlias(ret_obj,response_tags,args,fo_obj){
 
 function restorePostItem(srl,page){
 	var params = new Array();
-	params['document_srl'] = srl;
+	params['trash_srl'] = srl;
 	params['mid'] = current_mid;
 
 	_restorePostItem(params);
 }
 function restorePostItems(page){
 	var val,srls = [];
-	jQuery("input[name=document_srl]:checked").each(function(){
+	jQuery("input[name=trash_srl]:checked").each(function(){
 		val = jQuery(this).val();
 		if(val) srls.push(val);
 	});
 	if(srls.length<1) return;
 	var params = new Array();
-	params['document_srl'] = srls.join(',');
+	params['trash_srl'] = srls.join(',');
 	params['mid'] = current_mid;
 	params['page'] = page;
 	_restorePostItem(params);
@@ -389,19 +389,19 @@ function confirmDeletePostItem(srl,page,msg){
 }
 function deletePostItem(srl,page){
 	var params = new Array();
-	params['document_srl'] = srl;
+	params['trash_srl'] = srl;
 	params['page'] = page;
 	_deletePostItem(params);
 }
 function deletePostItems(page){
 	var val,srls = [];
-	jQuery("input[name=document_srl]:checked").each(function(){
+	jQuery("input[name=trash_srl]:checked").each(function(){
 		val = jQuery(this).val();
 		if(val) srls.push(val);
 	});
 	if(srls.length<1) return;
 	var params = new Array();
-	params['document_srl'] = srls.join(',');
+	params['trash_srl'] = srls.join(',');
 	params['page'] = page;
 	_deletePostItem(params);
 }

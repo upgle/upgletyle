@@ -84,10 +84,10 @@
 											{@$_target=''}
 											<!--@if($post->get('module_srl') == $logged_info->member_srl)-->
 											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
-												<strong class="publishState draft"><span>{$lang->saved}</span></strong>
+												<strong class="publishState draft"><span>{$lang->temp}</span></strong>
 											<!--@else if($post->get('module_srl')<=0)-->
 											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
-												<strong class="publishState draft"><span>{$lang->reserve}</span></strong>
+												<strong class="publishState reserve"><span>{$lang->reserve}</span></strong>
 											<!--@else-->
 											{@$_url=getUrl('','document_srl',$post->document_srl)}
 											{@$_target=" target=\"_blank\"";}

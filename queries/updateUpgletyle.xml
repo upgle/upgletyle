@@ -5,7 +5,7 @@
 	<columns>
 		<column name="upgletyle_content" var="upgletyle_content" />
         <column name="profile_content" var="profile_content" />
-        <column name="member_srl" var="member_srl" filter="number" notnull="notnull" />
+        <column name="member_srl" var="member_srl" filter="number" />
         <column name="upgletyle_title" var="upgletyle_title" />
 		<column name="post_style" var="post_style" />
 		<column name="post_editor_skin" var="post_editor_skin" />

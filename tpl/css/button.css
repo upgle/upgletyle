@@ -57,6 +57,8 @@
 .publishState.draft span{background-position:right top;color:#b1b1b1}
 .publishState.out{background-position:left -20px}
 .publishState.out span{background-position:right -20px;color:#fff}
+.publishState.reserve{background-position:left -40px}
+.publishState.reserve span{background-position:right -40px;color:#fff}
 
 /* -- Active State -- */
 .activeState,
