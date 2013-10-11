@@ -551,6 +551,18 @@
 
             $oDocumentModel = &getModel('document');
             $output = $oDocumentModel->getDocumentList($args, false, false);
+			$post_list = $output->data;
+
+			//Type 설정
+			$oUpgletyleModel = &getModel('upgletyle');
+			foreach($post_list as $key => $val) {
+				$output2 = $oUpgletyleModel->getSubscriptionByDocumentSrl($val->document_srl);
+				if($output2->data && $val->get('module_srl')<=0) $val->type = 'reserve';
+				elseif(!$output2->data && $val->get('module_srl')<=0) $val->type = 'save';
+				elseif($val->get('module_srl') == $logged_info->member_srl) $val->type = 'temp';
+				else $val->type = 'publish';				
+			}
+
             Context::set('post_list',$output->data);
             Context::set('page_navigation', $output->page_navigation);
 
