@@ -374,6 +374,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData td.tag{white-space:normal}
 .tableData th{text-align:left;white-space:nowrap}
 .tableData tbody th{border-top:1px solid #e3e5e7}
+.tableData tbody tr:hover{background:#f9f9f9}
 .tableData td{border-top:1px solid #e3e5e7}
 .tableData tr.first th,
 .tableData tr.first td{border:0}
@@ -387,6 +388,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData td.postTitle,
 .tableData td.postTitle a{color:#648ab9}
 .tableData a.postTitle{color:#648ab9;font-weight:bold}
+.tableData .iconButton {padding:8px 0px 7px 7px !important;}
 .tableData .title{width:100%}
 .tableData .half{width:50%}
 .tableData .quarter{width:25%}
