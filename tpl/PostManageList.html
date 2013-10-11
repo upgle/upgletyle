@@ -76,25 +76,28 @@
 								<!--@else-->
 									<!--@foreach($post_list as $no => $post)-->
 										<tr>
-											<td>
+										<td>
 											<input type="checkbox" name="document_srl" value="{$post->document_srl}" class="inputCheck boxlist" />
 										</td>
 										<td>
 											{@$_url='#'}
 											{@$_target=''}
-											<!--@if($post->get('module_srl') == $logged_info->member_srl)-->
+											<!--@if($post->type=='temp')-->
 											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
 												<a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" title="{$lang->click_publish}" alt="{$lang->click_publish}"><strong class="publishState draft"><span>{$lang->temp}</span></strong></a>
-											<!--@else if($post->get('module_srl')<=0)-->
+											<!--@else if($post->type=='reserve')-->
 											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
 												<strong class="publishState reserve"><span>{$lang->reserve}</span></strong>
+											<!--@else if($post->type=='save')-->
+											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
+												<strong class="publishState saved"><span>{$lang->saved}</span></strong>
 											<!--@else-->
 											{@$_url=getUrl('','document_srl',$post->document_srl)}
 											{@$_target=" target=\"_blank\"";}
 												<strong class="publishState out"><span>{$lang->publish}</span></strong>
 											<!--@end-->
 										</td>
-										<td class="title"><a href="{$_url}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a>
+										<td class="title"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a>
 										{$post->printExtraImages()}
 
 										</td>

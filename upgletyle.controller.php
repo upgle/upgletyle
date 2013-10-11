@@ -689,7 +689,8 @@
             $cache_file = $oUpgletyleModel->getDenyCacheFile($module_srl);
             FileHandler::removeFile($cache_file);
         }
-
+		
+		//글쓰기 화면에서 저장, 미리보기, 발행 눌렀을때
         function procUpgletylePostsave(){
 
             $oDocumentModel = &getModel('document');
@@ -721,6 +722,7 @@
                 if(preg_match('/<IMG/', $var->content) || preg_match('/<img/', $var->content)) unset($GLOBALS['XE_DOCUMENT_LIST'][$output->get('document_srl')]);
 				$oDocument = $oDocumentModel->getDocument($output->get('document_srl'));
 				$vars = $oDocument->getObjectVars();
+				$vars->module_srl = abs($this->module_srl) * -1; //버튼을 통해 저장시 -1 지정
 	            $vars->tags = $var->tags;
 	            $output = $this->updatePost($vars);
                     $document_srl = $output->get('document_srl');

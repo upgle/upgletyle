@@ -55,10 +55,13 @@
 .publishState span{left:2px;padding:0 3px 0 1px;font-size:11px;_top:-1px;*vertical-align:top}
 .publishState.draft{background-position:left top}
 .publishState.draft span{background-position:right top;color:#b1b1b1}
-.publishState.out{background-position:left -20px}
-.publishState.out span{background-position:right -20px;color:#fff}
-.publishState.reserve{background-position:left -40px}
-.publishState.reserve span{background-position:right -40px;color:#fff}
+.publishState.saved{background-position:left -20px}
+.publishState.saved span{background-position:right -20px;color:#fff}
+.publishState.out{background-position:left -40px}
+.publishState.out span{background-position:right -40px;color:#fff}
+.publishState.reserve{background-position:left -60px}
+.publishState.reserve span{background-position:right -60px;color:#fff}
+
 
 /* -- Active State -- */
 .activeState,
