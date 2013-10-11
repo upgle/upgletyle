@@ -63,8 +63,8 @@
 									<th scope="col">{$lang->trackback}</th>
 									<th scope="col">{$lang->category}</th>
 									<th scope="col">{$lang->last_update}</th>
-									<th scope="col">&nbsp;</th>
-									<th scope="col">&nbsp;</th>
+									<th scope="col">{$lang->cmd_edit}</th>
+									<th scope="col">{$lang->cmd_delete}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -84,7 +84,7 @@
 											{@$_target=''}
 											<!--@if($post->get('module_srl') == $logged_info->member_srl)-->
 											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
-												<strong class="publishState draft"><span>{$lang->temp}</span></strong>
+												<a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" title="{$lang->click_publish}" alt="{$lang->click_publish}"><strong class="publishState draft"><span>{$lang->temp}</span></strong></a>
 											<!--@else if($post->get('module_srl')<=0)-->
 											{@$_url=getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}
 												<strong class="publishState reserve"><span>{$lang->reserve}</span></strong>
@@ -104,11 +104,6 @@
 										<td class="small">{zdate($post->get('last_update'),'Y.m.d')}</td>
 										<td>
 											<span class="btnGray small"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}">{$lang->cmd_edit}</a></span>
-                                            <!--@if($post->get('module_srl')==$logged_info->member_srl)-->
-											<span class="btnGray small"><a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}">{$lang->publish_go}</a></span>
-                                            <!--@else-->
-											<span class="btnGray small"><a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}">{$lang->publish_update_go}</a></span>
-                                            <!--@end-->
 										</td>
 										<td>
 											<!--@if($post->get('module_srl') == $logged_info->member_srl)-->

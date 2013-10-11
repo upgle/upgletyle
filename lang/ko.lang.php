@@ -493,4 +493,5 @@
 	$lang->before_switch = '변환 전';
 	$lang->after_switch = '변환 후';
 	$lang->success_switched = '변환이 완료되었습니다.';
+	$lang->click_publish = '클릭하시면 글을 발행합니다.';
 ?>
