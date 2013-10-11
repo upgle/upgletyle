@@ -106,11 +106,7 @@
 											<span class="btnGray small"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}">{$lang->cmd_edit}</a></span>
 										</td>
 										<td>
-											<!--@if($post->get('module_srl') == $logged_info->member_srl)-->
-											<button type="button" class="btnTableData" onclick="confirmDeletePostItem({$post->document_srl},{$page},'{$lang->msg_confirm_delete_post}')"><span>{$lang->cmd_delete}</span></button>
-											<!--@else-->
 											<button type="button" class="btnTableData" onclick="trashPostItem({$post->document_srl},{$page})"><span>{$lang->cmd_delete}</span></button>
-											<!--@end-->
 										</td>
 									</tr>
 									<!--@end-->
