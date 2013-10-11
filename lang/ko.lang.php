@@ -30,6 +30,7 @@
 	$lang->newest_no_comments = '남겨진 댓글이 아직 없습니다.';
 	$lang->newest_guestbooks = '최근 방명록';
 	$lang->newest_no_guestbooks = '방명록에 남겨진 글이 아직 없습니다.';
+	$lang->temp = '임시';
 	$lang->reserve = '예약';
 	$lang->publish = '발행';
     $lang->publish_go = '발행...';
