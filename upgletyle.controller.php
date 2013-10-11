@@ -930,74 +930,57 @@
         }
 
         function procUpgletylePostTrashRestore(){
-            $document_srl = Context::get('document_srl');
 
-            if(preg_match('/^([0-9,]+)$/',$document_srl)) $document_srl = explode(',',$document_srl);
-            else $document_srl = array($document_srl);
+			global $lang;
 
-            $oDocumentAdminController = &getAdminController('document');
-            $oDocumentController = &getController('document');
-            $oDocumentModel = &getModel('document');
+            $trash_srl = Context::get('trash_srl');
+            if(preg_match('/^([0-9,]+)$/',$trash_srl)) $trashSrlList = explode(',',$trash_srl);
+            else $trashSrlList = array($trash_srl);
 
-            $oDB = &DB::getInstance();
-            $oDB->begin();
+			if(is_array($trashSrlList))
+			{
+				// begin transaction
+				$oDB = &DB::getInstance();
+				$oDB->begin();
+				// eache restore method call in each classfile
+				foreach($trashSrlList AS $key=>$value)
+				{
+					$oTrashModel = &getModel('trash');
+					$output = $oTrashModel->getTrash($value);
+					if(!$output->toBool()) return new Object(-1, $output->message);
 
-            $args->document_srl = join(',',$document_srl);
-            $output = executeQueryArray('document.getTrashByDocumentSrl', $args);
+					//class file check
+					$classPath = ModuleHandler::getModulePath($output->data->getOriginModule());
+					if(!is_dir(FileHandler::getRealPath($classPath))) return new Object(-1, 'not exist restore module directory');
 
-            $trash = array();
-            if($output->data){
-                foreach($output->data as $k => $v){
-                    $trash[] = $v;
-                }
-            }
+					$classFile = sprintf('%s%s.admin.controller.php', $classPath, $output->data->getOriginModule());
+					$classFile = FileHandler::getRealPath($classFile);
+					if(!file_exists($classFile)) return new Object(-1, 'not exist restore module class file');
 
-            $updated_category_srls = array();
-            $logged_info = Context::get('logged_info');
-            foreach($trash as $k => $v){
-                $output = $oDocumentAdminController->restoreTrash($v->trash_srl);
-                if(!$output->toBool()){
-                     return new Object(-1, 'fail_to_trash');
-                }else{
-                    $args->module_srl = $logged_info->member_srl;
-                    $args->document_srl = $v->document_srl;
-                    $output = executeQuery('document.updateDocumentModule', $args);
+					$oAdminController = &getAdminController($output->data->getOriginModule());
+					if(!method_exists($oAdminController, 'restoreTrash')) return new Object(-1, 'not exist restore method in module class file');
 
-                    $oDocument = $oDocumentModel->getDocument($v->document_srl);
-                    $obj = $oDocument->getObjectVars();
-                    $updated_category_srls[] = $obj->category_srl;
-                    $trigger_output = ModuleHandler::triggerCall('document.updateDocument', 'after', $obj);
-                    if(!$trigger_output->toBool()) {
-                        $oDB->rollback();
-                        return $trigger_output;
-                    }
-                }
+					$originObject = unserialize($output->data->getSerializedObject());
+					$output = $oAdminController->restoreTrash($originObject);
 
-                // TO DO : move DocumentController
-                unset($trash_args);
-                $trash_args->document_srls = $v->document_srl;
-                $trash_args->module_srl = $v->module_srl;
-                $output = executeQuery('comment.updateCommentModule', $trash_args);
-                if(!$output->toBool()){
-                    $oDB->rollback();
-                    return new Object(-1, 'fail_to_trash');
-                }
+					if(!$output->toBool())
+					{
+						$oDB->rollback();
+						return new Object(-1, $output->message);
+					}
+				}
 
-                $output = executeQuery('trackback.updateTrackbackModule', $trash_args);
-                if(!$output->toBool()){
-                    $oDB->rollback();
-                    return new Object(-1, 'fail_to_trash');
-                }
+				// restore object delete in trash box
+				$oTrashAdminController = &getAdminController('trash');
+				if(!$oTrashAdminController->_emptyTrash($trashSrlList)) {
+					$oDB->rollback();
+					return new Object(-1, $lang->fail_empty);
+				}
+				$oDB->commit();
+			}
 
-            }
 
-            // TODO : move code document trash
-            $updated_category_srls = array_unique($updated_category_srls);
-            foreach($updated_category_srls as $k => $srl){
-                $oDocumentController->updateCategoryCount($this->module_srl,$srl);
-            }
 
-            $oDB->commit();
             return $output;
         }
 
@@ -1091,17 +1074,17 @@
         function procUpgletylePostDelete(){
 			global $lang;
 
-            $document_srl = Context::get('document_srl');
-            if(preg_match('/^([0-9,]+)$/',$document_srl)) $document_srl = explode(',',$document_srl);
-            else $document_srl = array($document_srl);
-            if(count($document_srl)<1) return new Object(-1,'msg_invalid_request');
+            $trash_srl = Context::get('trash_srl');
+            if(preg_match('/^([0-9,]+)$/',$trash_srl)) $trashSrlList = explode(',',$trash_srl);
+            else $trashSrlList = array($trash_srl);
+            if(count($trashSrlList)<1) return new Object(-1,'msg_invalid_request');
 
 			$oTrashAdminController = &getAdminController('trash');
 
 			//module relation data delete...
-			$output = $oTrashAdminController->_relationDataDelete(false, $document_srl);
+			$output = $oTrashAdminController->_relationDataDelete(false, $trashSrlList);
 			if(!$output->toBool()) return new Object(-1, $output->message);
-			if(!$oTrashAdminController->_emptyTrash($document_srl)) return new Object(-1, $lang->fail_empty);
+			if(!$oTrashAdminController->_emptyTrash($trashSrlList)) return new Object(-1, $lang->fail_empty);
 
             $this->setMessage('success_deleted');
         }
