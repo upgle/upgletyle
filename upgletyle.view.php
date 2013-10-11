@@ -544,9 +544,9 @@
             if(!$published){
                 $args->module_srl = array($this->module_srl,$this->module_srl * -1,$logged_info->member_srl);
             }else if($published > 0){
-                $args->module_srl = array($this->module_srl,$this->module_srl * -1);
+                $args->module_srl = $this->module_srl;
             }else{
-                $args->module_srl = $logged_info->member_srl;
+                $args->module_srl = array($logged_info->member_srl,$this->module_srl * -1);
             }
 
             $oDocumentModel = &getModel('document');
