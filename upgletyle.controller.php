@@ -709,6 +709,7 @@
 
 
             if($oDocument->isExists()) {
+				$vars->module_srl = abs($this->module_srl) * -1;
                 $output = $this->updatePost($var);
                 $document_srl = $oDocument->document_srl;
                 $alias = $oDocumentModel->getAlias($output->get('document_srl'));
