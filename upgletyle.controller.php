@@ -835,7 +835,7 @@
             $output = executeQuery('upgletyle.getPublishLogs', $args);
             $isPublished = (!$output->data) ? false : true;
 
-            if(!$isPublished){
+            if($isPublished){
                 $args->update_order = $args->list_order = getNextSequence()*-1;
                 $args->document_srl = $var->document_srl;
                 $args->module_srl = $this->module_srl;
