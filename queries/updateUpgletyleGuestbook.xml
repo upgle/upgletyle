@@ -15,6 +15,6 @@
 		<column name="ipaddress" var="ipaddress" default="ipaddress()" />
 	</columns>
 	<conditions>
-        <condition operation="equal" column="textyle_guestbook_srl" var="textyle_guestbook_srl" filter="number" notnull="notnull" />
+        <condition operation="equal" column="textyle_guestbook_srl" var="upgletyle_guestbook_srl" filter="number" notnull="notnull" />
     </conditions>
 </query>

@@ -34,16 +34,16 @@
 			<span class="auth"><em>{$val->nick_name}</em> <span>{zdate($val->regdate,'Y.m.d')}</span>
 
 				<!--@if(!$val->parent_srl)-->
-				<a href="{getUrl('','act','dispUpgletyleGuestbookWrite','mid',$this->mid,'textyle_guestbook_srl',$val->textyle_guestbook_srl)}" class="md">{$lang->cmd_reply}</a>
+				<a href="{getUrl('','act','dispUpgletyleGuestbookWrite','mid',$this->mid,'upgletyle_guestbook_srl',$val->upgletyle_guestbook_srl)}" class="md">{$lang->cmd_reply}</a>
 				<!--@end-->
 
 				<!--@if($logged_info)-->
 					<!--@if($logged_info->is_site_admin || $val->member_srl==$logged_info->member_srl)-->
-						<a href="#" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$val->textyle_guestbook_srl})">{$lang->cmd_delete}</a>
+						<a href="#" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$val->upgletyle_guestbook_srl})">{$lang->cmd_delete}</a>
 					<!--@end-->
 				<!--@else-->
 					<!--@if(!$val->member_srl)-->
-						<a href="{getUrl('type','delete_guestbook','act','dispUpgletylePasswordForm','textyle_guestbook_srl',$val->textyle_guestbook_srl)}" class="md">{$lang->cmd_delete}</a>
+						<a href="{getUrl('type','delete_guestbook','act','dispUpgletylePasswordForm','upgletyle_guestbook_srl',$val->upgletyle_guestbook_srl)}" class="md">{$lang->cmd_delete}</a>
 					<!--@end-->
 				<!--@end-->
 			</span>

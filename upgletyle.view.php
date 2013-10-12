@@ -726,13 +726,13 @@
          * @brief tool Guestbook Reply
          **/
         function dispUpgletyleToolCommunicationGuestbookReply(){
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
             $page = Context::get('page');
             if(!$page) $page = 1;
             Context::set('page',$page);
 
             $oUpgletyleModel = &getModel('upgletyle');
-            $output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+            $output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
             Context::set('guestbook_list',$output->data);
 
             $oEditorModel = &getModel('editor');
@@ -1993,7 +1993,7 @@
             // editor
             $oEditorModel = &getModel('editor');
             if($reply) $option->primary_key_name = 'parent_srl';
-            else $option->primary_key_name = 'textyle_guestbook_srl';
+            else $option->primary_key_name = 'upgletyle_guestbook_srl';
 
             $option->skin = $this->upgletyle->get('guestbook_editor_skin');
             $option->colorset = $this->upgletyle->get('guestbook_editor_colorset');

@@ -8,7 +8,7 @@
 <!--#include("_header.html")-->
 <div class="bd rd">
 
-	<!--@if($textyle_guestbook_srl && $guestbook)-->
+	<!--@if($upgletyle_guestbook_srl && $guestbook)-->
 		<!--@if($guestbook->is_secret==-1)-->
 				<div class="origin">{$guestbook->content}</div>
 		<!--@else-->
@@ -28,8 +28,8 @@
 		<form action="./" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)">
 		<input type="hidden" name="mid" value="{$mid}" />
 
-		<!--@if($textyle_guestbook_srl && $guestbook)-->
-		<input type="hidden" name="parent_srl" value="{$guestbook->textyle_guestbook_srl}" />
+		<!--@if($upgletyle_guestbook_srl && $guestbook)-->
+		<input type="hidden" name="parent_srl" value="{$guestbook->upgletyle_guestbook_srl}" />
 		<!--@end-->
 
 		<ul class="sn">

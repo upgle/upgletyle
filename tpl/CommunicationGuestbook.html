@@ -53,7 +53,7 @@
 									<!--@foreach($guestbook_list as $k => $v)-->
 									<tr<!--@if($v->parent_srl>0)--> class="indent"<!--@end-->>
 										<td>
-											<input type="checkbox" name="textyle_guestbook_srl" value="{$v->textyle_guestbook_srl}" class="inputCheck boxlist" />
+											<input type="checkbox" name="upgletyle_guestbook_srl" value="{$v->upgletyle_guestbook_srl}" class="inputCheck boxlist" />
 										</td>
 										<td class="thumb">
                                             <!--@if($v->profile_image)-->
@@ -78,13 +78,13 @@
 										<td colspan="4">
 											<div class="reAction">
 												<!--@if($v->parent_srl==0)-->
-												<span class="btnGray small"><a href="{getUrl('','mid',$mid,'act','dispUpgletyleToolCommunicationGuestbookReply','textyle_guestbook_srl',$v->textyle_guestbook_srl)}">{$lang->cmd_reply_comment}</a></span>
+												<span class="btnGray small"><a href="{getUrl('','mid',$mid,'act','dispUpgletyleToolCommunicationGuestbookReply','upgletyle_guestbook_srl',$v->upgletyle_guestbook_srl)}">{$lang->cmd_reply_comment}</a></span>
 												<!--@end-->
 											</div>
 											<div class="control">
-												<span class="btnGray small"><button type="button" onclick="updateGuestbookItemChangeSecret({$v->textyle_guestbook_srl},{$page})"><!--@if($v->is_secret<0)-->{$lang->private}<!--@else-->{$lang->public}<!--@end--></button></span> 
-												<span class="btnGray small"><button type="button" onclick="openLayerAddDenyItem('{$v->textyle_guestbook_srl}','_addDenyGuestbookList')">{$lang->cmd_deny}</button></span> 
-												<span class="btnGray small"><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$v->textyle_guestbook_srl},{$page});return false;">{$lang->cmd_delete}</button></span>
+												<span class="btnGray small"><button type="button" onclick="updateGuestbookItemChangeSecret({$v->upgletyle_guestbook_srl},{$page})"><!--@if($v->is_secret<0)-->{$lang->private}<!--@else-->{$lang->public}<!--@end--></button></span> 
+												<span class="btnGray small"><button type="button" onclick="openLayerAddDenyItem('{$v->upgletyle_guestbook_srl}','_addDenyGuestbookList')">{$lang->cmd_deny}</button></span> 
+												<span class="btnGray small"><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$v->upgletyle_guestbook_srl},{$page});return false;">{$lang->cmd_delete}</button></span>
 											</div>
 										</td>
 									</tr>

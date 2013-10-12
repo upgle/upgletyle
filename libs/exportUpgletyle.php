@@ -127,7 +127,7 @@ class ExportUpgletyle{
 		$guestbook_list = array();
 		if($output->data){
 			foreach($output->data as $k => $guestbook){
-				$guestbook_list[$guestbook->textyle_guestbook_srl] = $guestbook;
+				$guestbook_list[$guestbook->upgletyle_guestbook_srl] = $guestbook;
 			}
 		}
 		return $this->_arrayGuestbookList($guestbook_list);

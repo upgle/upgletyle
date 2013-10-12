@@ -30,11 +30,11 @@
 <div class="feedback reply pageFeedback">
 	<ol class="feedbackOrder" cond="$guestbook_list">
 		<!--@foreach($guestbook_list as $key => $val)-->
-			<block cond="$modify == $val->textyle_guestbook_srl">
+			<block cond="$modify == $val->upgletyle_guestbook_srl">
 				<li class="item replyForm">
 					<form cond="$textyle->isEnableGuestbook()" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
 						<input name="mid" type="hidden" value="textyle" />
-						<input type="hidden" name="textyle_guestbook_srl" value="{$val->textyle_guestbook_srl}" />
+						<input type="hidden" name="upgletyle_guestbook_srl" value="{$val->upgletyle_guestbook_srl}" />
 						<fieldset>
 							<textarea class="iTextArea" name="content" rows="8" cols="42">{htmlspecialchars($val->content)}</textarea>
 							<block cond="$is_logged">
@@ -59,7 +59,7 @@
 					</form>
 				</li>
 			</block>
-			<block cond="$modify != $val->textyle_guestbook_srl">
+			<block cond="$modify != $val->upgletyle_guestbook_srl">
 				<li class="item<!--@if($val->parent_srl>0)--> indent indent1<!--@end-->">
 					<div class="meta">
 						<h4 class="author">
@@ -75,28 +75,28 @@
 						<form action="" method="post" class="pwForm active guestbook{$key}" onsubmit="return checkPasswordGuestbook(this)">
 							<input type="hidden" name="mid" value="{$mid}" />
 							<input type="hidden" name="page" value="{$page}" />
-							<input type="hidden" name="textyle_guestbook_srl" value="{$val->textyle_guestbook_srl}" />
+							<input type="hidden" name="upgletyle_guestbook_srl" value="{$val->upgletyle_guestbook_srl}" />
 							<label for="deletePw">{$lang->password} : </label> <input name="password" type="password" class="iText" id="deletePw" value="" /><input name="" type="submit" value="{$lang->cmd_confirm}" class="submit" />
 						</form>
 						<!--@end-->
 						<form action="" method="post" class="modifyPw pwForm guestbook{$key}" onsubmit="return checkPasswordForModifyGuestbook(this)">
 							<input type="hidden" name="mid" value="{$mid}" />
 							<input type="hidden" name="page" value="{$page}" />
-							<input type="hidden" name="textyle_guestbook_srl" value="{$val->textyle_guestbook_srl}" />
+							<input type="hidden" name="upgletyle_guestbook_srl" value="{$val->upgletyle_guestbook_srl}" />
 							<label for="deletePw">{$lang->password} : </label> <input name="password" type="password" class="iText" id="deletePw" value="" /><input name="" type="submit" value="{$lang->cmd_confirm}" class="submit" />
 						</form>
 						<form action="" method="post" class="deletePw pwForm guestbook{$key}"onsubmit="return checkPasswordForDeleteGuestbook(this)">
 							<input type="hidden" name="mid" value="{$mid}" />
 							<input type="hidden" name="page" value="{$page}" />
-							<input type="hidden" name="textyle_guestbook_srl" value="{$val->textyle_guestbook_srl}" />
+							<input type="hidden" name="upgletyle_guestbook_srl" value="{$val->upgletyle_guestbook_srl}" />
 							<label for="deletePw">{$lang->password} : </label> <input name="password" type="password" class="iText" id="deletePw" value="" /><input name="" type="submit" value="{$lang->cmd_confirm}" class="submit" />
 						</form>
 					</div>
 					<ul class="reAction" cond="$val->view_grant">
-						<li cond="$val->parent_srl==0&&$textyle->isEnableGuestbook()"><a href="{getUrl('modify','','reply',$val->textyle_guestbook_srl)}#gusetbook_{$val->textyle_guestbook_srl}">{$lang->cmd_reply}</a></li>
+						<li cond="$val->parent_srl==0&&$textyle->isEnableGuestbook()"><a href="{getUrl('modify','','reply',$val->upgletyle_guestbook_srl)}#gusetbook_{$val->upgletyle_guestbook_srl}">{$lang->cmd_reply}</a></li>
 						<block cond="$val->member_srl">
-							<li cond="$logged_info->member_srl == $val->member_srl"><a href="{getUrl('reply','','modify',$val->textyle_guestbook_srl)}#gusetbook_{$val->textyle_guestbook_srl}">{$lang->cmd_modify}...</a></li>
-							<li cond="$logged_info->is_site_admin || $logged_info->member_srl == $val->member_srl"><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$val->textyle_guestbook_srl});">{$lang->cmd_delete}</button></li>
+							<li cond="$logged_info->member_srl == $val->member_srl"><a href="{getUrl('reply','','modify',$val->upgletyle_guestbook_srl)}#gusetbook_{$val->upgletyle_guestbook_srl}">{$lang->cmd_modify}...</a></li>
+							<li cond="$logged_info->is_site_admin || $logged_info->member_srl == $val->member_srl"><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$val->upgletyle_guestbook_srl});">{$lang->cmd_delete}</button></li>
 						</block>
 						<block cond="!$val->member_srl">
 							<li><button type="button" onclick="jQuery('.guestbook{$key}').removeClass('active');jQuery('.modifyPw.guestbook{$key}').addClass('active')">{$lang->cmd_modify}...</button></li>
@@ -104,10 +104,10 @@
 						</block>
 					</ul>
 				</li>
-				<li class="item replyForm" cond="$reply == $val->textyle_guestbook_srl">
+				<li class="item replyForm" cond="$reply == $val->upgletyle_guestbook_srl">
 					<form cond="$textyle->isEnableGuestbook()" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
 						<input name="mid" type="hidden" value="textyle" />
-						<input type="hidden" name="parent_srl" value="{$val->textyle_guestbook_srl}" />
+						<input type="hidden" name="parent_srl" value="{$val->upgletyle_guestbook_srl}" />
 						<fieldset>
 							<textarea class="iTextArea" name="content" rows="8" cols="42"></textarea>
 							<block cond="$is_logged">

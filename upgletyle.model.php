@@ -147,12 +147,12 @@
             if(!$output->toBool() || !$output->data) return array();
 
             foreach($output->data as $key => $val) {
-                if($logged_info->is_site_admin || $val->is_secret!=1 || $val->member_srl == $logged_info->member_srl || $val->view_grant || $_SESSION['own_textyle_guestbook'][$val->textyle_guestbook_srl]){
+                if($logged_info->is_site_admin || $val->is_secret!=1 || $val->member_srl == $logged_info->member_srl || $val->view_grant || $_SESSION['own_textyle_guestbook'][$val->upgletyle_guestbook_srl]){
                     $val->view_grant = true;
-                    $oUpgletyleController->addGuestbookGrant($val->textyle_guestbook_srl);
+                    $oUpgletyleController->addGuestbookGrant($val->upgletyle_guestbook_srl);
 
                     foreach($output->data as $k => $v) {
-                        if($v->parent_srl == $val->textyle_guestbook_srl){
+                        if($v->parent_srl == $val->upgletyle_guestbook_srl){
                             $v->view_grant=true;
                         }
                     }
@@ -167,10 +167,10 @@
             return $output;
         }
 
-        function getUpgletyleGuestbook($textyle_guestbook_srl){
+        function getUpgletyleGuestbook($upgletyle_guestbook_srl){
             $oMemberModel = &getModel('member');
 
-            $args->textyle_guestbook_srl = $textyle_guestbook_srl;
+            $args->upgletyle_guestbook_srl = $upgletyle_guestbook_srl;
             $output = executeQueryArray('upgletyle.getUpgletyleGuestbook',$args);
             if($output->data){
                 foreach($output->data as $key => $val) {

@@ -368,14 +368,14 @@
         function procUpgletyleGuestbookVerificationPassword() {
             $oUpgletyleModel = &getModel('upgletyle');
             $password = Context::get('password');
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
 
-            if(!$password || !$textyle_guestbook_srl) return new Object(-1, 'msg_invalid_request');
+            if(!$password || !$upgletyle_guestbook_srl) return new Object(-1, 'msg_invalid_request');
 
-            $output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+            $output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
             if($output->data){
                 if($output->data[0]->password == md5($password)){
-                    $this->addGuestbookGrant($textyle_guestbook_srl);
+                    $this->addGuestbookGrant($upgletyle_guestbook_srl);
                 }else{
                     return new Object(-1, 'msg_invalid_password');
                 }
@@ -384,8 +384,8 @@
             }
         }
 
-        function addGuestbookGrant($textyle_guestbook_srl){
-            $_SESSION['own_textyle_guestbook'][$textyle_guestbook_srl]=true;
+        function addGuestbookGrant($upgletyle_guestbook_srl){
+            $_SESSION['own_textyle_guestbook'][$upgletyle_guestbook_srl]=true;
         }
 
 
@@ -393,7 +393,7 @@
          * @brief Guestbook insert
          **/
         function procUpgletyleGuestbookWrite(){
-            $val = Context::gets('mid','nick_name','homepage','email_address','password','content','parent_srl','textyle_guestbook_srl','page','is_secret');
+            $val = Context::gets('mid','nick_name','homepage','email_address','password','content','parent_srl','upgletyle_guestbook_srl','page','is_secret');
 
             // set
             $obj->module_srl = $this->module_srl;
@@ -402,13 +402,13 @@
 
 
             // update
-            if($val->textyle_guestbook_srl>0){
+            if($val->upgletyle_guestbook_srl>0){
                 $obj->user_name = $obj->nick_name = $val->nick_name;
                 $obj->email_address = $val->email_address;
                 $obj->homepage = $obj->homepage;
                 $obj->password = md5($val->password);
 
-                $obj->textyle_guestbook_srl = $val->textyle_guestbook_srl;
+                $obj->upgletyle_guestbook_srl = $val->upgletyle_guestbook_srl;
                 $output = executeQuery('upgletyle.updateUpgletyleGuestbook', $obj);
 
             // insert
@@ -429,19 +429,19 @@
                     $obj->password = md5($val->password);
                 }
 
-                $obj->textyle_guestbook_srl = getNextSequence();
+                $obj->upgletyle_guestbook_srl = getNextSequence();
                 // reply
                 if($val->parent_srl>0){
                     $obj->parent_srl = $val->parent_srl;
                     $obj->list_order = $obj->parent_srl * -1;
                 }else{
-                    $obj->list_order = $obj->textyle_guestbook_srl * -1;
+                    $obj->list_order = $obj->upgletyle_guestbook_srl * -1;
                 }
                 $output = executeQuery('upgletyle.insertUpgletyleGuestbook', $obj);
             }
             if(!$output->toBool()) return $output;
 
-            $this->addGuestbookGrant($obj->textyle_guestbook_srl);
+            $this->addGuestbookGrant($obj->upgletyle_guestbook_srl);
             $obj->guestbook_count = 1;
             $output = $this->updateUpgletyleSupporter($obj);
             $this->add('page',$val->page?$val->page:1);
@@ -475,12 +475,12 @@
          * @brief Guestbook item delete
          **/
         function procUpgletyleGuestbookItemDelete(){
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
-            if(!$textyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
+            if(!$upgletyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
 
             $logged_info = Context::get('logged_info');
-            if(!($logged_info->is_site_admin || $_SESSION['own_textyle_guestbook'][$textyle_guestbook_srl])) return new Object(-1,'msg_not_permitted');
-            $output = $this->deleteGuestbookItem($textyle_guestbook_srl);
+            if(!($logged_info->is_site_admin || $_SESSION['own_textyle_guestbook'][$upgletyle_guestbook_srl])) return new Object(-1,'msg_not_permitted');
+            $output = $this->deleteGuestbookItem($upgletyle_guestbook_srl);
             return $output;
         }
 
@@ -490,42 +490,42 @@
         function procUpgletyleGuestbookItemsDelete(){
             $oUpgletyleModel = &getModel('upgletyle');
 
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
-            if(!$textyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
+            if(!$upgletyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
 
-            $textyle_guestbook_srl = explode(',',trim($textyle_guestbook_srl));
-            rsort($textyle_guestbook_srl);
-            if(count($textyle_guestbook_srl)<1) return new Object(-1,'msg_invalid_request');
+            $upgletyle_guestbook_srl = explode(',',trim($upgletyle_guestbook_srl));
+            rsort($upgletyle_guestbook_srl);
+            if(count($upgletyle_guestbook_srl)<1) return new Object(-1,'msg_invalid_request');
 
-            foreach($textyle_guestbook_srl as $k => $srl){
+            foreach($upgletyle_guestbook_srl as $k => $srl){
                 $output = $this->deleteGuestbookItem($srl);
                 if(!$output->toBool()) return $output;
             }
         }
 
-        function deleteGuestbookItem($textyle_guestbook_srl){
+        function deleteGuestbookItem($upgletyle_guestbook_srl){
             $oUpgletyleModel = &getModel('upgletyle');
-            $output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+            $output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
             $oGuest = $output->data;
 
             if(!$oGuest) return new Object(-1,'msg_invalid_request');
 
             // delete children
-            $pobj->parent_srl = $textyle_guestbook_srl;
+            $pobj->parent_srl = $upgletyle_guestbook_srl;
             $output = executeQueryArray('upgletyle.getUpgletyleGuestbook', $pobj);
             if($output->data){
                 foreach($output->data as $k=>$v){
-                    $poutput = $this->deleteGuestbookItem($v->textyle_guestbook_srl);
+                    $poutput = $this->deleteGuestbookItem($v->upgletyle_guestbook_srl);
                     if(!$poutput->toBool()) return $poutput;
                 }
             }
 
 
-            $obj->textyle_guestbook_srl = $textyle_guestbook_srl;
+            $obj->upgletyle_guestbook_srl = $upgletyle_guestbook_srl;
             $output = executeQuery('upgletyle.deleteUpgletyleGuestbookItem', $obj);
             if(!$output->toBool()) return $output;
 
-            if($oGuest->textyle_guestbook_srl) {
+            if($oGuest->upgletyle_guestbook_srl) {
                 $obj->module_srl = $oGuest->module_srl;
                 $obj->member_srl = $oGuest->member_srl;
                 $obj->nick_name = $oGuest->nick_name;
@@ -542,13 +542,13 @@
          **/
         function procUpgletyleGuestbookItemsChangeSecret(){
             $s_args = Context::getRequestVars();
-            $textyle_guestbook_srl = $s_args->textyle_guestbook_srl;
+            $upgletyle_guestbook_srl = $s_args->upgletyle_guestbook_srl;
 
-            if(preg_match('/^([0-9,]+)$/',$textyle_guestbook_srl)) $textyle_guestbook_srl = explode(',',$textyle_guestbook_srl);
-            else $textyle_guestbook_srl = array($textyle_guestbook_srl);
-            if(count($textyle_guestbook_srl)<1) return new Object(-1,'error');
+            if(preg_match('/^([0-9,]+)$/',$upgletyle_guestbook_srl)) $upgletyle_guestbook_srl = explode(',',$upgletyle_guestbook_srl);
+            else $upgletyle_guestbook_srl = array($upgletyle_guestbook_srl);
+            if(count($upgletyle_guestbook_srl)<1) return new Object(-1,'error');
 
-            $args->textyle_guestbook_srl = join(',',$textyle_guestbook_srl);
+            $args->upgletyle_guestbook_srl = join(',',$upgletyle_guestbook_srl);
             $output = executeQuery('upgletyle.updateUpgletyleGuestbookItemsChangeSecret', $args);
             if(!$output->toBool()) return $output;
         }
