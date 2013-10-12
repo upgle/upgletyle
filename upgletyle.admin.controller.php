@@ -354,14 +354,14 @@
             $output = $oModuleController->updateModule($args);
             if(!$output->toBool()) return $output;
 
-			//스킨 리셋
+			//Skin reset
 			if($module_info->module == 'upgletyle') {
 				$oTextyleController = &getController('textyle');
-				$oTextyleController->resetSkin($module_srl);
+				$oTextyleController->resetSkin($module_srl, $module_info->skin);
 			}
 			elseif($module_info->module == 'textyle') {
 				$oUpgletyleController = &getController('upgletyle');
-				$oUpgletyleController->resetSkin($module_srl);
+				$oUpgletyleController->resetSkin($module_srl, $module_info->skin);
 			}
 
             $this->add('module','upgletyle');
