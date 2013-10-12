@@ -87,11 +87,12 @@
 												<strong class="publishState reserve"><span>{$lang->reserve}</span></strong>
 											<!--@else if($post->type=='save')-->
 												<strong class="publishState saved"><span>{$lang->saved}</span></strong>
+											<!--@else if($post->isSecret())-->
+												<strong class="publishState secret"><span>{$lang->secret}</span></strong>
 											<!--@else-->
 												<strong class="publishState out"><span>{$lang->publish}</span></strong>
 											<!--@end-->
 										</td>
-
 
 										<td class="title"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a>
 										{$post->printExtraImages()}

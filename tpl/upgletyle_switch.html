@@ -14,20 +14,24 @@
 	<h1>{$lang->confirm_switch}</h1>
 	<table class="x_table x_table-striped x_table-hover">
 		<thead>
-			<th scope="col">{$lang->module_name}</th>
-			<th scope="col">{$lang->title}</th>
 			<th scope="col" cond="isSiteId($upgletyle_info->domain)">Site ID</th>
 			<th scope="col" cond="!isSiteId($upgletyle_info->domain)">{$lang->domain}</th>
-			<th scope="col">{$lang->before_switch}</th>
+			<th scope="col">{$lang->title}</th>
+            <th scope="col">{$lang->before_switch}</th>
 			<th scope="col">{$lang->after_switch}</th>
+			<th scope="col">{$lang->skin}{$lang->select}</th>
 		</thead>
 		<tbody>
 			<tr>
-				<td>{$upgletyle_info->mid}</td>
-				<td>{$upgletyle_info->upgletyle_title}</td>
 				<td><a href="{getSiteUrl($upgletyle_info->domain)}">{$upgletyle_info->domain}</a></td>
-				<td>{$upgletyle_info->module}</td>
+				<td>{$upgletyle_info->upgletyle_title}</td>
+                <td>{$upgletyle_info->module}</td>
 				<td>{$upgletyle_info->after_module}</td>
+                <td>
+				<select name="skin">
+					<option loop="$skin_list => $key, $val" value="{$key}" selected="selected"|cond="$module_srl && $upgletyle_info->skin == $key">{$val->title}</option>
+                </select>
+                </td>
 			</tr>
 		</tbody>
 	</table>

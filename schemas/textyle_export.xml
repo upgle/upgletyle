@@ -1,4 +1,4 @@
-<table name="upgletyle_export">
+<table name="textyle_export">
   <column name="site_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
   <column name="module_srl" type="number" size="11" notnull="notnull" index="idx_module_srl" />
   <column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />

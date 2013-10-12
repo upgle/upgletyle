@@ -1,6 +1,6 @@
 <query id="updateExport" action="update">
     <tables>
-        <table name="upgletyle_export" />
+        <table name="textyle_export" />
     </tables>
 	<columns>
 		<column name="export_date" default="curdate()" var="export_date" />

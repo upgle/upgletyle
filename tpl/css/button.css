@@ -62,6 +62,8 @@
 .publishState.draft span{background-position:right top;color:#b1b1b1}
 .publishState.saved{background-position:left top}
 .publishState.saved span{background-position:right top;color:#6F6F6F}
+.publishState.secret{background-position:left -20px}
+.publishState.secret span{background-position:right -20px;color:#fff}
 .publishState.out{background-position:left -40px}
 .publishState.out span{background-position:right -40px;color:#fff}
 .publishState.reserve{background-position:left -60px}

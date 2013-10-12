@@ -1,6 +1,6 @@
 <query id="insertExport" action="insert">
     <tables>
-        <table name="upgletyle_export" />
+        <table name="textyle_export" />
     </tables>
     <columns>
         <column name="site_srl" var="site_srl" filter="number" notnull="notnull" />

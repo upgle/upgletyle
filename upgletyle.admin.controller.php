@@ -254,8 +254,9 @@
 
         function procUpgletyleAdminSwitch() {
             $site_srl = Context::get('site_srl');
-            if(!$site_srl) return new Object(-1,'msg_invalid_request');
+            $skin = Context::get('skin');
 
+            if(!$site_srl) return new Object(-1,'msg_invalid_request');
             $oModuleModel = &getModel('module');
             $site_info = $oModuleModel->getSiteInfo($site_srl);
             $module_srl = $site_info->index_module_srl;
@@ -350,9 +351,20 @@
 	
 			$args->site_srl = $site_srl;
             $args->module_srl = $module_srl;
+			$args->skin = $skin;
             $oModuleController = &getController('module');
             $output = $oModuleController->updateModule($args);
             if(!$output->toBool()) return $output;
+
+			//Skin reset
+			if($module_info->module == 'upgletyle') {
+				$oTextyleController = &getController('textyle');
+				$oTextyleController->resetSkin($module_srl, $skin);
+			}
+			elseif($module_info->module == 'textyle') {
+				$oUpgletyleController = &getController('upgletyle');
+				$oUpgletyleController->resetSkin($module_srl, $skin);
+			}
 
             $this->add('module','upgletyle');
             $this->add('page',Context::get('page'));
