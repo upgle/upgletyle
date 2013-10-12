@@ -1,7 +1,7 @@
 <query id="getExport" action="select">
     <tables>
         <table name="modules" alias="modules" />
-        <table name="upgletyle_export" alias="export" />
+        <table name="textyle_export" alias="export" />
         <table name="member" alias="member" />
         <table name="sites" alias="sites" />
     </tables>
