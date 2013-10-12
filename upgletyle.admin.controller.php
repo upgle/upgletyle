@@ -354,6 +354,16 @@
             $output = $oModuleController->updateModule($args);
             if(!$output->toBool()) return $output;
 
+			//스킨 리셋
+			if($module_info->module == 'upgletyle') {
+				$oTextyleController = &getController('textyle');
+				$oTextyleController->resetSkin($module_srl);
+			}
+			elseif($module_info->module == 'textyle') {
+				$oUpgletyleController = &getController('upgletyle');
+				$oUpgletyleController->resetSkin($module_srl);
+			}
+
             $this->add('module','upgletyle');
             $this->add('page',Context::get('page'));
             $this->setMessage('success_switched');
