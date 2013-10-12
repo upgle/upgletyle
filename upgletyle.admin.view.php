@@ -140,18 +140,24 @@
 				$oUpgletyleModel = &getModel('upgletyle');
 				$oUpgletyle = $oUpgletyleModel->getUpgletyle($module_srl);
 				$upgletyle_info = $oUpgletyle->getObjectVars();
+
+	            $skin_list = $oModuleModel->getSkins(str_replace('upgletyle', 'textyle', $this->module_path));
+
 			}
 			elseif($module_info->module == 'textyle') {
 				$oTextyleModel = &getModel('textyle');
 				$oTextyle = $oTextyleModel->getTextyle($module_srl);
 				$upgletyle_info = $oTextyle->getObjectVars();
 				$upgletyle_info->upgletyle_title = $upgletyle_info->textyle_title;
+
+	            $skin_list = $oModuleModel->getSkins($this->module_path);
 			}
 
             $oDocumentModel = &getModel('document');
             $document_count = $oDocumentModel->getDocumentCount($upgletyle_info->module_srl);
             $upgletyle_info->document_count = $document_count;
-
+			
+            Context::set('skin_list',$skin_list);
             Context::set('upgletyle_info',$upgletyle_info);
 
             $this->setTemplateFile('upgletyle_switch');
