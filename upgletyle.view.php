@@ -544,9 +544,9 @@
             if(!$published){
                 $args->module_srl = array($this->module_srl,$this->module_srl * -1,$logged_info->member_srl);
             }else if($published > 0){
-                $args->module_srl = array($this->module_srl,$this->module_srl * -1);
+                $args->module_srl = $this->module_srl;
             }else{
-                $args->module_srl = $logged_info->member_srl;
+                $args->module_srl = array($logged_info->member_srl,$this->module_srl * -1);
             }
 
             $oDocumentModel = &getModel('document');
@@ -562,6 +562,12 @@
 				elseif($val->get('module_srl') == $logged_info->member_srl) $val->type = 'temp';
 				else $val->type = 'publish';				
 			}
+
+			$onoff = array('' => 'on', 0 => 'on', 1 => 'off');
+			Context::set('onoff',$onoff);
+
+			$offon = array('' => 'off', 0 => 'off', 1 => 'on');
+			Context::set('offon',$offon);
 
             Context::set('post_list',$output->data);
             Context::set('page_navigation', $output->page_navigation);
