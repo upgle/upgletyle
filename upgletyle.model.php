@@ -147,6 +147,9 @@
             if(!$output->toBool() || !$output->data) return array();
 
             foreach($output->data as $key => $val) {
+
+				$val->upgletyle_guestbook_srl = $val->textyle_guestbook_srl;
+
                 if($logged_info->is_site_admin || $val->is_secret!=1 || $val->member_srl == $logged_info->member_srl || $val->view_grant || $_SESSION['own_textyle_guestbook'][$val->upgletyle_guestbook_srl]){
                     $val->view_grant = true;
                     $oUpgletyleController->addGuestbookGrant($val->upgletyle_guestbook_srl);
