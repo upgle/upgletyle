@@ -207,6 +207,9 @@
 		<action name="procUpgletyleRequestExport" type="controller" />
 		<action name="procUpgletyleExport" type="controller" />
 
+		<action name="procUpgletylePostSettingToggle" type="controller" />
+		
+
         <action name="dispUpgletyleAdminList" type="view" standalone="true" admin_index="true" />
         <action name="dispUpgletyleAdminTextyleList" type="view" standalone="true" />
         <action name="dispUpgletyleAdminInsert" type="view" standalone="true" />

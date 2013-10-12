@@ -1051,6 +1051,34 @@
             $this->setMessage($msg_code);
         }
 
+		function procUpgletylePostSettingToggle(){
+            $document_srl = Context::get('document_srl');
+            $type = Context::get('type');
+			
+			$oDocument = &getModel('document');
+			$document_info = $oDocument->getDocument($document_srl);
+
+            $set_allow_comment = ($document_info->allowComment())? 'DENY' : 'ALLOW';
+            $set_allow_trackback = ($document_info->allowTrackback())? 'N' : 'Y';
+
+			if($type == 'secret'){
+				$set_secret = ($document_info->isSecret())? 'N' : 'Y';
+				$this->setUpgletylePostItemsSecret(array($document_srl), $set_secret);
+			}
+			elseif($type == 'comment'){
+				$args->commentStatus = $set_allow_comment;
+				$args->document_srl = $document_srl;
+				$args->module_srl = $this->module_srl;
+				$output = executeQuery('document.updateDocumentsAllowCommentTrackback',$args);
+			}
+			elseif($type == 'trackback'){
+				$args->allow_trackback = $set_allow_trackback;
+				$args->document_srl = $document_srl;
+				$args->module_srl = $this->module_srl;
+				$output = executeQuery('document.updateDocumentsAllowCommentTrackback',$args);
+			}
+		}
+
         function deletePostSubscription($document_srl){
             $args->document_srl = $document_srl;
             $output = executeQuery('upgletyle.deleteUpgletyleSubscriptionByDocumentSrl', $args);

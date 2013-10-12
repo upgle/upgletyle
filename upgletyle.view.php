@@ -563,6 +563,12 @@
 				else $val->type = 'publish';				
 			}
 
+			$onoff = array('' => 'on', 0 => 'on', 1 => 'off');
+			Context::set('onoff',$onoff);
+
+			$offon = array('' => 'off', 0 => 'off', 1 => 'on');
+			Context::set('offon',$offon);
+
             Context::set('post_list',$output->data);
             Context::set('page_navigation', $output->page_navigation);
 

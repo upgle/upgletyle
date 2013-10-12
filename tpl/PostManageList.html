@@ -59,8 +59,7 @@
 									<th scope="col">{$lang->category}</th>
 									<th scope="col">{$lang->status}</th>
 									<th scope="col" class="title">{$lang->title}</th>
-									<th scope="col">댓글 수</th>
-
+									<th scope="col">댓글</th>
 									<th scope="col">{$lang->last_update}</th>
 									<th scope="col">&nbsp;</th>
 
@@ -104,9 +103,9 @@
 
 
 										<td class="small">
-                                         <span class="btnGray btnHover small"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}"><img src="img/locked.png" /></a></span>
-                                         <span class="btnGray btnHover small"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}"><img src="img/comment.png" /></a></span> 
-                                         <span class="btnGray btnHover small"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}"><img src="img/share.png" /></a></span> 
+                                         <span class="btnGray btnHover small"><button type="button" onclick="doTogglePostItem({$post->document_srl}, 'comment')"><i class="icon-{$offon[$post->allowComment()]}-comment"></i></button></span> 
+                                         <span class="btnGray btnHover small"><button type="button" onclick="doTogglePostItem({$post->document_srl}, 'trackback')"><i class="icon-{$offon[$post->allowTrackback()]}-trackback"></i></button></span> 
+                                         <span class="btnGray btnHover small"><button type="button" onclick="doTogglePostItem({$post->document_srl}, 'secret')"><i class="icon-{$offon[$post->isSecret()]}-locked"></i></button></span>
 
 
                                         <!--@if($post->type=='save' || $post->type=='temp')-->

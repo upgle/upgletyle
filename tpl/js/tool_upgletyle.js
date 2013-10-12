@@ -420,6 +420,16 @@ function completePostItemDelete(ret_obj){
 }
 
 
+function doTogglePostItem(srl, type) {
+	var params = new Array();
+	var response_tags = new Array('error','message');
+
+	params['document_srl'] = srl;
+	params['type'] = type;
+	exec_xml('upgletyle', 'procUpgletylePostSettingToggle', params, completeReload, response_tags);
+}
+
+
 function trashPostItem(srl, page){
 	if(!confirm(xe.lang.msg_confirm_delete)) return false;
 
@@ -527,7 +537,8 @@ function completeUpdateTag(ret_obj, response_tags, args, fo_obj) {
 function completeReload(ret_obj) {
 	var error = ret_obj['error'];
 	var message = ret_obj['message'];
-	location.href = location.href;
+    reloadDocument();
+	//location.href = location.href;
 }
 
 function toggleAccessType(target) {
@@ -657,6 +668,7 @@ function completeUpdateAllow(ret_obj) {
 }
 
 function openLayerCommuicationConfig(){
+
 	jQuery('input[name=document_srl]','.layerCommunicationConfig').val('');
 	var v,srls = [];
 	jQuery("input[name=document_srl]:checked").each(function(){

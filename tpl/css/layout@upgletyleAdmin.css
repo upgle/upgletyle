@@ -370,6 +370,9 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData tr.articles{background:#f9f9f9}
 .tableData th,
 .tableData td{border:0;padding:8px 10px 7px 10px;vertical-align:top;white-space:nowrap;color:#555;text-align:left}
+
+.tableData th{padding:10px 10px 9px 10px; }
+
 .tableData td.title{white-space:normal}
 .tableData td.tag{white-space:normal}
 .tableData th{text-align:left;white-space:nowrap}
@@ -1006,3 +1009,38 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 /* Remove Admin Bar */
 #adminBar {display:none}
 body {margin-top:0 !important}
+
+/* Icon Set */
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  line-height: 11px;
+  vertical-align: text-top;
+  background-image: url("../img/iconSet.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  margin: 0 1px;
+  margin-top:2px;
+}
+[class^="icon-on-"],
+[class*=" icon-on-"] {
+  background-image: url("../img/iconSetOn.png");
+}
+[class^="icon-off-"],
+[class*=" icon-off-"] {
+  background-image: url("../img/iconSetOff.png");
+}
+.icon-unlocked, .icon-on-unlocked, .icon-off-unlocked {
+  background-position: 0 0;
+}
+.icon-locked, .icon-on-locked, .icon-off-locked {
+  background-position: -11px 0;
+}
+.icon-trackback, .icon-on-trackback, .icon-off-trackback {
+  background-position: -22px 0;
+}
+.icon-comment, .icon-on-comment, .icon-off-comment {
+  background-position: -33px 0;
+}
