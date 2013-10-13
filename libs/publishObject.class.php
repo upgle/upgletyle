@@ -4,6 +4,7 @@
         var $document_srl = null;
         var $oDocument = null;
 
+		var $trackbacks_org = array();
         var $trackbacks = array(); // [url]->charset, log
         var $blogapis = array(); // [api_srl]->category, postid, log
         var $publish_me2day = false; // true/false
@@ -25,6 +26,7 @@
             if(!$output->data) return;
             $data = unserialize($output->data->logs);
 
+            $this->trackbacks_org = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->trackbacks = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->blogapis = is_array($data->blogapis)?$data->blogapis:array();
             $this->publish_me2day = $data->publish_me2day==true?true:false;
@@ -127,7 +129,7 @@
         }
 
         function save() {
-            $logs->trackbacks = $this->trackbacks;
+            $logs->trackbacks = array_merge($this->trackbacks_org, $this->trackbacks);
             $logs->blogapis = $this->blogapis;
             $logs->publish_me2day = $this->publish_me2day;
             $logs->published_me2day = $this->published_me2day;
