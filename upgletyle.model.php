@@ -432,6 +432,56 @@
 			return $configs[$module_srl];
 		}
 
+		function getDaumviewStautsCode($url){
+			if(!$url) $url = getFullSiteUrl($this->upgletyle->domain);
+			$site_ping = "http://api.v.daum.net/open/user_info.xml?blogurl=".$url;
+			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
+			if(!$xml) return new Object(-1, 'msg_ping_test_error');
+
+			$oXml = new XmlParser();
+			$xml_obj = $oXml->parse($xml);
+
+			return $xml_obj->result->head->code->body;
+		}
+
+		function getDaumviewCategoryCachePath(){
+			return "./files/cache/upgletyle/daumview/category.xml";
+		}
+
+		function getDaumviewCategory(){
+
+			$cache_file = $this->getDaumviewCategoryCachePath();
+
+			$oXml = new XmlParser();
+			if(file_exists($cache_file)){
+				$xml_obj = $oXml->loadXmlFile($cache_file);
+			}
+			else{
+				$site_ping = "http://api.v.daum.net/open/category.xml";
+				$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
+				if(!$xml) return new Object(-1, 'msg_ping_test_error');
+				$xml_obj = $oXml->parse($xml);
+				FileHandler::writeFile($cache_file, $xml);
+			}
+
+			$result = array();
+			$one_depth_categories = $xml_obj->result->entity->category;
+			foreach($one_depth_categories as $one_depth_category) {
+				foreach($one_depth_category->list->category as $two_depth_category) {
+					$result[$two_depth_category->id->body] = 
+						array( 
+						 'name' => $two_depth_category->name->body,
+						 'full_name' => $one_depth_category->name->body."(".$two_depth_category->name->body.")",
+						 'category_name' => $two_depth_category->category_name->body,
+						 'trackback_url' => $two_depth_category->trackback_url->body, 
+						 'url' => $two_depth_category->url->body,
+						);
+				}
+			}
+
+			return $result;
+		}
+
 		function moduleExistCheck($module_name) {
 			$path = _XE_PATH_ . 'modules/'.$module_name;
 			return file_exists($path);

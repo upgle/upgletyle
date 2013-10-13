@@ -61,6 +61,8 @@
 		<permission action="dispUpgletyleToolExtraMenuList" target="manager" />
 		<permission action="dispUpgletyleToolExtraMenuInsert" target="manager" />
 		<permission action="dispUpgletyleToolExtraMenuModuleInsert" target="manager" />
+		<permission action="dispUpgletyleToolMetablogDaumviewConfig" target="manager" />
+
 
 		<permission action="getUpgletyleAPITest" target="manager" />
 
@@ -136,6 +138,9 @@
 		<action name="dispUpgletyleToolExtraMenuList" type="view" />
 		<action name="dispUpgletyleToolExtraMenuInsert" type="view" />
 		<action name="dispUpgletyleToolExtraMenuModuleInsert" type="view" />
+
+		<action name="dispUpgletyleToolMetablogDaumviewConfig" type="view" />
+
 		<action name="dispCommentEditor" type="view" />
 		<action name="dispModifyComment" type="view" />
 		<action name="dispReplyComment" type="view" />

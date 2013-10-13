@@ -14,7 +14,6 @@
         function init() {
 
 			$act = Context::get('act');
-			debugPrint($this->act);
 
             $oUpgletyleModel = &getModel('upgletyle');
             if(preg_match("/UpgletyleTool/",$this->act) || $oUpgletyleModel->isAttachedMenu($this->act) ) {
@@ -1311,6 +1310,24 @@
         function dispUpgletyleToolConfigChangePassword(){
             Context::addJsFilter($this->module_path.'tpl/filter', 'modify_password.xml');
         }
+
+
+
+        function dispUpgletyleToolMetablogDaumviewConfig(){
+
+			$oUpgletyleModel = &getModel('upgletyle');
+
+			$home_url = getFullSiteUrl($this->upgletyle->domain);
+            Context::set('home_url', $home_url);
+
+			$code = $oUpgletyleModel->getDaumviewStautsCode($home_url);
+            Context::set('code', $code);
+
+			$category = $oUpgletyleModel->getDaumviewCategory();
+			Context::set('daumview_category', $category);
+        }
+
+
 
         /**
          * @brief Upgletyle home
