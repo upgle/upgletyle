@@ -370,11 +370,9 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData .inputCheck{width:13px;height:13px;vertical-align:middle}
 .tableData tr.articles{background:#f9f9f9}
 .tableData th,
-.tableData td{border:0;padding:7px 10px 6px 10px;vertical-align:top;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}
+.tableData td{border:0;padding:6px 10px;vertical-align:top;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}
 
-/*.tableData th{padding:7px 10px 5px 10px; }*/
-
-
+.tableData thead th,td{padding:10px}
 .tableData td.title{white-space:normal}
 .tableData td.tag{white-space:normal}
 .tableData th{text-align:left;white-space:nowrap}
