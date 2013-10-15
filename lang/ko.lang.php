@@ -501,7 +501,7 @@
 	$lang->after_switch = '변환 후';
 	$lang->success_switched = '변환이 완료되었습니다.';
 	$lang->click_publish = '클릭하시면 글을 발행합니다.';
-
+	$lang->msg_complete_daumview_sync = '다음View서버와 동기화되었습니다.';
 
     $lang->widget_print = array(
         'N'=>'출력안함',
