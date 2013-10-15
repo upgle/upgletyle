@@ -1129,7 +1129,10 @@ function appendTrackbackForm() {
     o.appendTo(jQuery('.trackbackOption'));
 }
 
-
+function doSyncDaumview(document_srl) {
+    
+	exec_xml('upgletyle','procSyncDaumview', {document_srl:document_srl}, completeReload, new Array('error','message'));
+}
 
 function doSetupComponent(component_name) {
     popopen(request_uri.setQuery('module','editor').setQuery('act','dispEditorAdminSetupComponent').setQuery('component_name',component_name), 'SetupComponent');

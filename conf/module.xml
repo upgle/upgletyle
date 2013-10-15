@@ -237,7 +237,8 @@
         <action name="procUpgletyleToggleEnableAPI" type="controller" standalone="true" />
         <action name="procUpgletyleAdminInsertExtraMenuConfig" type="controller" standalone="true" />
         <action name="getBlogApiService" type="model" />
-
+		<action name="procSyncDaumview" type="controller" standalone="true" />
+		
 		<action name="dispUpgletyleCategory" type="mobile" />
 		<action name="dispUpgletylePasswordForm" type="mobile" />
 		<action name="dispUpgletyleGuestbookWrite" type="mobile" />

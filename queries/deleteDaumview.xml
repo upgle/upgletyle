@@ -1,0 +1,8 @@
+<query id="deleteDaumview" action="delete">
+    <tables>
+        <table name="upgletyle_daumview" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

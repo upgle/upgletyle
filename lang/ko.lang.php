@@ -516,12 +516,8 @@
     );
 
     $lang->daumview_location = array(
-        'top_left'=>'본문 상단(좌측)',
-        'top_center'=>'본문 상단(중간)',
-        'top_right'=>'본문 상단(우측)',
-        'bototm_left'=>'본문 하단(좌측)',
-        'bototm_center'=>'본문 하단(중간)',
-        'bototm_right'=>'본문 하단(우측)',
+        'top'=>'본문 상단',
+        'bototm'=>'본문 하단',
     );
 
 ?>

@@ -145,7 +145,10 @@
 
         function publish() {
             $oUpgletyleModel = &getModel('upgletyle');
+            $oUpgletyleController = &getController('upgletyle');
+
             $oTrackbackController = &getController('trackback');
+			$category = $oUpgletyleModel->getDaumviewCategory('trackback_url');
 
             if(!$this->oDocument->isExists()) return;
 
@@ -153,9 +156,26 @@
 
             if(count($this->trackbacks)) {
                 foreach($this->trackbacks as $trackback_url => $val) {
+
+					//Daumview 트랙백인지 체크
+					$isDaumview = false;
+					if(strstr($trackback_url,'v.daum.net')) $isDaumview = true;
+
+					//트랙백 발송
                     $output = $oTrackbackController->sendTrackback($this->oDocument, $trackback_url, $val->charset);
-                    if($output->toBool()) $this->trackbacks[$trackback_url]->log = Context::getLang('published').' ('.date("Y-m-d H:i").')';
-                    else $this->trackbacks[$trackback_url]->log = $output->getMessage().' ('.date("Y-m-d H:i").')';
+					if($output->toBool() && !$isDaumview) {
+						$this->trackbacks[$trackback_url]->log = Context::getLang('published').' ('.date("Y-m-d H:i").')';
+					}
+					elseif($output->toBool() && $isDaumview) {
+						$args->document_srl = $this->document_srl;
+						$args->module_srl = $this->module_srl;
+						$args->category_id = $category[$trackback_url]['id'];
+						$oUpgletyleController->insertDaumviewLog($args);
+						unset($this->trackbacks[$trackback_url]);
+					}
+                    else {
+						$this->trackbacks[$trackback_url]->log = $output->getMessage().' ('.date("Y-m-d H:i").')';
+					}
                 }
             }
 

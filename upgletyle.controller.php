@@ -701,11 +701,7 @@
             $site_module_info = Context::get('site_module_info');
 
             $oDocument = $oDocumentModel->getDocument($var->document_srl);
-
-            //$var->allow_comment = ($oDocument->allowComment()) ? 'Y' : 'N';
-            //$var->allow_trackback = ($oDocument->allowTrackback()) ? 'Y' : 'N';
             $var->is_secret = ($oDocument->isSecret()) ? 'Y' : 'N';
-            //$var->tags = $oDocument->get('tags');
 
 
             if($oDocument->isExists()) {
@@ -762,7 +758,11 @@
                     else if($key == 'send_me2day' && $val == 'Y') $publish_option->send_me2day = true;
                     else if($key == 'send_twitter' && $val == 'Y') $publish_option->send_twitter = true;
                 }
-                
+
+				//다음VIEW 글 송고
+				if($var->daumview_category)
+					$oPublish->addTrackback($var->daumview_category, 'UTF-8');
+
                 if(count($publish_option->trackbacks)) foreach($publish_option->trackbacks as $key => $val) $oPublish->addTrackback($val['url'], $val['charset']);
                 if(count($publish_option->blogapis)) foreach($publish_option->blogapis as $key => $val) if($val->send_api) $oPublish->addBlogApi($key, $val->category);
                 
@@ -770,7 +770,6 @@
                 $oPublish->setTwitter($publish_option->send_twitter);
                 $oPublish->save();
                 
-
                 $var->publish_date_yyyymmdd = preg_replace("/[^0-9]/",'',$var->publish_date_yyyymmdd);
                 if($var->subscription=='Y' && $var->publish_date_yyyymmdd) {
                     $var->publish_date_hh = preg_replace("/[^0-9]/",'',$var->publish_date_hh);
@@ -805,7 +804,6 @@
                     $oPublish->publish();
                 }
 				$this->add('type', 'publish');
-                //$this->setRedirectUrl( getSiteUrl($site_module_info->domain, '', 'mid', Context::get('mid'), 'act', 'dispUpgletyleToolPostManageList') );
 	            $this->setMessage('success_saved_published');
             }  
             else {
@@ -2188,5 +2186,45 @@
 		function procUpgletyleToolLive(){
 			$_SESSION['live'] = time();
 		}
+
+		function procSyncDaumview() {
+
+			$oUpgletyleModel = &getModel('upgletyle');
+            $document_srl = Context::get('document_srl');
+
+			$url = getFullSiteUrl($this->upgletyle->domain,'','document_srl',$document_srl);
+			$output = $oUpgletyleModel->getDaumviewByPermalink($url);
+
+			if($output->code=='404') $this->deleteDaumviewLog($document_srl);
+			else {
+				$daumview_log = $oUpgletyleModel->getDaumviewLog($document_srl);
+				if($daumview_log->data[0] && $daumview_log->data[0]->category_id != $output->category_id){
+					$args->document_srl = $document_srl;
+					$args->category_id = $output->category_id;
+					$this->updateupdateDaumviewLog($args);
+				}
+				else{
+					$args->document_srl = $document_srl;
+					$args->module_srl = $this->module_srl;
+					$args->category_id = $output->category_id;
+					$this->insertDaumviewLog($args);
+				}
+
+			}
+		}
+		function insertDaumviewLog($args){
+            $output = executeQuery('upgletyle.insertDaumview',$args);
+            return $output;
+		}
+		function updateDaumviewLog($args){
+            $output = executeQuery('upgletyle.deleteDaumview',$args);
+            return $output;
+		}
+		function deleteDaumviewLog($document_srl){
+            $args->document_srl = $document_srl;
+            $output = executeQuery('upgletyle.deleteDaumview',$args);
+            return $output;
+		}
+
     }
 ?>

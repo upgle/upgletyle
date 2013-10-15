@@ -471,6 +471,16 @@
             Context::set('category_list', $oDocumentModel->getCategoryList($this->module_srl));
             Context::set('trackbacks', $trackbacks);
             Context::set('_apis', $_apis);
+
+			$oUpgletyleModel = &getModel('upgletyle');
+			Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
+			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
+
+
+			$output = $oUpgletyleModel->getDaumviewLog($document_srl);
+			if($output->data[0]) $daumview_log = $output->data[0];
+			Context::set('daumview_log', $daumview_log);
+
         }
 
         /**

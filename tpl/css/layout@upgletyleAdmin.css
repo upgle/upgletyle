@@ -370,9 +370,11 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData .inputCheck{width:13px;height:13px;vertical-align:middle}
 .tableData tr.articles{background:#f9f9f9}
 .tableData th,
-.tableData td{border:0;padding:6px 10px;vertical-align:top;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}
-
+/*.tableData td{border:0;padding:6px 10px;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}*/
+.tableData td{border:0;padding:6px 10px;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}
+.tableData th{vertical-align:top;}
 .tableData thead th,td{padding:10px}
+
 .tableData td.title{white-space:normal}
 .tableData td.tag{white-space:normal}
 .tableData th{text-align:left;white-space:nowrap}
@@ -467,6 +469,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData .published a{filter:alpha(opacity=50);*filter:none;color:#999 !important}
 .tableData .fItem{position:relative}
 .tableData .fItem .iLabel{top:4px;left:5px}
+.tableData .textalign {line-height:19px}
 
 /* Referer Domain */
 .refererDomain{font-size:12px}

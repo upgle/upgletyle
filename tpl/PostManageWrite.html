@@ -7,7 +7,6 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 </script>
 <!--@end  -->
 <!-- Content -->
-
 <div id="content">
 	<!-- writingHeader -->
 	<div class="contentHeader writingHeader">
@@ -62,7 +61,8 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 			{$editor}
 			
 			<!-- /Upgletyle Editor -->
-				<!-- wOption -->
+            <div style="clear:both"></div>
+			<!-- wOption -->
 			<div class="wOption">
 				<fieldset class="visualFieldset">
 					<legend class="visualLabel">Where</legend>
@@ -149,7 +149,6 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 									<ul class="trackbackLogs">
 									<!--@foreach($trackbacks as $key => $val)-->
 										<li>{$key} - {$val->log}</li>
-									</div>
 									<!--@end-->
 									</ul>
 									<!--@end-->
@@ -171,7 +170,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                                                                          <input type="hidden" name="use_alias" value="N"/>
 									<em class="msg_used_alias" style="display:none">{$lang->msg_already_used_url}</em></td>
 							</tr>
-							<tr>
+                            <tr>
 								<th scope="row">{$lang->comm_management}</th>
 								<td class="title">
 									<input name="allow_comment" type="checkbox" value="Y" class="inputCheck" id="checkReply" <!--@if($from_saved || $oDocument->allowComment())-->checked="checked"<!--@end--> />
@@ -180,8 +179,36 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 									<label for="checkTrackback">{$lang->allow_trackback} </label>
 								</td>
 							</tr>
+
 						</table>
 					</fieldset>
+					<fieldset class="metablog" cond="$daumview">
+						<legend>METABLOG</legend>
+						<table border="1" cellspacing="0" summary="{$lang->posting_option}" class="tableData">
+							<caption class="check" cond="$daumview_log">메타블로그(Metablog) - {$lang->published}</caption>
+							<caption class="check" cond="!$daumview_log">메타블로그(Metablog) - {$lang->publish_option}</caption>
+                            <tr>
+								<th scope="row">다음View 송고</th>
+								<td class="title">
+                                    <block cond="$daumview_log">
+                                        <span class="textalign">{$daumview_category[$daumview_log->category_id]['full_name']} 송고됨</span>&nbsp;
+                                        <span class="btnGray btnHover small"><a onclick="doSyncDaumview({$document_srl});return false;" title="다음VIEW 사이트에서 해당 글을 삭제 및 변경하셨을 경우 동기화하시기 바랍니다.">동기화</a></span>
+                                    </block>
+                                    <block cond="!$daumview_log">
+                                        <select name="daumview_category">
+                                        <option value=''>송고하지않음</option>
+                                        <!--@foreach($daumview_category as $key => $val)-->
+                                        <option value='{$val['trackback_url']}'>{$val['full_name']}</option>
+                                        <!--@end-->
+                                        </select>
+                                         카테고리를 선택하시면 발행과 함께 글을 송고합니다.
+                                    </block>
+                                </td>
+							</tr>
+						</table>
+					</fieldset>
+
+
 					<!--@if(isset($_apis))-->
 					<!--@foreach($_apis as $val)-->
 					<!--@if($val->enable == 'Y')-->
