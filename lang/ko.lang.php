@@ -326,8 +326,11 @@
         array('','글관리'),
         array('','대화관리'),
         array('','통계'),
+        array('','메타블로그'),
+
         array('','디자인'),
         array('','설정'),
+
     );
 
     $lang->upgletyle_second_menus = array(
@@ -353,6 +356,9 @@
             'dispUpgletyleToolStatisticsPopular'=>'인기 콘텐트',
         ),
         array(
+            'dispUpgletyleToolMetablogDaumviewConfig'=>'다음View 설정',
+		),
+        array(
             'dispUpgletyleToolLayoutConfigSkin'=>'스킨선택',
             'dispUpgletyleToolLayoutConfigEdit'=>'HTML&middot;CSS 편집',
             'dispUpgletyleToolLayoutConfigMobileSkin'=>'모바일스킨선택',
@@ -369,6 +375,7 @@
             'dispUpgletyleToolConfigChangePassword'=>'비밀번호 변경',
             'dispUpgletyleToolExtraMenuList'=>'확장메뉴 설정',
         ),
+
     );
 
     $lang->cmd_go_help = '도움말';
@@ -494,4 +501,23 @@
 	$lang->after_switch = '변환 후';
 	$lang->success_switched = '변환이 완료되었습니다.';
 	$lang->click_publish = '클릭하시면 글을 발행합니다.';
+	$lang->msg_complete_daumview_sync = '다음View서버와 동기화되었습니다.';
+
+    $lang->widget_print = array(
+        'N'=>'출력안함',
+        'Y'=>'출력함',
+    );
+
+    $lang->daumview_type = array(
+        'box'=>'박스타입',
+        'normal'=>'일반타입',
+        'mini'=>'미니타입',
+        'button'=>'버튼타입',
+    );
+
+    $lang->daumview_location = array(
+        'top'=>'본문 상단',
+        'bottom'=>'본문 하단',
+    );
+
 ?>

@@ -4,6 +4,8 @@
         var $document_srl = null;
         var $oDocument = null;
 
+		var $daumview = array();
+		var $trackbacks_org = array();
         var $trackbacks = array(); // [url]->charset, log
         var $blogapis = array(); // [api_srl]->category, postid, log
         var $publish_me2day = false; // true/false
@@ -25,6 +27,8 @@
             if(!$output->data) return;
             $data = unserialize($output->data->logs);
 
+            $this->daumview = is_array($data->daumview)?$data->daumview:array();
+            $this->trackbacks_org = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->trackbacks = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->blogapis = is_array($data->blogapis)?$data->blogapis:array();
             $this->publish_me2day = $data->publish_me2day==true?true:false;
@@ -112,6 +116,12 @@
             $this->trackbacks[$trackback_url]->log = '';
         }
 
+        function addDaumview($trackback_url, $charset = 'UTF-8') {
+            if(!$trackback_url || isset($this->trackbacks[$trackback_url])) return;
+            $this->daumview['trackback_url'] = $trackback_url;
+            $this->daumview['charset'] = $charset;
+        }
+
         function addBlogApi($api_srl, $category = null) {
             if(!$api_srl) return;
             $this->blogapis[$api_srl]->reserve = true;
@@ -127,12 +137,13 @@
         }
 
         function save() {
-            $logs->trackbacks = $this->trackbacks;
+            $logs->trackbacks = array_merge($this->trackbacks_org, $this->trackbacks);
             $logs->blogapis = $this->blogapis;
             $logs->publish_me2day = $this->publish_me2day;
             $logs->published_me2day = $this->published_me2day;
             $logs->publish_twitter = $this->publish_twitter;
             $logs->published_twitter = $this->published_twitter;
+            $logs->daumview = $this->daumview;
 
             $args->document_srl = $this->document_srl;
             $args->module_srl = $this->module_srl;
@@ -143,17 +154,40 @@
 
         function publish() {
             $oUpgletyleModel = &getModel('upgletyle');
+            $oUpgletyleController = &getController('upgletyle');
+
             $oTrackbackController = &getController('trackback');
+			$category = $oUpgletyleModel->getDaumviewCategory('trackback_url');
 
             if(!$this->oDocument->isExists()) return;
-
             $oUpgletyle = $oUpgletyleModel->getUpgletyle($this->module_srl);
+
+			//다음View 글 송고
+			if(count($this->daumview)) {
+				$output = $oUpgletyleController->sendDaumview($this->oDocument, $this->daumview['trackback_url'], $this->daumview['charset']);
+				$error = $output->response->error->body;
+				if(!$error){
+					$args->document_srl = $this->document_srl;
+					$args->module_srl = $this->module_srl;
+					$args->category_id = $category[$this->daumview['trackback_url']]['id'];
+					$args->daumview_id = trim($output->response->id->body);
+					$oUpgletyleController->insertDaumviewLog($args);
+					$this->daumview['log'] = Context::getLang('published').' ('.date("Y-m-d H:i").')';
+				}
+				else {
+					$this->daumview['log'] = sprintf('%s: %s', Context::getLang('msg_trackback_send_failed'), $xmlDoc->response->message->body);
+				}
+			}
 
             if(count($this->trackbacks)) {
                 foreach($this->trackbacks as $trackback_url => $val) {
                     $output = $oTrackbackController->sendTrackback($this->oDocument, $trackback_url, $val->charset);
-                    if($output->toBool()) $this->trackbacks[$trackback_url]->log = Context::getLang('published').' ('.date("Y-m-d H:i").')';
-                    else $this->trackbacks[$trackback_url]->log = $output->getMessage().' ('.date("Y-m-d H:i").')';
+					if($output->toBool()) {
+						$this->trackbacks[$trackback_url]->log = Context::getLang('published').' ('.date("Y-m-d H:i").')';
+					}
+                    else {
+						$this->trackbacks[$trackback_url]->log = $output->getMessage().' ('.date("Y-m-d H:i").')';
+					}
                 }
             }
 

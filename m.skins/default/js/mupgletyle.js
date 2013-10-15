@@ -99,7 +99,7 @@ function insertCommentItem(obj,filter){
 
 function deleteGuestbookItem(srl){
     var params = new Array();
-    params['textyle_guestbook_srl'] = srl;
+    params['upgletyle_guestbook_srl'] = srl;
 	params['mid'] = current_mid;
 
 	var response_tags = new Array('error','message','page','mid');
@@ -126,7 +126,7 @@ function deleteCommentItem(srl){
 
 function checkPasswordForDeleteGuestbookItem(f){
     var params = new Array();
-    params['textyle_guestbook_srl'] = f.textyle_guestbook_srl.value;
+    params['upgletyle_guestbook_srl'] = f.upgletyle_guestbook_srl.value;
 	params['mid'] = current_mid;
 
 	var response_tags = new Array('error','message','page','mid');

@@ -14,7 +14,6 @@
         function init() {
 
 			$act = Context::get('act');
-			debugPrint($this->act);
 
             $oUpgletyleModel = &getModel('upgletyle');
             if(preg_match("/UpgletyleTool/",$this->act) || $oUpgletyleModel->isAttachedMenu($this->act) ) {
@@ -472,6 +471,17 @@
             Context::set('category_list', $oDocumentModel->getCategoryList($this->module_srl));
             Context::set('trackbacks', $trackbacks);
             Context::set('_apis', $_apis);
+
+			$oUpgletyleModel = &getModel('upgletyle');
+			Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
+			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
+
+			$output = $oUpgletyleModel->getDaumviewLog($document_srl);
+			if($output->data[0]) {
+				$daumview_log = $output->data[0];
+				$daumview_log->category_id = sprintf("%05s", $daumview_log->category_id);
+			}
+			Context::set('daumview_log', $daumview_log);
         }
 
         /**
@@ -726,13 +736,13 @@
          * @brief tool Guestbook Reply
          **/
         function dispUpgletyleToolCommunicationGuestbookReply(){
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
             $page = Context::get('page');
             if(!$page) $page = 1;
             Context::set('page',$page);
 
             $oUpgletyleModel = &getModel('upgletyle');
-            $output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+            $output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
             Context::set('guestbook_list',$output->data);
 
             $oEditorModel = &getModel('editor');
@@ -1312,11 +1322,33 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'modify_password.xml');
         }
 
+
+
+        function dispUpgletyleToolMetablogDaumviewConfig(){
+
+			$oUpgletyleModel = &getModel('upgletyle');
+
+			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
+			Context::set('config',$config);
+
+			$home_url = getFullSiteUrl($this->upgletyle->domain);
+            Context::set('home_url', $home_url);
+
+			$code = $oUpgletyleModel->getDaumviewStautsCode($home_url);
+            Context::set('code', $code);
+
+			$category = $oUpgletyleModel->getDaumviewCategory();
+			Context::set('daumview_category', $category);
+        }
+
+
+
         /**
          * @brief Upgletyle home
          **/
     function dispUpgletyle()
         {
+
         	//$this->module_info->skin
         	$oModuleModel = &getModel('module');
         	$skins = $oModuleModel->getSkins($this->module_path);
@@ -1342,7 +1374,6 @@
 	        	$oUpgletyleModel = &getModel('upgletyle');
 	            $oUpgletyleController = &getController('upgletyle');
 	            
-	
 	            $document_srl = Context::get('document_srl');
 	            $page = Context::get('page');
 	            $page = $page>0 ? $page : 1;
@@ -1372,6 +1403,16 @@
 	
 	                    if($this->grant->manager) $oDocument->setGrant();
 	
+						//set Daumview Widget
+						if($this->upgletyle->get('use_daumview_widget')=='Y'){
+							$type = $this->upgletyle->get('type_daumview_widget');
+							$widget_code = $oUpgletyleModel->getDaumviewWidget($document_srl,$type);
+							if($this->upgletyle->get('location_daumview_widget')=='top' && $widget_code)
+								Context::set('post_prefix',Context::get('post_prefix').$widget_code);
+							elseif($this->upgletyle->get('location_daumview_widget')=='bottom' && $widget_code)
+								Context::set('post_suffix',Context::get('post_suffix').$widget_code);
+						}
+
 	                } else {
 	                    Context::set('document_srl','',true);
 	                    //$this->alertMessage('msg_not_founded');
@@ -1993,7 +2034,7 @@
             // editor
             $oEditorModel = &getModel('editor');
             if($reply) $option->primary_key_name = 'parent_srl';
-            else $option->primary_key_name = 'textyle_guestbook_srl';
+            else $option->primary_key_name = 'upgletyle_guestbook_srl';
 
             $option->skin = $this->upgletyle->get('guestbook_editor_skin');
             $option->colorset = $this->upgletyle->get('guestbook_editor_colorset');

@@ -88,7 +88,7 @@
 
             $config->comment_grant = (int)$args->comment_grant;
             $config->guestbook_grant = (int)$args->guestbook_grant;
-            $oModuleController->insertModulePartConfig('upgletyle',$this->module_srl, $config);
+            $oModuleController->insertModulePartConfig('textyle',$this->module_srl, $config);
 
 			$comment_config->comment_count = $args->comment_list_count;
             $oModuleController->insertModulePartConfig('comment',$this->module_srl, $comment_config);
@@ -259,6 +259,28 @@
             $this->setTemplateFile('move_myupgletyle');
         }
 
+        function procUpgletyleDaumviewInfoUpdate(){
+
+			$vid = Context::get('vid');
+            $args = Context::getRequestVars();
+			$oModuleController = &getController('module');
+			$oUpgletyleModel = &getModel('upgletyle');
+
+			$config = array();
+			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
+
+            $config->use_daumview_widget = $args->use_daumview_widget;
+            $config->location_daumview_widget = $args->location_daumview_widget;
+            $config->type_daumview_widget = $args->type_daumview_widget;
+            $oModuleController->insertModulePartConfig('upgletyle',abs($this->module_srl)*-1, $config);
+
+			$this->setMessage('success_saved');
+			$returnUrl = getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolMetablogDaumviewConfig','vid',$vid);
+			$this->setRedirectUrl($returnUrl);
+			//return new Object(-1,'msg_invalid_request2');
+
+        }
+
         function insertUpgletyleFavicon($module_srl, $source) {
             $oUpgletyleModel = &getModel('upgletyle');
             $path = $oUpgletyleModel->getUpgletyleFaviconPath($module_srl);
@@ -368,14 +390,14 @@
         function procUpgletyleGuestbookVerificationPassword() {
             $oUpgletyleModel = &getModel('upgletyle');
             $password = Context::get('password');
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
 
-            if(!$password || !$textyle_guestbook_srl) return new Object(-1, 'msg_invalid_request');
+            if(!$password || !$upgletyle_guestbook_srl) return new Object(-1, 'msg_invalid_request');
 
-            $output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+            $output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
             if($output->data){
                 if($output->data[0]->password == md5($password)){
-                    $this->addGuestbookGrant($textyle_guestbook_srl);
+                    $this->addGuestbookGrant($upgletyle_guestbook_srl);
                 }else{
                     return new Object(-1, 'msg_invalid_password');
                 }
@@ -384,8 +406,8 @@
             }
         }
 
-        function addGuestbookGrant($textyle_guestbook_srl){
-            $_SESSION['own_textyle_guestbook'][$textyle_guestbook_srl]=true;
+        function addGuestbookGrant($upgletyle_guestbook_srl){
+            $_SESSION['own_textyle_guestbook'][$upgletyle_guestbook_srl]=true;
         }
 
 
@@ -393,7 +415,7 @@
          * @brief Guestbook insert
          **/
         function procUpgletyleGuestbookWrite(){
-            $val = Context::gets('mid','nick_name','homepage','email_address','password','content','parent_srl','textyle_guestbook_srl','page','is_secret');
+            $val = Context::gets('mid','nick_name','homepage','email_address','password','content','parent_srl','upgletyle_guestbook_srl','page','is_secret');
 
             // set
             $obj->module_srl = $this->module_srl;
@@ -402,13 +424,13 @@
 
 
             // update
-            if($val->textyle_guestbook_srl>0){
+            if($val->upgletyle_guestbook_srl>0){
                 $obj->user_name = $obj->nick_name = $val->nick_name;
                 $obj->email_address = $val->email_address;
                 $obj->homepage = $obj->homepage;
                 $obj->password = md5($val->password);
 
-                $obj->textyle_guestbook_srl = $val->textyle_guestbook_srl;
+                $obj->upgletyle_guestbook_srl = $val->upgletyle_guestbook_srl;
                 $output = executeQuery('upgletyle.updateUpgletyleGuestbook', $obj);
 
             // insert
@@ -429,19 +451,19 @@
                     $obj->password = md5($val->password);
                 }
 
-                $obj->textyle_guestbook_srl = getNextSequence();
+                $obj->upgletyle_guestbook_srl = getNextSequence();
                 // reply
                 if($val->parent_srl>0){
                     $obj->parent_srl = $val->parent_srl;
                     $obj->list_order = $obj->parent_srl * -1;
                 }else{
-                    $obj->list_order = $obj->textyle_guestbook_srl * -1;
+                    $obj->list_order = $obj->upgletyle_guestbook_srl * -1;
                 }
                 $output = executeQuery('upgletyle.insertUpgletyleGuestbook', $obj);
             }
             if(!$output->toBool()) return $output;
 
-            $this->addGuestbookGrant($obj->textyle_guestbook_srl);
+            $this->addGuestbookGrant($obj->upgletyle_guestbook_srl);
             $obj->guestbook_count = 1;
             $output = $this->updateUpgletyleSupporter($obj);
             $this->add('page',$val->page?$val->page:1);
@@ -475,12 +497,12 @@
          * @brief Guestbook item delete
          **/
         function procUpgletyleGuestbookItemDelete(){
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
-            if(!$textyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
+            if(!$upgletyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
 
             $logged_info = Context::get('logged_info');
-            if(!($logged_info->is_site_admin || $_SESSION['own_textyle_guestbook'][$textyle_guestbook_srl])) return new Object(-1,'msg_not_permitted');
-            $output = $this->deleteGuestbookItem($textyle_guestbook_srl);
+            if(!($logged_info->is_site_admin || $_SESSION['own_textyle_guestbook'][$upgletyle_guestbook_srl])) return new Object(-1,'msg_not_permitted');
+            $output = $this->deleteGuestbookItem($upgletyle_guestbook_srl);
             return $output;
         }
 
@@ -490,42 +512,42 @@
         function procUpgletyleGuestbookItemsDelete(){
             $oUpgletyleModel = &getModel('upgletyle');
 
-            $textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
-            if(!$textyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
+            $upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
+            if(!$upgletyle_guestbook_srl) return new Object(-1,'msg_invalid_request');
 
-            $textyle_guestbook_srl = explode(',',trim($textyle_guestbook_srl));
-            rsort($textyle_guestbook_srl);
-            if(count($textyle_guestbook_srl)<1) return new Object(-1,'msg_invalid_request');
+            $upgletyle_guestbook_srl = explode(',',trim($upgletyle_guestbook_srl));
+            rsort($upgletyle_guestbook_srl);
+            if(count($upgletyle_guestbook_srl)<1) return new Object(-1,'msg_invalid_request');
 
-            foreach($textyle_guestbook_srl as $k => $srl){
+            foreach($upgletyle_guestbook_srl as $k => $srl){
                 $output = $this->deleteGuestbookItem($srl);
                 if(!$output->toBool()) return $output;
             }
         }
 
-        function deleteGuestbookItem($textyle_guestbook_srl){
+        function deleteGuestbookItem($upgletyle_guestbook_srl){
             $oUpgletyleModel = &getModel('upgletyle');
-            $output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+            $output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
             $oGuest = $output->data;
 
             if(!$oGuest) return new Object(-1,'msg_invalid_request');
 
             // delete children
-            $pobj->parent_srl = $textyle_guestbook_srl;
+            $pobj->parent_srl = $upgletyle_guestbook_srl;
             $output = executeQueryArray('upgletyle.getUpgletyleGuestbook', $pobj);
             if($output->data){
                 foreach($output->data as $k=>$v){
-                    $poutput = $this->deleteGuestbookItem($v->textyle_guestbook_srl);
+                    $poutput = $this->deleteGuestbookItem($v->upgletyle_guestbook_srl);
                     if(!$poutput->toBool()) return $poutput;
                 }
             }
 
 
-            $obj->textyle_guestbook_srl = $textyle_guestbook_srl;
+            $obj->upgletyle_guestbook_srl = $upgletyle_guestbook_srl;
             $output = executeQuery('upgletyle.deleteUpgletyleGuestbookItem', $obj);
             if(!$output->toBool()) return $output;
 
-            if($oGuest->textyle_guestbook_srl) {
+            if($oGuest->upgletyle_guestbook_srl) {
                 $obj->module_srl = $oGuest->module_srl;
                 $obj->member_srl = $oGuest->member_srl;
                 $obj->nick_name = $oGuest->nick_name;
@@ -542,13 +564,13 @@
          **/
         function procUpgletyleGuestbookItemsChangeSecret(){
             $s_args = Context::getRequestVars();
-            $textyle_guestbook_srl = $s_args->textyle_guestbook_srl;
+            $upgletyle_guestbook_srl = $s_args->upgletyle_guestbook_srl;
 
-            if(preg_match('/^([0-9,]+)$/',$textyle_guestbook_srl)) $textyle_guestbook_srl = explode(',',$textyle_guestbook_srl);
-            else $textyle_guestbook_srl = array($textyle_guestbook_srl);
-            if(count($textyle_guestbook_srl)<1) return new Object(-1,'error');
+            if(preg_match('/^([0-9,]+)$/',$upgletyle_guestbook_srl)) $upgletyle_guestbook_srl = explode(',',$upgletyle_guestbook_srl);
+            else $upgletyle_guestbook_srl = array($upgletyle_guestbook_srl);
+            if(count($upgletyle_guestbook_srl)<1) return new Object(-1,'error');
 
-            $args->textyle_guestbook_srl = join(',',$textyle_guestbook_srl);
+            $args->upgletyle_guestbook_srl = join(',',$upgletyle_guestbook_srl);
             $output = executeQuery('upgletyle.updateUpgletyleGuestbookItemsChangeSecret', $args);
             if(!$output->toBool()) return $output;
         }
@@ -701,11 +723,7 @@
             $site_module_info = Context::get('site_module_info');
 
             $oDocument = $oDocumentModel->getDocument($var->document_srl);
-
-            //$var->allow_comment = ($oDocument->allowComment()) ? 'Y' : 'N';
-            //$var->allow_trackback = ($oDocument->allowTrackback()) ? 'Y' : 'N';
             $var->is_secret = ($oDocument->isSecret()) ? 'Y' : 'N';
-            //$var->tags = $oDocument->get('tags');
 
 
             if($oDocument->isExists()) {
@@ -762,7 +780,11 @@
                     else if($key == 'send_me2day' && $val == 'Y') $publish_option->send_me2day = true;
                     else if($key == 'send_twitter' && $val == 'Y') $publish_option->send_twitter = true;
                 }
-                
+
+				//다음VIEW 글 송고
+				if($var->daumview_category)
+					$oPublish->addDaumview($var->daumview_category, 'UTF-8');
+
                 if(count($publish_option->trackbacks)) foreach($publish_option->trackbacks as $key => $val) $oPublish->addTrackback($val['url'], $val['charset']);
                 if(count($publish_option->blogapis)) foreach($publish_option->blogapis as $key => $val) if($val->send_api) $oPublish->addBlogApi($key, $val->category);
                 
@@ -770,7 +792,6 @@
                 $oPublish->setTwitter($publish_option->send_twitter);
                 $oPublish->save();
                 
-
                 $var->publish_date_yyyymmdd = preg_replace("/[^0-9]/",'',$var->publish_date_yyyymmdd);
                 if($var->subscription=='Y' && $var->publish_date_yyyymmdd) {
                     $var->publish_date_hh = preg_replace("/[^0-9]/",'',$var->publish_date_hh);
@@ -805,7 +826,6 @@
                     $oPublish->publish();
                 }
 				$this->add('type', 'publish');
-                //$this->setRedirectUrl( getSiteUrl($site_module_info->domain, '', 'mid', Context::get('mid'), 'act', 'dispUpgletyleToolPostManageList') );
 	            $this->setMessage('success_saved_published');
             }  
             else {
@@ -835,7 +855,7 @@
             $output = executeQuery('upgletyle.getPublishLogs', $args);
             $isPublished = (!$output->data) ? false : true;
 
-            if(!$isPublished){
+            if($isPublished){
                 $args->update_order = $args->list_order = getNextSequence()*-1;
                 $args->document_srl = $var->document_srl;
                 $args->module_srl = $this->module_srl;
@@ -1058,6 +1078,8 @@
 			$oDocument = &getModel('document');
 			$document_info = $oDocument->getDocument($document_srl);
 
+            $allow_comment = ($document_info->allowComment())? 'ALLOW' : 'DENY';
+            $allow_trackback = ($document_info->allowTrackback())? 'Y' : 'N';
             $set_allow_comment = ($document_info->allowComment())? 'DENY' : 'ALLOW';
             $set_allow_trackback = ($document_info->allowTrackback())? 'N' : 'Y';
 
@@ -1066,6 +1088,7 @@
 				$this->setUpgletylePostItemsSecret(array($document_srl), $set_secret);
 			}
 			elseif($type == 'comment'){
+				$args->allow_trackback = $allow_trackback;
 				$args->commentStatus = $set_allow_comment;
 				$args->document_srl = $document_srl;
 				$args->module_srl = $this->module_srl;
@@ -1073,6 +1096,7 @@
 			}
 			elseif($type == 'trackback'){
 				$args->allow_trackback = $set_allow_trackback;
+				$args->commentStatus = $allow_comment;
 				$args->document_srl = $document_srl;
 				$args->module_srl = $this->module_srl;
 				$output = executeQuery('document.updateDocumentsAllowCommentTrackback',$args);
@@ -1817,14 +1841,6 @@
         }
 
         /**
-         * @brief upgletyle insert config
-         **/
-        function insertUpgletyleConfig($upgletyle) {
-            $oModuleController = &getController('module');
-            $oModuleController->insertModuleConfig('upgletyle', $upgletyle);
-        }
-
-        /**
          * @brief upgletyle update browser title
          **/
         function updateUpgletyleBrowserTitle($module_srl, $browser_title) {
@@ -2188,5 +2204,132 @@
 		function procUpgletyleToolLive(){
 			$_SESSION['live'] = time();
 		}
+
+		function procSyncDaumview() {
+
+			$oUpgletyleModel = &getModel('upgletyle');
+            $document_srl = Context::get('document_srl');
+
+			$url = getFullSiteUrl($this->upgletyle->domain,'','document_srl',$document_srl);
+			$output = $oUpgletyleModel->getDaumviewByPermalink($url);
+
+			if($output->code=='404') $this->deleteDaumviewLog($document_srl);
+			else {
+				$daumview_log = $oUpgletyleModel->getDaumviewLog($document_srl);
+				if($daumview_log->data[0] && ($daumview_log->data[0]->daumview_id != $output->id || $daumview_log->data[0]->category_id != $output->category_id )){
+					$args->document_srl = $document_srl;
+					$args->category_id = $output->category_id;
+					$args->daumview_id = $output->id;
+					$output = $this->updateDaumviewLog($args);
+				}
+				else{
+					$args->document_srl = $document_srl;
+					$args->module_srl = $this->module_srl;
+					$args->category_id = $output->category_id;
+					$args->daumview_id = $output->id;
+					$output = $this->insertDaumviewLog($args);
+				}
+			}
+		}
+		function procSyncDaumviewCategory(){
+			global $lang;
+
+			$this->updateDaumviewCategoryCache();
+			$this->setMessage($lang->msg_complete_daumview_sync);
+		}
+		function updateDaumviewUserinfoCache($url = null){
+
+			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
+
+			if(!$url) {
+				$url = getFullSiteUrl($this->upgletyle->domain);
+			}
+			$site_ping = "http://api.v.daum.net/open/user_info.xml?blogurl=".$url;
+			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
+			if(!$xml) return new Object(-1, 'msg_ping_test_error');
+			if(file_exists($cache_file)) FileHandler::removeFile($cache_file);
+			FileHandler::writeFile($cache_file, $xml);
+		}
+		function updateDaumviewCategoryCache(){
+
+			$cache_file = "./files/cache/upgletyle/daumview/category.xml";
+
+			$site_ping = "http://api.v.daum.net/open/category.xml";
+			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
+			if(!$xml) return new Object(-1, 'msg_ping_test_error');
+			if(file_exists($cache_file)) FileHandler::removeFile($cache_file);
+			FileHandler::writeFile($cache_file, $xml);
+		}
+		function insertDaumviewLog($args){
+            $output = executeQuery('upgletyle.insertDaumview',$args);
+            return $output;
+		}
+		function updateDaumviewLog($args){
+            $output = executeQuery('upgletyle.updateDaumview',$args);
+            return $output;
+		}
+		function deleteDaumviewLog($document_srl){
+            $args->document_srl = $document_srl;
+            $output = executeQuery('upgletyle.deleteDaumview',$args);
+            return $output;
+		}
+		function sendDaumview($oDocument, $trackback_url, $charset)
+		{
+			$oModuleController = &getController('module');
+
+			// Information sent by
+			$http = parse_url($trackback_url);
+
+			$obj->blog_name = str_replace(array('&lt;','&gt;','&amp;','&quot;'), array('<','>','&','"'), Context::getBrowserTitle());
+			$oModuleController->replaceDefinedLangCode($obj->blog_name);
+			$obj->title = $oDocument->getTitleText();
+			$obj->excerpt = $oDocument->getSummary(200);
+			$obj->url = getFullUrl('','document_srl',$oDocument->document_srl);
+
+			// blog_name, title, excerpt, url charset of the string to the requested change
+			if($charset && function_exists('iconv'))
+			{
+				foreach($obj as $key=>$val)
+				{
+					$obj->{$key} = iconv('UTF-8',$charset,$val);
+				}
+			}
+
+			$content = sprintf(
+				"title=%s&".
+				"url=%s&".
+				"blog_name=%s&".
+				"excerpt=%s",
+				urlencode($obj->title),
+				urlencode($obj->url),
+				urlencode($obj->blog_name),
+				urlencode($obj->excerpt)
+			);
+
+			$buff = FileHandler::getRemoteResource($trackback_url, $content, 3, 'POST', 'application/x-www-form-urlencoded');
+
+			$oXmlParser = new XmlParser();
+			$xmlDoc = $oXmlParser->parse($buff);
+
+			return $xmlDoc;
+
+			if($xmlDoc->response->error->body == '0')
+			{
+				return new Object(0, 'msg_trackback_send_success');
+			}
+			else
+			{
+				if($xmlDoc->response->message->body)
+				{
+					return new Object(-1, sprintf('%s: %s', Context::getLang('msg_trackback_send_failed'), $xmlDoc->response->message->body));
+				}
+				else
+				{
+					return new Object(-1, 'msg_trackback_send_failed');
+				}
+			}
+		}
+
+
     }
 ?>

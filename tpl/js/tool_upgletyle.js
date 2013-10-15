@@ -141,7 +141,7 @@ function updateCommentItemSetSecret(srl,is_secret,page,module_srl){
 
 function updateGuestbookItemChangeSecret(srl,page){
 	var params = new Array();
-	params['textyle_guestbook_srl'] = srl;
+	params['upgletyle_guestbook_srl'] = srl;
 	params['page'] = page;
 	_updateGuestbookItemChangeSecret(params);
 }
@@ -149,13 +149,13 @@ function updateGuestbookItemChangeSecret(srl,page){
 
 function updateGuestbookItemsChangeSecret(page){
 	var val,srls = [];
-	jQuery("input[name=textyle_guestbook_srl]:checked").each(function(){
+	jQuery("input[name=upgletyle_guestbook_srl]:checked").each(function(){
 		val = jQuery(this).val();
 		if(val) srls.push(val);
 	});
 	if(srls.length<1) return;
 	var params = new Array();
-	params['textyle_guestbook_srl'] = srls.join(',');
+	params['upgletyle_guestbook_srl'] = srls.join(',');
 	params['page'] = page;
 	_updateGuestbookItemChangeSecret(params);
 }
@@ -182,19 +182,19 @@ function completeInsertGuestbookReply(ret_obj){
 
 function deleteGuestbookItem(srl,page){
 	var params = new Array();
-	params['textyle_guestbook_srl'] = srl;
+	params['upgletyle_guestbook_srl'] = srl;
 	params['page'] = page;
 	_deleteGuestbookItem(params);
 }
 function deleteGuestbookItems(page){
 	var val,srls = [];
-	jQuery("input[name=textyle_guestbook_srl]:checked").each(function(){
+	jQuery("input[name=upgletyle_guestbook_srl]:checked").each(function(){
 		val = jQuery(this).val();
 		if(val) srls.push(val);
 	});
 	if(srls.length<1) return;
 	var params = new Array();
-	params['textyle_guestbook_srl'] = srls.join(',');
+	params['upgletyle_guestbook_srl'] = srls.join(',');
 	params['page'] = page;
 	_deleteGuestbookItem(params);
 }
@@ -716,7 +716,7 @@ function openLayerAddDeny(f){
 }
 
 function _addDenyGuestbookList(){
-	return _addDeny(':input[name=textyle_guestbook_srl]:checked');
+	return _addDeny(':input[name=upgletyle_guestbook_srl]:checked');
 }
 function _addDenyCommentList(){
 	return _addDeny(':input[name=comment_srl]:checked');
@@ -1129,7 +1129,23 @@ function appendTrackbackForm() {
     o.appendTo(jQuery('.trackbackOption'));
 }
 
+function doSyncDaumview(document_srl) {
+	exec_xml('upgletyle','procSyncDaumview', {document_srl:document_srl}, completeReload, new Array('error','message'));
+}
 
+function doSyncDaumviewCategory() {
+	exec_xml(
+		'upgletyle',
+		'procSyncDaumviewCategory',
+		{},
+		function(ret_obj){
+			var error = ret_obj['error'];
+			var message = ret_obj['message'];
+			alert(message);
+		},
+		['error','message']
+	);
+}
 
 function doSetupComponent(component_name) {
     popopen(request_uri.setQuery('module','editor').setQuery('act','dispEditorAdminSetupComponent').setQuery('component_name',component_name), 'SetupComponent');

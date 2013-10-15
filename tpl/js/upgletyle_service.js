@@ -32,11 +32,11 @@ function checkPasswordForModifyGuestbook(f){
 	return false;
 }
 function completeCheckPasswordForModifyGuestbook(ret_obj,a,b,f){
-	location.href=current_url.setQuery('modify',f.textyle_guestbook_srl.value);
+	location.href=current_url.setQuery('modify',f.upgletyle_guestbook_srl.value);
 }
 function completeCheckPasswordForDeleteGuestbook(ret_obj,a,b,f){
 	var params = new Array();
-    params['textyle_guestbook_srl'] = f.textyle_guestbook_srl.value;
+    params['upgletyle_guestbook_srl'] = f.upgletyle_guestbook_srl.value;
     params['mid'] = current_mid;
 	
 	var response_tags = new Array('error','message');
@@ -45,9 +45,9 @@ function completeCheckPasswordForDeleteGuestbook(ret_obj,a,b,f){
 
 
 
-function deleteGuestbookItem(textyle_guestbook_srl,page){
+function deleteGuestbookItem(upgletyle_guestbook_srl,page){
     var params = new Array();
-    params['textyle_guestbook_srl'] = textyle_guestbook_srl;
+    params['upgletyle_guestbook_srl'] = upgletyle_guestbook_srl;
 	
 	var response_tags = new Array('error','message','page','mid');
     exec_xml('upgletyle', 'procUpgletyleGuestbookItemDelete', params, completeReload, response_tags);

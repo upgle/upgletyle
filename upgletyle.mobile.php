@@ -150,10 +150,10 @@
 		}
 
 		function dispUpgletyleGuestbookWrite() {
-			$textyle_guestbook_srl = Context::get('textyle_guestbook_srl');
-			if($textyle_guestbook_srl){
+			$upgletyle_guestbook_srl = Context::get('upgletyle_guestbook_srl');
+			if($upgletyle_guestbook_srl){
 				$oUpgletyleModel = &getModel('upgletyle');
-				$output = $oUpgletyleModel->getUpgletyleGuestbook($textyle_guestbook_srl);
+				$output = $oUpgletyleModel->getUpgletyleGuestbook($upgletyle_guestbook_srl);
 				$guestbook_list = $output->data;
 				if(is_array($guestbook_list) && count($guestbook_list)){
 					if(!$guestbook_list[0]->parent_srl) Context::set('guestbook',$guestbook_list[0]);

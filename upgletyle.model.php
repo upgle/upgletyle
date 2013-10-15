@@ -147,12 +147,15 @@
             if(!$output->toBool() || !$output->data) return array();
 
             foreach($output->data as $key => $val) {
-                if($logged_info->is_site_admin || $val->is_secret!=1 || $val->member_srl == $logged_info->member_srl || $val->view_grant || $_SESSION['own_textyle_guestbook'][$val->textyle_guestbook_srl]){
+
+				$val->upgletyle_guestbook_srl = $val->textyle_guestbook_srl;
+
+                if($logged_info->is_site_admin || $val->is_secret!=1 || $val->member_srl == $logged_info->member_srl || $val->view_grant || $_SESSION['own_textyle_guestbook'][$val->upgletyle_guestbook_srl]){
                     $val->view_grant = true;
-                    $oUpgletyleController->addGuestbookGrant($val->textyle_guestbook_srl);
+                    $oUpgletyleController->addGuestbookGrant($val->upgletyle_guestbook_srl);
 
                     foreach($output->data as $k => $v) {
-                        if($v->parent_srl == $val->textyle_guestbook_srl){
+                        if($v->parent_srl == $val->upgletyle_guestbook_srl){
                             $v->view_grant=true;
                         }
                     }
@@ -167,10 +170,10 @@
             return $output;
         }
 
-        function getUpgletyleGuestbook($textyle_guestbook_srl){
+        function getUpgletyleGuestbook($upgletyle_guestbook_srl){
             $oMemberModel = &getModel('member');
 
-            $args->textyle_guestbook_srl = $textyle_guestbook_srl;
+            $args->upgletyle_guestbook_srl = $upgletyle_guestbook_srl;
             $output = executeQueryArray('upgletyle.getUpgletyleGuestbook',$args);
             if($output->data){
                 foreach($output->data as $key => $val) {
@@ -422,11 +425,120 @@
 						}
 					}
 				}
-			}
 
+				$part_config2 = $oModuleModel->getModulePartConfig('upgletyle', abs($module_srl)*-1);
+				if($part_config2){
+					$vars = get_object_vars($part_config2);
+					if($vars){
+						foreach($vars as $k => $v){
+							$config->{$k} = $v;
+						}
+					}
+				}
+			}
 			$configs[$module_srl] = $config;
 
 			return $configs[$module_srl];
+		}
+
+		function checkDaumviewJoin() {
+			$code = $this->getDaumviewStautsCode('',true);
+			if($code == '200') return true;
+			else return false;
+		}
+
+		function getDaumviewWidget($document_srl, $type){
+			$output = $this->getDaumviewLog($document_srl);
+			$daumview_id = $output->data[0]->daumview_id;
+			if(!$daumview_id) return false;
+
+			if($type=='box'){
+				return "<iframe width='100%' height='90' src='http://api.v.daum.net/widget1?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe>";
+			}
+			elseif($type=='button'){
+				return "<div style='width:100%;text-align:center'><iframe width='76' height='90' src='http://api.v.daum.net/widget2?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
+			}
+			elseif($type=='normal'){
+				return "<div style='width:100%;text-align:center'><iframe width='136' height='44' src='http://api.v.daum.net/widget3?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
+			}
+			elseif($type=='mini'){
+				return "<div style='width:100%;text-align:center'><iframe width='112' height='30' src='http://api.v.daum.net/widget4?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
+			}
+		}
+
+		function getDaumviewStautsCode($url = null, $use_cache = false){
+
+			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
+
+			if(!file_exists($cache_file) || !$use_cache) {
+				$oUpgletyleController = &getController('upgletyle');
+				$oUpgletyleController->updateDaumviewUserinfoCache($url);
+			}
+			$oXml = new XmlParser();
+			$xml_obj = $oXml->loadXmlFile($cache_file);
+
+			return $xml_obj->result->head->code->body;
+		}
+
+		function getDaumviewCategory($array = 'id'){
+			
+			$cache_file = "./files/cache/upgletyle/daumview/category.xml";
+
+			if(!file_exists($cache_file)) {
+				$oUpgletyleController = &getController('upgletyle');
+				$oUpgletyleController->updateDaumviewCategoryCache();
+			}
+			$oXml = new XmlParser();
+			$xml_obj = $oXml->loadXmlFile($cache_file);
+
+			$result = array();
+			$one_depth_categories = $xml_obj->result->entity->category;
+			foreach($one_depth_categories as $one_depth_category) {
+				foreach($one_depth_category->list->category as $two_depth_category) {
+					if($array == 'id')
+					$result[$two_depth_category->id->body] = 
+						array( 
+						 'name' => $two_depth_category->name->body,
+						 'full_name' => $one_depth_category->name->body."(".$two_depth_category->name->body.")",
+						 'category_name' => $two_depth_category->category_name->body,
+						 'trackback_url' => $two_depth_category->trackback_url->body, 
+						 'url' => $two_depth_category->url->body,
+						);
+					elseif($array == 'trackback_url')
+					$result[$two_depth_category->trackback_url->body] = 
+						array( 
+						 'name' => $two_depth_category->name->body,
+						 'full_name' => $one_depth_category->name->body."(".$two_depth_category->name->body.")",
+						 'category_name' => $two_depth_category->category_name->body,
+						 'id' => $two_depth_category->id->body, 
+						 'url' => $two_depth_category->url->body,
+						);
+				}
+			}
+			return $result;
+		}
+
+		function getDaumviewLog($document_srl){
+			$args->document_srl = $document_srl;
+            $output = executeQueryArray('upgletyle.getDaumview', $args);
+            return $output;
+		}
+
+		function getDaumviewByPermalink($permalink){
+
+			$oXml = new XmlParser();
+
+			$site_ping = "http://api.v.daum.net/open/news_info.xml?permlink=".$permalink;
+			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
+			if(!$xml) return new Object(-1, 'msg_ping_test_error');
+			$xml_obj = $oXml->parse($xml);
+			
+			$result = new stdClass();
+			$result->code = $xml_obj->result->head->code->body; 
+			$result->category_id = $xml_obj->result->entity->news->category_id->body;
+			$result->id = $xml_obj->result->entity->news->id->body;
+
+			return $result;
 		}
 
 		function moduleExistCheck($module_name) {

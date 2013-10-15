@@ -1,0 +1,11 @@
+<query id="insertDaumview" action="insert">
+    <tables>
+        <table name="upgletyle_daumview" />
+    </tables>
+    <columns>
+      <column name="document_srl" var="document_srl" notnull="notnull" />
+      <column name="module_srl" var="module_srl" notnull="notnull" />
+      <column name="category_id" var="category_id" notnull="notnull" />
+      <column name="daumview_id" var="daumview_id" notnull="notnull" />
+    </columns>
+</query>

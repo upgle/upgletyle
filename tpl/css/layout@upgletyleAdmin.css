@@ -115,7 +115,8 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 #upgletyleAdmin #body .extension.e1 ul li.post{background-position:24px -41px}
 #upgletyleAdmin #body .extension.e1 ul li.comment{background-position:24px -91px}
 #upgletyleAdmin #body .extension.e1 ul li.statistics{background-position:24px -141px}
-#upgletyleAdmin #body .extension.e1 ul li.design{background-position:24px -191px}
+#upgletyleAdmin #body .extension.e1 ul li.metablog{background-position:24px -191px}
+#upgletyleAdmin #body .extension.e1 ul li.design{background-position:24px -291px}
 #upgletyleAdmin #body .extension.e1 ul li.setup{background-position:24px -241px}
 #upgletyleAdmin #body .extension.e1 ul li.active,
 #upgletyleAdmin #body .extension.e1 ul li.hover{background-color:#f8f8f8}
@@ -303,6 +304,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 /* Content Header */
 .contentHeader{position:relative;height:28px;padding:29px 0 23px 0;background:url(../img/iconH3.gif) no-repeat left center}
 .contentHeader .h3{font-size:18px;text-indent:50px;margin:0}
+.contentHeader.daumviewHeader .h3{text-indent:40px !important;}
 .contentHeader.writingHeader{background:url(../img/iconH3writing.gif) no-repeat left center}
 .contentHeader.postListHeader{background:url(../img/iconH3postList.gif) no-repeat left center}
 .contentHeader.depositHeader{background:url(../img/iconH3deposit.gif) no-repeat left center}
@@ -326,6 +328,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .contentHeader.wasteHeader{background:url(../img/iconH3waste.gif) no-repeat left center}
 .contentHeader.dataHeader{background:url(../img/iconH3data.gif) no-repeat left center}
 .contentHeader.addonHeader{background:url(../img/iconH3addon.gif) no-repeat left center}
+.contentHeader.daumviewHeader{background:url(../img/iconH3daumview.gif) no-repeat left center;}
 .contentHeader.lineBottom{border-bottom:1px solid #e3e5e7}
 
 /* Content Navigation */
@@ -369,9 +372,10 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData .inputCheck{width:13px;height:13px;vertical-align:middle}
 .tableData tr.articles{background:#f9f9f9}
 .tableData th,
-.tableData td{border:0;padding:8px 10px 7px 10px;vertical-align:top;white-space:nowrap;color:#555;text-align:left}
-
-.tableData th{padding:10px 10px 9px 10px; }
+/*.tableData td{border:0;padding:6px 10px;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}*/
+.tableData td{border:0;padding:6px 10px;white-space:nowrap;color:#555;text-align:left;vertical-align:middle;}
+.tableData th{vertical-align:top;}
+.tableData thead th,td{padding:10px}
 
 .tableData td.title{white-space:normal}
 .tableData td.tag{white-space:normal}
