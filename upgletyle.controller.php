@@ -1078,6 +1078,8 @@
 			$oDocument = &getModel('document');
 			$document_info = $oDocument->getDocument($document_srl);
 
+            $allow_comment = ($document_info->allowComment())? 'ALLOW' : 'DENY';
+            $allow_trackback = ($document_info->allowTrackback())? 'Y' : 'N';
             $set_allow_comment = ($document_info->allowComment())? 'DENY' : 'ALLOW';
             $set_allow_trackback = ($document_info->allowTrackback())? 'N' : 'Y';
 
@@ -1086,6 +1088,7 @@
 				$this->setUpgletylePostItemsSecret(array($document_srl), $set_secret);
 			}
 			elseif($type == 'comment'){
+				$args->allow_trackback = $allow_trackback;
 				$args->commentStatus = $set_allow_comment;
 				$args->document_srl = $document_srl;
 				$args->module_srl = $this->module_srl;
@@ -1093,6 +1096,7 @@
 			}
 			elseif($type == 'trackback'){
 				$args->allow_trackback = $set_allow_trackback;
+				$args->commentStatus = $allow_comment;
 				$args->document_srl = $document_srl;
 				$args->module_srl = $this->module_srl;
 				$output = executeQuery('document.updateDocumentsAllowCommentTrackback',$args);
