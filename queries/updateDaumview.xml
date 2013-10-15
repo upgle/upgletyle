@@ -4,6 +4,7 @@
     </tables>
     <columns>
         <column name="category_id" var="category_id" />
+		<column name="daumview_id" var="daumview_id" />
     </columns>
     <conditions>
         <condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />

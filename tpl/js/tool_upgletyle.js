@@ -1130,8 +1130,21 @@ function appendTrackbackForm() {
 }
 
 function doSyncDaumview(document_srl) {
-    
 	exec_xml('upgletyle','procSyncDaumview', {document_srl:document_srl}, completeReload, new Array('error','message'));
+}
+
+function doSyncDaumviewCategory() {
+	exec_xml(
+		'upgletyle',
+		'procSyncDaumviewCategory',
+		{},
+		function(ret_obj){
+			var error = ret_obj['error'];
+			var message = ret_obj['message'];
+			alert(message);
+		},
+		['error','message']
+	);
 }
 
 function doSetupComponent(component_name) {

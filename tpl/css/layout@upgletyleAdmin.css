@@ -304,6 +304,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 /* Content Header */
 .contentHeader{position:relative;height:28px;padding:29px 0 23px 0;background:url(../img/iconH3.gif) no-repeat left center}
 .contentHeader .h3{font-size:18px;text-indent:50px;margin:0}
+.contentHeader.daumviewHeader .h3{text-indent:40px !important;}
 .contentHeader.writingHeader{background:url(../img/iconH3writing.gif) no-repeat left center}
 .contentHeader.postListHeader{background:url(../img/iconH3postList.gif) no-repeat left center}
 .contentHeader.depositHeader{background:url(../img/iconH3deposit.gif) no-repeat left center}
@@ -327,6 +328,7 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .contentHeader.wasteHeader{background:url(../img/iconH3waste.gif) no-repeat left center}
 .contentHeader.dataHeader{background:url(../img/iconH3data.gif) no-repeat left center}
 .contentHeader.addonHeader{background:url(../img/iconH3addon.gif) no-repeat left center}
+.contentHeader.daumviewHeader{background:url(../img/iconH3daumview.gif) no-repeat left center;}
 .contentHeader.lineBottom{border-bottom:1px solid #e3e5e7}
 
 /* Content Navigation */
@@ -469,7 +471,6 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .tableData .published a{filter:alpha(opacity=50);*filter:none;color:#999 !important}
 .tableData .fItem{position:relative}
 .tableData .fItem .iLabel{top:4px;left:5px}
-.tableData .textalign {line-height:19px}
 
 /* Referer Domain */
 .refererDomain{font-size:12px}

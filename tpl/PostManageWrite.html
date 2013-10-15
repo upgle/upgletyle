@@ -191,8 +191,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 								<th scope="row">다음View 송고</th>
 								<td class="title">
                                     <block cond="$daumview_log">
-                                        <span class="textalign">{$daumview_category[$daumview_log->category_id]['full_name']} 송고됨</span>&nbsp;
-                                        <span class="btnGray btnHover small"><a onclick="doSyncDaumview({$document_srl});return false;" title="다음VIEW 사이트에서 해당 글을 삭제 및 변경하셨을 경우 동기화하시기 바랍니다.">동기화</a></span>
+                                        <span class="textalign-small">{$daumview_category[$daumview_log->category_id]['full_name']} 송고됨</span>&nbsp;
                                     </block>
                                     <block cond="!$daumview_log">
                                         <select name="daumview_category">
@@ -203,6 +202,8 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                                         </select>
                                          카테고리를 선택하시면 발행과 함께 글을 송고합니다.
                                     </block>
+                                    <span class="btnGray btnHover small" cond="$document_srl"><a onclick="doSyncDaumview({$document_srl});return false;" title="다음VIEW 사이트에서 해당 글을 삭제 및 변경하셨을 경우 동기화하시기 바랍니다.">동기화</a></span>
+
                                 </td>
 							</tr>
 						</table>

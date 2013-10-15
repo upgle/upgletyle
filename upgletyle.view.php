@@ -1327,6 +1327,9 @@
 
 			$oUpgletyleModel = &getModel('upgletyle');
 
+			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
+			Context::set('config',$config);
+
 			$home_url = getFullSiteUrl($this->upgletyle->domain);
             Context::set('home_url', $home_url);
 

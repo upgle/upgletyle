@@ -69,6 +69,11 @@
 		<permission action="procUpgletyleProfileUpdate" target="manager" />
 		<permission action="procUpgletyleProfileImageUpload" target="manager" />
 		<permission action="procUpgletyleInfoUpdate" target="manager" />
+		<permission action="procUpgletyleDaumviewInfoUpdate" target="manager" />
+		<permission action="procSyncDaumview" target="manager" />
+		<permission action="procSyncDaumviewCategory" target="manager" />
+
+
 		<permission action="procUpgletyleToolLayoutConfigSkin" target="manager" />
 		<permission action="procUpgletyleToolLayoutConfigMobileSkin" target="manager" />
 		<permission action="procUpgletyleToolLayoutConfigEdit" target="manager" />
@@ -173,6 +178,7 @@
 		<action name="procUpgletyleProfileUpdate" type="controller" />
 		<action name="procUpgletyleProfileImageUpload" type="controller" />
 		<action name="procUpgletyleInfoUpdate" type="controller" />
+		<action name="procUpgletyleDaumviewInfoUpdate" type="controller" />
 		<action name="procUpgletyleConfigPostwriteInsert" type="controller" />
 		<action name="procUpgletyleCheckMe2day" type="controller" />
 		<action name="procUpgletyleCheckTwitter" type="controller" />
@@ -238,7 +244,8 @@
         <action name="procUpgletyleAdminInsertExtraMenuConfig" type="controller" standalone="true" />
         <action name="getBlogApiService" type="model" />
 		<action name="procSyncDaumview" type="controller" standalone="true" />
-		
+		<action name="procSyncDaumviewCategory" type="controller" standalone="true" />
+	
 		<action name="dispUpgletyleCategory" type="mobile" />
 		<action name="dispUpgletylePasswordForm" type="mobile" />
 		<action name="dispUpgletyleGuestbookWrite" type="mobile" />

@@ -1,5 +1,6 @@
 <table name="upgletyle_daumview">
   <column name="document_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
   <column name="module_srl" type="number" size="11" notnull="notnull" index="idx_module_srl" />
-  <column name="category_id" type="varchar" size="30" notnull="notnull" index="idx_category_id" />
+  <column name="daumview_id" type="number" size="12" notnull="notnull" index="idx_daumview_id" />
+  <column name="category_id" type="number" size="11" notnull="notnull" index="idx_category_id" />
 </table>

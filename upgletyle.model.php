@@ -440,7 +440,7 @@
 
 		function getDaumviewStautsCode($url = null, $use_cache = false){
 
-			$cache_file = $this->getDaumviewCachePath()."user_info.xml";	
+			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
 			if(!file_exists($cache_file)) $use_cache = false;
 
 			$oXml = new XmlParser();
@@ -462,25 +462,16 @@
 			return $xml_obj->result->head->code->body;
 		}
 
-		function getDaumviewCachePath(){
-			return "./files/cache/upgletyle/daumview/";
-		}
-
 		function getDaumviewCategory($array = 'id'){
+			
+			$cache_file = "./files/cache/upgletyle/daumview/category.xml";
 
-			$cache_file = $this->getDaumviewCachePath()."category.xml";
-
+			if(!file_exists($cache_file)) {
+				$oUpgletyleController = &getController('upgletyle');
+				$oUpgletyleController->updateDaumviewCategory();
+			}
 			$oXml = new XmlParser();
-			if(file_exists($cache_file)){
-				$xml_obj = $oXml->loadXmlFile($cache_file);
-			}
-			else{
-				$site_ping = "http://api.v.daum.net/open/category.xml";
-				$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
-				if(!$xml) return new Object(-1, 'msg_ping_test_error');
-				$xml_obj = $oXml->parse($xml);
-				FileHandler::writeFile($cache_file, $xml);
-			}
+			$xml_obj = $oXml->loadXmlFile($cache_file);
 
 			$result = array();
 			$one_depth_categories = $xml_obj->result->entity->category;
@@ -506,7 +497,6 @@
 						);
 				}
 			}
-
 			return $result;
 		}
 
