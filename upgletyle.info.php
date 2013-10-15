@@ -29,7 +29,7 @@
         function _loadFromDB() {
             $oUpgletyleModel = &getModel('upgletyle');
 
-            if(!$this->upgletyle_srl) return;
+			if(!$this->upgletyle_srl) return;
             $args->module_srl = $this->upgletyle_srl;
             $output = executeQuery('upgletyle.getUpgletyle', $args);
             if(!$output->toBool()||!$output->data) return;
@@ -70,7 +70,7 @@
             return $this->get('browser_title');
         }
 
-        function getUpgletyleTitle() {
+		function getUpgletyleTitle() {
             if(!$this->isExists()) return;
             return $this->get('upgletyle_title');
         }

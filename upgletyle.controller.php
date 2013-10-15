@@ -270,8 +270,8 @@
 			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
 
             $config->use_daumview_widget = $args->use_daumview_widget;
-            $config->location_daumviewWidget = $args->location_daumviewWidget;
-            $config->type_daumviewWidget = $args->type_daumviewWidget;
+            $config->location_daumview_widget = $args->location_daumview_widget;
+            $config->type_daumview_widget = $args->type_daumview_widget;
             $oModuleController->insertModulePartConfig('upgletyle',abs($this->module_srl)*-1, $config);
 
 			$this->setMessage('cmd_saved');
@@ -2227,13 +2227,30 @@
 				}
 			}
 		}
-
 		function procSyncDaumviewCategory(){
-			$this->updateDaumviewCategory();
-			$this->setMessage("다음View서버와 동기화되었습니다");
+			global $lang;
+
+			$this->updateDaumviewCategoryCache();
+			$this->setMessage($lang->msg_complete_daumview_sync);
 		}
-		function updateDaumviewCategory(){
+		function updateDaumviewUserinfoCache($url = null){
+
+			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
+
+			if(!$url) {
+				$upgletyle = $this->getUpgletyle($this->module_srl);
+				$url = getFullSiteUrl($upgletyle->domain);
+			}
+			$site_ping = "http://api.v.daum.net/open/user_info.xml?blogurl=".$url;
+			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
+			if(!$xml) return new Object(-1, 'msg_ping_test_error');
+			if(file_exists($cache_file)) FileHandler::removeFile($cache_file);
+			FileHandler::writeFile($cache_file, $xml);
+		}
+		function updateDaumviewCategoryCache(){
+
 			$cache_file = "./files/cache/upgletyle/daumview/category.xml";
+
 			$site_ping = "http://api.v.daum.net/open/category.xml";
 			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
 			if(!$xml) return new Object(-1, 'msg_ping_test_error');

@@ -425,8 +425,17 @@
 						}
 					}
 				}
-			}
 
+				$part_config2 = $oModuleModel->getModulePartConfig('upgletyle', abs($module_srl)*-1);
+				if($part_config2){
+					$vars = get_object_vars($part_config2);
+					if($vars){
+						foreach($vars as $k => $v){
+							$config->{$k} = $v;
+						}
+					}
+				}
+			}
 			$configs[$module_srl] = $config;
 
 			return $configs[$module_srl];
@@ -438,26 +447,35 @@
 			else return false;
 		}
 
+		function getDaumviewWidget($document_srl, $type){
+			$output = $this->getDaumviewLog($document_srl);
+			$daumview_id = $output->data[0]->daumview_id;
+			if(!$daumview_id) return false;
+
+			if($type=='box'){
+				return "<iframe width='100%' height='90' src='http://api.v.daum.net/widget1?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe>";
+			}
+			elseif($type=='button'){
+				return "<div style='width:100%;text-align:center'><iframe width='76' height='90' src='http://api.v.daum.net/widget2?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
+			}
+			elseif($type=='normal'){
+				return "<div style='width:100%;text-align:center'><iframe width='136' height='44' src='http://api.v.daum.net/widget3?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
+			}
+			elseif($type=='mini'){
+				return "<div style='width:100%;text-align:center'><iframe width='112' height='30' src='http://api.v.daum.net/widget4?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
+			}
+		}
+
 		function getDaumviewStautsCode($url = null, $use_cache = false){
 
 			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
-			if(!file_exists($cache_file)) $use_cache = false;
 
+			if(!file_exists($cache_file) || !$use_cache) {
+				$oUpgletyleController = &getController('upgletyle');
+				$oUpgletyleController->updateDaumviewUserinfoCache($url);
+			}
 			$oXml = new XmlParser();
-			if($use_cache){
-				$xml_obj = $oXml->loadXmlFile($cache_file);
-			}
-			else{
-				if(!$url) {
-		            $upgletyle = $this->getUpgletyle($this->module_srl);
-					$url = getFullSiteUrl($upgletyle->domain);
-				}
-				$site_ping = "http://api.v.daum.net/open/user_info.xml?blogurl=".$url;
-				$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
-				if(!$xml) return new Object(-1, 'msg_ping_test_error');
-				$xml_obj = $oXml->parse($xml);
-				FileHandler::writeFile($cache_file, $xml);
-			}
+			$xml_obj = $oXml->loadXmlFile($cache_file);
 
 			return $xml_obj->result->head->code->body;
 		}
@@ -468,7 +486,7 @@
 
 			if(!file_exists($cache_file)) {
 				$oUpgletyleController = &getController('upgletyle');
-				$oUpgletyleController->updateDaumviewCategory();
+				$oUpgletyleController->updateDaumviewCategoryCache();
 			}
 			$oXml = new XmlParser();
 			$xml_obj = $oXml->loadXmlFile($cache_file);

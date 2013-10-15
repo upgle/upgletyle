@@ -1347,6 +1347,7 @@
          **/
     function dispUpgletyle()
         {
+
         	//$this->module_info->skin
         	$oModuleModel = &getModel('module');
         	$skins = $oModuleModel->getSkins($this->module_path);
@@ -1372,7 +1373,6 @@
 	        	$oUpgletyleModel = &getModel('upgletyle');
 	            $oUpgletyleController = &getController('upgletyle');
 	            
-	
 	            $document_srl = Context::get('document_srl');
 	            $page = Context::get('page');
 	            $page = $page>0 ? $page : 1;
@@ -1402,6 +1402,16 @@
 	
 	                    if($this->grant->manager) $oDocument->setGrant();
 	
+						//set Daumview Widget
+						if($this->upgletyle->get('use_daumview_widget')=='Y'){
+							$type = $this->upgletyle->get('type_daumview_widget');
+							$widget_code = $oUpgletyleModel->getDaumviewWidget($document_srl,$type);
+							if($this->upgletyle->get('location_daumview_widget')=='top' && $widget_code)
+								Context::set('post_prefix',Context::get('post_prefix').$widget_code);
+							elseif($this->upgletyle->get('location_daumview_widget')=='bottom' && $widget_code)
+								Context::set('post_suffix',Context::get('post_suffix').$widget_code);
+						}
+
 	                } else {
 	                    Context::set('document_srl','',true);
 	                    //$this->alertMessage('msg_not_founded');

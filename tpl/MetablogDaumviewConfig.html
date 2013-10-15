@@ -57,7 +57,7 @@
                                         }
                                     </div>
                                     <p>
-                                    <span class="btnGray btnHover medium"><a onclick="doSyncDaumviewCategory();return false;" title="다음View의 카테고리와 일치하지 않다면 동기화 버튼을 눌러주세요.">동기화</a></span>
+                                    <span class="btnGray btnHover medium"><a onclick="doSyncDaumviewCategory();return false;" title="다음View의 카테고리와 일치하지 않다면 동기화 버튼을 눌러주세요.">카테고리 동기화</a></span>
                                     </p>
 									</td>
 								</tr>
@@ -70,9 +70,9 @@
 							<h4 class="h4">위젯 설정</h4>
 							<table border="1" cellspacing="0" class="setupData">
 								<tr>
-									<th scope="row"><label for="use_daumviewWidget">출력 여부</label></th>
+									<th scope="row"><label for="use_daumview_widget">출력 여부</label></th>
 									<td>
-										<select id="use_daumviewWidget" name="use_daumview_widget">
+										<select id="use_daumview_widget" name="use_daumview_widget">
                                             <!--@foreach($lang->widget_print as $key => $val)-->
 											<option value="{$key}" <!--@if($key == $config->use_daumview_widget)-->selected="selected"<!--@end-->>{$val}</option>
                                             <!--@end-->
@@ -80,21 +80,21 @@
 									</td>
 								</tr>
                                 <tr>
-									<th scope="row"><label for="location_daumviewWidget">위치</label></th>
+									<th scope="row"><label for="location_daumview_widget">위치</label></th>
 									<td>
-										<select id="location_daumviewWidget" name="location_daumviewWidget">
+										<select id="location_daumview_widget" name="location_daumview_widget">
                                             <!--@foreach($lang->daumview_location as $key => $val)-->
-											<option value="{$key}" <!--@if($key == $config->location_daumviewWidget)-->selected="selected"<!--@end-->>{$val}</option>
+											<option value="{$key}" <!--@if($key == $config->location_daumview_widget)-->selected="selected"<!--@end-->>{$val}</option>
                                             <!--@end-->
 										</select>
 									</td>
 								</tr>
                                 <tr>
-									<th scope="row"><label for="type_daumviewWidget">{$lang->type}</label></th>
+									<th scope="row"><label for="type_daumview_widget">{$lang->type}</label></th>
 									<td>
-										<select id="type_daumviewWidget" name="type_daumviewWidget">
+										<select id="type_daumview_widget" name="type_daumview_widget">
                                             <!--@foreach($lang->daumview_type as $key => $val)-->
-											<option value="{$key}" <!--@if($key == $config->type_daumviewWidget)-->selected="selected"<!--@end-->>{$val}</option>
+											<option value="{$key}" <!--@if($key == $config->type_daumview_widget)-->selected="selected"<!--@end-->>{$val}</option>
                                             <!--@end-->
 										</select>
 									</td>
