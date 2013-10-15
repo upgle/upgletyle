@@ -129,3 +129,7 @@
 .btnTableDataSort span{position:absolute;width:0;height:0;overflow:hidden;font-size:0;line-height:0;visibility:hidden}
 .sum .btnTableDataSort{width:20px;height:20px;border:0;cursor:pointer;padding:0;background:transparent url(../img/buttonTableSumSort.gif) no-repeat center center;vertical-align:middle}
 .sum .btnTableDataSort span{position:absolute;width:0;height:0;overflow:hidden;font-size:0;line-height:0;visibility:hidden}
+
+/* Textalign */
+.textalign-small {line-height:19px}
+.textalign-medium {line-height:22px}
