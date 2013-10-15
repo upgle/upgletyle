@@ -2242,8 +2242,7 @@
 			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
 
 			if(!$url) {
-				$upgletyle = $this->getUpgletyle($this->module_srl);
-				$url = getFullSiteUrl($upgletyle->domain);
+				$url = getFullSiteUrl($this->upgletyle->domain);
 			}
 			$site_ping = "http://api.v.daum.net/open/user_info.xml?blogurl=".$url;
 			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
