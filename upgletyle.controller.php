@@ -274,7 +274,7 @@
             $config->type_daumview_widget = $args->type_daumview_widget;
             $oModuleController->insertModulePartConfig('upgletyle',abs($this->module_srl)*-1, $config);
 
-			$this->setMessage('cmd_saved');
+			$this->setMessage('success_saved');
 			$returnUrl = getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolMetablogDaumviewConfig','vid',$vid);
 			$this->setRedirectUrl($returnUrl);
 			//return new Object(-1,'msg_invalid_request2');
