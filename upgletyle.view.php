@@ -476,9 +476,10 @@
 			Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
 			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
 
-
 			$output = $oUpgletyleModel->getDaumviewLog($document_srl);
 			if($output->data[0]) $daumview_log = $output->data[0];
+			$daumview_log->category_id = sprintf("%5s", $daumview_log->category_id);
+			debugPrint($daumview_log->category_id);
 			Context::set('daumview_log', $daumview_log);
 
         }
