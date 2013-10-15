@@ -517,7 +517,7 @@
 
     $lang->daumview_location = array(
         'top'=>'본문 상단',
-        'bototm'=>'본문 하단',
+        'bottom'=>'본문 하단',
     );
 
 ?>
