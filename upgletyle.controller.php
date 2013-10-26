@@ -724,26 +724,29 @@
             $oDocument = $oDocumentModel->getDocument($var->document_srl);
             $var->is_secret = ($oDocument->isSecret()) ? 'Y' : 'N';
 
-
             if($oDocument->isExists()) {
-				$vars->module_srl = abs($this->module_srl) * -1;
-                $output = $this->updatePost($var);
+				$vars = $var;
+				$vars->module_srl = $this->module_srl;
+                $output = $this->updatePost($vars);
                 $document_srl = $oDocument->document_srl;
                 $alias = $oDocumentModel->getAlias($output->get('document_srl'));
 	            if($var->alias != $alias){
 	                $output = $oDocumentController->insertAlias($this->module_srl,$output->get('document_srl'),$var->alias);
 	                if(!$output->toBool()) return $output;
 	            }
+				//module_srl 마이너스로 재가공(document모듈에서 충돌)
+				$this->updateModuleSrlMinus($output->get('document_srl'),$this->module_srl);
+	            if(!$output->toBool()) return $output;
             } else {
                 $output = $this->savePost($var);
                 if(!$output->toBool()) return $output;
                 if(preg_match('/<IMG/', $var->content) || preg_match('/<img/', $var->content)) unset($GLOBALS['XE_DOCUMENT_LIST'][$output->get('document_srl')]);
 				$oDocument = $oDocumentModel->getDocument($output->get('document_srl'));
-				$vars = $oDocument->getObjectVars();
-				$vars->module_srl = abs($this->module_srl) * -1; //버튼을 통해 저장시 -1 지정
-	            $vars->tags = $var->tags;
-	            $output = $this->updatePost($vars);
-                    $document_srl = $output->get('document_srl');
+
+				$this->updateModuleSrlMinus($output->get('document_srl'),$this->module_srl);
+	            if(!$output->toBool()) return $output;
+
+				$document_srl = $output->get('document_srl');
 	            if(!$output->toBool()) return $output;
 	            $alias = $oDocumentModel->getAlias($output->get('document_srl'));
 	            if($var->alias != $alias){
@@ -2328,7 +2331,14 @@
 				}
 			}
 		}
+		function updateModuleSrlMinus($document_srl,$module_srl){
+			
+			$args->document_srl = $document_srl;
+			$args->module_srl = abs($module_srl) * -1;
 
+            $output = executeQuery('upgletyle.updateDocumentModuleSrl',$args);
+            return $output;
+		}
 
     }
 ?>
