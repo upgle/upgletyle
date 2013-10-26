@@ -422,13 +422,12 @@
             $obj->content = $val->content;
             $obj->is_secret = $val->is_secret == 'Y' ?1:-1;
 
-
             // update
             if($val->upgletyle_guestbook_srl>0){
-                $obj->user_name = $obj->nick_name = $val->nick_name;
-                $obj->email_address = $val->email_address;
-                $obj->homepage = $obj->homepage;
-                $obj->password = md5($val->password);
+				if($val->nick_name) $obj->user_name = $obj->nick_name = $val->nick_name;
+				if($val->email_address) $obj->email_address = $val->email_address;
+                if($obj->homepage) $obj->homepage = $obj->homepage;
+                if($val->password) $obj->password = md5($val->password);
 
                 $obj->upgletyle_guestbook_srl = $val->upgletyle_guestbook_srl;
                 $output = executeQuery('upgletyle.updateUpgletyleGuestbook', $obj);
