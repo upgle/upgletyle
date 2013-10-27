@@ -1411,6 +1411,7 @@
 								Context::set('post_prefix',Context::get('post_prefix').$widget_code);
 							elseif($this->upgletyle->get('location_daumview_widget')=='bottom' && $widget_code)
 								Context::set('post_suffix',Context::get('post_suffix').$widget_code);
+							Context::set('daumview_id',$oUpgletyleModel->getDaumviewID($document_srl));				
 						}
 
 	                } else {
