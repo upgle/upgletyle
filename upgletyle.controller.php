@@ -735,8 +735,10 @@
 	                if(!$output->toBool()) return $output;
 	            }
 				//module_srl 마이너스로 재가공(document모듈에서 충돌)
-				$this->updateModuleSrlMinus($output->get('document_srl'),$this->module_srl);
-	            if(!$output->toBool()) return $output;
+				if($oDocument->module_srl < 0) {
+					$this->updateModuleSrlMinus($output->get('document_srl'),$this->module_srl);
+					if(!$output->toBool()) return $output;
+				}
             } else {
                 $output = $this->savePost($var);
                 if(!$output->toBool()) return $output;
