@@ -1439,7 +1439,7 @@
 	                Context::set('none_navigation', true);
 	            } else {
 	                $args->list_count = $this->upgletyle->getPostListCount();
-	                if($args->search_target && $args->search_keyword || $args->category_srl) $args->list_count=50;
+	                if($args->search_target && $args->search_keyword || $args->category_srl) $args->list_count=$this->upgletyle->getCategoryListCount();
 	                $output = $oDocumentModel->getDocumentList($args, false, false);
 	                $document_list = $output->data;
 	                Context::set('page_navigation', $output->page_navigation);

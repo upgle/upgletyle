@@ -3,6 +3,7 @@
         <node target="mid" required="true" filter="alpha_number" />
         <node target="post_style" required="true" />
         <node target="post_list_count" required="true" />
+        <node target="category_list_count" required="true" />
         <node target="rss_list_count" required="true" />
         <node target="commnet_list_count" required="true" />
         <node target="guestbook_list_count" required="true" />
