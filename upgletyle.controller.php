@@ -735,8 +735,8 @@
 	                if(!$output->toBool()) return $output;
 	            }
 				//module_srl 마이너스로 재가공(document모듈에서 충돌)
-				if($oDocument->module_srl < 0) {
-					$this->updateModuleSrlMinus($output->get('document_srl'),$this->module_srl);
+				if($oDocument->get('module_srl') < 0) {
+					$this->updateModuleSrlMinus($document_srl,$this->module_srl);
 					if(!$output->toBool()) return $output;
 				}
             } else {
