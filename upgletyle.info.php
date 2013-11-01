@@ -143,6 +143,11 @@
             return $this->get('post_list_count');
         }
 
+        function getCategoryListCount() {
+            if(!$this->isExists()) return;
+            return $this->get('category_list_count');
+        }
+
         function getCommentListCount() {
             if(!$this->isExists()) return;
             return $this->get('comment_list_count');

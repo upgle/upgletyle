@@ -33,6 +33,16 @@
 						</fieldset>
 
 						<fieldset>
+							<h4 class="h4">검색 및 카테고리 페이지</h4>
+							<table border="1" cellspacing="0" class="setupData">
+								<tr>
+									<th scope="row"><label for="postNum">{$lang->blog_display_count}</label></th>
+									<td><input name="category_list_count" type="text" class="iText" id="num" maxlength="2" style="width:40px; text-align:center" value="{$upgletyle->getCategoryListCount()}" /> {$lang->item_unit}</td>
+								</tr>
+							</table>
+						</fieldset>
+
+						<fieldset>
 							<h4 class="h4">{$lang->send_me2}</h4>
 							<p><label for="enableMe2day">{$lang->about_send_me2}</label></p>
 							<table border="1" cellspacing="0" class="setupData">

@@ -71,6 +71,9 @@
                 if(!$oModuleModel->getTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4])) return true;
             }
 
+			//post_list_count 컬럼 체크
+			if(!$oDB->isColumnExists("upgletyle","category_list_count")) return true;
+
             return false;
         }
 
@@ -88,7 +91,10 @@
                 }
             }
 
-            return new Object(0, 'success_updated');
+			//post_list_count 컬럼 추가
+			if(!$oDB->isColumnExists("upgletyle","category_list_count")) $oDB->addColumn('upgletyle',"category_list_count","number",2,30,true);
+
+			return new Object(0, 'success_updated');
         }
 
         /**

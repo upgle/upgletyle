@@ -176,8 +176,8 @@
 					$oModule->{$path_method}($this->module_path.'skins/'.$preview_skin);
 				}
 
-				$oModule->{$file_method}('textyle');
-				Context::addCssFile($oModule->{$css_path_method}().'textyle.css',true,'all','',100);
+				$oModule->{$file_method}('upgletyle');
+				Context::addCssFile($oModule->{$css_path_method}().'upgletyle.css',true,'all','',100);
 			}
 
             Context::set('root_url', Context::getRequestUri());
@@ -1411,6 +1411,7 @@
 								Context::set('post_prefix',Context::get('post_prefix').$widget_code);
 							elseif($this->upgletyle->get('location_daumview_widget')=='bottom' && $widget_code)
 								Context::set('post_suffix',Context::get('post_suffix').$widget_code);
+							Context::set('daumview_id',$oUpgletyleModel->getDaumviewID($document_srl));				
 						}
 
 	                } else {
@@ -1438,7 +1439,7 @@
 	                Context::set('none_navigation', true);
 	            } else {
 	                $args->list_count = $this->upgletyle->getPostListCount();
-	                if($args->search_target && $args->search_keyword || $args->category_srl) $args->list_count=50;
+	                if($args->search_target && $args->search_keyword || $args->category_srl) $args->list_count=$this->upgletyle->getCategoryListCount();
 	                $output = $oDocumentModel->getDocumentList($args, false, false);
 	                $document_list = $output->data;
 	                Context::set('page_navigation', $output->page_navigation);

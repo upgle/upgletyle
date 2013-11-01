@@ -422,13 +422,12 @@
             $obj->content = $val->content;
             $obj->is_secret = $val->is_secret == 'Y' ?1:-1;
 
-
             // update
             if($val->upgletyle_guestbook_srl>0){
-                $obj->user_name = $obj->nick_name = $val->nick_name;
-                $obj->email_address = $val->email_address;
-                $obj->homepage = $obj->homepage;
-                $obj->password = md5($val->password);
+				if($val->nick_name) $obj->user_name = $obj->nick_name = $val->nick_name;
+				if($val->email_address) $obj->email_address = $val->email_address;
+                if($obj->homepage) $obj->homepage = $obj->homepage;
+                if($val->password) $obj->password = md5($val->password);
 
                 $obj->upgletyle_guestbook_srl = $val->upgletyle_guestbook_srl;
                 $output = executeQuery('upgletyle.updateUpgletyleGuestbook', $obj);
@@ -725,26 +724,31 @@
             $oDocument = $oDocumentModel->getDocument($var->document_srl);
             $var->is_secret = ($oDocument->isSecret()) ? 'Y' : 'N';
 
-
             if($oDocument->isExists()) {
-				$vars->module_srl = abs($this->module_srl) * -1;
-                $output = $this->updatePost($var);
+				$vars = $var;
+				$vars->module_srl = $this->module_srl;
+                $output = $this->updatePost($vars);
                 $document_srl = $oDocument->document_srl;
                 $alias = $oDocumentModel->getAlias($output->get('document_srl'));
 	            if($var->alias != $alias){
 	                $output = $oDocumentController->insertAlias($this->module_srl,$output->get('document_srl'),$var->alias);
 	                if(!$output->toBool()) return $output;
 	            }
+				//module_srl 마이너스로 재가공(document모듈에서 충돌)
+				if($oDocument->get('module_srl') < 0) {
+					$this->updateModuleSrlMinus($document_srl,$this->module_srl);
+					if(!$output->toBool()) return $output;
+				}
             } else {
                 $output = $this->savePost($var);
                 if(!$output->toBool()) return $output;
                 if(preg_match('/<IMG/', $var->content) || preg_match('/<img/', $var->content)) unset($GLOBALS['XE_DOCUMENT_LIST'][$output->get('document_srl')]);
 				$oDocument = $oDocumentModel->getDocument($output->get('document_srl'));
-				$vars = $oDocument->getObjectVars();
-				$vars->module_srl = abs($this->module_srl) * -1; //버튼을 통해 저장시 -1 지정
-	            $vars->tags = $var->tags;
-	            $output = $this->updatePost($vars);
-                    $document_srl = $output->get('document_srl');
+
+				$this->updateModuleSrlMinus($output->get('document_srl'),$this->module_srl);
+	            if(!$output->toBool()) return $output;
+
+				$document_srl = $output->get('document_srl');
 	            if(!$output->toBool()) return $output;
 	            $alias = $oDocumentModel->getAlias($output->get('document_srl'));
 	            if($var->alias != $alias){
@@ -2329,7 +2333,14 @@
 				}
 			}
 		}
+		function updateModuleSrlMinus($document_srl,$module_srl){
+			
+			$args->document_srl = $document_srl;
+			$args->module_srl = abs($module_srl) * -1;
 
+            $output = executeQuery('upgletyle.updateDocumentModuleSrl',$args);
+            return $output;
+		}
 
     }
 ?>

@@ -447,6 +447,13 @@
 			else return false;
 		}
 
+		function getDaumviewID($document_srl){
+			$output = $this->getDaumviewLog($document_srl);
+			$daumview_id = $output->data[0]->daumview_id;
+			if(!$daumview_id) return false;
+			return $daumview_id;
+		}
+
 		function getDaumviewWidget($document_srl, $type){
 			$output = $this->getDaumviewLog($document_srl);
 			$daumview_id = $output->data[0]->daumview_id;

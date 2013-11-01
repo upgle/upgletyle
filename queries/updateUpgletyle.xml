@@ -10,6 +10,7 @@
 		<column name="post_style" var="post_style" />
 		<column name="post_editor_skin" var="post_editor_skin" />
 		<column name="post_list_count" var="post_list_count" filter="number" />
+		<column name="category_list_count" var="category_list_count" filter="number" />
 		<column name="comment_list_count" var="comment_list_count" filter="number" />
 		<column name="guestbook_list_count" var="guestbook_list_count" filter="number" />
 		<column name="input_email" var="input_email" />

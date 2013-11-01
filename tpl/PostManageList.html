@@ -59,7 +59,7 @@
 									<th scope="col">{$lang->category}</th>
 									<th scope="col">{$lang->status}</th>
 									<th scope="col" class="title">{$lang->title}</th>
-									<th scope="col">댓글</th>
+									<th scope="col">{$lang->comment}</th>
 									<th scope="col">{$lang->last_update}</th>
 									<th scope="col">&nbsp;</th>
 
@@ -79,7 +79,6 @@
 											<input type="checkbox" name="document_srl" value="{$post->document_srl}" class="inputCheck boxlist" />
 										</td>
 										<td>{$category_list[$post->get('category_srl')]->title}&nbsp;</td>
-
 										<td>
 											<!--@if($post->type=='temp')-->
 												<a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" title="{$lang->click_publish}" alt="{$lang->click_publish}"><strong class="publishState draft"><span>{$lang->temp}</span></strong></a>
@@ -93,22 +92,15 @@
 												<strong class="publishState out"><span>{$lang->publish}</span></strong>
 											<!--@end-->
 										</td>
-
 										<td class="title"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a>
 										{$post->printExtraImages()}
 										</td>
-										<td class="small">0</td>
-
-
+										<td class="small">{$post->getCommentCount()}</td>
 										<td class="small">{zdate($post->get('last_update'),'Y.m.d')}</td>
-
-
 										<td class="small">
                                          <span class="btnGray btnHover small"><button type="button" onclick="doTogglePostItem({$post->document_srl}, 'comment')"><i class="icon-{$offon[$post->allowComment()]}-comment"></i></button></span> 
                                          <span class="btnGray btnHover small"><button type="button" onclick="doTogglePostItem({$post->document_srl}, 'trackback')"><i class="icon-{$offon[$post->allowTrackback()]}-trackback"></i></button></span> 
                                          <span class="btnGray btnHover small"><button type="button" onclick="doTogglePostItem({$post->document_srl}, 'secret')"><i class="icon-{$offon[$post->isSecret()]}-locked"></i></button></span>
-
-
                                         <!--@if($post->type=='save' || $post->type=='temp')-->
                                         <span class="btnGray btnHover small"><a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}">{$lang->publish_go}</a></span>
                                         <!--@else-->
