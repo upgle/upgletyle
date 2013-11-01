@@ -1,4 +1,4 @@
-<load target="textyle.js" />
+<load target="upgletyle.js" />
 <!-- display Post Body -->
 <!--@foreach($document_list as $document)-->
 <h2 class="postTitle"><a href="{$document->getPermanentUrl()}">{$document->getTitle()}</a> <span class="category">{$category_list[$document->get('category_srl')]->title}</span></h2>
@@ -6,7 +6,7 @@
 	<span class="yymmdd">{$document->getRegdate('Y.m.d')}</span> 
 	<span class="hhmm">{$document->getRegdate('H:i')}</span> 
 	<span class="author">{$document->getNickName()}</span> 
-	<a href="{getSiteUrl($textyle->domain,'document_srl',$document->document_srl,'act','dispTextyleToolPostManageWrite')}" class="editPost">EDIT</a>
+	<a href="{getSiteUrl($upgletyle->domain,'document_srl',$document->document_srl,'act','dispUpgletyleToolPostManageWrite')}" class="editPost">EDIT</a>
 </p>
 <div class="xe_content">
 	{$post_prefix}
@@ -105,10 +105,10 @@
 				</form>
 			</div>
 			<ul class="reAction" cond="$comment->isAccessible()">
-				<li cond="$textyle->isEnableComment()"><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispTextyleCommentReply')}">{$lang->cmd_reply}</a></li>
+				<li cond="$upgletyle->isEnableComment()"><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispUpgletyleCommentReply')}">{$lang->cmd_reply}</a></li>
 				<block cond="$comment->member_srl">
 					<block cond="$comment->isGranted() || $comment->member_srl==$logged_info->member_srl">
-						<li><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispTextyleCommentModify')}">{$lang->cmd_modify}...</a></li>
+						<li><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispUpgletyleCommentModify')}">{$lang->cmd_modify}...</a></li>
 						<li><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteCommentItem({$comment->comment_srl});">{$lang->cmd_delete}</button></li>
 					</block>
 				</block>
@@ -135,10 +135,10 @@
 
 <div class="replyForm" cond="$document->allowComment()">
 	<h3>Leave Comments</h3>
-	<block cond="$textyle->isEnableComment()">
+	<block cond="$upgletyle->isEnableComment()">
 	<fieldset>
 		<form method="post" onsubmit="return insertCommentItem(this, insert_comment)" action="">
-			<input name="mid" type="hidden" value="textyle" />
+			<input name="mid" type="hidden" value="upgletyle" />
 			<input type="hidden" name="document_srl" value="{$document->document_srl}" />
 			<input type="hidden" name="comment_srl" value="" />
 			<textarea class="iTextArea" name="content" rows="8" cols="42"></textarea>
@@ -148,13 +148,13 @@
 			<block cond="!$is_logged">
 				<input name="nick_name" type="text" class="iText name" placeholder="Name" title="Name"/>
 				<input name="password" type="password" class="iText pw" placeholder="Password" title="Password" />
-				<block cond="$textyle->getInputEmail()!='N'">
+				<block cond="$upgletyle->getInputEmail()!='N'">
 					<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-					<input name="email_address" type="text" class="iText email"|cond="$textyle->getInputEmail()!='R'" class="iText email request"| class="iText email"|cond="$textyle->getInputEmail()=='R'" placeholder="Email address" title="Email address" />
+					<input name="email_address" type="text" class="iText email"|cond="$upgletyle->getInputEmail()!='R'" class="iText email request"| class="iText email"|cond="$upgletyle->getInputEmail()=='R'" placeholder="Email address" title="Email address" />
 				</block>
-				<block cond="$textyle->getInputWebsite()!='N'">
+				<block cond="$upgletyle->getInputWebsite()!='N'">
 					<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-					<input name="homepage" type="text" class="iText url"|cond="$textyle->getInputWebsite()!='R'" class="iText url request"|cond="$textyle->getInputWebsite()=='R'" placeholder="URL" title="URL" />
+					<input name="homepage" type="text" class="iText url"|cond="$upgletyle->getInputWebsite()!='R'" class="iText url request"|cond="$upgletyle->getInputWebsite()=='R'" placeholder="URL" title="URL" />
 				</block>
 			</block>
 			<input name="is_secret" id="secret1" type="checkbox" value="Y" class="iCheck" />
@@ -163,5 +163,5 @@
 		</form>
 	</fieldset>
 	</block>
-	<p cond="!$textyle->isEnableComment()">{$lang->disable_comment}</p>
+	<p cond="!$upgletyle->isEnableComment()">{$lang->disable_comment}</p>
 </div>

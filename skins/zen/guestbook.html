@@ -2,7 +2,7 @@
 
                     <!--@if(!$reply && !$modify)-->
                     <div class="replyForm">
-                        <!--@if($textyle->isEnableGuestbook())-->
+                        <!--@if($upgletyle->isEnableGuestbook())-->
                         <form method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
                             <input name="mid" type="hidden" value="{$mid}" />
                             <input type="hidden" name="content" value="" />
@@ -15,13 +15,13 @@
 										<!--@else-->
 										<input name="nick_name" type="text" class="iText name" value="Name" title="Name"/>
 										<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-										<!--@if($textyle->getInputEmail()!='N')-->
+										<!--@if($upgletyle->getInputEmail()!='N')-->
 											<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-											<input name="email_address" type="text" class="iText email<!--@if($textyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
+											<input name="email_address" type="text" class="iText email<!--@if($upgletyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
 										<!--@end-->
-										<!--@if($textyle->getInputWebsite()!='N')-->
+										<!--@if($upgletyle->getInputWebsite()!='N')-->
 											<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-											<input name="homepage" type="text" class="iText url<!--@if($textyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
+											<input name="homepage" type="text" class="iText url<!--@if($upgletyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
 										<!--@end-->
 										<!--@end-->
 										<input name="is_secret" id="secret1" type="checkbox" value="Y" class="inputCheck" />
@@ -56,13 +56,13 @@
 												<!--@else-->
 												<input name="nick_name" type="text" class="iText name" value="Name" title="Name"/>
 												<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-												<!--@if($textyle->getInputEmail()!='N')-->
+												<!--@if($upgletyle->getInputEmail()!='N')-->
 													<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-													<input name="email_address" type="text" class="iText email<!--@if($textyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
+													<input name="email_address" type="text" class="iText email<!--@if($upgletyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
 												<!--@end-->
-												<!--@if($textyle->getInputWebsite()!='N')-->
+												<!--@if($upgletyle->getInputWebsite()!='N')-->
 													<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-													<input name="homepage" type="text" class="iText url<!--@if($textyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
+													<input name="homepage" type="text" class="iText url<!--@if($upgletyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
 												<!--@end-->
 												<!--@end-->
 												<input name="is_secret" id="secret1" type="checkbox" value="Y" class="inputCheck" <!--@if($val->is_secret==1)-->checked <!--@end-->/>
@@ -92,7 +92,7 @@
 									</h4>
                                     <p class="date">{zdate($val->regdate,'Y.m.d')} <span class="hhmm">{zdate($val->regdate,'H:i')}</span></p>
                                 </div>
-                                <div class="data textyleContent">
+                                <div class="data upgletyleContent">
 									<!--@if($val->is_secret==-1 || $val->view_grant)-->
                                     {$val->content}
 									<!--@else-->
@@ -120,7 +120,7 @@
 									</form>
 									<ul class="reAction">
 										<!--@if($val->view_grant)-->
-										<!--@if($val->parent_srl==0&&$textyle->isEnableGuestbook())-->
+										<!--@if($val->parent_srl==0&&$upgletyle->isEnableGuestbook())-->
 										<li><a href="{getUrl('modify','','reply',$val->upgletyle_guestbook_srl)}#gusetbook_{$val->upgletyle_guestbook_srl}">{$lang->cmd_reply}</a></li>
 										<!--@end-->
 										
@@ -142,7 +142,7 @@
                             </li>                 
 							<!--@if($reply == $val->upgletyle_guestbook_srl)-->
                             <li class="item replyForm">
-                                <!--@if($textyle->isEnableGuestbook())-->
+                                <!--@if($upgletyle->isEnableGuestbook())-->
                                 <form method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
                                     <input name="mid" type="hidden" value="{$mid}" />
                                     <input type="hidden" name="content" value="" />
@@ -156,13 +156,13 @@
 												<!--@else-->
 												<input name="nick_name" type="text" class="iText name" value="Name" />
 												<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-												<!--@if($textyle->getInputEmail()!='N')-->
+												<!--@if($upgletyle->getInputEmail()!='N')-->
 													<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-													<input name="email_address" type="text" class="iText email<!--@if($textyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
+													<input name="email_address" type="text" class="iText email<!--@if($upgletyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
 												<!--@end-->
-												<!--@if($textyle->getInputWebsite()!='N')-->
+												<!--@if($upgletyle->getInputWebsite()!='N')-->
 													<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-													<input name="homepage" type="text" class="iText url<!--@if($textyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
+													<input name="homepage" type="text" class="iText url<!--@if($upgletyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
 												<!--@end-->
 												 <!--@end-->
 												<input name="is_secret" id="secret1" type="checkbox" value="Y" class="inputCheck" />

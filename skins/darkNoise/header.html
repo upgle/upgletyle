@@ -1,14 +1,14 @@
 <!-- header -->
 <div id="header">
 	<a href="#content" class="skip">Skip to Content</a>
-	<h1><a href="{$home_url}">{$textyle_title}</a></h1>
-	<p class="blogInfo">{$textyle->getTextyleContent()}</p>
+	<h1><a href="{$home_url}">{$upgletyle_title}</a></h1>
+	<p class="blogInfo">{$upgletyle->getUpgletyleContent()}</p>
 	<!-- gnb -->
 	<div class="gnb">
 		<ul>
-			<li class="active"|cond="$act=='dispTextyleProfile'"><a href="{$profile_url}">Profile</a></li>
-			<li class="active"|cond="$act=='dispTextyleGuestbook'"><a href="{$guestbook_url}">GuestBook</a></li>
-			<li class="active"|cond="$act=='dispTextyleTag'"><a href="{$tag_url}">Tag</a></li>
+			<li class="active"|cond="$act=='dispUpgletyleProfile'"><a href="{$profile_url}">Profile</a></li>
+			<li class="active"|cond="$act=='dispUpgletyleGuestbook'"><a href="{$guestbook_url}">GuestBook</a></li>
+			<li class="active"|cond="$act=='dispUpgletyleTag'"><a href="{$tag_url}">Tag</a></li>
 			<!--@foreach($extra_menus as $key => $val)-->
 			<li class="active"|cond="strtolower($key)==$mid"><a href="{$val}">{$key}</a></li>
 			<!--@end-->
@@ -17,8 +17,8 @@
 		<div class="search">
 			<form action="{$root_url}" method="get">
 				<input name="vid" type="hidden" value="{$vid}" />
-				<input name="mid" type="hidden" value="textyle" />
-				<input name="act" type="hidden" value="dispTextyle" />
+				<input name="mid" type="hidden" value="upgletyle" />
+				<input name="act" type="hidden" value="dispUpgletyle" />
 				<input name="search_target" type="hidden" value="title_content" />
 				<fieldset>
 					<legend>{$lang->cmd_search}</legend>

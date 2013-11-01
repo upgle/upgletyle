@@ -10,19 +10,19 @@
         텍스타일의 기본 스킨입니다. 헤더/풋터가 검정이고 본문이 흰색인 흑백 투톤의 심플한 조화. 콘텐츠 영역의 좌우 배치를 변경하려면 HTML 편집창에서 class="ce"를 class="ec"로 변경하세요!
     </description>
     <description xml:lang="zh-CN">
-        Textyle内置皮肤(侧边栏左右互换class="ce"修改为 class="ec")。
+        Upgletyle内置皮肤(侧边栏左右互换class="ce"修改为 class="ec")。
     </description>
     <description xml:lang="zh-TW">
-        Textyle預設面板。簡單的黑色頁首/頁尾及白色的內容結構。將class="ce"修改成class="ec"即可左右互換側邊欄。
+        Upgletyle預設面板。簡單的黑色頁首/頁尾及白色的內容結構。將class="ce"修改成class="ec"即可左右互換側邊欄。
     </description>
     <description xml:lang="en">
-        This is the default skin of Textyle. It has a simple structure of black header/footer and white content. You can change right and left side of content by modifying class="ce" to class="ec"!
+        This is the default skin of Upgletyle. It has a simple structure of black header/footer and white content. You can change right and left side of content by modifying class="ce" to class="ec"!
     </description>
     <description xml:lang="jp">
         テキスタイルの基本スキンの一つです。 黒色のヘッダー/フッターに白い色の本文とした白黒２色のシンプルな組み合わせが特徴です。 コンテンツ部分の左右配置を変更したい場合はHTML編集エディターにて「class="ce"」を「class="ec"」差し替えてください。
     </description>
     <description xml:lang="tr">
-        Bu Textyle\'ın varsayılan dış görünümüdür. Siyah Üstbilgi/Altbilgi ve beyaz içerikleri ile basit bir yapıya sahiptir. class="ce"\'yi class="ec"\'ye değiştirerek sağ ve sol taraftaki içerikleri değiştirebilirsiniz!
+        Bu Upgletyle\'ın varsayılan dış görünümüdür. Siyah Üstbilgi/Altbilgi ve beyaz içerikleri ile basit bir yapıya sahiptir. class="ce"\'yi class="ec"\'ye değiştirerek sağ ve sol taraftaki içerikleri değiştirebilirsiniz!
     </description>
     <version>1.2.3</version>
     <date>2010-02-03</date>
