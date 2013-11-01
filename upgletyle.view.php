@@ -176,8 +176,8 @@
 					$oModule->{$path_method}($this->module_path.'skins/'.$preview_skin);
 				}
 
-				$oModule->{$file_method}('textyle');
-				Context::addCssFile($oModule->{$css_path_method}().'textyle.css',true,'all','',100);
+				$oModule->{$file_method}('upgletyle');
+				Context::addCssFile($oModule->{$css_path_method}().'upgletyle.css',true,'all','',100);
 			}
 
             Context::set('root_url', Context::getRequestUri());
