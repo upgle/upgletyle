@@ -1,3 +1,9 @@
+<load target="./js/jquery.jqplot.min.js" />
+<load target="./js/jqplot.barRenderer.min.js" />
+<load target="./js/jqplot.categoryAxisRenderer.min.js" />
+<load target="./js/jqplot.pointLabels.min.js" />
+<load target="./css/jquery.jqplot.min.css" />
+
 <!--#include("_tool_header.html")-->
 <!--%load_js_plugin("ui.calendar")-->
 			<!-- Content -->
@@ -67,24 +73,8 @@
 				</div>
 				<!-- /contentNavigation -->
 				
-				<!-- Flash Data -->
-				<div class="flashGraph">
-					<script>
-					displayMultimedia('{getUrl()}modules/upgletyle/tpl/swf/MainContainer.swf','100%','285',{
-							'menu':'false',
-							'wmode':'transparent',
-							<!--@if($type=='day')-->
-							'flashvars':"width=770&dSet=02&baseURL=modules/upgletyle/tpl/swf/common/flash/statistics/&toDay={$detail_status->today}&total={$detail_status->total}&base64Code="+encodeURIComponent('{$xml}')+"&alertLabel="+encodeURIComponent('{$lang->none_visitor}')
-							<!--@else-->
-							'flashvars':"width=770&dSet=02&baseURL=modules/upgletyle/tpl/swf/common/flash/statistics/&total={$detail_status->total}&base64Code="+encodeURIComponent('{$xml}')+"&alertLabel="+encodeURIComponent('{$lang->none_visitor}')
-							<!--@end-->
-						});
-				</script>
+				<div id="jqplotChart" style="margin:10px 15px;height:300px"></div>
 
-
-
-		</div>
-		<!-- /Flash Data -->
 		
 		<!-- listHeader -->
 		<div class="listHeader">
@@ -149,3 +139,74 @@
 	<!--#include("_tool_menu.html")-->
 	<!-- Extension -->
 <!--#include("_tool_footer.html")-->
+<script>
+xe.lang.today = '{$lang->today}';
+xe.lang.yesterday = '{$lang->yesterday}';
+
+
+jQuery(function($)
+{
+	// Dashboard portlet UI
+	$('.dashboard>div>section>ul>li')
+	.bind('mouseenter focusin', function(){
+		$(this).addClass('hover').find('>.action').show();
+	})
+	.bind('mouseleave focusout', function()
+	{
+		if(!$(this).find(':focus').length)
+		{
+			$(this).removeClass('hover').find('>.action').hide();
+		}
+	});
+
+});
+
+jQuery(function ($)
+{
+	drawChart("jqplotChart", "Weekly Page Views");
+});
+
+function drawChart(sContainerId, sTitle)
+{
+	$ = jQuery;
+
+	var s1 = [{$chart_value_last}];
+	var s2 = [{$chart_value_this}];
+	var s3 = [{$chart_value_average}];
+	var ticks = [{$chart_ticks}];
+
+	var plot1 = $.jqplot(sContainerId, [s1, s2, s3], {
+		seriesDefaults:{
+			renderer:$.jqplot.BarRenderer,
+			rendererOptions: {fillToZero: true},
+            pointLabels: { show: true }
+		},
+		series:[
+			{label: 'yesterday', color:'#d0dde5'},
+			{label: 'today', color:'#fe5656'},
+            {label: 'average', color:'#4bb2c5', renderer:$.jqplot.LineRenderer, pointLabels:{show:false}}
+		],
+        axesDefaults:{
+            tickOptions: {
+                formatString: '%d',   // format string to use with the axis tick formatter
+            }
+        },
+		axes: {
+			xaxis: {
+				renderer: $.jqplot.CategoryAxisRenderer, ticks: ticks
+			},
+			yaxis: {
+                min: 0, ticks: 1, pad: 1.25,
+                tickOptions: {
+                    showGridline: true,
+                    showMark: false,
+                }
+			}
+		}
+	});
+
+    window.onresize = function(event) {
+        plot1.replot();
+    }
+};
+</script>

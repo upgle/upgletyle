@@ -820,6 +820,7 @@
 
             $site_module_info = Context::get('site_module_info');
 
+			$chart_ticks = array();
             $xml->item = array();
             $xml->value = array(array(),array());
             $selected_count = 0;
@@ -841,6 +842,10 @@
                         $i=0;
                         foreach($detail_status->list as $key => $val) {
                             $_k = substr($selected_date,0,4).'.'.sprintf('%02d',$key);
+
+							$chart_ticks[] = sprintf("\"%s\"",$_k);
+
+
                             $output->list[$_k]->val = $val;
                             if($selected_date == date("Ymd")&&$key == date("m")){
                                 $selected_count = $val;
@@ -856,9 +861,6 @@
 
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24*365);
                         $last_detail_status = $oCounterModel->getHourlyStatus('month', $last_date, $site_module_info->site_srl);
-                        foreach($last_detail_status->list as $key => $val) {
-                            $xml->value[1][] = $val;
-                        }
 
                     break;
                 case 'week' :
@@ -870,7 +872,11 @@
                         $disp_selected_date = date("Y.m.d", strtotime($selected_date));
                         $detail_status = $oCounterModel->getHourlyStatus('week', $selected_date, $site_module_info->site_srl);
                         foreach($detail_status->list as $key => $val) {
-                            $_k = date("Y.m.d", strtotime($key)).'('.$lang->unit_week[date('l',strtotime($key))].')';
+                            $_k = date("Y.m.d", strtotime($key)).' ('.$lang->unit_week[date('l',strtotime($key))].')';
+
+							$chart_ticks[] = sprintf("\"%s\"",$_k);
+
+
                             if($selected_date == date("Ymd")&&$key == date("Ymd")){
                                 $selected_count = $val;
                                 $output->list[$_k]->selected = true;
@@ -891,17 +897,16 @@
 
                     break;
                 case 'day' :
-                        $xml->selected_title = Context::getLang('today');
-                        $xml->last_title = Context::getLang('day_before');
-
                         $before_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)-60*60*24));
                         $after_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)+60*60*24));
                         $disp_selected_date = date("Y.m.d", strtotime($selected_date));
 
-
                         $detail_status = $oCounterModel->getHourlyStatus('hour', $selected_date, $site_module_info->site_srl);
 
                         foreach($detail_status->list as $key => $val) {
+
+							$chart_ticks[] = sprintf("\"%02d\"",$key);
+
                             $_k = sprintf('%02d',$key);
                             if($selected_date == date("Ymd")&&$key == date("H")){
                                 $selected_count = $val;
@@ -910,35 +915,36 @@
                                 $output->list[$_k]->selected = false;
                             }
                             $output->list[$_k]->val = $val;
-                            $xml->item[] = sprintf('<item id="%d" name="%02d" />',$key,$key);
-                            $xml->value[0][] = $val;
                         }
 
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24);
                         $last_detail_status = $oCounterModel->getHourlyStatus('hour', $last_date, $site_module_info->site_srl);
-                        foreach($last_detail_status->list as $key => $val) {
-                            $xml->value[1][] = $val;
-                        }
-
 
                     break;
             }
 
-            // set xml
-        //  $xml->data = '<Graph><gdata title="Upgletyle Visitor" id="'.$type.'"><fact>';
-            $xml->data = '<Graph><gdata title="Upgletyle Visitor" id="data"><fact>';
-            $xml->data .= join("",$xml->item);
-            $xml->data .= "</fact><subFact>";
-            $xml->data .='<item id="0"><data name="'.$xml->selected_title.'">'. join("|",$xml->value[0]) .'</data></item>';
-            $xml->data .='<item id="1"><data name="'.$xml->last_title.'">'. join("|",$xml->value[1]) .'</data></item>';
-            $xml->data .= '</subFact></gdata></Graph>';
+			//set average
+			$chart_value_average = array();
+			$_detail_status = array_values($detail_status->list);
+			$_last_detail_status =  array_values($last_detail_status->list);
 
+			foreach($_detail_status as $key => $val) {
+				$chart_value_average[$key] = $_detail_status[$key]+$_last_detail_status[$key];
+				if($_detail_status[$key] && $_last_detail_status[$key]) $chart_value_average[$key] = $chart_value_average[$key]/2;
+			}
 
             //Context::set('xml', urlencode($xml->data));
-            Context::set('xml', $xml->data);
             Context::set('before_url', $before_url);
             Context::set('after_url', $after_url);
             Context::set('disp_selected_date', $disp_selected_date);
+
+			//flotChart
+			Context::set('chart_ticks',implode(",",$chart_ticks));
+			Context::set('chart_value_this',implode(",",$detail_status->list));
+			Context::set('chart_value_last',implode(",",$last_detail_status->list));
+			Context::set('chart_value_average',implode(",",$chart_value_average));
+
+
             $output->sum = $detail_status->sum;
             $output->max = $detail_status->max;
             $output->selected_count = $selected_count;
