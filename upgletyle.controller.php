@@ -1776,13 +1776,15 @@
          }
 
          function procUpgletyleToolUserSkinImport(){
-            if(!$this->module_srl) exit();
+
+            if(!$this->module_srl) return new Object('-1','msg_invalid_request');
 
             // check upload
-            if(!Context::isUploaded()) exit();
+            if(!Context::isUploaded()) return new Object('-1','msg_invalid_request');
             $file = Context::get('file');
-            if(!is_uploaded_file($file['tmp_name'])) exit();
-            if(!preg_match('/\.(tar)$/i', $file['name'])) exit();
+            if(!is_uploaded_file($file['tmp_name'])) return new Object('-1','msg_invalid_request');
+            if(!preg_match('/\.(tar)$/i', $file['name'])) return new Object('-1','msg_invalid_request');
+
 
             $oUpgletyleModel = &getModel('upgletyle');
             $skin_path = FileHandler::getRealPath($oUpgletyleModel->getUpgletylePath($this->module_srl));
@@ -1792,7 +1794,7 @@
             FileHandler::removeDir($skin_path);
             FileHandler::makeDir($skin_path);
 
-            if(!move_uploaded_file($file['tmp_name'], $tar_file)) exit();
+            if(!move_uploaded_file($file['tmp_name'], $tar_file)) return new Object('-1','msg_invalid_request');
 
             require_once(_XE_PATH_.'libs/tar.class.php');
 
@@ -1807,6 +1809,10 @@
             }
 
             FileHandler::removeFile($tar_file);
+
+            $this->setMessage('success_updated');
+			$returnUrl = getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolLayoutConfigEdit','vid',Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
         }
 
 
