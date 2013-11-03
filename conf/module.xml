@@ -206,7 +206,7 @@
 		<action name="procUpgletyleToolInit" type="controller" />
 		<action name="procUpgletyleToolUserImageUpload" type="controller" />
 		<action name="procUpgletyleToolUserImageDelete" type="controller" />
-		<action name="procUpgletyleToolUserSkinExport" type="controller" />
+		<action name="procUpgletyleToolUserSkinExport" type="controller" method="get" />
 		<action name="procUpgletyleToolUserSkinImport" type="controller" />
 		<action name="procUpgletyleToolExtraMenuInsert" type="controller" />
 		<action name="procUpgletyleToolExtraMenuDelete" type="controller" />
