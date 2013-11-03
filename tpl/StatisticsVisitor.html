@@ -176,9 +176,10 @@ function drawChart(sContainerId, sTitle)
 	var ticks = [{$chart_ticks}];
 
 	var plot1 = $.jqplot(sContainerId, [s1, s2, s3], {
+        animate: true,
 		seriesDefaults:{
 			renderer:$.jqplot.BarRenderer,
-			rendererOptions: {fillToZero: true<!--@if($type=='day')-->, barWidth: 7, barMargin: 0, barPadding:7<!--@end-->},
+			rendererOptions: {fillToZero: true,animation: {speed: 1500}<!--@if($type=='day')-->, barWidth: 7, barMargin: 0, barPadding:7<!--@end-->},
             pointLabels: { show: true }
 		},
 		series:[
