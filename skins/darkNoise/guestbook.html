@@ -1,8 +1,8 @@
 <!-- GuestBook -->
 <h2 class="postTitle exTitle">GuestBook <em>{$page_navigation->total_count}</em></h2>
 <div class="replyForm pageForm" cond="!$reply && !$modify">
-	<form method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="" cond="$textyle->isEnableGuestbook()">
-		<input name="mid" type="hidden" value="textyle" />
+	<form method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="" cond="$upgletyle->isEnableGuestbook()">
+		<input name="mid" type="hidden" value="upgletyle" />
 		<fieldset>
 			<textarea class="iTextArea" name="content" rows="8" cols="42"></textarea>
 			<block cond="$is_logged">
@@ -11,13 +11,13 @@
 			<block cond="!$is_logged">
 				<input name="nick_name" type="text" class="iText name" value="Name" title="Name"/>
 				<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-				<block cond="$textyle->getInputEmail()!='N'">
+				<block cond="$upgletyle->getInputEmail()!='N'">
 					<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-					<input name="email_address" type="text" class="iText email"|cond="$textyle->getInputEmail()!='R'" class="iText email request"|cond="$textyle->getInputEmail()=='R'" value="Email address" title="Email address" />
+					<input name="email_address" type="text" class="iText email"|cond="$upgletyle->getInputEmail()!='R'" class="iText email request"|cond="$upgletyle->getInputEmail()=='R'" value="Email address" title="Email address" />
 				</block>
-				<block cond="$textyle->getInputWebsite()!='N'">
+				<block cond="$upgletyle->getInputWebsite()!='N'">
 					<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-					<input name="homepage" type="text" class="iText url"|cond="$textyle->getInputWebsite()!='R'" class="iText url request"|cond="$textyle->getInputWebsite()=='R'" value="URL" title="URL" />
+					<input name="homepage" type="text" class="iText url"|cond="$upgletyle->getInputWebsite()!='R'" class="iText url request"|cond="$upgletyle->getInputWebsite()=='R'" value="URL" title="URL" />
 				</block>
 			</block>
 			<input name="is_secret" id="secret1" type="checkbox" value="Y" class="iCheck" />
@@ -25,15 +25,15 @@
 			<input name="submit" type="submit" value="SUBMIT" class="inputSubmit" />
 		</fieldset>
 	</form>
-	<p cond="!$textyle->isEnableGuestbook()">{$lang->disable_guestbook}</p>
+	<p cond="!$upgletyle->isEnableGuestbook()">{$lang->disable_guestbook}</p>
 </div>
 <div class="feedback reply pageFeedback">
 	<ol class="feedbackOrder" cond="$guestbook_list">
 		<!--@foreach($guestbook_list as $key => $val)-->
 			<block cond="$modify == $val->upgletyle_guestbook_srl">
 				<li class="item replyForm">
-					<form cond="$textyle->isEnableGuestbook()" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
-						<input name="mid" type="hidden" value="textyle" />
+					<form cond="$upgletyle->isEnableGuestbook()" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
+						<input name="mid" type="hidden" value="upgletyle" />
 						<input type="hidden" name="upgletyle_guestbook_srl" value="{$val->upgletyle_guestbook_srl}" />
 						<fieldset>
 							<textarea class="iTextArea" name="content" rows="8" cols="42">{htmlspecialchars($val->content)}</textarea>
@@ -43,13 +43,13 @@
 							<block cond="!$is_logged">
 								<input name="nick_name" type="text" class="iText name" value="Name" title="Name"/>
 								<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-								<block cond="$textyle->getInputEmail()!='N'">
+								<block cond="$upgletyle->getInputEmail()!='N'">
 									<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-									<input name="email_address" type="text" class="iText email"|cond="$textyle->getInputEmail()!='R'" class="iText email request"|cond="$textyle->getInputEmail()=='R'" value="Email address" title="Email address" />
+									<input name="email_address" type="text" class="iText email"|cond="$upgletyle->getInputEmail()!='R'" class="iText email request"|cond="$upgletyle->getInputEmail()=='R'" value="Email address" title="Email address" />
 								</block>
-								<block cond="$textyle->getInputWebsite()!='N'">
+								<block cond="$upgletyle->getInputWebsite()!='N'">
 									<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-									<input name="homepage" type="text" class="iText url"|cond="$textyle->getInputWebsite()!='R'" class="iText url request"|cond="$textyle->getInputWebsite()=='R'" value="URL" title="URL" />
+									<input name="homepage" type="text" class="iText url"|cond="$upgletyle->getInputWebsite()!='R'" class="iText url request"|cond="$upgletyle->getInputWebsite()=='R'" value="URL" title="URL" />
 								</block>
 							</block>
 							<input name="is_secret" id="secret1" type="checkbox" value="Y" class="iCheck" />
@@ -93,7 +93,7 @@
 						</form>
 					</div>
 					<ul class="reAction" cond="$val->view_grant">
-						<li cond="$val->parent_srl==0&&$textyle->isEnableGuestbook()"><a href="{getUrl('modify','','reply',$val->upgletyle_guestbook_srl)}#gusetbook_{$val->upgletyle_guestbook_srl}">{$lang->cmd_reply}</a></li>
+						<li cond="$val->parent_srl==0&&$upgletyle->isEnableGuestbook()"><a href="{getUrl('modify','','reply',$val->upgletyle_guestbook_srl)}#gusetbook_{$val->upgletyle_guestbook_srl}">{$lang->cmd_reply}</a></li>
 						<block cond="$val->member_srl">
 							<li cond="$logged_info->member_srl == $val->member_srl"><a href="{getUrl('reply','','modify',$val->upgletyle_guestbook_srl)}#gusetbook_{$val->upgletyle_guestbook_srl}">{$lang->cmd_modify}...</a></li>
 							<li cond="$logged_info->is_site_admin || $logged_info->member_srl == $val->member_srl"><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$val->upgletyle_guestbook_srl});">{$lang->cmd_delete}</button></li>
@@ -105,8 +105,8 @@
 					</ul>
 				</li>
 				<li class="item replyForm" cond="$reply == $val->upgletyle_guestbook_srl">
-					<form cond="$textyle->isEnableGuestbook()" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
-						<input name="mid" type="hidden" value="textyle" />
+					<form cond="$upgletyle->isEnableGuestbook()" method="post" onsubmit="return insertGuestbookItem(this, insert_guestbook)" action="">
+						<input name="mid" type="hidden" value="upgletyle" />
 						<input type="hidden" name="parent_srl" value="{$val->upgletyle_guestbook_srl}" />
 						<fieldset>
 							<textarea class="iTextArea" name="content" rows="8" cols="42"></textarea>
@@ -116,13 +116,13 @@
 							<block cond="!$is_logged">
 								<input name="nick_name" type="text" class="iText name" value="Name" />
 								<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-								<block cond="$textyle->getInputEmail()!='N'">
+								<block cond="$upgletyle->getInputEmail()!='N'">
 									<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-									<input name="email_address" type="text" class="iText email"|cond="$textyle->getInputEmail()!='R'" class="iText email request"|cond="$textyle->getInputEmail()=='R'" value="Email address" title="Email address" />
+									<input name="email_address" type="text" class="iText email"|cond="$upgletyle->getInputEmail()!='R'" class="iText email request"|cond="$upgletyle->getInputEmail()=='R'" value="Email address" title="Email address" />
 								</block>
-								<block cond="$textyle->getInputWebsite()!='N'">
+								<block cond="$upgletyle->getInputWebsite()!='N'">
 									<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-									<input name="homepage" type="text" class="iText url"|cond="$textyle->getInputWebsite()!='R'" class="iText url request"|cond="$textyle->getInputWebsite()=='R'" value="URL" title="URL" />
+									<input name="homepage" type="text" class="iText url"|cond="$upgletyle->getInputWebsite()!='R'" class="iText url request"|cond="$upgletyle->getInputWebsite()=='R'" value="URL" title="URL" />
 								</block>
 							 </block>
 							<input name="is_secret" id="secret1" type="checkbox" value="Y" class="iCheck" />
@@ -130,7 +130,7 @@
 							<input name="submit" type="submit" value="SUBMIT" class="inputSubmit" />
 						</fieldset>
 					</form>
-					<p cond="!$textyle->isEnableGuestbook()">{$lang->disable_guestbook}</p>
+					<p cond="!$upgletyle->isEnableGuestbook()">{$lang->disable_guestbook}</p>
 				</li>
 			</block>
 		<!--@end-->

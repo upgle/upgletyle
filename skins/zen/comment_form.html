@@ -20,7 +20,7 @@
                                     </h4>
                                     <p class="date">{$oSourceComment->getRegdate('Y.m.d')} <span class="hhmm">{$oSourceComment->getRegdate('H:i')}</span></p>
                                 </div>
-                                <div class="data textyleContent">
+                                <div class="data upgletyleContent">
                                     {$oSourceComment->getContent(false)}
                                 </div>
                             </li>
@@ -29,7 +29,7 @@
                     <!--@end-->
                     <div class="replyForm">
                         <h3>Leave Comments</h3>
-                        <!--@if($textyle->isEnableComment())-->
+                        <!--@if($upgletyle->isEnableComment())-->
                         <fieldset>
                             <form method="post" onsubmit="return insertCommentItem(this, insert_comment)" action="">
                                 <input name="mid" type="hidden" value="{$mid}" />
@@ -45,13 +45,13 @@
 										<!--@else-->
 										<input name="nick_name" type="text" class="iText name" value="Name" title="Name" />
 										<input name="password" type="password" class="iText pw" value="Password" title="Password" />
-										<!--@if($textyle->getInputEmail()!='N')-->
+										<!--@if($upgletyle->getInputEmail()!='N')-->
 											<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-											<input name="email_address" type="text" class="iText email<!--@if($textyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
+											<input name="email_address" type="text" class="iText email<!--@if($upgletyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
 										<!--@end-->
-										<!--@if($textyle->getInputWebsite()!='N')-->
+										<!--@if($upgletyle->getInputWebsite()!='N')-->
 											<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-											<input name="homepage" type="text" class="iText url<!--@if($textyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
+											<input name="homepage" type="text" class="iText url<!--@if($upgletyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
 										<!--@end-->
 										<!--@end-->
 										<input name="is_secret" id="secret1" type="checkbox" value="Y" class="inputCheck" <!--@if($oComment->isSecret())-->checked <!--@end-->/>

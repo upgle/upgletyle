@@ -17,7 +17,7 @@ a.skip:hover,
 a.skip:active,
 a.skip:focus{width:100%;height:auto;padding:5px 0}
 /* Layout */
-#textyle{position:relative}
+#upgletyle{position:relative}
 #container{position:relative;width:960px;margin:30px auto}
 #header{position:relative;clear:both;zoom:1}
 #body{position:relative;clear:both;zoom:1;padding:0 0 30px 0}

@@ -9,9 +9,9 @@
                             <dd>{$document->getRegdate("H:i")}</dd>
                             <dt>by</dt>
                             <dd><span class="member_{$document->get('member_srl')}">{$document->getNickName()}</span></dd>
-                            <dd><a href="{getSiteUrl($textyle->domain,'document_srl',$document->document_srl,'act','dispTextyleToolPostManageWrite')}" class="editPost">Edit</a></dd>
+                            <dd><a href="{getSiteUrl($upgletyle->domain,'document_srl',$document->document_srl,'act','dispUpgletyleToolPostManageWrite')}" class="editPost">Edit</a></dd>
                         </dl>
-                        <div class="textyleContent xe_content">
+                        <div class="upgletyleContent xe_content">
                             {$post_prefix}
                             {$document->getContent(false)}
                             {$post_suffix}
@@ -49,7 +49,7 @@
                             <!--@if($document->allowTrackback())-->
                             <dl class="trackbackURL">
                                 <dt>{$lang->trackback_url}</dt>
-                                <dd><a href="{upgletyleModel::getTrackbackUrl($textyle->domain,$document->document_srl)}" onclick="return false">{upgletyleModel::getTrackbackUrl($textyle->domain,$document->document_srl)}</a></dd>
+                                <dd><a href="{upgletyleModel::getTrackbackUrl($upgletyle->domain,$document->document_srl)}" onclick="return false">{upgletyleModel::getTrackbackUrl($upgletyle->domain,$document->document_srl)}</a></dd>
                             </dl>
                             <!--@end-->
                             <!--@if($document->getTrackbackCount())-->
@@ -63,7 +63,7 @@
 										</h4>
                                         <p class="date">{zdate($val->regdate, "Y.m.d")} <span class="hhmm">{zdate($val->regdate, "H:i")}</span></p>
                                     </div>
-                                    <div class="data textyleContent">
+                                    <div class="data upgletyleContent">
                                         <h4 class="trackbackTitle"><a href="{$val->url}">{htmlspecialchars($val->title)}</a></h4>
                                         <p>{$val->excerpt}</p>
                                     </div>
@@ -100,7 +100,7 @@
                                         <p class="date">{$comment->getRegdate('Y.m.d')} <span class="hhmm">{$comment->getRegdate('H:i')}</span></p>
                                         <p class="ipAddress">{$comment->getIpaddress()}</p>
                                     </div>
-                                    <div class="data textyleContent">
+                                    <div class="data upgletyleContent">
                                         <a name="comment_{$comment->comment_srl}"></a>
 										<!--@if($comment->isAccessible())-->
 										{$comment->getContent(false)}
@@ -136,10 +136,10 @@
                                          <ul class="reAction">
 										<!--@if($comment->isAccessible())-->
 
-                                            <!--@if($textyle->isEnableComment())--><li><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispTextyleCommentReply')}">{$lang->cmd_reply}</a></li><!--@end-->
+                                            <!--@if($upgletyle->isEnableComment())--><li><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispUpgletyleCommentReply')}">{$lang->cmd_reply}</a></li><!--@end-->
 											<!--@if($comment->member_srl)-->
 												<!--@if($comment->isGranted() || $comment->member_srl==$logged_info->member_srl)-->
-												<li><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispTextyleCommentModify')}">{$lang->cmd_modify}...</a></li>
+												<li><a href="{getUrl('','mid',$mid,'comment_srl',$comment->comment_srl,'document_srl',$document->document_srl,'act','dispUpgletyleCommentModify')}">{$lang->cmd_modify}...</a></li>
 												<li><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteCommentItem({$comment->comment_srl});">{$lang->cmd_delete}</button></li>
                                                 <!--@elseif($logged_info->is_site_admin)-->
 												<li><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteCommentItem({$comment->comment_srl});">{$lang->cmd_delete}</button></li>
@@ -176,7 +176,7 @@
 
                         <div class="replyForm">
                             <h3>Leave Comments</h3>
-                            <!--@if($textyle->isEnableComment())-->
+                            <!--@if($upgletyle->isEnableComment())-->
                             <fieldset>
                                 <form method="post" onsubmit="return insertCommentItem(this, insert_comment)" action="">
                                     <input name="mid" type="hidden" value="{$mid}" />
@@ -192,13 +192,13 @@
 											<input name="nick_name" type="text" class="iText name" value="Name" title="Name" />
 											<input name="password" type="password" class="iText pw" value="Password" title="Password" />
 										
-											<!--@if($textyle->getInputEmail()!='N')-->
+											<!--@if($upgletyle->getInputEmail()!='N')-->
 												<input type="hidden" name="msg_input_email_address" value="{$lang->msg_input_email_address}"/>
-												<input name="email_address" type="text" class="iText email<!--@if($textyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
+												<input name="email_address" type="text" class="iText email<!--@if($upgletyle->getInputEmail()=='R')--> request<!--@end-->" value="Email address" title="Email address" />
 											<!--@end-->
-											<!--@if($textyle->getInputWebsite()!='N')-->
+											<!--@if($upgletyle->getInputWebsite()!='N')-->
 												<input type="hidden" name="msg_input_homepage" value="{$lang->msg_input_homepage}"/>
-												<input name="homepage" type="text" class="iText url<!--@if($textyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
+												<input name="homepage" type="text" class="iText url<!--@if($upgletyle->getInputWebsite()=='R')--> request<!--@end-->" value="URL" title="URL" />
 											<!--@end-->
 											<!--@end-->
 											<input name="is_secret" id="secret1" type="checkbox" value="Y" class="inputCheck" />
