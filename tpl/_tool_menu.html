@@ -4,7 +4,16 @@
 				<div class="section" id="tool_navigation">
 					<h3>Navigation</h3>
 					<ul>
-					{@$i=0}
+                        <li style="background:none;background-color:#fbfbfb;padding:13px;overflow:hidden">
+                        <div style="float:left">
+                        <img src="./img/iconNoProfile.gif" style="width:50px; border-radius:5px" />
+                        </div>
+                        <div style="padding-left:60px">
+                            업글님
+                            <div>새글쓰기</div>
+                        </div>
+                        </li>
+					    {@$i=0}
                         <!--@foreach($lang->upgletyle_first_menus as $key => $val)-->
                             <!--@if(!in_array($val, $custom_menu->hidden_menu))-->
                             {@$_sub = $lang->upgletyle_second_menus[$key]}
