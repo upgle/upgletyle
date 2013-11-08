@@ -1,0 +1,35 @@
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/iconSet.gif");
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+}
+
+.icon-dashboard {
+  background-position: 0      0;
+}
+.icon-article {
+  background-position: 0      -20px;
+}
+.icon-comment {
+  background-position: 0      -38px;
+}
+.icon-chart {
+  background-position: 0      -59px;
+}
+.icon-metablog {
+  background-position: 0      -80px;
+}
+.icon-setting {
+  background-position: 0      -100px;
+}
+.icon-design {
+  background-position: 0      -121px;
+}

@@ -1,41 +1,130 @@
-<!--%import("js/tool_upgletyle.js")-->
+<!-- Remove XE admin bar -->
+{Context::set("admin_bar","false")}
 
-<!--%import("css/layout.css")-->
-<!--%import("css/layer.css")-->
-<!--%import("css/layout@upgletyleAdmin.css")-->
-<!--%import("css/button.css")-->
-<!--%import("css/calendar.css")-->
+<!-- Menu icon list -->
+{@$_menu_icon=array('icon-dashboard','icon-article','icon-comment','icon-chart','icon-metablog','icon-design','icon-setting')}
 
-<div id="upgletyleAdmin" class="upgletyleAdmin hybrid">
-	<div id="container" class="<!--@if($containerClassName)-->{$containerClassName}<!--@else-->ec<!--@end-->">
+<!-- Style sheet load -->
+<load target="css/bootstrap.css" />
+<load target="css/bootstrap-upgle.css" />
+<load target="css/default.css" />
+<load target="css/upgle-iconset.css" />
 
-		<!-- Header -->
-		<div id="header">
-			<a href="#content" class="skipToContent">Skip to content</a>
-			<h1><a href="http://blog.upgle.com" onclick="window.open(this.href);return false;"><img src="img/hUpgletyle.png" width="127" height="39" alt="upgletyle" /></a></h1>
-			<hr />
-			<div class="navigation">
-				<div class="section">
-					<h2>Navigation</h2>
-					<!--@if(Context::get('is_logged'))-->
-					<ul>
-						<li class="logout"><a href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
-					</ul>
-					<!--@end-->
-				</div>
-			</div>
+<!-- Javascript load -->
+<load target="js/tool_upgletyle.js" />
+<load target="js/jquery.cookie.js" />
+<load target="js/bootstrap.js" cond="__DEBUG__" />
+<load target="js/bootstrap.min.js" cond="!__DEBUG__" />
 
-			<!--div class="title">
-				<h2>{$upgletyle->getUpgletyleTitle()}</h2>
-				<span class="btnGray large"><a href="{getSiteUrl($upgletyle->domain)}">{$lang->cmd_go_blog}</a></span>
-				<div class="approach">
-					<span class="btnNewPost"><a href="{getUrl('','act','dispUpgletyleToolPostManageWrite')}">{$lang->cmd_new_post}</a></span>
-				</div>
-			</div-->
+<div class="navbar navbar-upgle navbar-static-top">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://blog.upgle.com"><img src="img/hUpgletyle.png" width="128" height="42" alt="Upgletyle"/></a>
+    </div>
 
-		</div>
-		<hr />
-		<!-- /Header -->
+    <div class="navbar-right" style="margin-top:6px;">
+        <div class="bts_btn-group">
+            <button type="button" class="bts_btn bts_btn-black bts_btn-sm dropdown-toggle" data-toggle="dropdown" >
+            무엇이든 업글하는곳! 업글닷컴 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+            <li><a href="#">무엇이든 업글하는곳! 업글닷컴</a></li>
+            </ul>
+        </div>
+        <div class="bts_btn-group">
+            <a href="{getUrl('','act','dispUpgletyleToolPostManageWrite')}" class="bts_btn bts_btn-black bts_btn-sm"><span class="glyphicon glyphicon-pencil"></span> {$lang->cmd_new_post}</a>
+            <a href="{getUrl('act','dispMemberLogout')}" class="bts_btn bts_btn-black bts_btn-sm"><span class="glyphicon glyphicon-log-out"></span> {$lang->cmd_logout}</a>
+        </div>
+    </div>
+    <!-- Start responsive menu -->
+    <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav accordion">
+        {@$i=0}
+        <block loop="$lang->upgletyle_first_menus => $key, $val" cond="!in_array($val, $custom_menu->hidden_menu)">
+        {@ 
+            unset($_sel);
+            $_sub = $lang->upgletyle_second_menus[$key];
+            $_attached = $custom_menu->attached_menu[$key];
+            if($act==$val[0]||in_array($act,array_keys($_sub))) $_sel = "active";
+        }
+        <li class="{$_sel}"|cond="count($_sub) && $_sel" class="{$_sel} nochild"|cond="!count($_sub) && $_sel">
+            <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" href="#"|cond="!$val[0]"><i class="{$_menu_icon[$i++]}"></i> {$val[1]}</a>
+            <!--submenu-->
+            <ul cond="count($_sub) || count($_attached)">
+                <li loop="$_sub => $k, $v" class="active"|cond="$k==$act" cond="!in_array(strtolower($k), $custom_menu->hidden_menu) && $k != 'dispUpgletyleToolConfigEditorComponents'">
+                    <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$k)}">{$v}</a>
+                </li>
+                <li loop="$_attached => $k, $v" class="active"|cond="$k==$act">
+                    <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$k)}">{$v}</a>
+                </li>
+            </ul>
+            <!--/submenu-->
+        </li>
+        </block>
 
-		<!-- Body -->
-		<div id="body">
+
+        <li class="upgle-issue"><a href="https://github.com/upgle/upgletyle/issues" target="_blank"><!--오류신고-->{$lang->upgletyle_bug_report}</a></li>
+    </ul>
+    </div>
+    <!-- /End responsive menu -->
+</div>
+
+<script type="text/javascript">
+jQuery(function($) {
+    var cookieList = function(cookieName) {
+        var cookie = $.cookie(cookieName);
+        var items = cookie ? cookie.split(/,/) : new Array();
+
+        return {    
+            "push": function(val) {  
+                    for (var i=items.length-1; i>=0; i--) {
+                        if (items[i] == val) return false;
+                    }
+                    items.push(val);
+                    $.cookie(cookieName, items.join(','));
+             },
+            "remove": function(val) {  
+                    for (var i=items.length-1; i>=0; i--) {
+                        if (items[i] == val) items.splice(i, 1);
+                    }
+                    $.removeCookie(cookieName);
+                    $.cookie(cookieName, items.join(','));
+             },
+            "clear": function() {        
+                    items = null;
+                    //$.cookie(cookieName, null);
+                    $.removeCookie(cookieName);
+            },
+            "items": function() {
+                    return items;
+            }
+        }
+    }
+
+    //Accordion menu
+    var cookieIndex = new cookieList("upgle-active-menu");
+    $.each(cookieIndex.items(), function() {
+      $('.accordion > li > a:eq('+this+')').next().show();
+      $('.accordion > li > a:eq('+this+')').parent().addClass('clicked');
+    });
+    $(".accordion > li > a").click(function(){
+        var navIndex = $('.accordion > li > a').index(this);
+        if ($(this).parent().hasClass('active') || $(this).parent().hasClass('nochild')) return false;
+
+        $(this).next().slideToggle(160);
+        if (!$(this).parent().hasClass('clicked')) {
+            $(this).parent().addClass('clicked');
+            cookieIndex.push(navIndex);
+        }
+        else {
+            $(this).parent().removeClass('clicked');
+            cookieIndex.remove(navIndex);
+        }
+    });
+});
+</script>
+

@@ -1,0 +1,45 @@
+body {
+  font-family: Tahoma, Sans-serif;
+  font-size: 12px;
+}
+.accordion li > .sub-menu {
+    display: none;
+}
+ 
+.accordion li:target > .sub-menu {
+    display: block;
+}
+
+
+.easypiechart {
+  position: relative;
+  display: inline-block;
+  width:90px; height: 90px;
+  text-align: center;
+  margin-left:6px
+}
+.easypiechart canvas {
+  position: absolute;
+  top: 0; left: 0;
+}
+.easypiechart .title {
+  position: absolute;
+  width:90px; text-align:center;
+  top: 30px;  left: 0;
+  color:#373c45;
+  font-weight:bold;
+  display: inline-block;
+  z-index: 2;
+}
+.easypiechart .percent {
+  position: absolute;
+  color:#373c45;
+  display: inline-block;
+  width:90px; text-align:center;
+  top: 44px;  left: 0;
+  z-index: 2;
+}
+.easypiechart .percent:after {
+  content: 'MB';
+  margin-left: 0.1em;
+}
