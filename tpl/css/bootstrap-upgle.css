@@ -5,6 +5,72 @@
  *
  * Designed and built with all the love in the world by @mdo and @fat.
  */
+.navbar-static-top {
+	z-index:99;
+}
+
+.form-group {
+	margin-bottom:10px;
+}
+.pull-right.search {
+	float:left !important;
+}
+
+.bookmarklet {
+	padding:0 15px;
+	border:1px solid #c2c4c6;
+	height:148px;
+	background:url(../img/bgBookmarklet.gif);
+}
+.bookmarklet h3 {
+	font-size:13px;
+	font-weight:bold;
+	color:#5c6379;
+}
+.bookmarklet .info {
+	color:#6B7080;
+}
+.bookmarkletHelp {
+	border:1px solid #efefef;
+	background-color:#f9f9f9;
+}
+.bookmarkletHelp h3 {
+	font-weight:bold;
+	font-size:12px;
+	color:#868d95;
+	margin:0;
+	padding:10px 0 10px 20px;
+}
+.bookmarkletHelp ul {
+	border-top:1px solid #efefef;
+	padding:15px 0 0 0;
+}
+.bookmarkletHelp li {
+	margin:0 20px;
+	padding:0 0 0 20px;
+	margin-bottom:10px;
+	list-style:none;
+	color:#868d95;
+}
+.bookmarkletHelp li.item1{background:url(../img/bgBookmarkletOrder1.gif) no-repeat 0 4px}
+.bookmarkletHelp li.item2{background:url(../img/bgBookmarkletOrder2.gif) no-repeat 0 4px}
+.bookmarkletHelp li.item3{background:url(../img/bgBookmarkletOrder3.gif) no-repeat 0 4px}
+.bookmarkletHelp li.item4{background:url(../img/bgBookmarkletOrder4.gif) no-repeat 0 4px}
+
+.bookmarkletInstall:first-child .page-header h5{
+	margin-top:20px;
+}
+.bookmarkletInstall .page-header h5 {
+	margin-top:40px;
+	margin-bottom:5px;
+	padding-left:23px;
+	background:url(../img/iconH5.gif) 5px 3px no-repeat;
+
+}
+
+
+fieldset legend {display:none;}
+
 .row {
   margin-right: -13px;
   margin-left: -13px;
@@ -73,6 +139,72 @@ fieldset[disabled] .bts_btn-black.active {
   border-color: #357ebd;
 }
 
+/* nav */
+.nav.nav-pills.nav-upgle {
+	background-color:#f9f9f9;
+	border:1px solid #edeff1;
+	border-bottom:#f7f7f7;
+}
+.nav.nav-pills.nav-upgle:after {
+	content:"";
+	display:block;clear:both;
+	height:1px;background:#e2e2e3
+}
+.nav.nav-pills.nav-upgle > li > a:first-child {
+	margin-left:6px;
+}
+.nav.nav-pills.nav-upgle > li > a {
+	padding: 10px 14px;
+	color:#8b8b8b;
+}
+.nav.nav-pills.nav-upgle > li > a:hover {
+	text-decoration:underline;
+	background:none;
+}
+
+.nav.nav-pills.nav-upgle > li.active > a,
+.nav.nav-pills.nav-upgle > li.active > a:hover,
+.nav.nav-pills.nav-upgle > li.active > a:focus {
+	font-weight:bold;
+	color: #555566;
+	background: none;
+}
+.nav.nav-pills.nav-upgle .line{
+	position: absolute;
+	top: 13px;
+	left: -1px;
+	border-left: 1px solid #dee3ea;
+	height: 10px;
+}
+
+
+/* table */
+.table.table-upgle {
+	border-top:2px solid #cbd4df;
+	border-bottom:2px solid #cbd4df;
+}
+.table.table-upgle > thead > tr > th {
+	border-bottom:1px solid #e3e5e7;
+}
+.table .title {
+	font-weight:bold;
+}
+.table-condensed > thead > tr > th, 
+.table-condensed > tbody > tr > th, 
+.table-condensed > tfoot > tr > th, 
+.table-condensed > thead > tr > td, 
+.table-condensed > tbody > tr > td, 
+.table-condensed > tfoot > tr > td {
+	padding:6px;
+}
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > td {
+	vertical-align: middle;
+}
 
 /* label */
 .label {
@@ -82,6 +214,10 @@ fieldset[disabled] .bts_btn-black.active {
 }
 .label-published {
 	background-color:#ea4630;
+}
+.label-saved {
+	background-color:#e8e8e8;
+	color:#393939 !important;
 }
 
 /* media */
@@ -198,6 +334,28 @@ fieldset[disabled] .bts_btn-black.active {
     background:url(../img/vrLnb.gif) -8px 0 #fefefe repeat-y;
   }
 
+
+/* input */
+.input-xs {
+  height: 22px;
+  padding: 0px 0px 0px 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 0px;
+}
+select.input-xs {
+  height: 22px;
+  line-height: 22px;
+}
+textarea.input-xs {
+  height: auto;
+}
+
+  .pull-right.search {
+    float:right !important;
+  }
+
+
   .navbar-collapse.in {overflow-y:initial}
 
   /* 언어 설정은 PC모드에서만 출력 */
@@ -256,6 +414,12 @@ fieldset[disabled] .bts_btn-black.active {
 	margin-bottom:4px;
   }
 
+  .navbar-upgle .navbar-collapse .navbar-nav ul > li.active a {
+	color: #ea3f22 !important;
+	font-weight:bold;
+  }
+
+
   .navbar-upgle .navbar-collapse .navbar-nav > .active ul {
 	background:none;
 	background-color:#fefefe;
@@ -282,6 +446,11 @@ fieldset[disabled] .bts_btn-black.active {
     border-bottom:1px solid #e2e2e2;
   }
   .navbar-upgle .navbar-collapse .navbar-nav > .nochild > a {
+	background:none !important;
+	border-bottom:0;
+  }
+  .navbar-upgle .navbar-collapse .navbar-nav > .nochild > a:hover,
+  .navbar-upgle .navbar-collapse .navbar-nav > .nochild > a:focus {
 	background:none !important;
 	border-bottom:0;
   }

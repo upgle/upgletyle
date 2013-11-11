@@ -51,7 +51,7 @@
             $_attached = $custom_menu->attached_menu[$key];
             if($act==$val[0]||in_array($act,array_keys($_sub))) $_sel = "active";
         }
-        <li class="{$_sel}"|cond="count($_sub) && $_sel" class="{$_sel} nochild"|cond="!count($_sub) && $_sel">
+        <li class="{$_sel}"|cond="count($_sub)" class="nochild {$_sel}"|cond="!count($_sub)">
             <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" href="#"|cond="!$val[0]"><i class="{$_menu_icon[$i++]}"></i> {$val[1]}</a>
             <!--submenu-->
             <ul cond="count($_sub) || count($_attached)">
@@ -67,7 +67,7 @@
         </block>
 
 
-        <li class="upgle-issue"><a href="https://github.com/upgle/upgletyle/issues" target="_blank"><!--오류신고-->{$lang->upgletyle_bug_report}</a></li>
+        <li class="upgle-issue nochild"><a href="https://github.com/upgle/upgletyle/issues" target="_blank"><!--오류신고-->{$lang->upgletyle_bug_report}</a></li>
     </ul>
     </div>
     <!-- /End responsive menu -->
@@ -113,7 +113,7 @@ jQuery(function($) {
     });
     $(".accordion > li > a").click(function(){
         var navIndex = $('.accordion > li > a').index(this);
-        if ($(this).parent().hasClass('active') || $(this).parent().hasClass('nochild')) return false;
+        if ($(this).parent().hasClass('active') || $(this).parent().hasClass('nochild')) return true;
 
         $(this).next().slideToggle(160);
         if (!$(this).parent().hasClass('clicked')) {

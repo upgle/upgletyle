@@ -1121,8 +1121,8 @@ function doRemoveApi(api_srl) {
 }
 
 function appendTrackbackForm() {
-    var o = jQuery(jQuery('div.item').get(0)).clone();
-    var l = jQuery('div.item').length;
+    var o = jQuery(jQuery('li.item').get(0)).clone();
+    var l = jQuery('li.item').length;
     o.find('input[name=trackback_url]').val('');
     o.find('select[name=trackback_charset]');
     o.html(o.html().replace(/trackback_(url|charset)/g, 'trackback_$1'+l));
@@ -1267,8 +1267,8 @@ $(function(){
 	submitButtons = $('#wPublishButtonContainer button');
 
 	submitButtons.click(function(){
-		inputPublish.val( $(this).parent().hasClass('_publish')?'Y':'N' );
-		inputPreview.val( $(this).parent().hasClass('_preview')?'Y':'N' );
+		inputPublish.val( $(this).hasClass('_publish')?'Y':'N' );
+		inputPreview.val( $(this).hasClass('_preview')?'Y':'N' );
 		$('input:text,textarea', this.form).each(function(){
 			var t = $(this);
 			var v = $.trim(t.val());
