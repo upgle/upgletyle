@@ -5,6 +5,42 @@
  *
  * Designed and built with all the love in the world by @mdo and @fat.
  */
+
+
+/* text-align */
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* form-config */
+.form-config .page-header h5 { 
+	font-weight:bold;
+}
+.form-config label {
+	font-weight:normal;
+}
+.form-config .form-control-static {
+}
+.form-config .form-control-static.unit {
+	margin-left:7px;
+}
+
+/* toggle-off toggle-on */
+.toggle-off {
+	color:#e8e8e8;
+}
+.toggle-on {
+	color:#e33a23;
+}
+
 .navbar-static-top {
 	z-index:99;
 }
@@ -65,8 +101,15 @@
 	margin-bottom:5px;
 	padding-left:23px;
 	background:url(../img/iconH5.gif) 5px 3px no-repeat;
-
 }
+
+.page-header.page-header-icon h5 {
+	margin-top:40px;
+	margin-bottom:5px;
+	padding-left:23px;
+	background:url(../img/iconH5.gif) 5px 3px no-repeat;
+}
+
 
 
 fieldset legend {display:none;}
@@ -218,6 +261,9 @@ fieldset[disabled] .bts_btn-black.active {
 .label-saved {
 	background-color:#e8e8e8;
 	color:#393939 !important;
+}
+.label-secret {
+	background-color:#8f89bf;
 }
 
 /* media */

@@ -133,17 +133,25 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 
                     <li class="list-group-item">
 
-
+                        <label class="radio-inline">
                         <input name="subscription" type="radio" value="N" class="inputRadio subscription" id="publishNow" <!--@if($subscription!='Y')-->checked="checked"<!--@end--> />
-                        <label for="publishNow">{$lang->publish_now}</label>
+                        {$lang->publish_now}</label>
+
+                        <label class="radio-inline">
                         <input name="subscription" type="radio" value="Y" class="inputRadio subscription" id="publishBooking" <!--@if($subscription=='Y')-->checked="checked"<!--@end-->/>
-                        <label for="publishBooking">{$lang->publish_reserve}</label>
-                        <div class="bookingLayer<!--@if($subscription=='Y')--> open<!--@end-->">
-                            <input name="publish_date_yyyymmdd" type="text" class="disabled_subscription_n iText yymmdd inputDate" value="{$publish_date_yyyymmdd}" maxlength="10"  title="{$lang->ymd}" disabled="disabled" id="publishDate" />
-                            <div class="calendar">
-                                <div id="calendar-holder"></div>
-                                <button type="button" class="btnCalendar"><span>{$lang->calendar}</span></button>
-                            </div>
+                        {$lang->publish_reserve}</label>
+                    </li>
+                    <li class="list-group-item">
+
+                        <div class="bookingLayer<!--@if($subscription=='Y')--> open<!--@end--> input-group calendar">
+                            <span class="input-group-btn">
+                            <button class="bts_btn bts_btn-default bts_btn-sm btnCalendar" type="button">{$lang->calendar}</button>
+                            </span>
+                            <input name="publish_date_yyyymmdd" type="text" class="form-control input-sm" value="{$publish_date_yyyymmdd}" maxlength="10"  title="{$lang->ymd}" disabled="disabled" id="publishDate" />
+                            <div id="calendar-holder"></div>
+
+                        </div>
+                        <div>
                             <input name="publish_date_hh" value="{$publish_date_hh}" type="text" class="disabled_subscription_n iText hh" maxlength="2" title="{$lang->unit_hour}" disabled="disabled" />
                             :
                             <input name="publish_date_ii" value="{$publish_date_ii}" type="text" class="disabled_subscription_n iText mm" maxlength="2" title="{$lang->unit_min}" disabled="disabled" />
@@ -154,7 +162,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 
 
                 <div class="panel-footer clearfix">
-                    <div class="pull-right">
+                    <div id="wPublishButtonContainer" class="pull-right">
                         <div class="bts_btn-group">
                         <button type="submit" class="bts_btn bts_btn-info bts_btn-sm normal">저장</button>
                         <button type="submit" class="bts_btn bts_btn-info bts_btn-sm _preview">미리보기</button>
@@ -182,7 +190,7 @@ setInterval('isLive()', 30000);
 		{@ $_s = array_pop($lang->unit_week)}
 		$('#calendar-holder').calendar({
 			type : '{$type}',
-			button : '#calendar-holder+button.btnCalendar',
+			button : 'button.btnCalendar',
 			activeDate : "{zdate($selected_date,'Y/m/d')}",
 			select : function(year, month, date) {
 				var str = year+'.'+(month>9?'':'0')+month+'.'+(date>9?'':'0')+date;

@@ -98,12 +98,12 @@
                         <td>
                             <!--@if($post->type=='temp')-->
                                 <a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" title="{$lang->click_publish}" alt="{$lang->click_publish}"><strong class="publishState draft"><span>{$lang->temp}</span></strong></a>
+                            <!--@else if($post->isSecret())-->
+                                <span class="label label-secret">{$lang->secret}</span>
                             <!--@else if($post->type=='reserve')-->
                                 <strong class="publishState reserve"><span>{$lang->reserve}</span></strong>
                             <!--@else if($post->type=='save')-->
                                 <span class="label label-saved">{$lang->saved}</span>
-                            <!--@else if($post->isSecret())-->
-                                <strong class="publishState secret"><span>{$lang->secret}</span></strong>
                             <!--@else-->
                                 <span class="label label-published">{$lang->publish}</span>
                             <!--@end-->
@@ -115,12 +115,10 @@
                         <td>{zdate($post->get('last_update'),'Y.m.d')}</td>
                         <td width="150">
 
-                            <div>
-
                             <div class="bts_btn-group">
-                            <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'comment')" class="bts_btn bts_btn-default bts_btn-xs"><span class="glyphicon glyphicon-comment"></span></button>
-                            <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'trackback')" class="bts_btn bts_btn-default bts_btn-xs"><span class="glyphicon glyphicon-link"></span></button>
-                            <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'secret')" class="bts_btn bts_btn-default bts_btn-xs"><span class="glyphicon glyphicon-lock"></span></button>
+                            <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'comment')" class="bts_btn bts_btn-default bts_btn-xs toggle-{$offon[$post->allowComment()]}"><span class="glyphicon glyphicon-comment"></span></button>
+                            <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'trackback')" class="bts_btn bts_btn-default bts_btn-xs toggle-{$offon[$post->allowTrackback()]}"><span class="glyphicon glyphicon-link"></span></button>
+                            <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'secret')" class="bts_btn bts_btn-default bts_btn-xs toggle-{$offon[$post->isSecret()]}"><span class="glyphicon glyphicon-lock"></span></button>
                             </div>
 
                             <!--@if($post->type=='save' || $post->type=='temp')-->
@@ -128,9 +126,6 @@
                             <!--@else-->
                             <a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" class="bts_btn bts_btn-default bts_btn-xs">{$lang->publish_update_go}</a>
                             <!--@end-->
-
-                            </div>
-
 
                         </td>
                         <td width="50">

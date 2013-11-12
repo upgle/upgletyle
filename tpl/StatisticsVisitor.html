@@ -7,12 +7,14 @@
 <!--#include("_tool_header.html")-->
 <!--%load_js_plugin("ui.calendar")-->
 			<!-- Content -->
-			<div id="content">
+
+<div class="upgle-container">
 				
-				<!-- contentHeader -->
-				<div class="contentHeader uvHeader">
-					<h3 class="h3">{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']}</h3>
-				</div>
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+    </div>
+
+
 				<!-- /contentHeader -->
 				
 				<!-- contentNavigation -->
@@ -132,13 +134,7 @@
 		</table>
 		<!-- /Table Data -->
 		
-	</div>
-	<hr />
-	<!-- /Content -->
-	<!-- Extension -->
-	<!--#include("_tool_menu.html")-->
-	<!-- Extension -->
-<!--#include("_tool_footer.html")-->
+</div>
 <script>
 xe.lang.today = '{$lang->today}';
 xe.lang.yesterday = '{$lang->yesterday}';

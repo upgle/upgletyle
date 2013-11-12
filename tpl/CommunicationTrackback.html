@@ -1,37 +1,35 @@
 <!--#include("_tool_header.html")-->
 <!--%import("css/pagination.css",optimized=false)-->
 	
-			<!-- Content -->
-			<div id="content">
+<!-- Content -->
+<div class="upgle-container">
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[2]['dispUpgletyleToolCommunicationTrackback']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+    </div>
+
 				
-				<!-- contentHeader -->
-				<div class="contentHeader trackbackHeader lineBottom">
-					<h3 class="h3">{$lang->upgletyle_second_menus[2]['dispUpgletyleToolCommunicationTrackback']}</h3>
-				</div>
-				<!-- /contentHeader -->
-				
-				<!-- listHeader -->
-				<div class="listHeader">
-					<p class="info"> <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end--></p>
-					<fieldset class="search">
-						<legend>{$lang->cmd_search}</legend>
-						<form action="{Context::getRequestUri()}">
-							<input type="hidden" name="act" value="{$act}" />
-							<input type="hidden" name="vid" value="{$vid}" />
-							<input type="hidden" name="mid" value="{$mid}" />
-							<input type="hidden" name="search_target" value="excerpt" />
-							<input name="search_keyword" type="text" title="{$lang->cmd_search}" value="{$search_keyword}" class="iText" />
-							<span class="btnGray medium"><input type="submit" value="{$lang->cmd_search}" /></span>
-						</form>
-					</fieldset>
-				</div>
-				<!-- /listHeader -->
+    <!-- listHeader -->
+    <div class="listHeader">
+        <p class="info"> <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end--></p>
+        <fieldset class="search">
+            <legend>{$lang->cmd_search}</legend>
+            <form action="{Context::getRequestUri()}">
+                <input type="hidden" name="act" value="{$act}" />
+                <input type="hidden" name="vid" value="{$vid}" />
+                <input type="hidden" name="mid" value="{$mid}" />
+                <input type="hidden" name="search_target" value="excerpt" />
+                <input name="search_keyword" type="text" title="{$lang->cmd_search}" value="{$search_keyword}" class="iText" />
+                <span class="btnGray medium"><input type="submit" value="{$lang->cmd_search}" /></span>
+            </form>
+        </fieldset>
+    </div>
+    <!-- /listHeader -->
 				
 				<!-- Table Data -->
 				<fieldset>
 					<legend>{$lang->manage_trackback}</legend>
 					<form action="" method="post">
-						<table border="1" cellspacing="0" summary="{$lang->document_list}" class="tableData">
+						<table summary="{$lang->document_list}" class="table table-hover table-upgle table-condensed">
 							<thead>
 								<tr>
 									<th scope="col">
@@ -106,13 +104,8 @@
 				</fieldset>
 				<!-- /Table Data -->
 				
-			</div>
-			<hr />
-			<!-- /Content -->
+</div>
+<!-- /Content -->
 						
-			<!-- Extension -->
-				<!--#include("_tool_menu.html")-->
-			<!-- Extension -->
 
 <!--#include("_layerAddDeny.html")-->
-<!--#include("_tool_footer.html")-->

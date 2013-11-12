@@ -1,225 +1,256 @@
 <!--#include("_tool_header.html")-->
     <!--%import("./filter/insert_config_communication.xml")-->
 
-			<!-- Content -->
-			<div id="content">
+<!-- Content -->
+<div class="upgle-container">
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[6]['dispUpgletyleToolConfigCommunication']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+    </div>
+
 				
-				<!-- contentHeader -->
-				<div class="contentHeader publishHeader lineBottom">
-					<h3 class="h3">{$lang->upgletyle_second_menus[6]['dispUpgletyleToolConfigCommunication']}</h3>
-				</div>
-				<!-- /contentHeader -->
+    <div class="setUp">
+        <form action="./" method="post" onsubmit="return procFilter(this,insert_config_communication)" class="form-horizontal form-config">
+        <input type="hidden" name="mid" value="{$mid}" />
+        
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->blog_first_page}</h5>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->blog_display_target}</label>
+                    <div class="col-sm-8">
+                        <label for="lastPost" class="radio-inline">
+                        <input name="post_style" type="radio" value="content" class="inputRadio" id="lastPost" <!--@if($upgletyle->getPostStyle()=='content')--> checked="checked"<!--@end--> />{$lang->content_body}</label>
+                        <label for="lastSummary" class="radio-inline">
+                        <input name="post_style" type="radio" value="summary" class="inputRadio" id="lastSummary" <!--@if($upgletyle->getPostStyle()=='summary')--> checked="checked"<!--@end--> /> {$lang->content_summary}</label>
+                        <label for="lastList" class="radio-inline">
+                        <input name="post_style" type="radio" value="list" class="inputRadio" id="lastList" <!--@if($upgletyle->getPostStyle()=='list')--> checked="checked"<!--@end--> /> {$lang->content_list}</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->blog_display_count}</label>
+                    <div class="col-sm-8">
+                        <input name="post_list_count" type="text" class="form-control input-sm pull-left text-center" id="num" maxlength="2" style="width:40px" value="{$upgletyle->getPostListCount()}" />
+                        <p class="form-control-static pull-left unit">{$lang->item_unit}</p>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>검색 및 카테고리 페이지</h5>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->blog_display_count}</label>
+                    <div class="col-sm-8">
+                        <input name="category_list_count" type="text" class="form-control input-sm pull-left text-center" id="num" maxlength="2" style="width:40px" value="{$upgletyle->getCategoryListCount()}" />
+                        <p class="form-control-static pull-left unit">{$lang->item_unit}</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->send_me2} <small>{$lang->about_send_me2}</small></h5>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->me2day_userid}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-7">
+                        <input name="me2day_userid" type="text" class="form-control input-sm" id="me2userid" value="{$upgletyle->getMe2dayUserID()}" />
+                        </div></div>
+                        <span class="help-block">{$lang->about_me2day_userid}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->me2day_userkey}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-7">
+                        <input name="me2day_userkey" type="text" class="form-control input-sm" id="me2userkey" value="{$upgletyle->getMe2dayUserKey()}" />
+                        </div></div>
+                        <span class="help-block">{$lang->about_me2day_userkey}</span>
+                    </div>
+                </div>
+                <button type="button" onclick="doCheckMe2day(); return false;" class="bts_btn bts_btn-info bts_btn-sm pull-right">{$lang->check_me2day_info}</button>
+            </fieldset>
+            
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->send_twitter} <small>{$lang->about_send_twitter}</small></h5>
+                </div>
+
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->twitter_consumer_key}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-7">
+                        <input name="twitter_consumer_key" type="text" class="form-control input-sm" id="twitterconsumerkey" value="{$upgletyle->getTwitterConsumerKey()}"/>
+                        </div></div>
+                        <span class="help-block">{$lang->about_twitter_consumer_key}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->twitter_consumer_secret}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-7">
+                        <input name="twitter_consumer_secret" type="text" class="form-control input-sm" id="twitterconsumersecret" value="{$upgletyle->getTwitterConsumerSecret()}" />
+                        </div></div>
+                        <span class="help-block">{$lang->about_twitter_consumer_secret}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->twitter_oauth_token}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-7">
+                        <input name="twitter_oauth_token" type="text" class="form-control input-sm" id="twitteroauthtoken" value="{$upgletyle->getTwitterOauthToken()}" />
+                        </div></div>
+                        <span class="help-block">{$lang->about_twitter_oauth_token}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="postNum" class="col-sm-3 control-label">{$lang->twitter_oauth_token_secret}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-7">
+                        <input name="twitter_oauth_token_secret" type="text" class="form-control input-sm" id="twitteroauthtokensecret" value="{$upgletyle->getTwitterOauthTokenSecret()}" />
+                        </div></div>
+                        <span class="help-block">{$lang->about_twitter_oauth_token_secret}</span>
+                    </div>
+                </div>
+                <button type="button" onclick="doCheckTwitter(); return false;" class="bts_btn bts_btn-info bts_btn-sm pull-right">{$lang->check_twitter_info}</button>
+            </fieldset>
+            
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>RSS</h5>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->feed_format}</label>
+                    <div class="col-sm-8">
+                        <label for="postEntire" class="radio-inline">
+                        <input name="rss_type" type="radio" class="inputRadio" value="Y" id="postEntire" <!--@if($rss_config->open_rss=='Y')-->checked="checked"<!--@end--> /> {$lang->rss_total}</label>
+                        <label for="postSummary" class="radio-inline">
+                        <input name="rss_type" type="radio" class="inputRadio" value="H" id="postSummary" <!--@if($rss_config->open_rss=='H')-->checked="checked"<!--@end--> /> {$lang->rss_summary}</label>
+                    </div>
+                </div>
+            </fieldset>
+        
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->visitor_editor_style}</h5>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->email_address}</label>
+                    <div class="col-sm-8">
+                        <label for="emailReauired" class="radio-inline">
+                        <input name="input_email" type="radio" value="R" class="inputRadio" id="emailReauired"<!--@if($upgletyle->getInputEmail()=='R')--> checked="checked"<!--@end--> /> {$lang->required}</label>
+                        <label for="emailOptional" class="radio-inline">
+                        <input name="input_email" type="radio" value="Y" class="inputRadio" id="emailOptional" <!--@if($upgletyle->getInputEmail()=='Y')--> checked="checked"<!--@end--> /> {$lang->selected}</label>
+                        <label for="emailNot" class="radio-inline">
+                        <input name="input_email" type="radio" value="N" class="inputRadio" id="emailNot" <!--@if($upgletyle->getInputEmail()=='N')--> checked="checked"<!--@end--> /> {$lang->notaccepted}</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->website_address}</label>
+                    <div class="col-sm-8">
+                        <label for="wwwReauired" class="radio-inline">
+                        <input name="input_website" type="radio" value="R" class="inputRadio" id="wwwReauired" <!--@if($upgletyle->getInputWebsite()=='R')--> checked="checked"<!--@end--> /> {$lang->required}</label>
+                        <label for="wwwOptional" class="radio-inline">
+                        <input name="input_website" type="radio" value="Y" class="inputRadio" id="wwwOptional"  <!--@if($upgletyle->getInputWebsite()=='Y')--> checked="checked" <!--@end-->/> {$lang->selected}</label>
+                        <label for="wwwNot" class="radio-inline">
+                        <input name="input_website" type="radio" value="N" class="inputRadio" id="wwwNot" <!--@if($upgletyle->getInputWebsite()=='N')--> checked="checked"<!--@end-->/> {$lang->notaccepted}</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->comment_editor}</label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-5">
+                            <select name="comment_editor_skin" onchange="getEditorSkinColorList(this.value, null, 'comment')" class="form-control input-sm">
+                            <!--@foreach($editor_skin_list as $editor)-->
+                            <!--@if($editor!='dreditor')-->
+                            <option value="{$editor}" <!--@if($editor==$upgletyle->get('comment_editor_skin'))-->selected="selected"<!--@end-->>{$editor}</option>
+                            <!--@end-->
+                            <!--@end-->
+                            </select> 
+                            </div>
+                            <div class="col-sm-6">
+                            <select name="comment_editor_colorset" id="sel_editor_comment_colorset" style="display:none; margin-left:-15px;"  class="form-control input-sm"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->guestbook_editor}</label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-5">
+                            <select name="guestbook_editor_skin" onchange="getEditorSkinColorList(this.value, null, 'guestbook')" class="form-control input-sm">
+                            <!--@foreach($editor_skin_list as $editor)-->
+                            <!--@if($editor!='dreditor')-->
+                            <option value="{$editor}" <!--@if($editor==$upgletyle->get('guestbook_editor_skin'))-->selected="selected"<!--@end-->>{$editor}</option>
+                            <!--@end-->
+                            <!--@end-->
+                            </select>
+                            </div>
+                            <div class="col-sm-6">
+                            <select name="guestbook_editor_colorset" id="sel_editor_guestbook_colorset" style="display:none; margin-left:-15px;" class="form-control input-sm"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->comment_list_count}</label>
+                    <div class="col-sm-7">
+                        <input name="comment_list_count" type="text" class="form-control input-sm text-center pull-left" id="replyNum" maxlength="2" style="width:40px;" value="{$upgletyle->getCommentListCount()}" />
+                        <p class="form-control-static pull-left unit">{$lang->item_unit}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->guestbook_list_count}</label>
+                    <div class="col-sm-7">
+                        <input name="guestbook_list_count" type="text" class="form-control input-sm text-center pull-left" id="sayHello" maxlength="2" style="width:40px; text-align:center" value="{$upgletyle->getGuestbookListCount()}" />
+                        <p class="form-control-static pull-left unit">{$lang->item_unit}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->comment_grant}</label>
+                    <div class="col-sm-7">
+                        <div class="row"><div class="col-sm-4">
+                        <select name="comment_grant" id="commentGrant" class="form-control input-sm">
+                            <option value="">{$lang->grant_to_all}</option>
+                            <option value="1" <!--@if($upgletyle->getCommentGrant()==1)-->selected="selected"<!--@end-->>{$lang->grant_to_member}</option>
+                        </select>
+                        </div></div>
+                        <span class="help-block">{$lang->about_comment_grant}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label">{$lang->guestbook_grant}</label>
+                    <div class="col-sm-7">
+                        <div class="row"><div class="col-sm-4">
+                        <select name="guestbook_grant" id="guestbookGrant" class="form-control input-sm">
+                            <option value="">{$lang->grant_to_all}</option>
+                            <option value="1" <!--@if($upgletyle->getGuestbookGrant()==1)-->selected="selected"<!--@end-->>{$lang->grant_to_member}</option>
+                        </select>
+                        </div></div>
+                        <span class="help-block">{$lang->about_guestbook_grant}</span>
+                    </div>
+                </div>
+
+                <script>
+                    jQuery(window).load(function() { 
+                        getEditorSkinColorList('{$upgletyle->get('comment_editor_skin')}','{$upgletyle->get('comment_editor_colorset')}','comment'); 
+                        getEditorSkinColorList('{$upgletyle->get('guestbook_editor_skin')}','{$upgletyle->get('guestbook_editor_colorset')}','guestbook'); 
+                    } );
+                </script>
+            </fieldset>
+
+            <input type="submit" value="{$lang->cmd_apply}" class="bts_btn bts_btn-primary pull-right" />
+
+
+        </form>
+    </div>
+
+</div>
+<!-- /Content -->
 				
-				<div class="setUp">
-					<form action="./" method="post" onsubmit="return procFilter(this,insert_config_communication)">
-					<input type="hidden" name="mid" value="{$mid}" />
-					
-						<fieldset>
-							<h4 class="h4">{$lang->blog_first_page}</h4>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row">{$lang->blog_display_target}</th>
-									<td>
-										<input name="post_style" type="radio" value="content" class="inputRadio" id="lastPost" <!--@if($upgletyle->getPostStyle()=='content')--> checked="checked"<!--@end--> /> <label for="lastPost">{$lang->content_body}</label>
-										<input name="post_style" type="radio" value="summary" class="inputRadio" id="lastSummary" <!--@if($upgletyle->getPostStyle()=='summary')--> checked="checked"<!--@end--> /> <label for="lastSummary">{$lang->content_summary}</label>
-										<input name="post_style" type="radio" value="list" class="inputRadio" id="lastList" <!--@if($upgletyle->getPostStyle()=='list')--> checked="checked"<!--@end--> /> <label for="lastList">{$lang->content_list}</label>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="postNum">{$lang->blog_display_count}</label></th>
-									<td><input name="post_list_count" type="text" class="iText" id="num" maxlength="2" style="width:40px; text-align:center" value="{$upgletyle->getPostListCount()}" /> {$lang->item_unit}</td>
-								</tr>
-							</table>
-						</fieldset>
-
-						<fieldset>
-							<h4 class="h4">검색 및 카테고리 페이지</h4>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row"><label for="postNum">{$lang->blog_display_count}</label></th>
-									<td><input name="category_list_count" type="text" class="iText" id="num" maxlength="2" style="width:40px; text-align:center" value="{$upgletyle->getCategoryListCount()}" /> {$lang->item_unit}</td>
-								</tr>
-							</table>
-						</fieldset>
-
-						<fieldset>
-							<h4 class="h4">{$lang->send_me2}</h4>
-							<p><label for="enableMe2day">{$lang->about_send_me2}</label></p>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row" rowspan="2"><label for="me2userid">{$lang->me2day_userid}</label></th>
-									<td><input name="me2day_userid" type="text" class="iText" id="me2userid" value="{$upgletyle->getMe2dayUserID()}" style="width:200px" /></td>
-								</tr>
-								<tr>
-									<td>{$lang->about_me2day_userid}</td>
-								</tr>
-								<tr>
-									<th scope="row" rowspan="2"><label for="me2userkey">{$lang->me2day_userkey}</label></th>
-									<td><input name="me2day_userkey" type="text" class="iText" id="me2userkey" value="{$upgletyle->getMe2dayUserKey()}" style="width:200px" /></td>
-								</tr>
-								<tr>
-									<td>{$lang->about_me2day_userkey}</td>
-								</tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <span class="btnGray medium"><button type="button" onclick="doCheckMe2day(); return false;">{$lang->check_me2day_info}</button></span>
-                                    </td>
-                                </tr>
-							</table>
-						</fieldset>
-						
-						<fieldset>
-							<h4 class="h4">{$lang->send_twitter}</h4>
-							<p><label for="enableTwitter">{$lang->about_send_twitter}</label></p>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row" rowspan="2"><label for="twitterconsumerkey">{$lang->twitter_consumer_key}</label></th>
-									<td><input name="twitter_consumer_key" type="text" class="iText" id="twitterconsumerkey" value="{$upgletyle->getTwitterConsumerKey()}" style="width:200px" /></td>
-								</tr>
-								<tr>
-									<td>{$lang->about_twitter_consumer_key}</td>
-								</tr>
-								<tr>
-									<th scope="row" rowspan="2"><label for="twitterconsumersecret">{$lang->twitter_consumer_secret}</label></th>
-									<td><input name="twitter_consumer_secret" type="text" class="iText" id="twitterconsumersecret" value="{$upgletyle->getTwitterConsumerSecret()}" style="width:200px" /></td>
-								</tr>
-								<tr>
-									<td>{$lang->about_twitter_consumer_secret}</td>
-								</tr>
-								<tr>
-									<th scope="row" rowspan="2"><label for="twitteroauthtoken">{$lang->twitter_oauth_token}</label></th>
-									<td><input name="twitter_oauth_token" type="text" class="iText" id="twitteroauthtoken" value="{$upgletyle->getTwitterOauthToken()}" style="width:200px" /></td>
-								</tr>
-								<tr>
-									<td>{$lang->about_twitter_oauth_token}</td>
-								</tr>
-								<tr>
-									<th scope="row" rowspan="2"><label for="twitteroauthtokensecret">{$lang->twitter_oauth_token_secret}</label></th>
-									<td><input name="twitter_oauth_token_secret" type="text" class="iText" id="twitteroauthtokensecret" value="{$upgletyle->getTwitterOauthTokenSecret()}" style="width:200px" /></td>
-								</tr>
-								<tr>
-									<td>{$lang->about_twitter_oauth_token_secret}</td>
-								</tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <span class="btnGray medium"><button type="button" onclick="doCheckTwitter(); return false;">{$lang->check_twitter_info}</button></span>
-                                    </td>
-                                </tr>
-							</table>
-						</fieldset>
-						
-						<fieldset>
-							<h4 class="h4">RSS</h4>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row">{$lang->feed_format}</th>
-									<td>
-										<input name="rss_type" type="radio" class="inputRadio" value="Y" id="postEntire" <!--@if($rss_config->open_rss=='Y')-->checked="checked"<!--@end--> /> <label for="postEntire">{$lang->rss_total}</label>
-										<input name="rss_type" type="radio" class="inputRadio" value="H" id="postSummary" <!--@if($rss_config->open_rss=='H')-->checked="checked"<!--@end--> /> <label for="postSummary">{$lang->rss_summary}</label>
-									</td>
-								</tr>
-							</table>
-						</fieldset>
-					
-						<fieldset>
-							<h4 class="h4">{$lang->visitor_editor_style}</h4>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row">{$lang->email_address}</th>
-									<td>
-										<input name="input_email" type="radio" value="R" class="inputRadio" id="emailReauired"<!--@if($upgletyle->getInputEmail()=='R')--> checked="checked"<!--@end--> /> <label for="emailReauired">{$lang->required}</label>
-										<input name="input_email" type="radio" value="Y" class="inputRadio" id="emailOptional" <!--@if($upgletyle->getInputEmail()=='Y')--> checked="checked"<!--@end--> /> <label for="emailOptional">{$lang->selected}</label>
-										<input name="input_email" type="radio" value="N" class="inputRadio" id="emailNot" <!--@if($upgletyle->getInputEmail()=='N')--> checked="checked"<!--@end--> /> <label for="emailNot">{$lang->notaccepted}</label>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">{$lang->website_address}</th>
-									<td>
-										<input name="input_website" type="radio" value="R" class="inputRadio" id="wwwReauired" <!--@if($upgletyle->getInputWebsite()=='R')--> checked="checked"<!--@end--> /> <label for="wwwReauired">{$lang->required}</label>
-										<input name="input_website" type="radio" value="Y" class="inputRadio" id="wwwOptional"  <!--@if($upgletyle->getInputWebsite()=='Y')--> checked="checked" <!--@end-->/> <label for="wwwOptional">{$lang->selected}</label>
-										<input name="input_website" type="radio" value="N" class="inputRadio" id="wwwNot" <!--@if($upgletyle->getInputWebsite()=='N')--> checked="checked"<!--@end-->/> <label for="wwwNot">{$lang->notaccepted}</label>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">{$lang->comment_editor}</th>
-									<td>
-                                        <select name="comment_editor_skin" onchange="getEditorSkinColorList(this.value, null, 'comment')">
-                                        <!--@foreach($editor_skin_list as $editor)-->
-                                        <!--@if($editor!='dreditor')-->
-                                        <option value="{$editor}" <!--@if($editor==$upgletyle->get('comment_editor_skin'))-->selected="selected"<!--@end-->>{$editor}</option>
-                                        <!--@end-->
-                                        <!--@end-->
-                                        </select>
-                                        <select name="comment_editor_colorset" id="sel_editor_comment_colorset" style="display:none"></select>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">{$lang->guestbook_editor}</th>
-									<td>
-                                        <select name="guestbook_editor_skin" onchange="getEditorSkinColorList(this.value, null, 'guestbook')">
-                                        <!--@foreach($editor_skin_list as $editor)-->
-                                        <!--@if($editor!='dreditor')-->
-                                        <option value="{$editor}" <!--@if($editor==$upgletyle->get('guestbook_editor_skin'))-->selected="selected"<!--@end-->>{$editor}</option>
-                                        <!--@end-->
-                                        <!--@end-->
-                                        </select>
-                                        <select name="guestbook_editor_colorset" id="sel_editor_guestbook_colorset" style="display:none"></select>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="replyNum">{$lang->comment_list_count}</label></th>
-									<td><input name="comment_list_count" type="text" class="iText" id="replyNum" maxlength="2" style="width:40px; text-align:center" value="{$upgletyle->getCommentListCount()}" /> {$lang->item_unit}</td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="sayHello">{$lang->guestbook_list_count}</label></th>
-									<td><input name="guestbook_list_count" type="text" class="iText" id="sayHello" maxlength="2" style="width:40px; text-align:center" value="{$upgletyle->getGuestbookListCount()}" /> {$lang->item_unit}</td>
-								</tr>
-								<tr>
-									<th rowspan="2" scope="row"><label for="commentGrant">{$lang->comment_grant}</label></th>
-                                    <td>
-                                        <select name="comment_grant" id="commentGrant">
-                                            <option value="">{$lang->grant_to_all}</option>
-                                            <option value="1" <!--@if($upgletyle->getCommentGrant()==1)-->selected="selected"<!--@end-->>{$lang->grant_to_member}</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{$lang->about_comment_grant}</td>
-								</tr>
-								<tr>
-									<th rowspan="2" scope="row"><label for="guestbookGrant">{$lang->guestbook_grant}</label></th>
-                                    <td>
-                                        <select name="guestbook_grant" id="guestbookGrant">
-                                            <option value="">{$lang->grant_to_all}</option>
-                                            <option value="1" <!--@if($upgletyle->getGuestbookGrant()==1)-->selected="selected"<!--@end-->>{$lang->grant_to_member}</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{$lang->about_guestbook_grant}</td>
-								</tr>
-							</table>
-
-                            <script>
-                                jQuery(window).load(function() { 
-                                    getEditorSkinColorList('{$upgletyle->get('comment_editor_skin')}','{$upgletyle->get('comment_editor_colorset')}','comment'); 
-                                    getEditorSkinColorList('{$upgletyle->get('guestbook_editor_skin')}','{$upgletyle->get('guestbook_editor_colorset')}','guestbook'); 
-                                } );
-                            </script>
-						</fieldset>
-						<div class="btnArea">
-							<span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
-						</div>
-
-					</form>
-				</div>
-
-			</div>
-			<hr />
-			<!-- /Content -->
-				
-			<!-- Extension -->
-				<!--#include("_tool_menu.html")-->
-			<!-- Extension -->
-
-<!--#include("_tool_footer.html")-->

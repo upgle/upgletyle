@@ -3,19 +3,14 @@
 <!--%load_js_plugin("ui")-->
 
 <!-- Content -->
-<div id="content">
-	<!-- contentHeader -->
-	<div class="contentHeader setupHeader lineBottom">
-		<h3 class="h3">{$lang->upgletyle_second_menus[5]['dispUpgletyleToolExtraMenuList']}</h3>
-	</div>
-	<!-- /contentHeader -->
+<div class="upgle-container">
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[6]['dispUpgletyleToolExtraMenuList']} <small>{$lang->about_textyle_extra_menu}</small></h4>
+    </div>
 
-	<div class="listHeader">
-		<p class="info">{$lang->about_textyle_extra_menu}</p>
-	</div>
 
 	<div class="setUp">
-		<table border="1" cellspacing="0" summary="{$lang->content_list}" class="tableData">
+		<table summary="{$lang->content_list}" class="table table-hover table-upgle">
 		<thead>
 			<tr>
 				<th scope="col">{$lang->menu_name}</th> 
@@ -32,28 +27,22 @@
 				<td>{$menu->module}</td>
 				<td><input type="hidden" name="" class="menu_mid" value="{$menu->mid}" />
 				<!--@if($menu->type=='text_page')-->
-                <span class="btnGray small"><a href="{getUrl('','act','dispUpgletyleToolExtraMenuInsert','menu_mid',$menu->mid)}">{$lang->cmd_modify}...</a></span>
+                <a href="{getUrl('','act','dispUpgletyleToolExtraMenuInsert','menu_mid',$menu->mid)}" class="bts_btn bts_btn-xs bts_btn-default">{$lang->cmd_modify}...</a>
 				<!--@elseif($menu->type=='module_page')-->
-				<span class="btnGray small"><a href="{getUrl('','act','dispUpgletyleToolExtraMenuModuleInsert','menu_mid',$menu->mid)}">{$lang->cmd_modify}...</a></span>
+				<a href="{getUrl('','act','dispUpgletyleToolExtraMenuModuleInsert','menu_mid',$menu->mid)}" class="bts_btn bts_btn-xs bts_btn-default">{$lang->cmd_modify}...</a>
 				<!--@end-->
-				<span class="btnGray small"><button type="button" onclick="deleteExtraMenu('{$menu->mid}','{$lang->confirm_delete}')" class="text"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon"> {$lang->cmd_delete}</button></span>
+				<span class="btnGray small"><button type="button" onclick="deleteExtraMenu('{$menu->mid}','{$lang->confirm_delete}')" class="bts_btn bts_btn-xs bts_btn-default"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon"> {$lang->cmd_delete}</button></span>
 				</td>
 			</tr>
 		<!--@end-->
 		</tbody>
 		<!--@end-->
 		</table>
-		<div class="btnArea">
-			<span class="btn"><a href="{getUrl('','act','dispUpgletyleToolExtraMenuModuleInsert')}">{$lang->cmd_insert}</a></span>
-		</div>
+        <a href="{getUrl('','act','dispUpgletyleToolExtraMenuModuleInsert')}" class="bts_btn bts_btn-primary pull-right">{$lang->cmd_insert}</a>
 	</div>
 </div>
-<hr />
 <!-- /Content -->
 
-<!-- Extension -->
-<!--#include("_tool_menu.html")-->
-<!-- Extension -->
 <script>//<![CDATA[
 	jQuery(function() {
 		jQuery('tbody.sort').sortable().bind('sortstop',function(e,ui){
