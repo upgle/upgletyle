@@ -1,5 +1,7 @@
 <!-- Remove XE admin bar -->
 {Context::set("admin_bar","false")}
+{Context::addMetaTag('X-UA-Compatible','IE=edge',true)}
+{Context::addMetaTag('viewport','width=device-width, initial-scale=1.0')}
 
 <!-- Menu icon list -->
 {@$_menu_icon=array('icon-dashboard','icon-article','icon-comment','icon-chart','icon-metablog','icon-design','icon-setting')}
@@ -15,6 +17,7 @@
 <load target="js/jquery.cookie.js" />
 <load target="js/bootstrap.js" cond="__DEBUG__" />
 <load target="js/bootstrap.min.js" cond="!__DEBUG__" />
+<load target="js/respond.min.js" />
 
 <div class="navbar navbar-upgle navbar-static-top">
     <div class="navbar-header">
@@ -65,8 +68,6 @@
             <!--/submenu-->
         </li>
         </block>
-
-
         <li class="upgle-issue nochild"><a href="https://github.com/upgle/upgletyle/issues" target="_blank"><!--오류신고-->{$lang->upgletyle_bug_report}</a></li>
     </ul>
     </div>

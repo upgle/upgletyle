@@ -78,7 +78,7 @@
                         <th scope="col" class="title">{$lang->title}</th>
                         <th scope="col">{$lang->comment}</th>
                         <th scope="col">{$lang->last_update}</th>
-                        <th scope="col">&nbsp;</th>
+                        <th scope="col" class="visible-lg visible-md">&nbsp;</th>
                         <th scope="col">{$lang->cmd_delete}</th>
                     </tr>
                 </thead>
@@ -113,7 +113,7 @@
                         </td>
                         <td>{$post->getCommentCount()}</td>
                         <td>{zdate($post->get('last_update'),'Y.m.d')}</td>
-                        <td width="150">
+                        <td width="150" class="visible-lg visible-md">
 
                             <div class="bts_btn-group">
                             <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'comment')" class="bts_btn bts_btn-default bts_btn-xs toggle-{$offon[$post->allowComment()]}"><span class="glyphicon glyphicon-comment"></span></button>

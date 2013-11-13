@@ -6,7 +6,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-sm-7 col-md-7">
             <div class="panel panel-default panel-analytics">
                 <div class="panel-body">
                     <h3>방문자 통계 <small>{$lang->today} <strong>{number_format($status->visitor)}</strong> / {$lang->total} <strong>{number_format($status->total_visitor)}</strong></small></h3>
@@ -44,7 +44,7 @@
                 <div class="panel-footer clearfix"><a href="{getUrl('','act','dispUpgletyleToolPostManageWrite')}" class="bts_btn bts_btn-default bts_btn-sm pull-right">{$lang->cmd_new_post}</a></div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-sm-5 col-md-5">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title"><!--"최근 방명록"-->{$lang->newest_guestbooks}</h3>
@@ -110,7 +110,7 @@ jQuery(function($) {
 
     var plot = $.plot($("#statsChart"),
         [ { data: visits, label: "지난주"},
-         { data: visitors, label: "이번주" }], {
+         { data: visitors, label: "이번주"}], {
             series: {
                 lines: { show: true,
                         lineWidth: 1,
@@ -152,11 +152,11 @@ jQuery(function($) {
          });
 
     function showTooltip(x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css( {
+        $('<div id="chartTooltip">' + contents + '</div>').css( {
             position: 'absolute',
             display: 'none',
-            top: y - 30,
-            left: x - 50,
+            top: y - 33,
+            left: x - 22,
             color: "#fff",
             padding: '2px 5px',
             'border-radius': '6px',
@@ -171,18 +171,15 @@ jQuery(function($) {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
 
-                $("#tooltip").remove();
-                var x = item.datapoint[0].toFixed(0),
-                    y = item.datapoint[1].toFixed(0);
-
-                var month = item.series.xaxis.ticks[item.dataIndex].label;
+                $("#chartTooltip").remove();
+                var x = item.datapoint[0], y = item.datapoint[1];
 
                 showTooltip(item.pageX, item.pageY,
                             item.series.label + ": " + y);
             }
         }
         else {
-            $("#tooltip").remove();
+            $("#chartTooltip").remove();
             previousPoint = null;
         }
     });

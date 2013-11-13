@@ -66,7 +66,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                     </li>
                     <li class="list-group-item">
                         <label for="tags"><!--"태그"-->{$lang->tag}</label>
-                        <input type="text" id="tags" name="tags" class="form-control input-sm" placeholder="{$lang->about_tag}">
+                        <input type="text" id="tags" name="tags" class="form-control input-sm" placeholder="{$lang->about_tag}" value="{htmlspecialchars($oDocument->get('tags'))}"|cond="htmlspecialchars($oDocument->get('tags'))" >
                     </li>
                     <li class="list-group-item">
                         <label class="checkbox-inline">
@@ -79,9 +79,6 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 
                 </ul>
             </div>
-
-
-
 
 
             <div class="panel panel-default">
@@ -99,8 +96,6 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                     </block>
                 </div>
             </div>
-
-
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -126,6 +121,14 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                 </ul>
             </div>
 
+            <div class="panel panel-default" cond="isset($trackbacks) && count($trackbacks)">
+                <div class="panel-heading"><strong>엮인글 발송 로그</strong></div>
+                <ul class="list-group">
+                    <li class="list-group-item" loop="$trackbacks => $ke, $val">
+                        {$key} - {$val->log}
+                    </li>
+                </ul>
+            </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>발행 옵션</strong></div>
@@ -142,21 +145,20 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                         {$lang->publish_reserve}</label>
                     </li>
                     <li class="list-group-item">
-
-                        <div class="bookingLayer<!--@if($subscription=='Y')--> open<!--@end--> input-group calendar">
-                            <span class="input-group-btn">
-                            <button class="bts_btn bts_btn-default bts_btn-sm btnCalendar" type="button">{$lang->calendar}</button>
-                            </span>
-                            <input name="publish_date_yyyymmdd" type="text" class="form-control input-sm" value="{$publish_date_yyyymmdd}" maxlength="10"  title="{$lang->ymd}" disabled="disabled" id="publishDate" />
-                            <div id="calendar-holder"></div>
-
+                        <div style="margin-right:96px">
+                            <div class="bookingLayer<!--@if($subscription=='Y')--> open<!--@end--> input-group calendar">
+                                <span class="input-group-btn">
+                                <button class="bts_btn bts_btn-default bts_btn-sm btnCalendar" type="button">{$lang->calendar}</button>
+                                </span>
+                                <input name="publish_date_yyyymmdd" type="text" class="form-control input-sm" value="{$publish_date_yyyymmdd}" maxlength="10"  title="{$lang->ymd}" disabled="disabled" id="publishDate" />
+                                <div id="calendar-holder"></div>
+                            </div>
                         </div>
-                        <div>
-                            <input name="publish_date_hh" value="{$publish_date_hh}" type="text" class="disabled_subscription_n iText hh" maxlength="2" title="{$lang->unit_hour}" disabled="disabled" />
-                            :
-                            <input name="publish_date_ii" value="{$publish_date_ii}" type="text" class="disabled_subscription_n iText mm" maxlength="2" title="{$lang->unit_min}" disabled="disabled" />
+                        <div style="position:absolute;right:13px;top:10px;">
+                            <input name="publish_date_hh" value="{$publish_date_hh}"|cond="$publish_date_hh" value="00" type="text" class="disabled_subscription_n hh form-control input-sm pull-left text-center" maxlength="2" title="{$lang->unit_hour}" disabled="disabled" style="width:40px"/>
+                            <div class="pull-left" style="padding:5px 2px 0 2px">:</div>
+                            <input name="publish_date_ii" value="{$publish_date_ii}"|cond="$publish_date_ii" value="00" type="text" class="disabled_subscription_n mm form-control input-sm pull-left text-center" maxlength="2" title="{$lang->unit_min}" disabled="disabled" style="width:40px" />
                         </div>
-
                     </li>
                 </ul>
 
