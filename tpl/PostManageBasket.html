@@ -1,12 +1,9 @@
 <include target="_tool_header.html" />
 
-<!--%import("css/pagination.css",optimized=false)-->
-
 <div class="upgle-container">
     <div class="page-header">
-        <h4>{$lang->upgletyle_second_menus[1]['dispUpgletyleToolPostManageBasket']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+        <h4>{$lang->upgletyle_second_menus[1]['dispUpgletyleToolPostManageBasket']} <small>삭제된 포스트를 복구시키거나 영구삭제할 수 있습니다..</small></h4>
     </div>
-
 
     <div class="row" style="margin-top:26px; margin-bottom:13px;">
     <div class="col-md-4" style="line-height:20px">
@@ -57,15 +54,13 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     <!--@if(count($trash_list)==0)-->								
                     <tr>
                         <td class="noData" colspan="8"><p>{$lang->no_trash}</p></td>
                     </tr>
                     <!--@else-->
-                        <!--@foreach($trash_list as $no => $oTrashVO)-->
+                    <tr loop="$trash_list => $no, $oTrashVO">
                     {@ $trash_info = unserialize($oTrashVO->getSerializedObject()); }
-                    <tr>
                         <td>
                             <input type="checkbox" name="trash_srl" value="{$oTrashVO->trashSrl}" class="inputCheck boxlist" />
                         </td>
@@ -78,33 +73,23 @@
                         <td><button type="button" class="bts_btn bts_btn-default bts_btn-xs" onclick="restorePostItem({$oTrashVO->trashSrl},{$page})">{$lang->cmd_restore}</button></td>
                         <td><button type="button" class="btnTableData" onclick="deletePostItem({$oTrashVO->trashSrl},{$page})"><span>{$lang->cmd_empty}</span></button></td>
                     </tr>
-                        <!--@end-->
                     <!--@end-->
-
                 </tbody>
             </table>
             
-            <div class="listFooter">
-                
-                <!-- Change-->
-                <div class="change pull-left">
-                    {$lang->selected_articles}
+            <div class="clearfix">
+                <div class="item-changecontroller pull-left">
+                    {$lang->selected_articles} 
                     <button type="button" class="bts_btn bts_btn-default bts_btn-sm " onclick="restorePostItems({$page})">{$lang->cmd_restore}</button>
                     <button type="button" class="bts_btn bts_btn-default bts_btn-sm " onclick="deletePostItems({$page})"><img src="img/iconClear.gif" width="8" /> {$lang->cmd_empty_basket}</button>
-                    
                 </div>
-                <!-- /Change -->
-
-                
-
-               <ul class="pagination pull-right" style="margin-top:0;">
-                <li><a href="{getUrl('page','','mid',$mid)}">&laquo;</a></li>
-                <block loop="$page_no = $page_navigation->getNextPage()">
-                <li class="active"|cond="$page==$page_no"><a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a></li>
-                </block>
-                <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}">&raquo;</a></li>
+                <ul class="pagination-upgle pull-right">
+                    <li class="prev"><a href="{getUrl('page','','mid',$mid)}"><span class="sr-only">&laquo;</span></a></li>
+                    <block loop="$page_no = $page_navigation->getNextPage()">
+                    <li class="active"|cond="$page==$page_no"><a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a></li>
+                    </block>
+                    <li class="next"><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}"><span class="sr-only">&raquo;</span></a></li>
                 </ul>
-                
             </div>
             
         </form>

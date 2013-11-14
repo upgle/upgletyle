@@ -1,90 +1,73 @@
-<!--#include("_tool_header.html")-->
-
-			<!-- Content -->
+<include target="_tool_header.html" />
+<!-- Content -->
 <div class="upgle-container">
 
     <div class="page-header">
         <h4>{$lang->upgletyle_second_menus[1]['dispUpgletyleToolPostManageTag']} <small>블로그의 종합정보를 출력합니다.</small></h4>
     </div>
 
-            <!--@if($tag_recent_list)-->							
-            <div class="lastTag">
-                <dl>
-                    <dt>{$lang->recent_tags} :</dt>
-                    <dd>
-                            <!--@foreach($tag_recent_list as $k => $tag)-->
-                                <a href="{getUrl('selected_tag',$tag->tag)}">{$tag->tag}</a>
+
+    <form method="post" class="tagList" onsubmit="return false">
+
+        <p class="summary">{sprintf($lang->total_tag_result, $tag_list_count)}</p>
+
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <!-- Tag Sum -->
+                <fieldset class="tSum">
+                    <div class="tHeader">
+                        <span class="aLeft"> <button type="button" class="tagSort" onclick="document.location.href='{getUrl("sort_index","tag")}'">{$lang->tag} <img src="img/buttonTableDataSort.gif" width="8" height="5" alt="{$lang->align_by_char}" /></button></span>
+                        <span class="aRight"><button type="button" onclick="document.location.href='{getUrl("sort_index","count")}'">{$lang->used_documents} <img src="img/buttonTableDataSort.gif" width="8" height="5" alt="{$lang->order_desc}" /></button></span>
+                    </div>
+                    
+                    <!--@if(!$tag_list)-->
+                    <ul id="tag_list">
+                        <li class="noTag"><span>{$lang->none_tags}</span></li>
+                    </ul>
+                    <!--@else-->
+                    <ul id="tag_list">
+                            <!--@foreach($tag_list as $k => $tag)-->
+                            <li<!--@if($tag->tag==$selected_tag)--> class="hover"<!--@end-->><a href="{getUrl('selected_tag',$tag->tag)}" class="tWord">{$tag->tag}</a> <span class="sum">{$tag->count}</span></li>
                             <!--@end-->
-                    </dd>
-                </dl>
-                <span class="cap capTL"></span>
-                <span class="cap capTR"></span>
-                <span class="cap capBL"></span>
-                <span class="cap capBR"></span>
+                    </ul>
+                    <!--@end-->
+                </fieldset>
+                <!-- /Tag Sum -->
             </div>
-            <!--@end-->
-
-            <form method="post" class="tagList" onsubmit="return false">
-
-                <p class="summary">{sprintf($lang->total_tag_result, $tag_list_count)}</p>
-
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <!-- Tag Sum -->
-                        <fieldset class="tSum">
-                            <div class="tHeader">
-                                <span class="aLeft"> <button type="button" class="tagSort" onclick="document.location.href='{getUrl("sort_index","tag")}'">{$lang->tag} <img src="img/buttonTableDataSort.gif" width="8" height="5" alt="{$lang->align_by_char}" /></button></span>
-                                <span class="aRight"><button type="button" onclick="document.location.href='{getUrl("sort_index","count")}'">{$lang->used_documents} <img src="img/buttonTableDataSort.gif" width="8" height="5" alt="{$lang->order_desc}" /></button></span>
-                            </div>
-                            
-                            <!--@if(!$tag_list)-->
-                            <ul id="tag_list">
-                                <li class="noTag"><span>{$lang->none_tags}</span></li>
-                            </ul>
-                            <!--@else-->
-                            <ul id="tag_list">
-                                    <!--@foreach($tag_list as $k => $tag)-->
-                                    <li<!--@if($tag->tag==$selected_tag)--> class="hover"<!--@end-->><a href="{getUrl('selected_tag',$tag->tag)}" class="tWord">{$tag->tag}</a> <span class="sum">{$tag->count}</span></li>
-                                    <!--@end-->
-                            </ul>
+            <div class="col-sm-6 col-md-6">
+                <!-- Tag Modify -->
+                <fieldset class="tModify well well-sm">
+                    <legend>{$lang->update_tag}</legend>
+                    <dl class="tagName">
+                        <dt>{$lang->tag_name} :</dt>
+                        <dd>
+                        <div class="input-group">
+                            <input name="tag" type="text" class="form-control input-sm" value="{$selected_tag}" /> 
+                            <input name="selected_tag" type="hidden" value="{$selected_tag}" /> 
+                            <span class="input-group-btn">
+                            <button type="button" class="bts_btn bts_btn-default bts_btn-sm" onclick="updateTag(this)">{$lang->cmd_modify}...</button>
+                            </span>
+                            <button type="button" class="bts_btn bts_btn-default bts_btn-sm" onclick="deleteTag(this)">{$lang->cmd_delete}</button>
+                        </div>
+                        </dd>
+                    </dl>
+                    <!--@if($with_used_tag_list)-->
+                    <dl class="tagFamily">
+                        <dt>{$lang->tag_with_tags}</dt>
+                        <!--@foreach($with_used_tag_list as $k => $v)-->
+                            <!--@if($v->tag != $selected_tag)-->
+                                <dd><a href="{getUrl('selected_tag', $v->tag)}">{$v->tag}</a> ({$v->count})</dd>
                             <!--@end-->
-                        </fieldset>
-                        <!-- /Tag Sum -->
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Tag Modify -->
-                        <fieldset class="tModify well well-sm">
-                            <legend>{$lang->update_tag}</legend>
-                            <dl class="tagName">
-                                <dt>{$lang->tag_name} :</dt>
-                                <dd>
-                                <div class="input-group">
-                                    <input name="tag" type="text" class="form-control input-sm" value="{$selected_tag}" /> 
-                                    <input name="selected_tag" type="hidden" value="{$selected_tag}" /> 
-                                    <span class="input-group-btn">
-                                    <button type="button" class="bts_btn bts_btn-default bts_btn-sm" onclick="updateTag(this)">{$lang->cmd_modify}...</button>
-                                    </span>
-                                    <button type="button" class="bts_btn bts_btn-default bts_btn-sm" onclick="deleteTag(this)">{$lang->cmd_delete}</button>
-                                </div>
-                                </dd>
-                            </dl>
-                            <!--@if($with_used_tag_list)-->
-                            <dl class="tagFamily">
-                                <dt>{$lang->tag_with_tags}</dt>
-                                <!--@foreach($with_used_tag_list as $k => $v)-->
-                                    <!--@if($v->tag != $selected_tag)-->
-                                        <dd><a href="{getUrl('selected_tag', $v->tag)}">{$v->tag}</a> ({$v->count})</dd>
-                                    <!--@end-->
-                                <!--@end-->
-                            </dl>
-                            <!--@end-->
-                        </fieldset>
-                        <!-- /Tag Modify -->
-                    </div>
-                </div>
+                        <!--@end-->
+                    </dl>
+                    <!--@end-->
+                </fieldset>
+                <!-- /Tag Modify -->
+            </div>
+        </div>
 
-            </form>
+    </form>
 
 
 

@@ -1,5 +1,4 @@
-<!--#include("_tool_header.html")-->
-<!--%import("css/pagination.css",optimized=false)-->
+<include target="_tool_header.html" />
 
 <!-- Content -->
 <div class="upgle-container">
@@ -135,59 +134,45 @@
                         </tr>
                         <!--@end-->
                     <!--@end-->
-
                 </tbody>
             </table>
             </div>
             
 
 
-            <div class="listFooter">
-                
-                <!-- Change-->
-                <div class="change pull-left">
-                    {$lang->selected_articles}
-                    <!-- Single button -->
-                    <div class="bts_btn-group dropup">
-                      <button type="button" class="bts_btn bts_btn-default bts_btn-sm dropdown-toggle" data-toggle="dropdown">
-                        카테고리 변경 <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <!--@foreach($category_list as $key => $val)-->
-                        <li><a href="javascript:updatePostItemsCategory('{$mid}',{$val->category_srl},{$page})">{$val->text}</a></li>
-                        <!--@end-->
-                      </ul>
-                    </div>
-
-
-                    <!-- opening -->
-                    <div class="bts_btn-group dropup">
-                      <button type="button" class="bts_btn bts_btn-default bts_btn-sm dropdown-toggle" data-toggle="dropdown">
-                        {$lang->set_publish} <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:updatePostItemsSecret('N',{$page})">{$lang->document_open}</a></li>
-                        <li><a href="javascript:updatePostItemsSecret('Y',{$page})">{$lang->document_close}</a></li>
-                      </ul>
-                    </div>
-                    <!-- /opening -->
-
-                    <button type="button" class="bts_btn bts_btn-default bts_btn-sm" onclick="trashPostItems({$page})"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" /> {$lang->cmd_delete}</button>
-
+            <div class="item-changecontroller pull-left">
+                {$lang->selected_articles}
+                <!-- Single button -->
+                <div class="bts_btn-group dropup">
+                  <button type="button" class="bts_btn bts_btn-default bts_btn-sm dropdown-toggle" data-toggle="dropdown">
+                    카테고리 변경 <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <!--@foreach($category_list as $key => $val)-->
+                    <li><a href="javascript:updatePostItemsCategory('{$mid}',{$val->category_srl},{$page})">{$val->text}</a></li>
+                    <!--@end-->
+                  </ul>
                 </div>
-                <!-- /Change -->
+                <div class="bts_btn-group dropup">
+                  <button type="button" class="bts_btn bts_btn-default bts_btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {$lang->set_publish} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:updatePostItemsSecret('N',{$page})">{$lang->document_open}</a></li>
+                    <li><a href="javascript:updatePostItemsSecret('Y',{$page})">{$lang->document_close}</a></li>
+                  </ul>
+                </div>
+                <button type="button" class="bts_btn bts_btn-default bts_btn-sm" onclick="trashPostItems({$page})"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" /> {$lang->cmd_delete}</button>
+            </div>
 
-                
-
-               <ul class="pagination pull-right" style="margin-top:0;">
-                <li><a href="{getUrl('page','','mid',$mid)}">&laquo;</a></li>
+            <ul class="pagination-upgle pull-right">
+                <li class="prev"><a href="{getUrl('page','','mid',$mid)}"><span class="sr-only">&laquo;</span></a></li>
                 <block loop="$page_no = $page_navigation->getNextPage()">
                 <li class="active"|cond="$page==$page_no"><a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a></li>
                 </block>
-                <li><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}">&raquo;</a></li>
-                </ul>
+                <li class="next"><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}"><span class="sr-only">&raquo;</span></a></li>
+            </ul>
 
-            </div>
             
         </form>
     </fieldset>

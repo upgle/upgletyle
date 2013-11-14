@@ -106,8 +106,6 @@ body {
 .btnTableData{border:0;width:18px;height:18px;padding:0;background:transparent url(../img/buttonTableDataX.gif) no-repeat center 7px;cursor:pointer}
 .btnTableData span{position:absolute;width:0;height:0;overflow:hidden;z-index:-1;font-size:0;line-height:0;visibility:hidden}
 
-.listFooter .change{padding:6px 0 0 40px;float:left;background:url(../img/lineListFooterL.gif) no-repeat 20px top}
-
 
 /* Spam */
 .spam .partitionLeft{margin-right:2%}

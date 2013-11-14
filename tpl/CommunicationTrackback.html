@@ -1,111 +1,99 @@
-<!--#include("_tool_header.html")-->
-<!--%import("css/pagination.css",optimized=false)-->
+<include target="_tool_header.html" />
 	
 <!-- Content -->
 <div class="upgle-container">
     <div class="page-header">
-        <h4>{$lang->upgletyle_second_menus[2]['dispUpgletyleToolCommunicationTrackback']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+        <h4>{$lang->upgletyle_second_menus[2]['dispUpgletyleToolCommunicationTrackback']} <small>포스트에 엮인 트랙백을 확인합니다.</small></h4>
     </div>
 
-				
     <!-- listHeader -->
-    <div class="listHeader">
-        <p class="info"> <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end--></p>
-        <fieldset class="search">
+    <div class="item-listheader clearfix">
+        <p class="info pull-left"> <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end--></p>
+        <fieldset class="search pull-right">
             <legend>{$lang->cmd_search}</legend>
-            <form action="{Context::getRequestUri()}">
+            <form action="{Context::getRequestUri()}" class="form-inline">
                 <input type="hidden" name="act" value="{$act}" />
                 <input type="hidden" name="vid" value="{$vid}" />
                 <input type="hidden" name="mid" value="{$mid}" />
                 <input type="hidden" name="search_target" value="excerpt" />
-                <input name="search_keyword" type="text" title="{$lang->cmd_search}" value="{$search_keyword}" class="iText" />
-                <span class="btnGray medium"><input type="submit" value="{$lang->cmd_search}" /></span>
+                <div class="form-group">
+                <input name="search_keyword" type="text" value="{$search_keyword}" title="{$lang->cmd_search}" class="form-control input-xs" />
+                </div>
+                <input type="submit" value="{$lang->cmd_search}" class="bts_btn bts_btn-default bts_btn-xs" />
             </form>
         </fieldset>
     </div>
     <!-- /listHeader -->
 				
-				<!-- Table Data -->
-				<fieldset>
-					<legend>{$lang->manage_trackback}</legend>
-					<form action="" method="post">
-						<table summary="{$lang->document_list}" class="table table-hover table-upgle table-condensed">
-							<thead>
-								<tr>
-									<th scope="col">
-										<input type="checkbox" name="" class="inputCheck" onclick="jQuery('input.boxlist').click()" />
-									</th>
-									<th scope="col" class="half">{$lang->trackback}</th>
-									<th scope="col" class="half">{$lang->trackback_site}</th>
-									<th scope="col">{$lang->regdate}</th>
-									<th scope="col">{$lang->cmd_deny}</th>
-									<th scope="col">{$lang->cmd_delete}</th>
-								</tr>
-							</thead>
-							<tbody>
+    <!-- Table Data -->
+    <fieldset>
+        <legend>{$lang->manage_trackback}</legend>
+        <form action="" method="post">
+            <table summary="{$lang->document_list}" class="table table-hover table-upgle table-condensed">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" name="" class="inputCheck" onclick="jQuery('input.boxlist').click()" />
+                        </th>
+                        <th scope="col" class="half">{$lang->trackback}</th>
+                        <th scope="col" class="half">{$lang->trackback_site}</th>
+                        <th scope="col">{$lang->regdate}</th>
+                        <th scope="col">{$lang->cmd_deny}</th>
+                        <th scope="col">{$lang->cmd_delete}</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-								<!--@if(count($trackback_list)==0)-->								
-								<tr>
-									<td class="noData" colspan="6"><p>{$lang->no_trackback}</p></td>
-								</tr>
-								<!--@else-->
-									<!--@foreach($trackback_list as $no => $trackback)-->
-									<tr>
-										<td>
-											<input type="checkbox" name="trackback_srl" value="{$trackback->trackback_srl}"  class="inputCheck boxlist" />
-										</td>
-										<td class="half"><a href="{getSiteUrl($upgletyle->domain,'','document_srl',$trackback->document_srl)}#trackback_{$trackback->trackback_srl}" class="original">{$document_items[$trackback->document_srl]->getTitle()}</a></td>
-										<td class="half">
-											<p class="trackbackIn"><a href="{$trackback->url}">{$trackback->title}</a></p>
-											<p class="trackbackAddress">{$trackback->blog_name}<span class="ipAddress">{$trackback->ipaddress}</span></p>
-										</td>
-										<td class="small">{zdate($trackback->regdate,'Y.m.d')}</td>
-										<td>
-                                        
-										<span class="btnGray small"><button type="button" onclick="openLayerAddDenyItem('{$trackback->trackback_srl}','_addDenyTrackbackList')">{$lang->cmd_deny}</button></span><br />
-										<td><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteTrackbackItem({$trackback->trackback_srl},{$page_navigation->cur_page});return false;" class="btnTableData"><span>{$lang->cmd_delete}</span></button></td>
-									</tr>			
-									<!--@end-->
-								<!--@end-->
-							</tbody>
-						</table>
-						
-						<div class="listFooter">
-							
-							<!-- Change-->
-							<div class="change">
-								<p class="p1">{$lang->selected_articles}</p>
-								
-								<span class="btnGray large"><button type="button" onclick="openLayerAddDeny('_addDenyTrackbackList')">{$lang->cmd_deny}</button></span>
-								<span class="btnGray large"><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteTrackbackItems({$page_navigation->cur_page});return false;"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" />{$lang->cmd_delete}</button></span>
-								
-							</div>
-							<!-- /Change -->
-							
-							<!-- Pagination -->
-							<div class="pagination">
-								<a href="{getUrl('page','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
-
-								<!--@while($page_no = $page_navigation->getNextPage())-->
-									<!--@if($page == $page_no)-->
-										<strong>{$page_no}</strong> 
-									<!--@else-->
-										<a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a> 
-									<!--@end-->
-								<!--@end-->
-
-								<a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
-								</div>
-							<!-- /Pagination -->
-							
-						</div>
-						
-					</form>
-				</fieldset>
-				<!-- /Table Data -->
+                    <!--@if(count($trackback_list)==0)-->								
+                    <tr>
+                        <td class="noData" colspan="6"><p>{$lang->no_trackback}</p></td>
+                    </tr>
+                    <!--@else-->
+                        <!--@foreach($trackback_list as $no => $trackback)-->
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="trackback_srl" value="{$trackback->trackback_srl}"  class="inputCheck boxlist" />
+                            </td>
+                            <td class="half"><a href="{getSiteUrl($upgletyle->domain,'','document_srl',$trackback->document_srl)}#trackback_{$trackback->trackback_srl}" class="original">{$document_items[$trackback->document_srl]->getTitle()}</a></td>
+                            <td class="half">
+                                <p class="trackbackIn"><a href="{$trackback->url}">{$trackback->title}</a></p>
+                                <p class="trackbackAddress">{$trackback->blog_name}<span class="ipAddress">{$trackback->ipaddress}</span></p>
+                            </td>
+                            <td class="small">{zdate($trackback->regdate,'Y.m.d')}</td>
+                            <td>
+                            
+                            <span class="btnGray small"><button type="button" onclick="openLayerAddDenyItem('{$trackback->trackback_srl}','_addDenyTrackbackList')">{$lang->cmd_deny}</button></span><br />
+                            <td><button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteTrackbackItem({$trackback->trackback_srl},{$page_navigation->cur_page});return false;" class="btnTableData"><span>{$lang->cmd_delete}</span></button></td>
+                        </tr>			
+                        <!--@end-->
+                    <!--@end-->
+                </tbody>
+            </table>
+            
+            <div class="clearfix">
+                <!-- Change-->
+                <div class="item-changecontroller pull-left">
+                    {$lang->selected_articles}
+                    <button type="button" onclick="openLayerAddDeny('_addDenyTrackbackList')"  class="bts_btn bts_btn-default bts_btn-sm">{$lang->cmd_deny}</button>
+                    <button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteTrackbackItems({$page_navigation->cur_page});return false;"  class="bts_btn bts_btn-default bts_btn-sm"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" class="icon" /> {$lang->cmd_delete}</button>
+                </div>
+                <!-- /Change -->
+                <!-- Pagination -->
+                <ul class="pagination-upgle pull-right">
+                    <li class="prev"><a href="{getUrl('page','','mid',$mid)}"><span class="sr-only">&laquo;</span></a></li>
+                    <block loop="$page_no = $page_navigation->getNextPage()">
+                    <li class="active"|cond="$page==$page_no"><a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a></li>
+                    </block>
+                    <li class="next"><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}"><span class="sr-only">&raquo;</span></a></li>
+                </ul>
+                <!-- /Pagination -->
+            </div>
+        </form>
+    </fieldset>
+    <!-- /Table Data -->
 				
 </div>
 <!-- /Content -->
 						
 
-<!--#include("_layerAddDeny.html")-->
+<!--include("_layerAddDeny.html")-->

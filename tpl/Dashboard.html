@@ -56,7 +56,7 @@
                             <img class="media-object" src="http://blog.upgle.com/modules/upgletyle/tpl/img/iconEmoticonDefault.gif" alt="...">
                         </a>
                         <div class="media-body">
-                            <strong>{$v->nick_name}</strong> {strip_tags($v->content)}
+                            <strong>{$v->nick_name}</strong> <a href="{getUrl('','mid',$mid,'act','dispUpgletyleToolCommunicationGuestbookReply','upgletyle_guestbook_srl',$v->upgletyle_guestbook_srl)}">{strip_tags($v->content)}</a>
                         </div>
                     </div>
                 </div>
@@ -67,18 +67,18 @@
                     <h3 class="panel-title"><!--"최근 댓글"-->{$lang->newest_comments}</h3>
                 </div>
                 <div class="panel-body" cond="!count($newest_comments)">{$lang->no_comment}</div>
-                <div class="list-group list-group-dashboard" cond="count($newest_comments)">
+                <ul class="list-group list-group-dashboard" cond="count($newest_comments)">
                 <block loop="$newest_comments => $key, $val">
                 {@$_profile_image = $val->getProfileImage()}
-                <div class="list-group-item">
+                <li class="list-group-item">
                     <button type="button" class="close" onclick="deleteCommentItem({$val->comment_srl},1)" aria-hidden="true">&times;</button>
                     <p class="list-group-item-text clearfix">
                         <img class="pull-left" style="margin-right:10px;" src="http://blog.upgle.com/modules/upgletyle/tpl/img/iconEmoticonDefault.gif" alt="...">
                         <span class="member_{$val->get('member_srl')} author">{$val->getNickName()}</span> <a href="{$val->getPermanentUrl()}" target="_blank">{$val->getSummary(200)}</a>
                     </p>
-                </div>
+                </li>
                 </block>
-                </div>
+                </ul>
             </div>
         </div>
     </div>
