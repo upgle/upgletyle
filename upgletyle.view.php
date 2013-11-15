@@ -21,9 +21,9 @@
 				{
 					Context::loadFile(array('./modules/admin/tpl/css/admin.css', '', '', 10), true); 
 					Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
-					Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.css", '', 'ie', 10), true);
-					Context::loadFile('./modules/admin/tpl/js/admin.js', true);
-					Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.css', '', '', 1), true);
+					//Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.css", '', 'ie', 10), true);
+					//Context::loadFile('./modules/admin/tpl/js/admin.js', true);
+					//Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				} 
@@ -31,9 +31,9 @@
 				{
 					Context::loadFile(array('./modules/admin/tpl/css/admin.min.css', '', '', 10), true);
 					Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
-					Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.min.css", '', 'ie', 10), true);
-					Context::loadFile('./modules/admin/tpl/js/admin.min.js', true);
-					Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.min.css', '', '', 1), true);
+					//Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.min.css", '', 'ie', 10), true);
+					//Context::loadFile('./modules/admin/tpl/js/admin.min.js', true);
+					//Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.min.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				}
@@ -48,6 +48,7 @@
          * @brief Upgletyle common init
          **/
         function initCommon($is_other_module = false){
+
             if(!$this->checkXECoreVersion('1.4.3')) return $this->stop(sprintf(Context::getLang('msg_requried_version'),'1.4.3'));
 
             $oUpgletyleModel = &getModel('upgletyle');
@@ -222,6 +223,7 @@
          * @brief Tool dashboard
          **/
         function dispUpgletyleToolDashboard(){
+
             set_include_path(_XE_PATH_."libs/PEAR");
             require_once('PEAR.php');
             require_once('HTTP/Request.php');
