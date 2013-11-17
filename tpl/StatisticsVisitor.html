@@ -6,7 +6,7 @@
 <div class="upgle-container">
 				
     <div class="page-header">
-        <h4>{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+        <h4>{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']} <small>방문자 현황을 그래프로 출력합니다.</small></h4>
     </div>
 
     <!-- contentNavigation -->
@@ -73,10 +73,9 @@
     
     <div id="statsChart" style="margin:10px 5px;height:300px"></div>
 
-
     <!-- listHeader -->
-    <div class="listHeader">
-        <p class="info">{$lang->about_status[$type]}</p>
+    <div style="margin:27px 7px 15px 3px;">
+        <p><em>*</em> {$lang->about_status[$type]}</p>
     </div>
     <!-- /listHeader -->
 	
@@ -129,14 +128,12 @@
 	</div>
 </div>
 
-
 <load target="js/jquery.flot.js" cond="__DEBUG__" />
 <load target="js/jquery.flot.min.js" cond="!__DEBUG__" />
 <load target="js/jquery.flot.resize.js" cond="__DEBUG__" />
 <load target="js/jquery.flot.resize.min.js" cond="!__DEBUG__" />
 <load target="js/jquery.easypiechart.js" cond="__DEBUG__" />
 <load target="js/jquery.easypiechart.min.js" cond="!__DEBUG__" />
-
 
 <script type="text/javascript">
 jQuery(function($) {
@@ -151,8 +148,8 @@ jQuery(function($) {
     });
 
     //  jQuery Flot Chart
-    var visits = [[1, 50], [2, 40], [3, 45], [4, 23],[5, 55],[6, 65],[7, 61]];
-    var visitors = [[1, 25], [2, 50], [3, 23], [4, 48],[5, 38],[6, 28],[7, 68]];
+    var visits = [{$chart_value_last}];
+    var visitors = [{$chart_value_this}];
 
     var plot = $.plot($("#statsChart"),
         [ { data: visits, label: "지난주"},
@@ -176,13 +173,12 @@ jQuery(function($) {
                    borderWidth: 0
                 },
             legend: {
-                    // show: false
+                    show: false,
                     labelBoxBorderColor: "#fff"
                 },  
             colors: ["#a7b5c5", "#eb3058"],
             xaxis: {
-                ticks: [[1, "일"], [2, "월"], [3, "화"], [4,"수"], [5,"목"], [6,"금"], 
-                       [7,"토"]],
+                ticks: [{$chart_ticks}],
                 font: {
                     size: 12,
                     family: "Open Sans, Arial",

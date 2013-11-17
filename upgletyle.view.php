@@ -823,6 +823,9 @@
             $site_module_info = Context::get('site_module_info');
 
 			$chart_ticks = array();
+			$chart_value_this = array();
+			$chart_value_last = array();
+
             $xml->item = array();
             $xml->value = array(array(),array());
             $selected_count = 0;
@@ -841,11 +844,14 @@
                         $before_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)-60*60*24*365));
                         $after_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)+60*60*24*365));
                         $detail_status = $oCounterModel->getHourlyStatus('month', $selected_date, $site_module_info->site_srl);
-                        $i=0;
+
+						$i=0;
                         foreach($detail_status->list as $key => $val) {
                             $_k = substr($selected_date,0,4).'.'.sprintf('%02d',$key);
 
-							$chart_ticks[] = sprintf("\"%s\"",$_k);
+
+							$chart_ticks[] = sprintf("[%d, \"%s\"]", $i, $_k);
+							$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
 
 
                             $output->list[$_k]->val = $val;
@@ -864,6 +870,11 @@
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24*365);
                         $last_detail_status = $oCounterModel->getHourlyStatus('month', $last_date, $site_module_info->site_srl);
 
+						$i=0;
+                        foreach($last_detail_status->list as $key => $val) {
+							$chart_value_last[] = sprintf("[%d, %d]", $i++, $val);
+                        }
+
                     break;
                 case 'week' :
                         $xml->selected_title = Context::getLang('this_week');
@@ -873,10 +884,14 @@
                         $after_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)+60*60*24*7));
                         $disp_selected_date = date("Y.m.d", strtotime($selected_date));
                         $detail_status = $oCounterModel->getHourlyStatus('week', $selected_date, $site_module_info->site_srl);
+
+						$i=0;
                         foreach($detail_status->list as $key => $val) {
                             $_k = date("Y.m.d", strtotime($key)).' ('.$lang->unit_week[date('l',strtotime($key))].')';
+                            $__k = date("m.d", strtotime($key)).' ('.$lang->unit_week[date('l',strtotime($key))].')';
 
-							$chart_ticks[] = sprintf("\"%s\"",$_k);
+							$chart_ticks[] = sprintf("[%d, \"%s\"]", $i, $__k);
+							$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
 
 
                             if($selected_date == date("Ymd")&&$key == date("Ymd")){
@@ -886,14 +901,16 @@
                                 $output->list[$_k]->selected = false;
                             }
                             $output->list[$_k]->val = $val;
-                            $xml->item[] = sprintf('<item id="%s" name="%s" />',$_k,$_k);
-                            $xml->value[0][] = $val;
+							$i++;
                         }
 
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24*7);
                         $last_detail_status = $oCounterModel->getHourlyStatus('week', $last_date, $site_module_info->site_srl);
+						
+						$i=0;
                         foreach($last_detail_status->list as $key => $val) {
-                            $xml->value[1][] = $val;
+							$chart_value_last[] = sprintf("[%d, %02d]", $i, $val);
+							$i++;
                         }
 
 
@@ -904,10 +921,11 @@
                         $disp_selected_date = date("Y.m.d", strtotime($selected_date));
 
                         $detail_status = $oCounterModel->getHourlyStatus('hour', $selected_date, $site_module_info->site_srl);
-
+						
                         foreach($detail_status->list as $key => $val) {
 
-							$chart_ticks[] = sprintf("\"%02d\"",$key);
+							$chart_ticks[] = sprintf("[%d, %02d]", $key, $key);
+							$chart_value_this[] = sprintf("[%d, %d]", $key, $val);
 
                             $_k = sprintf('%02d',$key);
                             if($selected_date == date("Ymd")&&$key == date("H")){
@@ -922,18 +940,13 @@
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24);
                         $last_detail_status = $oCounterModel->getHourlyStatus('hour', $last_date, $site_module_info->site_srl);
 
+                        foreach($last_detail_status->list as $key => $val) {
+							$chart_value_last[] = sprintf("[%d, %02d]", $key, $val);
+                        }
+
+
                     break;
             }
-
-			//set average
-			$chart_value_average = array();
-			$_detail_status = array_values($detail_status->list);
-			$_last_detail_status =  array_values($last_detail_status->list);
-
-			foreach($_detail_status as $key => $val) {
-				$chart_value_average[$key] = $_detail_status[$key]+$_last_detail_status[$key];
-				if($_detail_status[$key] && $_last_detail_status[$key]) $chart_value_average[$key] = $chart_value_average[$key]/2;
-			}
 
             //Context::set('xml', urlencode($xml->data));
             Context::set('before_url', $before_url);
@@ -942,10 +955,8 @@
 
 			//flotChart
 			Context::set('chart_ticks',implode(",",$chart_ticks));
-			Context::set('chart_value_this',implode(",",$detail_status->list));
-			Context::set('chart_value_last',implode(",",$last_detail_status->list));
-			Context::set('chart_value_average',implode(",",$chart_value_average));
-
+			Context::set('chart_value_this',implode(",",$chart_value_this));
+			Context::set('chart_value_last',implode(",",$chart_value_last));
 
             $output->sum = $detail_status->sum;
             $output->max = $detail_status->max;
