@@ -9,7 +9,6 @@
         <h4>{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsSupporter']} <small>블로그에 접속한 방문경로를 추적합니다.</small></h4>
     </div>
 
-
     <div class="statistics-nav">
         <div class="row">
             <div class="col-md-12 text-center">
@@ -59,10 +58,18 @@
             <tr>
                 <th scope="col">{$lang->rank}</th>
                 <th scope="col">{$lang->user}</th>
-                <th scope="col"<!--@if($sort_index=='comment_count')--> class="sum"<!--@end-->>{$lang->comment}<button type="button" class="btnTableDataSort" onclick="document.location.href='{getUrl("sort_index","comment_count")}'"><span>{$lang->order_desc}</span></button></th>
-                <th scope="col"<!--@if($sort_index=='trackback_count')--> class="sum"<!--@end-->>{$lang->trackback}<button type="button" class="btnTableDataSort" onclick="document.location.href='{getUrl("sort_index","trackback_count")}'"><span>{$lang->order_desc}</span></button></th>
-                <th scope="col"<!--@if($sort_index=='guestbook_count')--> class="sum"<!--@end-->>{$lang->guestbook}<button type="button" class="btnTableDataSort" onclick="document.location.href='{getUrl("sort_index","guestbook_count")}'"><span>{$lang->order_desc}</span></button></th>
-                <th scope="col<!--@if($sort_index=='total_count')--> class="sum"<!--@end-->">{$lang->summary}<button type="button" class="btnTableDataSort" onclick="document.location.href='{getUrl("sort_index","total_count")}'"><span>{$lang->order_desc}</span></button></th>
+                <th scope="col" class="sum"|cond="$sort_index=='comment_count'">
+                    {$lang->comment} <button type="button" class="bts_btn bts_btn-default bts_btn-xs" onclick="document.location.href='{getUrl("sort_index","comment_count")}'"><span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">{$lang->order_desc}</span></button>
+                </th>
+                <th scope="col" class="sum"|cond="$sort_index=='trackback_count'">
+                    {$lang->trackback} <button type="button" class="bts_btn bts_btn-default bts_btn-xs" onclick="document.location.href='{getUrl("sort_index","trackback_count")}'"><span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">{$lang->order_desc}</span></button>
+                </th>
+                <th scope="col" class="sum"|cond="$sort_index=='guestbook_count'">
+                    {$lang->guestbook} <button type="button" class="bts_btn bts_btn-default bts_btn-xs" onclick="document.location.href='{getUrl("sort_index","guestbook_count")}'"><span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">{$lang->order_desc}</span></button>
+                </th>
+                <th scope="col" class="sum"|cond="$sort_index=='total_count'">
+                    {$lang->summary} <button type="button" class="bts_btn bts_btn-default bts_btn-xs" onclick="document.location.href='{getUrl("sort_index","total_count")}'"><span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">{$lang->order_desc}</span></button>
+                </th>
             </tr>
         </thead>
 
@@ -78,16 +85,12 @@
             <tr loop="$supporter_list => $no, $v">
                 <td class="rank">{$_item_count+1}</td>
                 <td class="user">
-                    <!--@if($v->profile_image)-->
-                    <img src="{$v->profile_image}" alt="{htmlspeciachars($v->nick_name}" class="thumb member_{$v->member_srl}" />{$v->nick_name}</a>
-                    <!--@else-->
-                        <span class="member_{$v->member_srl}">{$v->nick_name}</span>
-                    <!--@end-->
+                    <span class="member_{$v->member_srl}">{$v->nick_name}</span>
                 </td>
-                <td class="small<!--@if($sort_index=='comment_count')--> sum<!--@end-->">{$v->comment_count}</td>
-                <td class="small<!--@if($sort_index=='trackback_count')--> sum<!--@end-->">{$v->trackback_count}</td>
-                <td class="small<!--@if($sort_index=='guestbook_count')--> sum<!--@end-->">{$v->guestbook_count}</td>
-                <td class="small<!--@if($sort_index=='total_count')--> sum<!--@end-->">{$v->total_count}</td>
+                <td class="sum"|cond="$sort_index=='comment_count'">{$v->comment_count}</td>
+                <td class="sum"|cond="$sort_index=='trackback_count'">{$v->trackback_count}</td>
+                <td class="sum"|cond="$sort_index=='guestbook_count'">{$v->guestbook_count}</td>
+                <td class="sum"|cond="$sort_index=='total_count'">{$v->total_count}</td>
                 {@$_item_count++}
             </tr>
         </tbody>
