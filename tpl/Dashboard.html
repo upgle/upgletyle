@@ -34,7 +34,7 @@
                 </div>
                 <ul class="list-group list-group-dashboard" cond="$newest_documents">
                     <li class="list-group-item" loop="$newest_documents => $key, $val">
-                        <div class="title"><a href="#">{$val->getTitle()}</a></div>
+                        <div class="title"><a href="{getUrl('','document_srl',$val->document_srl)}">{$val->getTitle()}</a></div>
                         <div class="info">
                             <span class="label label-published">{$lang->publish}</span> <span class="info-comment">{$lang->comment} <strong>{$val->getCommentCount()}</strong></span> <span class="info-trackback">{$lang->trackback} <strong>{$val->getTrackbackCount()}</strong></span>
                         </div>
@@ -53,7 +53,7 @@
                     <block cond="!count($guestbook_list)">{$lang->newest_no_guestbooks}</block>
                     <div class="media" loop="$guestbook_list => $k, $v" cond="count($guestbook_list)">
                         <a class="pull-left" href="#">
-                            <img class="media-object" src="http://blog.upgle.com/modules/upgletyle/tpl/img/iconEmoticonDefault.gif" alt="...">
+                            <img class="media-object" src="./img/iconEmoticonDefault.gif" alt="...">
                         </a>
                         <div class="media-body">
                             <strong>{$v->nick_name}</strong> <a href="{getUrl('','mid',$mid,'act','dispUpgletyleToolCommunicationGuestbookReply','upgletyle_guestbook_srl',$v->upgletyle_guestbook_srl)}">{strip_tags($v->content)}</a>
@@ -73,7 +73,7 @@
                 <li class="list-group-item">
                     <button type="button" class="close" onclick="deleteCommentItem({$val->comment_srl},1)" aria-hidden="true">&times;</button>
                     <p class="list-group-item-text clearfix">
-                        <img class="pull-left" style="margin-right:10px;" src="http://blog.upgle.com/modules/upgletyle/tpl/img/iconEmoticonDefault.gif" alt="...">
+                        <img class="pull-left" style="margin-right:10px;" src="./img/iconEmoticonDefault.gif" alt="...">
                         <span class="member_{$val->get('member_srl')} author">{$val->getNickName()}</span> <a href="{$val->getPermanentUrl()}" target="_blank">{$val->getSummary(200)}</a>
                     </p>
                 </li>
@@ -104,15 +104,15 @@ jQuery(function($) {
     });
 
     //  jQuery Flot Chart
-    var visits = [[1, 50], [2, 40], [3, 45], [4, 23],[5, 55],[6, 65],[7, 61]];
-    var visitors = [[1, 25], [2, 50], [3, 23], [4, 48],[5, 38],[6, 28],[7, 68]];
+    var last_week = [{$chart_value_last}];
+    var this_week = [{$chart_value_this}];
 
     var plot = $.plot($("#statsChart"),
-        [ { data: visits, label: "지난주"},
-         { data: visitors, label: "이번주"}], {
+        [ { data: last_week, label: "지난주"},
+         { data: this_week, label: "이번주"}], {
             series: {
                 lines: { show: true,
-                        lineWidth: 1,
+                        lineWidth: 2,
                         fill: true, 
                         fillColor: { colors: [ { opacity: 0.05 }, { opacity: 0.09 } ] }
                      },
@@ -134,8 +134,7 @@ jQuery(function($) {
                 },  
             colors: ["#a7b5c5", "#eb3058"],
             xaxis: {
-                ticks: [[1, "일"], [2, "월"], [3, "화"], [4,"수"], [5,"목"], [6,"금"], 
-                       [7,"토"]],
+                ticks: [{$chart_ticks}],
                 font: {
                     size: 12,
                     family: "Open Sans, Arial",

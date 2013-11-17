@@ -214,9 +214,7 @@
          **/
         function dispUpgletyleToolDashboard(){
 
-            set_include_path(_XE_PATH_."libs/PEAR");
-            require_once('PEAR.php');
-            require_once('HTTP/Request.php');
+			global $lang;
 
             $oCounterModel = &getModel('counter');
             $oDocumentModel = &getModel('document');
@@ -260,33 +258,52 @@
             $status->week_max = $max;
             $idx = 0;
             foreach($status->week as $key => $val) {
-                $_item[] = sprintf("<item id=\"%d\" name=\"%s\" />", $idx, $thisWeek[$idx]);
                 $_thisWeek[] = $val->this;
                 $_lastWeek[] = $val->last;
                 $idx++;
             }
 
-            $buff = '<?xml version="1.0" encoding="utf-8" ?><Graph><gdata title="Upgletyle Counter" id="data2"><fact>'.implode('',$_item).'</fact><subFact>';
-            $buff .= '<item id="0"><data name="'.Context::getLang('this_week').'">'.implode('|',$_thisWeek).'</data></item>';
-            $buff .= '<item id="1"><data name="'.Context::getLang('last_week').'">'.implode('|',$_lastWeek).'</data></item>';
-            $buff .= '</subFact></gdata></Graph>';
-            Context::set('xml', $buff);
-
             $counter = $oCounterModel->getStatus(array(0,date("Ymd")),$this->site_srl);
             $status->total_visitor = $counter[0]->unique_visitor;
             $status->visitor = $counter[date("Ymd")]->unique_visitor;
 
+			/*
             $args->module_srl = $this->module_srl;
             $args->regdate = date("Ymd");
             $output = executeQuery('upgletyle.getTodayCommentCount', $args);
             $status->comment_count = $output->data->count;
+			*/
 
+			/*
             $args->module_srl = $this->module_srl;
             $args->regdate = date("Ymd");
             $output = executeQuery('upgletyle.getTodayTrackbackCount', $args);
             $status->trackback_count = $output->data->count;
-
+			*/
             Context::set('status', $status);
+
+
+			//카운터..
+			$detail_status = $oCounterModel->getHourlyStatus('week', date("Ymd",$time), $this->site_srl);
+			$i=0;
+			foreach($detail_status->list as $key => $val) {
+				$_k = $lang->unit_week[date('l',strtotime($key))];
+				$chart_ticks[] = sprintf("[%d, \"%s\"]", $i, $_k);
+				$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
+				$i++;
+			}
+			$last_date = date("Ymd",strtotime(date("Ymd",$time))-60*60*24*7);
+			$last_detail_status = $oCounterModel->getHourlyStatus('week', $last_date, $this->site_srl);
+
+			$i=0;
+			foreach($last_detail_status->list as $key => $val) {
+				$chart_value_last[] = sprintf("[%d, %02d]", $i, $val);
+				$i++;
+			}
+			Context::set('chart_ticks',implode(",",$chart_ticks));
+			Context::set('chart_value_this',implode(",",$chart_value_this));
+			Context::set('chart_value_last',implode(",",$chart_value_last));
+
 
             $doc_args->module_srl = array($this->upgletyle->get('member_srl'), $this->module_srl);
             $doc_args->sort_index = 'list_order';
