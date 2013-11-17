@@ -9,20 +9,20 @@
         <div class="col-sm-7 col-md-7">
             <div class="panel panel-default panel-analytics">
                 <div class="panel-body">
-                    <h3>방문자 통계 <small>{$lang->today} <strong>{number_format($status->visitor)}</strong> / {$lang->total} <strong>{number_format($status->total_visitor)}</strong></small></h3>
+                    <h3>방문자 통계 <small>{$lang->today} <strong style="font-size:22px">{number_format($status->visitor)}</strong> / {$lang->total} <strong>{number_format($status->total_visitor)}</strong></small></h3>
                     <div id="statsChart" style="height:190px"></div>
                 </div>
-                <div class="panel-footer" style="position:relative; text-align:center;">
+                <div class="panel-footer text-center" style="position:relative;">
                     <a href="#" style="position:absolute;font-size:14px;top:10px;right:10px"><span class="glyphicon glyphicon-cog"></span></a>
-                    <span class="easypiechart easypiechart-traffic" data-percent="86">
+                    <span class="item-easypiechart" data-percent="86">
                         <span class="title">트래픽</span>
                         <span class="percent">891</span>
                     </span>
-                    <span class="easypiechart easypiechart-db" data-percent="46">
+                    <span class="item-easypiechart" data-percent="46">
                         <span class="title">DB</span>
                         <span class="percent">116</span>
                     </span>
-                    <span class="easypiechart easypiechart-hdd" data-percent="86">
+                    <span class="item-easypiechart" data-percent="86">
                         <span class="title">HDD</span>
                         <span class="percent">86</span>
                     </span>
@@ -32,14 +32,14 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><!--"최근 작성글"-->{$lang->newest_documents}</h3>
                 </div>
-                <div class="list-group list-group-dashboard" cond="$newest_documents">
-                    <a href="#" class="list-group-item" loop="$newest_documents => $key, $val">
-                        <div class="title">{$val->getTitle()}</div>
+                <ul class="list-group list-group-dashboard" cond="$newest_documents">
+                    <li class="list-group-item" loop="$newest_documents => $key, $val">
+                        <div class="title"><a href="#">{$val->getTitle()}</a></div>
                         <div class="info">
                             <span class="label label-published">{$lang->publish}</span> <span class="info-comment">{$lang->comment} <strong>{$val->getCommentCount()}</strong></span> <span class="info-trackback">{$lang->trackback} <strong>{$val->getTrackbackCount()}</strong></span>
                         </div>
-                    </a>
-                </div>
+                    </li>
+                </ul>
                 <div class="panel-body" cond="!$newest_documents">{@printf($lang->no_post, getUrl('act','dispUpgletyleToolPostManageWrite'))}</div>
                 <div class="panel-footer clearfix"><a href="{getUrl('','act','dispUpgletyleToolPostManageWrite')}" class="bts_btn bts_btn-default bts_btn-sm pull-right">{$lang->cmd_new_post}</a></div>
             </div>
@@ -84,7 +84,6 @@
     </div>
 </div>
 
-
 <load target="js/jquery.flot.js" cond="__DEBUG__" />
 <load target="js/jquery.flot.min.js" cond="!__DEBUG__" />
 <load target="js/jquery.flot.resize.js" cond="__DEBUG__" />
@@ -95,7 +94,7 @@
 <script type="text/javascript">
 jQuery(function($) {
 
-    $('.easypiechart').easyPieChart({
+    $('.item-easypiechart').easyPieChart({
         lineWidth : 6,
         lineCap : 'butt',
         size : 90,

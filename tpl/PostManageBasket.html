@@ -5,11 +5,10 @@
         <h4>{$lang->upgletyle_second_menus[1]['dispUpgletyleToolPostManageBasket']} <small>삭제된 포스트를 복구시키거나 영구삭제할 수 있습니다..</small></h4>
     </div>
 
-    <div class="row" style="margin-top:26px; margin-bottom:13px;">
-    <div class="col-md-4" style="line-height:20px">
+    <div class="item-listheader clearfix">
+        <p class="info pull-left">
         <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end-->
-    </div>
-    <div class="col-md-8">
+        </p>
         <fieldset class="search pull-right">
             <legend>{$lang->cmd_search}</legend>
             <form action="{Context::getRequestUri()}" class="form-inline">
@@ -30,7 +29,6 @@
                 <input type="submit" value="{$lang->cmd_search}" class="bts_btn bts_btn-default bts_btn-xs" />
             </form>
         </fieldset>
-    </div>
     </div>
 
     <!-- Table Data -->
@@ -71,7 +69,7 @@
                         <td>{$trash_info['trackback_count']}</td>
                         <td>{zdate($trash_info['last_update'],'Y.m.d H:i:s')}</td>
                         <td><button type="button" class="bts_btn bts_btn-default bts_btn-xs" onclick="restorePostItem({$oTrashVO->trashSrl},{$page})">{$lang->cmd_restore}</button></td>
-                        <td><button type="button" class="btnTableData" onclick="deletePostItem({$oTrashVO->trashSrl},{$page})"><span>{$lang->cmd_empty}</span></button></td>
+                        <td><button type="button" class="item-deletebutton" onclick="deletePostItem({$oTrashVO->trashSrl},{$page})"><span class="text-hide">{$lang->cmd_empty}</span></button></td>
                     </tr>
                     <!--@end-->
                 </tbody>

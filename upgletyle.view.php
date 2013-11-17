@@ -19,22 +19,20 @@
             if(preg_match("/UpgletyleTool/",$this->act) || $oUpgletyleModel->isAttachedMenu($this->act) ) {
 				if(__DEBUG__)
 				{
-					Context::loadFile(array('./modules/admin/tpl/css/admin.css', '', '', 10), true); 
-					Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
+					//Context::loadFile(array('./modules/admin/tpl/css/admin.css', '', '', 10), true); 
+					//Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
 					//Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.css", '', 'ie', 10), true);
-					if($act == 'dispUpgletyleToolPostManageCategory')
-						Context::loadFile('./modules/admin/tpl/js/admin.js', true);
+
 					//Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				} 
 				else
 				{
-					Context::loadFile(array('./modules/admin/tpl/css/admin.min.css', '', '', 10), true);
-					Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
+					//Context::loadFile(array('./modules/admin/tpl/css/admin.min.css', '', '', 10), true);
+					//Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
 					//Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.min.css", '', 'ie', 10), true);
-					if($act == 'dispUpgletyleToolPostManageCategory')
-						Context::loadFile('./modules/admin/tpl/js/admin.min.js', true);
+
 					//Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.min.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
@@ -626,8 +624,8 @@
          * @brief display upgletyle tool post manage category
          **/
         function dispUpgletyleToolPostManageCategory(){
-            $oDocumentModel = &getModel('document');
-            $catgegory_content = $oDocumentModel->getCategoryHTML($this->module_srl);
+            $oUpgletyleModel = &getModel('upgletyle');
+            $catgegory_content = $oUpgletyleModel->getCategoryHTML($this->module_srl);
 
             Context::set('module_srl',$this->module_srl);
             Context::set('category_content', $catgegory_content);

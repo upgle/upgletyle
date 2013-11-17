@@ -48,13 +48,13 @@
 
                 <div class="form-group row">
                     <div class="col-sm-5">
-                        <div class="favicon pull-right">
+                        <div class="item-favicon pull-right">
                         <img src="{$upgletyle->getFaviconSrc()}" width="16" height="16" alt="{$lang->registed_favicon}" class="iconFavicon url" />
                         <img src="{$upgletyle->getFaviconSrc()}" width="16" height="16" alt="{$lang->registed_favicon}" class="iconFavicon tab" />
                         <button type="button" class="deleteFavicon" onclick="jQuery('input[name=delete_icon]').val('Y');jQuery('img.iconFavicon').attr('src','{$upgletyle->getDefaultFaviconSrc()}');"><span>{$lang->cmd_delete_favicon}</span></button>
                         </div>
                     </div>
-                    <div class="upload col-sm-7">
+                    <div class="col-sm-7">
                         <input name="favicon" type="file" value="" />
                         <p>{$lang->about_favicon}</p>
                     </div>

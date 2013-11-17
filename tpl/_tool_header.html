@@ -1,4 +1,3 @@
-<!-- Remove XE admin bar -->
 {Context::set("admin_bar","false")}
 {Context::addMetaTag('X-UA-Compatible','IE=edge',true)}
 {Context::addMetaTag('viewport','width=device-width, initial-scale=1.0')}
@@ -32,10 +31,10 @@
     <div class="navbar-right" style="margin-top:6px;">
         <div class="bts_btn-group">
             <button type="button" class="bts_btn bts_btn-black bts_btn-sm dropdown-toggle" data-toggle="dropdown" >
-            무엇이든 업글하는곳! 업글닷컴 <span class="caret"></span>
+            {$upgletyle->getUpgletyleTitle()} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-            <li><a href="#">무엇이든 업글하는곳! 업글닷컴</a></li>
+            <li><a href="{getSiteUrl($upgletyle->domain)}" target="_blank">{$upgletyle->getUpgletyleTitle()}</a></li>
             </ul>
         </div>
         <div class="bts_btn-group">

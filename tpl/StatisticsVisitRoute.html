@@ -3,7 +3,6 @@
 <!--%load_js_plugin("ui.calendar")-->
 <load target="css/calendar.css" />
 
-
 <!-- Content -->
 <div class="upgle-container">
     <div class="page-header">
@@ -137,25 +136,13 @@
     <!--@end-->
     <!-- /Table Data -->
 
+    <ul class="pagination-upgle pull-right" cond="$page_navigation">
+        <li class="prev"><a href="{getUrl('page','','mid',$mid)}"><span class="sr-only">&laquo;</span></a></li>
+        <block loop="$page_no = $page_navigation->getNextPage()">
+        <li class="active"|cond="$page==$page_no"><a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a></li>
+        </block>
+        <li class="next"><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}"><span class="sr-only">&raquo;</span></a></li>
+    </ul>
 
-    <!--@if($page_navigation)-->
-    <div class="listFooter">
-        <!-- Pagination -->
-        <div class="pagination">
-            <a href="{getUrl('page','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
-
-            <!--@while($page_no = $page_navigation->getNextPage())-->
-                <!--@if($page == $page_no)-->
-                    <strong>{$page_no}</strong> 
-                <!--@else-->
-                    <a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a> 
-                <!--@end-->
-            <!--@end-->
-
-            <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
-        </div>
-        <!-- /Pagination -->
-    </div>
-    <!--@end-->
 </div>
 <!-- /Content -->

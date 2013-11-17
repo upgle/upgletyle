@@ -45,7 +45,7 @@
                 <tbody>
                     <!--@if(count($comment_list)==0)-->
                     <tr>
-                        <td class="noData" colspan="6"><p>{$lang->no_comment}</p></td>
+                        <td colspan="6" class="text-center"><p class="item-nodata">{$lang->no_comment}</p></td>
                     </tr>
                     <!--@else-->
                         <!--@foreach($comment_list as $no => $val)-->
@@ -62,7 +62,7 @@
                                 <!--@end-->
                             </td>
                             <td>
-                                <dl class="item-communication-content">
+                                <dl class="content">
                                     <dt>
                                         <span class="member_{$val->get('member_srl')}"><strong>{$val->getNickName()}</strong></span>
                                         <span class="yymmdd">{$val->getRegdate("Y.m.d")}</span> <span class="hhmm">{$val->getRegdate("H:i")}</span>
@@ -71,9 +71,9 @@
                                 </dl>
 
                             </td>
-                            <td class="item-communication-email">{$val->email_address}&nbsp;</td>
-                            <td class="item-communication-ipaddress">{$val->ipaddress}</td>
-                            <td class="item-communication-state"><!--@if($val->is_secret=='Y')--><em>{$lang->secret}</em><!--@else-->{$lang->public}<!--@end--></td>
+                            <td class="email">{$val->email_address}</td>
+                            <td class="ipaddress">{$val->ipaddress}</td>
+                            <td class="state"><!--@if($val->is_secret=='Y')--><em>{$lang->secret}</em><!--@else-->{$lang->public}<!--@end--></td>
                         </tr>
                         <tr class="item-communication-button">
                             <td colspan="2"></td>
@@ -102,7 +102,6 @@
                     <button type="button" onclick="openLayerAddDeny('_addDenyCommentList')" class="bts_btn bts_btn-default bts_btn-sm">{$lang->cmd_deny}</button>
                     <button type="button" onclick="deleteCommentItems({$page})" class="bts_btn bts_btn-default bts_btn-sm"><img src="img/buttonTableDataX.gif" width="7" height="7" alt="" /> {$lang->cmd_delete}</button>
                 </div>
-                
                 <ul class="pagination-upgle pull-right">
                     <li class="prev"><a href="{getUrl('page','','mid',$mid)}"><span class="sr-only">&laquo;</span></a></li>
                     <block loop="$page_no = $page_navigation->getNextPage()">
@@ -115,8 +114,6 @@
         </form>
     </fieldset>
     <!-- /Table Data -->
-				
 </div>
 <!-- /Content -->
-
-<!--include("_layerAddDeny.html")-->
+<include target="_layerAddDeny.html" />

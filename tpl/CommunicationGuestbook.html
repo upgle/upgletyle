@@ -32,29 +32,29 @@
             <table summary="{$lang->content_list}" class="table table-hover table-upgle table-condensed">
                 <thead>
                     <tr>
-                        <th scope="col">
-                            <input type="checkbox" class="inputCheck" onclick="jQuery('input.boxlist').click()"/>
+                        <th scope="col" class="text-center" width="35">
+                            <input type="checkbox" onclick="jQuery('input.boxlist').click()"/>
                         </th>
-                        <th scope="col">{$lang->avatar}</th>
-                        <th scope="col" class="replyArea">{$lang->comment}</th>
+                        <th scope="col" class="text-center" width="80">{$lang->avatar}</th>
+                        <th scope="col">{$lang->comment}</th>
                         <th scope="col">{$lang->email_address}</th>
-                        <th scope="col">{$lang->ipaddress}</th>
-                        <th scope="col">{$lang->status}</th>
+                        <th scope="col" class="text-center" width="90">{$lang->ipaddress}</th>
+                        <th scope="col" class="text-center" width="50">{$lang->status}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!--@if(count($guestbook_list)==0)-->
                         <tr>
-                            <td class="noData" colspan="6"><p>{$lang->no_guestbook}</p></td>
+                            <td colspan="6" class="text-center"><p class="item-nodata">{$lang->no_guestbook}</p></td>
                         </tr>
 
                     <!--@else-->
                         <!--@foreach($guestbook_list as $k => $v)-->
                         <tr<!--@if($v->parent_srl>0)--> class="item-communication indent"<!--@else--> class="item-communication"<!--@end-->>
-                            <td>
+                            <td class="text-center">
                                 <input type="checkbox" name="upgletyle_guestbook_srl" value="{$v->upgletyle_guestbook_srl}" class="inputCheck boxlist" />
                             </td>
-                            <td class="thumb">
+                            <td class="thumb text-center">
                                 <!--@if($v->profile_image)-->
                                 <img src="{$v->profile_image}" alt="{$v->nick_name}" />
                                 <!--@else-->
@@ -68,8 +68,8 @@
                                 </dl>
                             </td>
                             <td class="item-communication-email">{$v->email_address}&nbsp;</td>
-                            <td class="item-communication-ipaddress">{$v->ipaddress}</td>
-                            <td class="item-communication-state"><!--@if($v->is_secret<0)-->{$lang->public}<!--@else--><em>{$lang->secret}</em><!--@end--></td>
+                            <td class="item-communication-ipaddress text-center">{$v->ipaddress}</td>
+                            <td class="item-communication-state text-center"><!--@if($v->is_secret<0)-->{$lang->public}<!--@else--><em>{$lang->secret}</em><!--@end--></td>
                         </tr>
                         <tr class="item-communication-button">
                             <td colspan="2"></td>
@@ -83,7 +83,7 @@
                                     <div class="pull-right">
                                         <button type="button" onclick="updateGuestbookItemChangeSecret({$v->upgletyle_guestbook_srl},{$page})" class="bts_btn bts_btn-default bts_btn-xs"><!--@if($v->is_secret<0)-->{$lang->private}<!--@else-->{$lang->public}<!--@end--></button></span> 
                                         <button type="button" onclick="openLayerAddDenyItem('{$v->upgletyle_guestbook_srl}','_addDenyGuestbookList')" class="bts_btn bts_btn-default bts_btn-xs">{$lang->cmd_deny}</button> 
-                                        <button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$v->upgletyle_guestbook_srl},{$page});return false;" class="bts_btn bts_btn-default bts_btn-xs">{$lang->cmd_delete}</button>
+                                        <button type="button" onclick="if(confirm('{$lang->confirm_delete}')) deleteGuestbookItem({$v->upgletyle_guestbook_srl},{$page});return false;" class="bts_btn bts_btn-danger bts_btn-xs">{$lang->cmd_delete}</button>
                                     </div>
                                 </div>
                             </td>

@@ -1,32 +1,30 @@
 <include target="_tool_header.html" />
 
+
 <!-- Content -->
 <div class="upgle-container">
     <div class="page-header">
         <h4>{$lang->upgletyle_second_menus[1]['dispUpgletyleToolPostManageList']} <small>블로그의 종합정보를 출력합니다.</small></h4>
     </div>
 
-
     <ul class="nav nav-pills nav-upgle">
-    <li class="active"|cond="!$published">
-        <a href="{getUrl('', 'mid', $mid, 'vid', $vid, 'act', $act, 'sort_index','','published','')}">{$lang->document_all}</a>
-    </li>
-    <li class="active"|cond="$published==1">
-        <span class="line"></span>
-        <a href="{getUrl('', 'mid', $mid, 'vid', $vid, 'act', $act, 'sort_index','','published','1')}">{$lang->document_published}</a>
-    </li>
-    <li class="active"|cond="$published==-1">
-        <span class="line"></span>
-        <a href="{getUrl('', 'mid', $mid, 'vid', $vid, 'act', $act, 'sort_index','','published','-1')}">{$lang->document_reserved}</a>
-    </li>
+        <li class="active"|cond="!$published">
+            <a href="{getUrl('', 'mid', $mid, 'vid', $vid, 'act', $act, 'sort_index','','published','')}">{$lang->document_all}</a>
+        </li>
+        <li class="active"|cond="$published==1">
+            <span class="line"></span>
+            <a href="{getUrl('', 'mid', $mid, 'vid', $vid, 'act', $act, 'sort_index','','published','1')}">{$lang->document_published}</a>
+        </li>
+        <li class="active"|cond="$published==-1">
+            <span class="line"></span>
+            <a href="{getUrl('', 'mid', $mid, 'vid', $vid, 'act', $act, 'sort_index','','published','-1')}">{$lang->document_reserved}</a>
+        </li>
     </ul>
 
-
-    <div class="row" style="margin-top:26px; margin-bottom:13px;">
-    <div class="col-md-4" style="line-height:20px">
-        <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end-->
-    </div>
-    <div class="col-md-8">
+    <div class="item-listheader clearfix">
+        <p class="info pull-left">
+            <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end-->
+        </p>
         <fieldset class="search pull-right">
             <legend>{$lang->cmd_search}</legend>
             <form action="{Context::getRequestUri()}" class="form-inline">
@@ -55,7 +53,6 @@
             </form>
         </fieldset>
     </div>
-    </div>
 
 
     <!-- /listHeader -->
@@ -78,18 +75,16 @@
                         <th scope="col">{$lang->comment}</th>
                         <th scope="col">{$lang->last_update}</th>
                         <th scope="col" class="visible-lg visible-md">&nbsp;</th>
-                        <th scope="col">{$lang->cmd_delete}</th>
+                        <th scope="col" class="item-center">{$lang->cmd_delete}</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     <!--@if(count($post_list)==0)-->								
                     <tr>
                         <td class="noData" colspan="9"><p>{sprintf($lang->no_post,getUrl('','act','dispUpgletyleToolPostManageWrite'))}</p></td>
                     </tr>
                     <!--@else-->
-                        <!--@foreach($post_list as $no => $post)-->
-                        <tr>
+                    <tr loop="$post_list => $no, $post">
                         <td>
                             <input type="checkbox" name="document_srl" value="{$post->document_srl}" class="inputCheck boxlist" />
                         </td>
@@ -100,14 +95,14 @@
                             <!--@else if($post->isSecret())-->
                                 <span class="label label-secret">{$lang->secret}</span>
                             <!--@else if($post->type=='reserve')-->
-                                <strong class="publishState reserve"><span>{$lang->reserve}</span></strong>
+                                <span class="label label-reserved">{$lang->reserve}</span>
                             <!--@else if($post->type=='save')-->
                                 <span class="label label-saved">{$lang->saved}</span>
                             <!--@else-->
                                 <span class="label label-published">{$lang->publish}</span>
                             <!--@end-->
                         </td>
-                        <td class="title"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a>
+                        <td class="title"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a> 
                         {$post->printExtraImages()}
                         </td>
                         <td>{$post->getCommentCount()}</td>
@@ -125,20 +120,15 @@
                             <!--@else-->
                             <a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" class="bts_btn bts_btn-default bts_btn-xs">{$lang->publish_update_go}</a>
                             <!--@end-->
-
                         </td>
-                        <td width="50">
-							<button type="button" class="btnTableData" onclick="trashPostItem({$post->document_srl},{$page})"><span>{$lang->cmd_delete}</span></button>
-
+                        <td width="50" class="text-center">
+                            <button type="button" class="item-deletebutton" onclick="trashPostItem({$post->document_srl},{$page})"><span class="text-hide">{$lang->cmd_delete}</span></button>
                         </td>
-                        </tr>
-                        <!--@end-->
+                    </tr>
                     <!--@end-->
                 </tbody>
             </table>
             </div>
-            
-
 
             <div class="item-changecontroller pull-left">
                 {$lang->selected_articles}
@@ -173,13 +163,13 @@
                 <li class="next"><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}"><span class="sr-only">&raquo;</span></a></li>
             </ul>
 
-            
         </form>
     </fieldset>
     <!-- /Table Data -->
-    
+
 </div>
 <!-- /Content -->
+
 
 
 <script>

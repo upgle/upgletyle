@@ -1,35 +1,48 @@
-<div id="feedbackSetup" class="layerContainer layerAddDeny">
-	<!-- class="layerContainer" | class="layerContainer open" -->
-	<div class="darkNight"></div>
-	<!-- Layer -->
-	<div class="layer">
-		<h4 class="h4"><img src="img/iconCheck.gif" alt="" class="icon" width="26" height="20">{$lang->add_denylist}</h4>
-			<form action="" method="post" onsubmit="return procFilter(this, insert_denylist)">
-				<input type="hidden" name="vid" value="{$vid}" />
-				<input type="hidden" name="mid" value="{$mid}" />
-			<fieldset>
-				<ul>
-					<li><input name="homepage" value="" class="inputCheck" id="url" checked="checked" type="checkbox"> <label for="url">{$lang->homepage}</label></li>
-					<li><input name="email_address" value="" class="inputCheck" id="email" checked="checked" type="checkbox"> <label for="email">{$lang->email_address}</label></li>
-					<li><input name="ipaddress" value="" class="inputCheck" id="ipAddress" type="checkbox"> <label for="ipAddress">{$lang->ipaddress}</label></li>
-					<li><input name="user_name" value="" class="inputCheck" id="name" type="checkbox"> <label for="name">{$lang->user_name}</label></li>
-				</ul>
-
-				<div class="btnArea">
-					<span class="btnGray large strong"><input type="submit" value="{$lang->cmd_insert}" /></span>
-				</div>
-			</fieldset>
-		</form>
-		<button type="button" class="btnCloseLayer" onclick="hideLayerAddDeny()"><span>{$lang->cmd_close}</span></button>
-	</div> 
-	<!-- /Layer -->
+<!-- Modal -->
+<div class="modal modal-deny fade" id="modalAddDeny" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<form action="" method="post" onsubmit="return procFilter(this, insert_denylist)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"><img src="img/iconCheck.gif" alt="" class="icon" width="26" height="20"> {$lang->add_denylist}</h4>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" name="vid" value="{$vid}" />
+                    <input type="hidden" name="mid" value="{$mid}" />
+                    <fieldset class="clearfix">
+                        <div class="checkbox">
+                          <label>
+                            <input name="homepage" value="" class="inputCheck" id="url" checked="checked" type="checkbox">
+                            {$lang->homepage}
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input name="email_address" value="" class="inputCheck" id="email" checked="checked" type="checkbox">
+                            {$lang->email_address}
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input name="ipaddress" value="" class="inputCheck" id="ipAddress" type="checkbox">
+                            {$lang->ipaddress}
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input name="user_name" value="" class="inputCheck" id="name" type="checkbox">
+                            {$lang->user_name}
+                          </label>
+                        </div>
+                    </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="bts_btn bts_btn-default bts_btn-sm" data-dismiss="modal">{$lang->cmd_close}</button>
+                <button type="submit" class="bts_btn bts_btn-danger bts_btn-sm">{$lang->cmd_insert}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</form>
 </div>
-<script>
-if(jQuery.browser.msie && jQuery.browser.version<7){
-	jQuery(function(){
-		jQuery('.layerAddDeny').css('position','absolute');
-		jQuery(window).scroll(function(e){ jQuery('.layerAddDeny').css('top',document.documentElement.scrollTop); });
-
-	});
-}
-</script>
+<!-- /.modal -->

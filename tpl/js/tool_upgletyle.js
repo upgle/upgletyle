@@ -695,24 +695,28 @@ function openLayerAddDenyItem(srl,f){
 }
 
 function openLayerAddDeny(f){
-	jQuery('input[type=text]','.layerAddDeny fieldset').val('');
+
+
+	jQuery('input[type=text]','#modalAddDeny fieldset').val('');
 	if(jQuery("input.boxlist:checked").size() == 0) return;
 
 	var r = eval(f+'()');
 	if((r.homepage.length + r.email.length + r.user_name.length + r.ipaddress.length) ==0) return;
 
-	jQuery(':input[name=homepage]','.layerAddDeny fieldset').parent().show();
-	if(r.homepage.length == 0) jQuery(':input[name=homepage]','.layerAddDeny fieldset').parent().hide();
-	if(r.email.length == 0) jQuery(':input[name=email_address]','.layerAddDeny fieldset').parent().hide();
-	if(r.user_name.length == 0) jQuery(':input[name=user_name]','.layerAddDeny fieldset').parent().hide();
-	if(r.ipaddress.length == 0) jQuery(':input[name=ipaddress]','.layerAddDeny fieldset').parent().hide();
 
-	jQuery(':input[name=homepage]','.layerAddDeny fieldset').val(r.homepage.join('|')).get(0).checked=true;
-	jQuery(':input[name=email_address]','.layerAddDeny fieldset').val(r.email.join('|')).get(0).checked=true;
-	jQuery(':input[name=ipaddress]','.layerAddDeny fieldset').val(r.ipaddress.join('|')).get(0).checked=false;
-	jQuery(':input[name=user_name]','.layerAddDeny fieldset').val(r.user_name.join('|')).checked=false;
-	
-	jQuery('.layerAddDeny').addClass('open');
+	jQuery(':input[name=homepage]','#modalAddDeny fieldset').parent().show();
+	if(r.homepage.length == 0) jQuery(':input[name=homepage]','#modalAddDeny fieldset').parent().hide();
+	if(r.email.length == 0) jQuery(':input[name=email_address]','#modalAddDeny fieldset').parent().hide();
+	if(r.user_name.length == 0) jQuery(':input[name=user_name]','#modalAddDeny fieldset').parent().hide();
+	if(r.ipaddress.length == 0) jQuery(':input[name=ipaddress]','#modalAddDeny fieldset').parent().hide();
+
+	jQuery(':input[name=homepage]','#modalAddDeny fieldset').val(r.homepage.join('|')).get(0).checked=true;
+	jQuery(':input[name=email_address]','#modalAddDeny fieldset').val(r.email.join('|')).get(0).checked=true;
+	jQuery(':input[name=ipaddress]','#modalAddDeny fieldset').val(r.ipaddress.join('|')).get(0).checked=false;
+	jQuery(':input[name=user_name]','#modalAddDeny fieldset').val(r.user_name.join('|')).checked=false;
+
+	jQuery('#modalAddDeny').modal('show');
+
 }
 
 function _addDenyGuestbookList(){
@@ -727,11 +731,12 @@ function _addDenyTrackbackList(){
 function _addDeny(selected){
 	var tr,e,ip,n,s;
 	var r={email:[],ipaddress:[],user_name:[],homepage:[]};
+	
 	jQuery(selected).each(function(i){
 		tr = jQuery(this).parents('tr').get(0);
 
 		e = jQuery('>td.email',tr).html();
-		ip = jQuery('>td.ipAddress',tr).html();
+		ip = jQuery('>td.ipaddress',tr).html();
 		n = jQuery('>td.replyArea dt strong',tr).html();
 		s = jQuery('>td.replyArea dt a',tr).html();
 
