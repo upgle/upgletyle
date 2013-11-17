@@ -40,13 +40,13 @@
 .calendar table.month td button.past{color:#333}
 .calendar table.month td button.active{color:#fff}
 
-.contentNavigation .calendar{padding:0 50px;zoom:1}
-.contentNavigation .calendar .h4{margin:0;display:inline;font-size:18px;vertical-align:middle}
-.contentNavigation .calendar .prevData,
-.contentNavigation .calendar .nextData{position:absolute;top:0;border:0;padding:0;width:18px;height:19px;background-color:transparent;background-image:url(../img/buttonPagination.gif);background-repeat:no-repeat;cursor:pointer}
-.contentNavigation .calendar .prevData{background-position:left top;left:0}
-.contentNavigation .calendar .nextData{background-position:right top;right:0}
-.contentNavigation .calendar .prevData span,
-.contentNavigation .calendar .nextData span{position:absolute;width:0;height:0;overflow:hidden;font-size:0;line-height:0;z-index:-1;visibility:hidden}
-.contentNavigation .calendar .layerCalendar{top:22px;left:52px}
+.statistics-nav .calendar{padding:0 40px;zoom:1}
+.statistics-nav .calendar .h4{margin:0;display:inline;font-size:18px;vertical-align:middle}
+.statistics-nav .calendar .prevData,
+.statistics-nav .calendar .nextData{position:absolute;top:0;border:0;padding:0;width:18px;height:19px;background-color:transparent;background-image:url(../img/buttonPagination.gif);background-repeat:no-repeat;cursor:pointer}
+.statistics-nav .calendar .prevData{background-position:left top;left:0}
+.statistics-nav .calendar .nextData{background-position:right top;right:0}
+.statistics-nav .calendar .prevData span,
+.statistics-nav .calendar .nextData span{position:absolute;width:0;height:0;overflow:hidden;font-size:0;line-height:0;z-index:-1;visibility:hidden}
+.statistics-nav .calendar .layerCalendar{top:22px;left:52px}
 

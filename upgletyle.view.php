@@ -19,21 +19,11 @@
             if(preg_match("/UpgletyleTool/",$this->act) || $oUpgletyleModel->isAttachedMenu($this->act) ) {
 				if(__DEBUG__)
 				{
-					Context::loadFile(array('./modules/admin/tpl/css/admin.css', '', '', 10), true); 
-					Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
-					Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.css", '', 'ie', 10), true);
-					Context::loadFile('./modules/admin/tpl/js/admin.js', true);
-					Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				} 
 				else
 				{
-					Context::loadFile(array('./modules/admin/tpl/css/admin.min.css', '', '', 10), true);
-					Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
-					Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.min.css", '', 'ie', 10), true);
-					Context::loadFile('./modules/admin/tpl/js/admin.min.js', true);
-					Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.min.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				}
@@ -48,10 +38,11 @@
          * @brief Upgletyle common init
          **/
         function initCommon($is_other_module = false){
+
             if(!$this->checkXECoreVersion('1.4.3')) return $this->stop(sprintf(Context::getLang('msg_requried_version'),'1.4.3'));
 
-            $oUpgletyleModel = &getModel('upgletyle');
-            $oUpgletyleController = &getController('upgletyle');
+			$oUpgletyleModel = &getModel('upgletyle');
+			$oUpgletyleController = &getController('upgletyle');
             $oModuleModel = &getModel('module');
 
             $site_module_info = Context::get('site_module_info');
@@ -222,61 +213,13 @@
          * @brief Tool dashboard
          **/
         function dispUpgletyleToolDashboard(){
-            set_include_path(_XE_PATH_."libs/PEAR");
-            require_once('PEAR.php');
-            require_once('HTTP/Request.php');
+
+			global $lang;
 
             $oCounterModel = &getModel('counter');
             $oDocumentModel = &getModel('document');
             $oCommentModel = &getModel('comment');
             $oUpgletyleModel = &getModel('upgletyle');
-
-            $url = sprintf("http://news.upgletyle.kr/%s/news.php", Context::getLangType());
-            $cache_file = sprintf("%sfiles/cache/upgletyle/news/%s%s.cache.xml", _XE_PATH_,getNumberingPath($this->module_srl),Context::getLangType());
-            if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
-                FileHandler::writeFile($cache_file,'');
-
-                if(__PROXY_SERVER__!==null) {
-                    $oRequest = new HTTP_Request(__PROXY_SERVER__);
-                    $oRequest->setMethod('POST');
-                    $oRequest->_timeout = $timeout;
-                    $oRequest->addPostData('arg', serialize(array('Destination'=>$url)));
-                } else {
-                    $oRequest = new HTTP_Request($url);
-                    if(!$content_type) $oRequest->addHeader('Content-Type', 'text/html');
-                    else $oRequest->addHeader('Content-Type', $content_type);
-                    if(count($headers)) {
-                        foreach($headers as $key => $val) {
-                            $oRequest->addHeader($key, $val);
-                        }
-                    }
-                    $oRequest->_timeout = 2;
-                }
-                if(isSiteID($this->upgletyle->domain)) $oRequest->addHeader('REQUESTURL', Context::getRequestUri().$this->upgletyle->domain);
-                else $oRequest->addHeader('REQUESTURL', $this->upgletyle->domain);
-                $oResponse = $oRequest->sendRequest();
-                $body = $oRequest->getResponseBody();
-                FileHandler::writeFile($cache_file, $body);
-            }
-
-            if(file_exists($cache_file)) {
-                $oXml = new XmlParser();
-                $buff = $oXml->parse(FileHandler::readFile($cache_file));
-
-                $item = $buff->news->item;
-                if($item) {
-                    if(!is_array($item)) $item = array($item);
-
-                    foreach($item as $key => $val) {
-                        $obj = null;
-                        $obj->title = $val->body;
-                        $obj->date = $val->attrs->date;
-                        $obj->url = $val->attrs->url;
-                        $news[] = $obj;
-                    }
-                    Context::set('news', $news);
-                }
-            }
 
             $time = time();
             $w = date("D");
@@ -315,33 +258,52 @@
             $status->week_max = $max;
             $idx = 0;
             foreach($status->week as $key => $val) {
-                $_item[] = sprintf("<item id=\"%d\" name=\"%s\" />", $idx, $thisWeek[$idx]);
                 $_thisWeek[] = $val->this;
                 $_lastWeek[] = $val->last;
                 $idx++;
             }
 
-            $buff = '<?xml version="1.0" encoding="utf-8" ?><Graph><gdata title="Upgletyle Counter" id="data2"><fact>'.implode('',$_item).'</fact><subFact>';
-            $buff .= '<item id="0"><data name="'.Context::getLang('this_week').'">'.implode('|',$_thisWeek).'</data></item>';
-            $buff .= '<item id="1"><data name="'.Context::getLang('last_week').'">'.implode('|',$_lastWeek).'</data></item>';
-            $buff .= '</subFact></gdata></Graph>';
-            Context::set('xml', $buff);
-
             $counter = $oCounterModel->getStatus(array(0,date("Ymd")),$this->site_srl);
             $status->total_visitor = $counter[0]->unique_visitor;
             $status->visitor = $counter[date("Ymd")]->unique_visitor;
 
+			/*
             $args->module_srl = $this->module_srl;
             $args->regdate = date("Ymd");
             $output = executeQuery('upgletyle.getTodayCommentCount', $args);
             $status->comment_count = $output->data->count;
+			*/
 
+			/*
             $args->module_srl = $this->module_srl;
             $args->regdate = date("Ymd");
             $output = executeQuery('upgletyle.getTodayTrackbackCount', $args);
             $status->trackback_count = $output->data->count;
-
+			*/
             Context::set('status', $status);
+
+
+			//카운터..
+			$detail_status = $oCounterModel->getHourlyStatus('week', date("Ymd",$time), $this->site_srl);
+			$i=0;
+			foreach($detail_status->list as $key => $val) {
+				$_k = $lang->unit_week[date('l',strtotime($key))];
+				$chart_ticks[] = sprintf("[%d, \"%s\"]", $i, $_k);
+				$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
+				$i++;
+			}
+			$last_date = date("Ymd",strtotime(date("Ymd",$time))-60*60*24*7);
+			$last_detail_status = $oCounterModel->getHourlyStatus('week', $last_date, $this->site_srl);
+
+			$i=0;
+			foreach($last_detail_status->list as $key => $val) {
+				$chart_value_last[] = sprintf("[%d, %02d]", $i, $val);
+				$i++;
+			}
+			Context::set('chart_ticks',implode(",",$chart_ticks));
+			Context::set('chart_value_this',implode(",",$chart_value_this));
+			Context::set('chart_value_last',implode(",",$chart_value_last));
+
 
             $doc_args->module_srl = array($this->upgletyle->get('member_srl'), $this->module_srl);
             $doc_args->sort_index = 'list_order';
@@ -622,8 +584,8 @@
          * @brief display upgletyle tool post manage category
          **/
         function dispUpgletyleToolPostManageCategory(){
-            $oDocumentModel = &getModel('document');
-            $catgegory_content = $oDocumentModel->getCategoryHTML($this->module_srl);
+            $oUpgletyleModel = &getModel('upgletyle');
+            $catgegory_content = $oUpgletyleModel->getCategoryHTML($this->module_srl);
 
             Context::set('module_srl',$this->module_srl);
             Context::set('category_content', $catgegory_content);
@@ -821,6 +783,9 @@
             $site_module_info = Context::get('site_module_info');
 
 			$chart_ticks = array();
+			$chart_value_this = array();
+			$chart_value_last = array();
+
             $xml->item = array();
             $xml->value = array(array(),array());
             $selected_count = 0;
@@ -839,11 +804,14 @@
                         $before_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)-60*60*24*365));
                         $after_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)+60*60*24*365));
                         $detail_status = $oCounterModel->getHourlyStatus('month', $selected_date, $site_module_info->site_srl);
-                        $i=0;
+
+						$i=0;
                         foreach($detail_status->list as $key => $val) {
                             $_k = substr($selected_date,0,4).'.'.sprintf('%02d',$key);
 
-							$chart_ticks[] = sprintf("\"%s\"",$_k);
+
+							$chart_ticks[] = sprintf("[%d, \"%s\"]", $i, $_k);
+							$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
 
 
                             $output->list[$_k]->val = $val;
@@ -862,6 +830,11 @@
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24*365);
                         $last_detail_status = $oCounterModel->getHourlyStatus('month', $last_date, $site_module_info->site_srl);
 
+						$i=0;
+                        foreach($last_detail_status->list as $key => $val) {
+							$chart_value_last[] = sprintf("[%d, %d]", $i++, $val);
+                        }
+
                     break;
                 case 'week' :
                         $xml->selected_title = Context::getLang('this_week');
@@ -871,10 +844,14 @@
                         $after_url = getUrl('selected_date', date("Ymd",strtotime($selected_date)+60*60*24*7));
                         $disp_selected_date = date("Y.m.d", strtotime($selected_date));
                         $detail_status = $oCounterModel->getHourlyStatus('week', $selected_date, $site_module_info->site_srl);
+
+						$i=0;
                         foreach($detail_status->list as $key => $val) {
                             $_k = date("Y.m.d", strtotime($key)).' ('.$lang->unit_week[date('l',strtotime($key))].')';
+                            $__k = date("m.d", strtotime($key)).' ('.$lang->unit_week[date('l',strtotime($key))].')';
 
-							$chart_ticks[] = sprintf("\"%s\"",$_k);
+							$chart_ticks[] = sprintf("[%d, \"%s\"]", $i, $__k);
+							$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
 
 
                             if($selected_date == date("Ymd")&&$key == date("Ymd")){
@@ -884,14 +861,16 @@
                                 $output->list[$_k]->selected = false;
                             }
                             $output->list[$_k]->val = $val;
-                            $xml->item[] = sprintf('<item id="%s" name="%s" />',$_k,$_k);
-                            $xml->value[0][] = $val;
+							$i++;
                         }
 
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24*7);
                         $last_detail_status = $oCounterModel->getHourlyStatus('week', $last_date, $site_module_info->site_srl);
+						
+						$i=0;
                         foreach($last_detail_status->list as $key => $val) {
-                            $xml->value[1][] = $val;
+							$chart_value_last[] = sprintf("[%d, %02d]", $i, $val);
+							$i++;
                         }
 
 
@@ -902,10 +881,11 @@
                         $disp_selected_date = date("Y.m.d", strtotime($selected_date));
 
                         $detail_status = $oCounterModel->getHourlyStatus('hour', $selected_date, $site_module_info->site_srl);
-
+						
                         foreach($detail_status->list as $key => $val) {
 
-							$chart_ticks[] = sprintf("\"%02d\"",$key);
+							$chart_ticks[] = sprintf("[%d, %02d]", $key, $key);
+							$chart_value_this[] = sprintf("[%d, %d]", $key, $val);
 
                             $_k = sprintf('%02d',$key);
                             if($selected_date == date("Ymd")&&$key == date("H")){
@@ -920,18 +900,13 @@
                         $last_date = date("Ymd",strtotime($selected_date)-60*60*24);
                         $last_detail_status = $oCounterModel->getHourlyStatus('hour', $last_date, $site_module_info->site_srl);
 
+                        foreach($last_detail_status->list as $key => $val) {
+							$chart_value_last[] = sprintf("[%d, %02d]", $key, $val);
+                        }
+
+
                     break;
             }
-
-			//set average
-			$chart_value_average = array();
-			$_detail_status = array_values($detail_status->list);
-			$_last_detail_status =  array_values($last_detail_status->list);
-
-			foreach($_detail_status as $key => $val) {
-				$chart_value_average[$key] = $_detail_status[$key]+$_last_detail_status[$key];
-				if($_detail_status[$key] && $_last_detail_status[$key]) $chart_value_average[$key] = $chart_value_average[$key]/2;
-			}
 
             //Context::set('xml', urlencode($xml->data));
             Context::set('before_url', $before_url);
@@ -940,10 +915,8 @@
 
 			//flotChart
 			Context::set('chart_ticks',implode(",",$chart_ticks));
-			Context::set('chart_value_this',implode(",",$detail_status->list));
-			Context::set('chart_value_last',implode(",",$last_detail_status->list));
-			Context::set('chart_value_average',implode(",",$chart_value_average));
-
+			Context::set('chart_value_this',implode(",",$chart_value_this));
+			Context::set('chart_value_last',implode(",",$chart_value_last));
 
             $output->sum = $detail_status->sum;
             $output->max = $detail_status->max;

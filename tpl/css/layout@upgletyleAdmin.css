@@ -6,7 +6,7 @@ body,
 #upgletyleAdmin,
 #container{_height:100%}
 html{background-color:#fff;color:#000}
-body{margin:0;font-family:Tahoma, Sans-serif;background-image:url(../img/vrLnb.gif);background-repeat:repeat-y;background-position:169px top}
+body{margin:0;font-family:Tahoma, Sans-serif;background-image:url(../img/vrLnb2.gif);background-repeat:repeat-y;background-position:-3px top}
 img{border:0}
 form{margin:0;padding:0}
 form input, 
@@ -22,20 +22,20 @@ label{cursor:pointer;vertical-align:middle}
 a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-size:12px}
 #upgletyleAdmin{position:relative}
 #upgletyleAdmin.hybrid #container{width:100%;zoom:1}
-#upgletyleAdmin.hybrid #container.ec #body{clear:both;height:100%;padding-left:210px;padding-right:30px;z-index:2}
-#upgletyleAdmin.hybrid #container.ece #body{clear:both;height:100%;padding-left:210px;padding-right:270px;z-index:2}
+#upgletyleAdmin.hybrid #container.ec #body{clear:both;height:100%;padding-left:205px;padding-right:30px;z-index:2}
+#upgletyleAdmin.hybrid #container.ece #body{clear:both;height:100%;padding-left:205px;padding-right:270px;z-index:2}
 #upgletyleAdmin.hybrid #container #body #content{z-index:1;padding-bottom:150px}
 #upgletyleAdmin.hybrid #container #body .extension{z-index:2}
-#upgletyleAdmin.hybrid #container.ec #body .extension.e1{width:170px;margin-right:-170px;padding-bottom:150px;left:-210px}
-#upgletyleAdmin.hybrid #container.ece #body .extension.e1{width:170px;margin-right:-170px;margin-bottom:150px;left:-210px}
+#upgletyleAdmin.hybrid #container.ec #body .extension.e1{width:170px;margin-right:-170px;padding-bottom:150px;left:-205px}
+#upgletyleAdmin.hybrid #container.ece #body .extension.e1{width:170px;margin-right:-170px;margin-bottom:150px;left:-205px}
 #upgletyleAdmin.hybrid #container.ece #body .extension.e2{padding-top:80px;width:230px;margin-left:-230px;margin-bottom:150px;left:250px}
 
 /* LNB Toggle Layout */
-.lnbClose{background-image:url(../img/vrLnb.gif);background-repeat:repeat-y;background-position:51px top}
-.lnbClose #upgletyleAdmin.hybrid .ec#container #body{padding-left:90px}
-.lnbClose #upgletyleAdmin.hybrid .ece#container #body{padding-left:90px}
-.lnbClose #upgletyleAdmin.hybrid .ec#container #body .extension.e1{width:52px;margin-right:-52px;left:-90px}
-.lnbClose #upgletyleAdmin.hybrid .ece#container #body .extension.e1{width:52px;margin-right:-52px;left:-90px}
+.lnbClose{background-image:url(../img/vrLnb2.gif);background-repeat:repeat-y;background-position:-130px top}
+.lnbClose #upgletyleAdmin.hybrid .ec#container #body{padding-left:75px}
+.lnbClose #upgletyleAdmin.hybrid .ece#container #body{padding-left:75px}
+.lnbClose #upgletyleAdmin.hybrid .ec#container #body .extension.e1{width:52px;margin-right:-52px;left:-85px}
+.lnbClose #upgletyleAdmin.hybrid .ece#container #body .extension.e1{width:52px;margin-right:-52px;left:-85px}
 
 /* Link */
 .upgletyleAdmin #header a,
@@ -60,17 +60,17 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 .partitionContainer .quarter{width:23.4%}
 
 /* Header */
-#upgletyleAdmin #header{width:100%;height:100px;zoom:1;z-index:1;clear:both;background:url(../img/bgHeader.gif) repeat-x}
+#upgletyleAdmin #header{width:100%;height:39px;zoom:1;z-index:1;clear:both;background-color:#373c45}
 #upgletyleAdmin #header:after{content:"";display:block;clear:both}
-#upgletyleAdmin #header h1{position:relative;float:left;margin:0;padding:0 10px 0 18px;background:#282e3f}
+#upgletyleAdmin #header h1{position:relative;float:left;margin:0;padding:0 10px 0 18px;}
 #upgletyleAdmin #header h1 img{display:block}
-#upgletyleAdmin #header .navigation{position:static;left:-1px;float:left;clear:right;white-space:nowrap;font-size:11px;z-index:1;overflow:visible}
+#upgletyleAdmin #header .navigation{position:static;float:right;clear:right;white-space:nowrap;font-size:12px;z-index:1;overflow:visible;margin-right:30px;}
 #upgletyleAdmin #header .navigation .section{position:static}
-#upgletyleAdmin #header .navigation ul{padding-top:7px;zoom:1}
-#upgletyleAdmin #header .navigation li{float:none;display:inline;padding:0 5px 0 10px;background:url(../img/vrGnb.gif) no-repeat left center}
+#upgletyleAdmin #header .navigation ul{margin-top:12px;zoom:1}
+#upgletyleAdmin #header .navigation li{float:none;display:inline;padding:10px 5px 10px 10px;background:url(../img/vrGnb.gif) no-repeat left center}
+#upgletyleAdmin #header .navigation li:hover{background-color:#595f6c}
 #upgletyleAdmin #header .navigation li.first{background:none}
-#upgletyleAdmin #header .navigation li a{color:#d0d1d5}
-#upgletyleAdmin #header .navigation li.logout{position:absolute;top:7px;right:30px;background:none}
+#upgletyleAdmin #header .navigation li a{color:#d0d1d5;text-decoration:none}
 #upgletyleAdmin #header .navigation li.logout a{padding-left:12px;color:#d0d1d5;white-space:nowrap;background:url(../img/buttonLogoutX.gif) no-repeat left center;text-decoration:none}
 #upgletyleAdmin #header .title{position:relative;clear:both;padding:22px 30px 0 30px;zoom:1;height:48px}
 #upgletyleAdmin #header .title:after{content:"";display:block;clear:both}
@@ -95,34 +95,35 @@ a.skipToContent{text-align:center;color:#fff;position:absolute;width:100%;font-s
 #upgletyleAdmin #footer address img{display:block}
 
 /* LNB Toggle */
-#upgletyleAdmin .lnbToggle{position:absolute;z-index:3;left:172px;top:355px;display:block;padding:0;width:14px;height:52px;margin-top:-26px;border:0;background-color:transparent;background-image:url(../img/buttonLnbToggle.gif);background-repeat:no-repeat;cursor:pointer;zoom:1}
+#upgletyleAdmin .lnbToggle{position:absolute;z-index:3;left:170px;top:77px;display:block;padding:0;width:14px;height:52px;margin-top:-26px;border:0;background-color:transparent;background-image:url(../img/buttonLnbToggle.gif);background-repeat:no-repeat;cursor:pointer;zoom:1}
 #upgletyleAdmin .lnbToggle span{position:absolute;font-size:0;line-height:0;z-index:-1;width:0;height:0;overflow:hidden;visibility:hidden}
-.lnbClose #upgletyleAdmin .lnbToggle{left:54px;background-position:0 -52px}
+.lnbClose #upgletyleAdmin .lnbToggle{left:42px;background-position:0 -52px}
 
 /* Extension */
 #upgletyleAdmin #body .extension.e1{font-size:12px}
 #upgletyleAdmin #body .extension.e1 h3{display:none}
 #upgletyleAdmin #body .extension.e1 .section{margin-right:1px}
 
-#upgletyleAdmin #body .extension.e1 ul{margin:0;padding:0;list-style:none;background-color:#fff}
-#upgletyleAdmin #body .extension.e1 ul li ul{position:relative;display:none;padding:5px 0;zoom:1}
+#upgletyleAdmin #body .extension.e1 ul{margin:0;padding:0;list-style:none;}
+#upgletyleAdmin #body .extension.e1 ul li ul{position:relative;display:none;padding:5px 0;zoom:1;background-color:#fbfbfb}
 #upgletyleAdmin #body .extension.e1 ul li.open ul,
 #upgletyleAdmin #body .extension.e1 ul li.active ul{display:block}
-#upgletyleAdmin #body .extension.e1 ul li.active ul{background:#f8f8f8}
+#upgletyleAdmin #body .extension.e1 ul li.active ul{background:#fefefe !important}
 
 #upgletyleAdmin #body .extension.e1 ul li{position:relative;border-bottom:1px solid #d2d2d2;border-top:1px solid #f8f8f8;white-space:nowrap;background-image:url(../img/iconLnb.gif);background-repeat:no-repeat;background-position:24px 11px}
-#upgletyleAdmin #body .extension.e1 ul li.dashboard{background-position:24px 11px}
-#upgletyleAdmin #body .extension.e1 ul li.post{background-position:24px -41px}
-#upgletyleAdmin #body .extension.e1 ul li.comment{background-position:24px -91px}
-#upgletyleAdmin #body .extension.e1 ul li.statistics{background-position:24px -141px}
-#upgletyleAdmin #body .extension.e1 ul li.metablog{background-position:24px -191px}
-#upgletyleAdmin #body .extension.e1 ul li.design{background-position:24px -291px}
-#upgletyleAdmin #body .extension.e1 ul li.setup{background-position:24px -241px}
-#upgletyleAdmin #body .extension.e1 ul li.active,
-#upgletyleAdmin #body .extension.e1 ul li.hover{background-color:#f8f8f8}
+#upgletyleAdmin #body .extension.e1 ul li.dashboard{background-position:24px 12px}
+#upgletyleAdmin #body .extension.e1 ul li.post{background-position:24px -39px}
+#upgletyleAdmin #body .extension.e1 ul li.comment{background-position:24px -89px}
+#upgletyleAdmin #body .extension.e1 ul li.statistics{background-position:24px -138px}
+#upgletyleAdmin #body .extension.e1 ul li.metablog{background-position:24px -188px}
+#upgletyleAdmin #body .extension.e1 ul li.design{background-position:24px -290px}
+#upgletyleAdmin #body .extension.e1 ul li.setup{background-position:24px -239px}
+#upgletyleAdmin #body .extension.e1 ul li.hover{background-color:#F7F7F7}
+
+#upgletyleAdmin #body .extension.e1 ul li.active {background-color:#FEFEFE}
 #upgletyleAdmin #body .extension.e1 ul li li{border:0;background:none !important;zoom:1;position:relative}
 
-#upgletyleAdmin #body .extension.e1 ul li a{padding:9px 0 10px 50px;height:15px;color:#5b5d60;font-weight:bold;position:relative;display:block;text-decoration:none;background-image:url(../img/iconLnbOpen.gif);background-repeat:no-repeat;background-position:145px 12px}
+#upgletyleAdmin #body .extension.e1 ul li a{padding:11px 0 12px 50px;height:15px;color:#5b5d60;font-weight:bold;position:relative;display:block;text-decoration:none;background-image:url(../img/iconLnbOpen.gif);background-repeat:no-repeat;background-position:145px 12px}
 #upgletyleAdmin #body .extension.e1 ul li a:hover,
 #upgletyleAdmin #body .extension.e1 ul li a:active,
 #upgletyleAdmin #body .extension.e1 ul li a:focus{font-weight:bold}

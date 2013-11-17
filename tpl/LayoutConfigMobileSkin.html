@@ -1,91 +1,59 @@
-<!--#include("_tool_header.html")-->
-<!--%import("css/calendar.css",optimized=false)-->
-			<!-- Content -->
-			<div id="content">
-				
-				<!-- contentHeader -->
-				<div class="contentHeader skinHeader">
-					<h3 class="h3">{$lang->upgletyle_second_menus[5]['dispUpgletyleToolLayoutConfigMobileSkin']}</h3>
-				</div>
-				<!-- /contentHeader -->
-				
-			<!--@if($module_info->mskin)-->
-				<!-- mySkin -->
-				<div class="section mySkin">
-					<div class="container">
-						<div class="thumb">
-							<img src="{$cur_skin->large_screenshot}" width="260" height="195" alt="{htmlspecialchars($cur_skin->title)}" />
-						</div>
-						<p class="using"><img src="img/iconUsing.png" width="57" height="58" alt="{$lang->cmd_use_ing}" /></p>
-						<div class="summary">
-							<div class="sHeader">
-								<h4 class="h4">{htmlspecialchars($cur_skin->title)}</h4>
-							</div>
-							<p class="contributor">by {$cur_skin->author}</p>
-							<p class="description">{$cur_skin->description}</p>
-						</div>
-					</div>
-					<span class="outline ml"></span>
-					<span class="outline mr"></span>
-					<span class="outline tc"></span>
-					<span class="outline bc"></span>
-					<span class="outline tl"></span>
-					<span class="outline tr"></span>
-					<span class="outline bl"></span>
-					<span class="outline br"></span>
-				</div>
-				<!-- /mySkin -->
-			<!--@else-->
-				<div class="section mySkin" style="height:86px">
-					<div class="container" style="padding:25px 50px; height:36px; zoom:1">
-						<p>{$lang->msg_mobile_skin_use_not}</p>
-					</div>
-					<span class="outline ml"></span>
-					<span class="outline mr"></span>
-					<span class="outline tc"></span>
-					<span class="outline bc"></span>
-					<span class="outline tl"></span>
-					<span class="outline tr"></span>
-					<span class="outline bl"></span>
-					<span class="outline br"></span>
-				</div>
-			<!--@end-->
+<include target="_tool_header.html" />
+<!-- Content -->
 
-				<!-- Skin List -->
-				<div class="skinList">
-					<ul>
-						<li>
-							<dl>
-								<dt>{$lang->notuse}</dt>
-								<dd class="thumb"><span style="display:inline-block; width:138px; height:87px; text-align:center; line-height:87px; background:#f8f8f8">{$lang->notuse}</span></dd>
-								<dd class="download">
-									<span class="btnGray small"><button type="button" onclick="doSelectMobileSkin(''); return false;">{$lang->cmd_apply}</button></span>
-								</dd>
-							</dl>
-						</li>
+<div class="upgle-container">			
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[5]['dispUpgletyleToolLayoutConfigMobileSkin']} <small>블로그의 모바일 스킨을 설정합니다.</small></h4>
+    </div>
 
-                        <!--@foreach($skins as $key => $val)-->
-						<li>
-							<dl>
-								<dt>{$val->title}</dt>
-								<dd class="thumb"><img src="{$val->small_screenshot}" width="138" height="87" alt="{htmlspecialchars($val->title)}" /></dd>
-								<dd class="download">
-									<span class="btnGray small"><button type="button" onclick="if(confirm('{$lang->msg_select_skin}')) doSelectMobileSkin('{$key}'); return false;">{$lang->cmd_select_skin}</button></span>
-								</dd>
-							</dl>
-						</li>
-                        <!--@end-->
-					</ul>
-				</div>
-				<!-- /Skin List -->
+    <div class="well well-lg" cond="$module_info->mskin">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="thumbnail" style="width:270px; padding:10px; margin:0;">
+                <img src="{$cur_skin->large_screenshot}" alt="{htmlspecialchars($cur_skin->title)}" />
+                </div>
+                <p class="item-skinbedge"><img src="img/iconUsing.png" alt="{$lang->cmd_use_ing}" /></p>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header">
+                    <h4>{htmlspecialchars($cur_skin->title)} <small>by {$cur_skin->author}</small></h4>
+                </div>
+                <p>{$cur_skin->description}</p>
+            </div>
+        </div>
+    </div>
+    <div class="well well-lg" cond="!$module_info->mskin">
+        <strong>{$lang->msg_mobile_skin_use_not}</p>
+    </div>
 
-			</div>
-			<hr />
-			<!-- /Content -->
+    <!-- Skin List -->
+    <div class="item-skinlist">
+        <ul>
+            <li>
+                <dl>
+                    <dt>{$lang->notuse}</dt>
+                    <dd class="thumb"><span style="display:inline-block; width:138px; height:87px; text-align:center; line-height:87px; background:#f8f8f8">{$lang->notuse}</span></dd>
+                    <dd class="download">
+                        <button type="button" onclick="doSelectMobileSkin(''); return false;" class="bts_btn bts_btn-default bts_btn-xs">{$lang->cmd_apply}</button>
+                    </dd>
+                </dl>
+            </li>
+
+            <!--@foreach($skins as $key => $val)-->
+            <li>
+                <dl>
+                    <dt>{$val->title}</dt>
+                    <dd class="thumb"><img src="{$val->small_screenshot}" width="138" height="87" alt="{htmlspecialchars($val->title)}" /></dd>
+                    <dd class="download">
+                        <button type="button" onclick="if(confirm('{$lang->msg_select_skin}')) doSelectMobileSkin('{$key}'); return false;" class="bts_btn bts_btn-default bts_btn-xs">{$lang->cmd_select_skin}</button>
+                    </dd>
+                </dl>
+            </li>
+            <!--@end-->
+        </ul>
+    </div>
+    <!-- /Skin List -->
+
+</div>
+<!-- /Content -->
 			
-
-			<!-- Extension -->
-				<!--#include("_tool_menu.html")-->
-			<!-- Extension -->
-
-<!--#include("_tool_footer.html")-->

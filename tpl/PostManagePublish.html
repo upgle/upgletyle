@@ -2,13 +2,12 @@
 <!--%load_js_plugin("ui.calendar")-->
 
 <!-- Content -->
+<div class="upgle-container">
+    <div class="page-header">
+        <h4>{$lang->cmd_publish} <small>블로그의 종합정보를 출력합니다.</small></h4>
+    </div>
 
-<div id="content">
-	<!-- writingHeader -->
-	<div class="contentHeader depositHeader">
-		<h3 class="h3">{$lang->cmd_publish}</h3>
-	</div>
-	<!-- /writingHeader -->
+
 	<form action="" method="post" onsubmit="return publishPost(this, publish_post)" class="{$editor_skin}">
 		<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 		<input type="hidden" name="mid" value="{$mid}" />
@@ -39,7 +38,7 @@
 					<legend class="visualLabel">Where</legend>
 					<fieldset class="optionUpgletyle">
 						<legend>{$lang->posting_option} - Upgletyle</legend>
-						<table border="1" cellspacing="0" summary="{$lang->posting_option}" class="tableData">
+						<table summary="{$lang->posting_option}" class="table table-hover table-upgle table-condensed">
 							<caption class="check">{$upgletyle->getUpgletyleTitle()} - {$lang->publish_option}</caption>
 							<tr class="first">
 								<th scope="row">
@@ -58,11 +57,6 @@
 											{@$_i++}
 										<!--@endforeach-->
 									</select>
-									<span class="btnGray medium addCategoryToggle"><button type="button" onclick="jQuery('#add_category').toggleClass('open')"><img src="img/iconAdd.gif" width="8" height="8" alt="{$lang->add_category}" /></button></span>
-									<span id="add_category" class="addCategory">
-										<input type="text" name="add_category" class="iText" />
-										<span class="btnGray medium"><button type="button" onclick="addCategory()">{$lang->cmd_insert}</button></span>
-									</span>
 	
 								</td>
 							</tr>
@@ -151,7 +145,7 @@
 					<!--@if($val->enable == 'Y')-->
 					<fieldset class="optionAPI">
 						<legend>API {$lang->posting_option}</legend>
-						<table border="1" cellspacing="0" summary="{$lang->posting_option}" class="tableData">
+						<table summary="{$lang->posting_option}" class="table table-hover table-upgle table-condensed">
 							<caption class="check">{$val->blogapi_site_title} <span class="domain">(<a href="{$val->blogapi_site_url}" onclick="window.open(this.href);return false;">{$val->blogapi_site_url}</a>)</span> - {$lang->publish_option}</caption>
 							<tr class="first">
 								<th scope="row">{$lang->publish}</th>
@@ -177,7 +171,7 @@
 					<fieldset class="optionMicroBlog">
 <!--@if($oUpgletyle->getEnableMe2day()||$oUpgletyle->getEnableTwitter())--> 
 						<legend>{$lang->posting_option} - Micro Blog</legend>
-						<table border="1" cellspacing="0" summary="{$lang->posting_option}" class="tableData">
+						<table summary="{$lang->posting_option}" class="table table-hover table-upgle table-condensed">
 							<caption class="check">{$lang->ask_micro_publish} </caption>
 							<tr class="first">
 								<th scope="row">{$lang->noti_publish}</th>
@@ -196,7 +190,7 @@
 					<legend class="visualLabel">When</legend>
 					<fieldset class="optionTime">
 						<legend>{$lang->posting_option} - Time</legend>
-						<table border="1" cellspacing="0" summary="{$lang->posting_option}" class="tableData">
+						<table summary="{$lang->posting_option}" class="table table-hover table-upgle table-condensed">
 							<caption class="check">{$lang->ask_time_publish}</caption>
 							<tr class="first">
 								<th scope="row">{$lang->publish_date}</th>
@@ -221,8 +215,8 @@
 					</fieldset>
 				</fieldset>
 				<!-- wPublish -->
-				<div class="wPublish">
-					<span class="btn"><button type="submit">{$lang->cmd_publish}</button></span>
+				<div class="pull-right">
+					<button type="submit" class="bts_btn bts_btn-primary">{$lang->cmd_publish}</button>
 				</div>
 				<!-- /wPublish -->
 			</div>
@@ -230,11 +224,7 @@
 		</fieldset>
 	</form>
 </div>
-<hr />
 <!-- /Content -->
-<!-- Extension -->
-<!--#include("_tool_menu.html")-->
-<!-- Extension -->
 <script>
 	jQuery(function($){
 		{@ $_s = array_pop($lang->unit_week)}
@@ -280,7 +270,4 @@
 	});
 	
 </script>
-
-<!--#include("_tool_footer.html")-->
-
 

@@ -1,107 +1,130 @@
-<!--#include("_tool_header.html")-->
+<include target="_tool_header.html" />
 <!--%import("filter/insert_layout_edit.xml")-->
 
-			<!-- Content -->
-			<div id="content">
-				
-				<!-- contentHeader -->
-				<div class="contentHeader editHeader">
-					<h3 class="h3">{$lang->upgletyle_second_menus[5]['dispUpgletyleToolLayoutConfigEdit']}</h3>
-				</div>
-				<!-- /contentHeader -->
+<!-- Content -->
+<div class="upgle-container">	
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[5]['dispUpgletyleToolLayoutConfigEdit']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+    </div>
 
+    <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
 
-                <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-                    <p>{$XE_VALIDATOR_MESSAGE}</p>
+    <script>
+    function tab(i){
+        var tab = i.parentNode.className;
+        document.getElementById('codeEdit').className='item-codearea'+' '+tab;
+    } 
+    </script>
+
+    <div style="width:98%">
+
+        <form action="./" method="post" id="codeEdit" class="item-codearea clearfix" onsubmit="return procFilter(this,insert_layout_edit);">
+            <span class="btnGray medium widgetCreator"><a href="{getUrl('','module','widget','act','dispWidgetGenerateCode')}" onclick="popopen(this.href); return false">{$lang->cmd_generate_widget_code}</a></span>
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="vid" value="{$vid}" />
+            
+            <ul>
+                {@$i=0;}
+                <!--@foreach($skin_file_content as $file => $content)-->
+                <li class="s{$i}">
+                    <a href="#" onclick="tab(this)">{$file}</a>
+                    <textarea name="{$file}" rows="8" cols="42">{htmlspecialchars($content)}</textarea>
+                </li>
+                {@$i++;}						
+                <!--@end-->
+            </ul>
+
+            <!-- Button Area -->
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <input type="submit" value="변경사항 적용" class="bts_btn bts_btn-primary bts_btn-block" />
                 </div>
+            </div>
+            <!-- /Button Area -->
+        </form>
 
 
-				<script>
-				function tab(i){
-					var tab = i.parentNode.className;
-					document.getElementById('codeEdit').className='codeEdit'+' '+tab;
-				} 
-				</script>
-				
-				<form action="./" method="post" id="codeEdit" class="codeEdit" onsubmit="return procFilter(this,insert_layout_edit);">
-					<span class="btnGray medium widgetCreator"><a href="{getUrl('','module','widget','act','dispWidgetGenerateCode')}" onclick="popopen(this.href); return false">{$lang->cmd_generate_widget_code}</a></span>
-					<input type="hidden" name="mid" value="{$mid}" />
-					<input type="hidden" name="vid" value="{$vid}" />
-					
-					<ul>
-						{@$i=0;}
-						<!--@foreach($skin_file_content as $file => $content)-->
-						<li class="s{$i}">
-							<a href="#" onclick="tab(this)">{$file}</a>
-							<textarea name="{$file}" rows="8" cols="42">{htmlspecialchars($content)}</textarea>
-						</li>
-						{@$i++;}						
-						<!--@end-->
-					</ul>
-	
-					<!-- Button Area -->
-					<div class="btnArea">
-						<span class="btn"><input type="submit" value="{$lang->cmd_save}" /></span>
-					</div>
-					<!-- /Button Area -->
-				</form>
+        <div class="panel panel-default" style="margin-top:40px">
+            <div class="panel-heading">
+                <h3 class="panel-title">{$lang->upgletyle_skin_userimage}</h3>
+            </div>
+            <div class="panel-body">
 
 
+                <form action="{Context::getRequestUri()}" class="userImage" target="hidden_iframe" method="post" onsubmit="return checkUserImage(this,'{$lang->msg_check_userimage}')" enctype="multipart/form-data">
+                    <input type="hidden" name="mid" value="{$mid}" />
+                    <input type="hidden" name="vid" value="{$vid}" />
+                    <input type="hidden" name="act" value="procUpgletyleToolUserImageUpload" />
+                    
 
-<form action="{Context::getRequestUri()}" class="userImage" target="hidden_iframe" method="post" onsubmit="return checkUserImage(this,'{$lang->msg_check_userimage}')" enctype="multipart/form-data">
-	<h4>{$lang->upgletyle_skin_userimage}</h4>
-    <input type="hidden" name="mid" value="{$mid}" />
-    <input type="hidden" name="vid" value="{$vid}" />
-    <input type="hidden" name="act" value="procUpgletyleToolUserImageUpload" />
-	<p class="upload"><input name="user_image" type="file" /> <em>{$lang->msg_check_userimage}</em> <span class="btnGray medium"><button type="submit">{$lang->cmd_save}</button></span></p>
-	<!--@if($user_image_list)-->
-	<ul>
-		<!--@foreach($user_image_list as $no => $file)-->
-		<li>
-			{@$ext=substr(strrchr($file,'.'),1)}
-			<div class="thumb">
-				<!--@if($ext=='swf'||$ext=='flv')-->
-				<script>//<![CDATA[
-				displayMultimedia('{getUrl('')}{$user_image_path}{$file}', '100%', '100%');
-				//]]></script>
-				<!--@elseif(in_array($ext,array('gif','png','jpg','jpeg')))-->
-					<img src="{getUrl('')}{$user_image_path}{$file}" alt="User Upload Image" />
-				<!--@end-->
-			</div>
-			<p class="path">{$user_image_path}{$file}</p>
-			<button type="button" onclick="deleteUserImage('{$file}')" class="delete"><span>{$lang->cmd_delete}</span></button>
-		</li>
-		<!--@end-->
-	</ul>
-	<!--@end-->
-</form>
+                    <div class="row">
+                        <div class="col-sm-2 col-sm-offset-1">
+    
+                           <button type="submit" class="bts_btn bts_btn-default bts_btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> {$lang->cmd_upload}</button>
 
-<div class="userDefineSkin">
-	<div class="btnArea">
-		<span class="btn"><a href="{getUrl('','act','procUpgletyleToolUserSkinExport','mid',$mid,'vid',$vid)}">{$lang->cmd_upgletyle_skin_export}</a></span>
-		<span class="btn"><button type="button" onclick="jQuery('#rediscover').toggleClass('open')">{$lang->upgletyle_skin_import}</button></span>
-		<span class="btn"><input type="button" value="{$lang->cmd_reset}" onclick="if(confirm('{$lang->alert_reset_skin}')) doResetLayoutConfig(); return false;"/></span>
-	</div>
-	<div id="rediscover" class="">
-		<h4>{$lang->upgletyle_skin_import}</h4>
-		<form action="./" method="post" enctype="multipart/form-data" class="upload">
-			<input type="hidden" name="module" value="upgletyle" />
-			<input type="hidden" name="act" value="procUpgletyleToolUserSkinImport" />
-			<input type="hidden" name="mid" value="{$mid}" />
-			<input type="hidden" name="vid" value="{$vid}" />
-			<input type="file" name="file" /> <em>{$lang->about_upgletyle_skin_import}</em>
-			<span class="btnGray medium"><button type="submit">{$lang->cmd_submit}</button></span>
-		</form>	
-	</div>
+                        </div>
+                        <div class="col-sm-4 ">
+                            <input name="user_image" type="file" />
+                            <em>{$lang->msg_check_userimage}</em>
+                        </div>
+
+                    </div> 
+                    <!-- Uploaded image list -->
+                    <ul class="list-group" cond="$user_image_list" style="margin-top:30px">
+                        <li class="list-group-item" loop="$user_image_list => $no, $file">
+                            {@$ext=substr(strrchr($file,'.'),1)}
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <!--@if($ext=='swf'||$ext=='flv')-->
+                                    <script>//<![CDATA[
+                                    displayMultimedia('{getUrl('')}{$user_image_path}{$file}', '100%', '100%');
+                                    //]]></script>
+                                    <!--@elseif(in_array($ext,array('gif','png','jpg','jpeg')))-->
+                                        <img src="{getUrl('')}{$user_image_path}{$file}" alt="User Upload Image" />
+                                    <!--@end-->
+                                </div>
+                                <div class="col-sm-7">
+                                    {$user_image_path}{$file}
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" onclick="deleteUserImage('{$file}')" class="delete"><span>{$lang->cmd_delete}</span></button>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                    <!-- /Uploaded image list -->
+
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="userDefineSkin">
+            <div class="btnArea">
+                <span class="btn"><a href="{getUrl('','act','procUpgletyleToolUserSkinExport','mid',$mid,'vid',$vid)}">{$lang->cmd_upgletyle_skin_export}</a></span>
+                <span class="btn"><button type="button" onclick="jQuery('#rediscover').toggleClass('open')">{$lang->upgletyle_skin_import}</button></span>
+                <span class="btn"><input type="button" value="{$lang->cmd_reset}" onclick="if(confirm('{$lang->alert_reset_skin}')) doResetLayoutConfig(); return false;"/></span>
+            </div>
+            <div id="rediscover" class="">
+                <h4>{$lang->upgletyle_skin_import}</h4>
+                <form action="./" method="post" enctype="multipart/form-data" class="upload">
+                    <input type="hidden" name="module" value="upgletyle" />
+                    <input type="hidden" name="act" value="procUpgletyleToolUserSkinImport" />
+                    <input type="hidden" name="mid" value="{$mid}" />
+                    <input type="hidden" name="vid" value="{$vid}" />
+                    <input type="file" name="file" /> <em>{$lang->about_upgletyle_skin_import}</em>
+                    <span class="btnGray medium"><button type="submit">{$lang->cmd_submit}</button></span>
+                </form>	
+            </div>
+        </div>
+
+    </div>
+
 </div>
+<!-- /Content -->
 
-			</div>
-			<hr />
-			<!-- /Content -->
-
-			<!-- Extension -->
-			<!--#include("_tool_menu.html")-->
-			<!-- Extension -->
-
-<!--#include("_tool_footer.html")-->
 <iframe name="hidden_iframe" style="width:0;height:0;border:0" ></iframe>

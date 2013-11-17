@@ -1,144 +1,238 @@
-<load target="./js/jquery.jqplot.min.js" />
-<load target="./js/jqplot.barRenderer.min.js" />
-<load target="./js/jqplot.categoryAxisRenderer.min.js" />
-<load target="./js/jqplot.pointLabels.min.js" />
-<load target="./css/jquery.jqplot.min.css" />
-
-<!--#include("_tool_header.html")-->
+<include target="_tool_header.html" />
 <!--%load_js_plugin("ui.calendar")-->
-			<!-- Content -->
-			<div id="content">
-				
-				<!-- contentHeader -->
-				<div class="contentHeader uvHeader">
-					<h3 class="h3">{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']}</h3>
-				</div>
-				<!-- /contentHeader -->
-				
-				<!-- contentNavigation -->
-				<div class="contentNavigation">
-					<ul class="sortDefault">
-						<li<!--@if($type=='day')--> class="active"<!--@end-->><a href="{getUrl('type','day')}">{$lang->daily}</a></li>
-						<li<!--@if($type=='week')--> class="active"<!--@end-->><a href="{getUrl('type','week')}">{$lang->weekly}</a></li>
-						<li<!--@if($type=='month')--> class="active"<!--@end-->><a href="{getUrl('type','month')}">{$lang->monthly}</a></li>
-					</ul>
-					<div class="cNavigation">
-						<div class="calendar">
-							<div id="calendar-holder"></div>
-							<button type="button" class="btnCalendar"><span>{$lang->calendar}</span></button>
-							<h4 class="h4" id="str_selected_date">{$disp_selected_date}</h4>
-							<input type="hidden" class="inputDate" value="{zdate($selected_date,'Y-m-d')}" />
-							<script>
-								jQuery(function($){
-                                    {@ $_s = array_pop($lang->unit_week)}
-									$('#calendar-holder').calendar({
-										type : '{$type}',
-										button : '#calendar-holder+button.btnCalendar',
-										activeDate : "{zdate($selected_date,'Y/m/d')}",
-										select : function(year, month, date) {
-											var str = year+'.'+(month>9?'':'0')+month+'.'+(date>9?'':'0')+date;
-											$("#str_selected_date").text(str);
-											moveDate();
-										},
-										lang : {
-											weekdays : '{$_s},{implode(',',$lang->unit_week)}',
-											today : '{$lang->today}',
-											prevmonth : '{$lang->before_month}',
-											nextmonth : '{$lang->after_month}',
-											close : '{$lang->cmd_close}'
-										}
-									});
-								});
-                            </script>
-							<button type="button" class="prevData" onclick="location.href='{$before_url}';return false;"><span>{$lang->before_day}</span></button>
-							<button type="button" class="nextData" onclick="location.href='{$after_url}';return false;"><span>{$lang->after_day}</span></button>
-						</div>
-					</div>
-					<ul class="graphInfo">
-						<!--@if($type=='day')-->
-							{@$_this=$lang->day_current}
-							{@$_last=$lang->day_before}
-						<!--@else if($type=='month')-->
-							{@$_this=$lang->this_month}
-							{@$_last=$lang->before_month}
-						<!--@else-->
-							{@$_this=$lang->this_week}
-							{@$_last=$lang->last_week}
-						<!--@end-->
-			
+<load target="css/calendar.css" />
 
-						<li><img src="img/graphToday.gif" width="5" height="5" alt="{$_this}" class="today" /> {$_this}</li>
-						<li><img src="img/graphYesterday.gif" width="5" height="5" alt="{$_last}" class="yesterday" /> {$_last}</li>
-					</ul>
-				</div>
-				<!-- /contentNavigation -->
+<!-- Content -->
+<div class="upgle-container">
 				
-				<div id="jqplotChart" style="margin:10px 5px;height:300px"></div>
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']} <small>방문자 현황을 그래프로 출력합니다.</small></h4>
+    </div>
 
-		
-		<!-- listHeader -->
-		<div class="listHeader">
-			<p class="info">{$lang->about_status[$type]}</p>
-		</div>
-		<!-- /listHeader -->
+    <!-- contentNavigation -->
+    <div class="statistics-nav">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 col-sm-push-3 text-center">
+                <div class="statistics-calendar calendar">
+                    <div id="calendar-holder"></div>
+                    <button type="button" class="btnCalendar"><span>{$lang->calendar}</span></button>
+                    <h4 class="h4" id="str_selected_date">{$disp_selected_date}</h4>
+                    <input type="hidden" class="inputDate" value="{zdate($selected_date,'Y-m-d')}" />
+                    <script>
+                        jQuery(function($){
+                            {@ $_s = array_pop($lang->unit_week)}
+                            $('#calendar-holder').calendar({
+                                type : '{$type}',
+                                button : '#calendar-holder+button.btnCalendar',
+                                activeDate : "{zdate($selected_date,'Y/m/d')}",
+                                select : function(year, month, date) {
+                                    var str = year+'.'+(month>9?'':'0')+month+'.'+(date>9?'':'0')+date;
+                                    $("#str_selected_date").text(str);
+                                    moveDate();
+                                },
+                                lang : {
+                                    weekdays : '{$_s},{implode(',',$lang->unit_week)}',
+                                    today : '{$lang->today}',
+                                    prevmonth : '{$lang->before_month}',
+                                    nextmonth : '{$lang->after_month}',
+                                    close : '{$lang->cmd_close}'
+                                }
+                            });
+                        });
+                    </script>
+                    <button type="button" class="prevData" onclick="location.href='{$before_url}';return false;"><span>{$lang->before_day}</span></button>
+                    <button type="button" class="nextData" onclick="location.href='{$after_url}';return false;"><span>{$lang->after_day}</span></button>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6 col-sm-pull-6" style="padding-right:0">
+                <ul class="statistics-sort">
+                    <li class="active"|cond="$type=='day'"><a href="{getUrl('type','day', 'host_srl','')}">{$lang->daily}</a></li>
+                    <li class="active"|cond="$type=='week'"><span class="line"></span><a href="{getUrl('type','week', 'host_srl','')}">{$lang->weekly}</a></li>
+                    <li class="active"|cond="$type=='month'"><span class="line"></span><a href="{getUrl('type','month', 'host_srl','')}">{$lang->monthly}</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3 col-xs-6 text-right" style="padding-left:0">
+                <ul class="statistics-label">
+                    <!--@if($type=='day')-->
+                        {@$_this=$lang->day_current}
+                        {@$_last=$lang->day_before}
+                    <!--@else if($type=='month')-->
+                        {@$_this=$lang->this_month}
+                        {@$_last=$lang->before_month}
+                    <!--@else-->
+                        {@$_this=$lang->this_week}
+                        {@$_last=$lang->last_week}
+                    <!--@end-->
+                    <li><img src="img/graphToday.gif" width="5" height="5" alt="{$_this}" class="today" /> {$_this}</li>
+                    <li><img src="img/graphYesterday.gif" width="5" height="5" alt="{$_last}" class="yesterday" /> {$_last}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /contentNavigation -->
+    
+    <div id="statsChart" style="margin:10px 5px;height:300px"></div>
+
+    <!-- listHeader -->
+    <div style="margin:27px 7px 15px 3px;">
+        <p><em>*</em> {$lang->about_status[$type]}</p>
+    </div>
+    <!-- /listHeader -->
 	
+    <div class="row">
+        <div class="col-sm-6" cond="!$type || $type=='day'">
+            <table class="table table-hover table-upgle">
+                <thead>
+                    <tr>
+                        <th scope="col" class="hm">{$lang->about_unit[$type]}(AM)</th>
+                        <th scope="col" class="uv">{$lang->visit_count}</th>
+                        <th scope="col" class="pc">{$lang->visit_per}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--@foreach($detail_status->list as $key => $val)-->
+                    <!--@if($key<=11)-->
+                    <tr<!--@if($val->selected)--> class="realTime" <!--@end-->>
+                        <td class="hm">{$key}:00</td>
+                        <td class="uv">{$val->val}</td>
+                        <td class="pc">{number_format($val->val/ $detail_status->sum * 100)}<span class="percent">%</span></td>
+                    </tr>
+                    <!--@end-->
+                    <!--@end-->
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6"|cond="!$type || $type=='day'" class="col-md-12"|cond="$type && $type!='day'">
+            <table class="table table-hover table-upgle">
+                <thead>
+                    <tr>
+                        <th scope="col" class="hm">{$lang->about_unit[$type]}<!--@if(!$type || $type=='day')-->(PM)<!--@end--></th>
+                        <th scope="col" class="uv">{$lang->visit_count}</th>
+                        <th scope="col" class="pc">{$lang->visit_per}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--@foreach($detail_status->list as $key => $val)-->
 
-		<!--@if(!$type || $type=='day')-->
-		<!-- Table Data -->
-		<table border="1" cellspacing="0" class="statisticData AM">
-			<thead>
-				<tr>
-					<th scope="col" class="hm">{$lang->about_unit[$type]}(AM)</th>
-					<th scope="col" class="uv">{$lang->visit_count}</th>
-					<th scope="col" class="pc">{$lang->visit_per}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!--@foreach($detail_status->list as $key => $val)-->
-				<!--@if($key<=11)-->
-				<tr<!--@if($val->selected)--> class="realTime" <!--@end-->>
-					<td class="hm">{$key}:00</td>
-					<td class="uv">{$val->val}</td>
-					<td class="pc">{number_format($val->val/ $detail_status->sum * 100)}<span class="percent">%</span></td>
-				</tr>
-				<!--@end-->
-				<!--@end-->
-			</tbody>
-		</table>
-		<!-- /Table Data -->
-		<!--@end-->
-
-		<!-- Table Data -->
-		<table border="1" cellspacing="0" class="statisticData <!--@if(!$type || $type=='day')-->PM<!--@end-->">
-			<thead>
-				<tr>
-					<th scope="col" class="hm">{$lang->about_unit[$type]}<!--@if(!$type || $type=='day')-->(PM)<!--@end--></th>
-					<th scope="col" class="uv">{$lang->visit_count}</th>
-					<th scope="col" class="pc">{$lang->visit_per}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!--@foreach($detail_status->list as $key => $val)-->
-
-				<!--@if($key>11)-->
-				<tr<!--@if($val->selected)--> class="realTime" <!--@end-->>
-					<td class="hm">{$key}<!--@if(!$type || $type=='day')-->:00<!--@end--></td>
-					<td class="uv">{$val->val}</td>
-					<td class="pc">{number_format($val->val/ $detail_status->sum * 100)}<span class="percent">%</span></td>
-				</tr>
-				<!--@end-->
-				<!--@end-->
-			</tbody>
-		</table>
-		<!-- /Table Data -->
-		
+                    <!--@if($key>11)-->
+                    <tr<!--@if($val->selected)--> class="realTime" <!--@end-->>
+                        <td class="hm">{$key}<!--@if(!$type || $type=='day')-->:00<!--@end--></td>
+                        <td class="uv">{$val->val}</td>
+                        <td class="pc">{number_format($val->val/ $detail_status->sum * 100)}<span class="percent">%</span></td>
+                    </tr>
+                    <!--@end-->
+                    <!--@end-->
+                </tbody>
+            </table>
+        </div>
 	</div>
-	<hr />
-	<!-- /Content -->
-	<!-- Extension -->
-	<!--#include("_tool_menu.html")-->
-	<!-- Extension -->
-<!--#include("_tool_footer.html")-->
+</div>
+
+<load target="js/jquery.flot.js" cond="__DEBUG__" />
+<load target="js/jquery.flot.min.js" cond="!__DEBUG__" />
+<load target="js/jquery.flot.resize.js" cond="__DEBUG__" />
+<load target="js/jquery.flot.resize.min.js" cond="!__DEBUG__" />
+<load target="js/jquery.easypiechart.js" cond="__DEBUG__" />
+<load target="js/jquery.easypiechart.min.js" cond="!__DEBUG__" />
+
+<script type="text/javascript">
+jQuery(function($) {
+
+    $('.easypiechart').easyPieChart({
+        lineWidth : 6,
+        lineCap : 'butt',
+        size : 90,
+        scaleColor : '#dddddd',
+        trackColor : '#cdcdcd',
+        barColor : '#eb3058'
+    });
+
+    //  jQuery Flot Chart
+    var visits = [{$chart_value_last}];
+    var visitors = [{$chart_value_this}];
+
+    var plot = $.plot($("#statsChart"),
+        [ { data: visits, label: "지난주"},
+         { data: visitors, label: "이번주"}], {
+            series: {
+                lines: { show: true,
+                        lineWidth: 1,
+                        fill: true, 
+                        fillColor: { colors: [ { opacity: 0.05 }, { opacity: 0.09 } ] }
+                     },
+                points: { show: true, 
+                         lineWidth: 2,
+                         radius: 3
+                     },
+                shadowSize: 0,
+                stack: true
+            },
+            grid: { hoverable: true, 
+                   clickable: true, 
+                   tickColor: "#f9f9f9",
+                   borderWidth: 0
+                },
+            legend: {
+                    show: false,
+                    labelBoxBorderColor: "#fff"
+                },  
+            colors: ["#a7b5c5", "#eb3058"],
+            xaxis: {
+                ticks: [{$chart_ticks}],
+                font: {
+                    size: 12,
+                    family: "Open Sans, Arial",
+                    variant: "small-caps",
+                    color: "#9da3a9"
+                }
+            },
+            yaxis: {
+                ticks:3, 
+                tickDecimals: 0,
+                font: {size:12, color: "#9da3a9"}
+            }
+         });
+
+    function showTooltip(x, y, contents) {
+        $('<div id="chartTooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'none',
+            top: y - 33,
+            left: x - 22,
+            color: "#fff",
+            padding: '2px 5px',
+            'border-radius': '6px',
+            'background-color': '#000',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
+    }
+
+    var previousPoint = null;
+    $("#statsChart").bind("plothover", function (event, pos, item) {
+        if (item) {
+            if (previousPoint != item.dataIndex) {
+                previousPoint = item.dataIndex;
+
+                $("#chartTooltip").remove();
+                var x = item.datapoint[0], y = item.datapoint[1];
+
+                showTooltip(item.pageX, item.pageY,
+                            item.series.label + ": " + y);
+            }
+        }
+        else {
+            $("#chartTooltip").remove();
+            previousPoint = null;
+        }
+    });
+
+});
+</script>
+
+
+
+
+
 <script>
 xe.lang.today = '{$lang->today}';
 xe.lang.yesterday = '{$lang->yesterday}';

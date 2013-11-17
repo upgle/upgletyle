@@ -1,55 +1,44 @@
-				<!-- listHeader -->
-				<div class="listHeader">
-					<p class="info">{sprintf($lang->total_materials, $page_navigation->total_count)}</p>
-				</div>
-				<!-- /listHeader -->
-				
-				<!-- Subject List -->
-					<!--@if(!$material_list)-->
-                        <div class="noKeepingData">
-                        	<p>{$lang->none_materials}</p>
-						</div>
-					<!--@else-->
-				<div class="subjectList">
-					<!--@foreach($material_list as $k => $v)-->
+<div class="clearfix">
 
-					<div class="item">
-						<dl>
-							<dt>{zdate($v->regdate,'Y.m.d H:i')}</dt>
-							<dd class="upgletyleContent">
-							{$v->content}
-							</dd>
-						</dl>
-						<p class="goPost">
-							<span class="btnGray medium"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl','','material_srl',$v->material_srl)}">{$lang->cmd_write_relation}</a></span>
-						</p>
-                        <input type="checkbox" name="cart" value="{$v->material_srl}" class="materialCart" />
-						<button type="button" class="btnDeleteSubject" onclick="deleteMaterialItem({$v->material_srl})"><span>{$lang->cmd_delete_materials}</span></button>
-					</div>
+    <!-- listHeader -->
+    <div class="item-listheader" style="margin-top:10px">
+        <p class="info">{sprintf($lang->total_materials, $page_navigation->total_count)}</p>
+    </div>
+    <!-- /listHeader -->
 
-					<!--@end-->
-				</div>
-					<!--@end-->
+    <!-- Subject List -->
+    <!--@if(!$material_list)-->
+        <div class="noKeepingData">
+            <p>{$lang->none_materials}</p>
+        </div>
+    <!--@else-->
+    <div class="item-subjectlist">
+        <div class="item" loop="$material_list => $k, $v">
+            <dl>
+                <dt>{zdate($v->regdate,'Y.m.d H:i')}</dt>
+                <dd class="upgletyleContent">
+                {$v->content}
+                </dd>
+            </dl>
+            <p class="goPost">
+                <span class="btnGray medium"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl','','material_srl',$v->material_srl)}">{$lang->cmd_write_relation}</a></span>
+            </p>
+            <input type="checkbox" name="cart" value="{$v->material_srl}" class="materialCart" />
+            <button type="button" class="btnDeleteSubject" onclick="deleteMaterialItem({$v->material_srl})"><span>{$lang->cmd_delete_materials}</span></button>
+        </div>
+    </div>
+    <!--@end-->
+    <!-- /item -->
 
-					<!-- /item -->
-				<!-- /Subject List -->
+    <div class="item-changecontroller pull-left">
+    <button type="button" onclick="deleteMaterialItem();" class="bts_btn bts_btn-default bts_btn-sm"><img src="img/buttonTableDataX.gif" width="7" height="7" /> {$lang->cmd_delete_selected_materials}</button>
+    </div>
+    <ul class="pagination-upgle pull-right">
+        <li class="prev"><a href="{getUrl('page','','mid',$mid)}"><span class="sr-only">{$lang->first_page}</span></a></li>
+        <block loop="$page_no = $page_navigation->getNextPage()">
+        <li class="active"|cond="$page==$page_no"><a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a></li>
+        </block>
+        <li class="next"><a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}"><span class="sr-only">{$lang->last_page}</span></a></li>
+    </ul>
 
-                <div class="tRight">
-                    <span class="btnGray medium"><button type="button" onclick="deleteMaterialItem();">{$lang->cmd_delete_selected_materials}</button></span>
-                </div>
-
-				<!-- Pagination -->
-				<div class="pagination">
-					<a href="{getUrl('page','','mid',$mid)}" class="prev"><span>{$lang->first_page}</span></a>
-					<!--@while($page_no = $page_navigation->getNextPage())-->
-						<!--@if($page == $page_no)-->
-							<strong>{$page_no}</strong> 
-						<!--@else-->
-							<a href="{getUrl('page',$page_no,'mid',$mid)}">{$page_no}</a> 
-						<!--@end-->
-					<!--@end-->
-
-					<a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="next"><span>{$lang->last_page}</span></a>
-				</div>
-				<!-- /Pagination -->
-
+</div>

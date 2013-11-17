@@ -1,83 +1,81 @@
 <!--#include("_tool_header.html")-->
-
 <!--%import("filter/insert_profile.xml")-->
 
-		<!-- Content -->
-			<div id="content">
-				
-				<!-- contentHeader -->
-				<div class="contentHeader profileHeader lineBottom">
-					<h3 class="h3">{$lang->upgletyle_second_menus[6]['dispUpgletyleToolConfigProfile']}</h3>
-				</div>
-				<!-- /contentHeader -->
-				
-				<div class="setUp">
-					<form action="{Context::getRequestUri()}" target="form_iframe" method="post" enctype="multipart/form-data" onsubmit="return procFilter(this,insert_profile)" id="foProfile">
-						<input type="hidden" name="vid" value="{$vid}" />
-						<input type="hidden" name="mid" value="{$mid}" />
-						<input type="hidden" name="module_srl" value="{$module_srl}" />
-						<input type="hidden" name="delete_photo" value="N" />
-						<fieldset>
-							<h4 class="h4">{$lang->nick_name}</h4>
-							<table border="1" cellspacing="0" class="setupData">
-								<tr>
-									<th scope="row">{$lang->user_id}</th>
-									<td><strong>{$upgletyle->getUserID()}</strong></td>
-								</tr>
-								<tr>
-									<th scope="row"><label for="pName">{$lang->display_name}</label></th>
-								<td>
-								<input name="nick_name" type="text" value="{$upgletyle->getNickName()}" class="iText" style="width:300px" id="pName" />
-										<p>{$lang->about_display_name}</p>
-									</td>
-								</tr>
-							</table>
-						</fieldset>
-						
-						<fieldset>
-							<h4 class="h4"><label for="eMail">{$lang->email_address}</label></h4>
-							<div style="padding-left:170px">
-								<input name="email_address" value="{$upgletyle->getEmail()}" type="text" class="iText" style="width:300px" id="eMail" />
-								<p>{$lang->about_email}</p>
-							</div>
-						</fieldset>
-						
-						<fieldset>
-							<h4 class="h4">{$lang->profile_image}</h4>
-							<div class="thumb">
-								<img src="{$upgletyle->getProfilePhotoSrc()}" alt="{$lang->no_profile_image}" width="{$profile_image_width}" height="{$profile_image_height}" class="profilePhoto" />
-								<button type="button" class="deletePhoto" onclick="jQuery('input[name=delete_photo]').val('Y');jQuery('img.profilePhoto').attr('src','{$upgletyle->getProFileDefaultPhotoSrc()}');"><span>{$lang->cmd_delete}</span></button>
-							</div>
-							<div class="upload">
-								<input name="photo" type="file" id="photo" value="" />
-                                <p>{$lang->allow_profile_image_type}</p>
-								<p>{sprintf($lang->allow_profile_image_size, $profile_image_width, $profile_image_height)}</p>
-							</div>
-						</fieldset>
-						
-						<fieldset>
-							<h4 class="h4">{$lang->signature}</h4>
-							<input type="hidden" name="profile_content" value="{htmlspecialchars($upgletyle->getProfileContent())}" />
-							{$profile_content_editor}
-						</fieldset>
-						
-						<div class="btnArea">
-							<span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
-						</div>
+<!-- Content -->
+<div class="upgle-container">
+    <div class="page-header">
+        <h4>{$lang->upgletyle_second_menus[6]['dispUpgletyleToolConfigProfile']} <small>블로그의 종합정보를 출력합니다.</small></h4>
+    </div>
 
-					</form>
-				</div>
+    <div class="setUp">
+        <form action="{Context::getRequestUri()}" target="form_iframe" method="post" enctype="multipart/form-data" onsubmit="return procFilter(this,insert_profile)" id="foProfile" class="form-horizontal form-config">
+            <input type="hidden" name="vid" value="{$vid}" />
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="module_srl" value="{$module_srl}" />
+            <input type="hidden" name="delete_photo" value="N" />
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->nick_name} / {$lang->email_address} 설정</h5>
+                </div>
 
-			</div>
-			<hr />
-			<!-- /Content -->
-			
-	
-			<!-- Extension -->
-				<!--#include("_tool_menu.html")-->
-			<!-- Extension -->
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 control-label">{$lang->display_name}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-5">
+                        <input type="email" class="form-control input-sm" id="inputEmail3" placeholder="{$upgletyle->getUserID()}">
+                        </div></div>
+                        <span class="help-block">{$lang->about_display_name}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 control-label">{$lang->email_address}</label>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-5">
+                        <input name="email_address" value="{$upgletyle->getEmail()}" type="text" class="form-control input-sm" />
+                        </div></div>
+                        <span class="help-block">{$lang->about_email}</span>
+                    </div>
+                </div>
+            </fieldset>
+            
+            
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->profile_image}</h5>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-3 clearfix">
+                        <div class="item-profile pull-right">
+                        <img src="{$upgletyle->getProfilePhotoSrc()}" alt="{$lang->no_profile_image}" width="{$profile_image_width}" height="{$profile_image_height}" class="profilePhoto" />
+                        <button type="button" class="deletePhoto" onclick="jQuery('input[name=delete_photo]').val('Y');jQuery('img.profilePhoto').attr('src','{$upgletyle->getProFileDefaultPhotoSrc()}');"><span>{$lang->cmd_delete}</span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><div class="col-sm-8">
+                        <input name="photo" type="file" id="photo" value="" class="form-control  input-sm"/>
+                        </div></div>
+                        <span class="help-block">{$lang->allow_profile_image_type}</span>
+                        <span class="help-block">{sprintf($lang->allow_profile_image_size, $profile_image_width, $profile_image_height)}</span>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>{$lang->signature}</h5>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 control-label">{$lang->signature}</label>
+                    <div class="col-sm-8">
+                    <input type="hidden" name="profile_content" value="{htmlspecialchars($upgletyle->getProfileContent())}" />
+                    {$profile_content_editor}
+                    </div>
+                </div>
+            </fieldset>
+            <input type="submit" class="bts_btn bts_btn-primary pull-right" value="{$lang->cmd_apply}" />
+        </form>
+    </div>
+</div>
+<!-- /Content -->
+<iframe name="form_iframe" style="visibility:hidden;width:0px;height:0px;"></iframe>
 
-			<iframe name="form_iframe" style="visibility:hidden;width:0px;height:0px;"></iframe>
-
-
-<!--#include("_tool_footer.html")-->
