@@ -19,21 +19,11 @@
             if(preg_match("/UpgletyleTool/",$this->act) || $oUpgletyleModel->isAttachedMenu($this->act) ) {
 				if(__DEBUG__)
 				{
-					//Context::loadFile(array('./modules/admin/tpl/css/admin.css', '', '', 10), true); 
-					//Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
-					//Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.css", '', 'ie', 10), true);
-
-					//Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				} 
 				else
 				{
-					//Context::loadFile(array('./modules/admin/tpl/css/admin.min.css', '', '', 10), true);
-					//Context::loadFile(array("./modules/admin/tpl/css/admin_{$lang_type}.css", '', '', 10), true);
-					//Context::loadFile(array("./modules/admin/tpl/css/admin.iefix.min.css", '', 'ie', 10), true);
-
-					//Context::loadFile(array('./modules/admin/tpl/css/admin.bootstrap.min.css', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.tmpl.js', '', '', 1), true);
 					Context::loadFile(array('./modules/admin/tpl/js/jquery.jstree.js', '', '', 1), true);
 				}
@@ -51,8 +41,8 @@
 
             if(!$this->checkXECoreVersion('1.4.3')) return $this->stop(sprintf(Context::getLang('msg_requried_version'),'1.4.3'));
 
-            $oUpgletyleModel = &getModel('upgletyle');
-            $oUpgletyleController = &getController('upgletyle');
+			$oUpgletyleModel = &getModel('upgletyle');
+			$oUpgletyleController = &getController('upgletyle');
             $oModuleModel = &getModel('module');
 
             $site_module_info = Context::get('site_module_info');
@@ -232,53 +222,6 @@
             $oDocumentModel = &getModel('document');
             $oCommentModel = &getModel('comment');
             $oUpgletyleModel = &getModel('upgletyle');
-
-            $url = sprintf("http://news.upgletyle.kr/%s/news.php", Context::getLangType());
-            $cache_file = sprintf("%sfiles/cache/upgletyle/news/%s%s.cache.xml", _XE_PATH_,getNumberingPath($this->module_srl),Context::getLangType());
-            if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
-                FileHandler::writeFile($cache_file,'');
-
-                if(__PROXY_SERVER__!==null) {
-                    $oRequest = new HTTP_Request(__PROXY_SERVER__);
-                    $oRequest->setMethod('POST');
-                    $oRequest->_timeout = $timeout;
-                    $oRequest->addPostData('arg', serialize(array('Destination'=>$url)));
-                } else {
-                    $oRequest = new HTTP_Request($url);
-                    if(!$content_type) $oRequest->addHeader('Content-Type', 'text/html');
-                    else $oRequest->addHeader('Content-Type', $content_type);
-                    if(count($headers)) {
-                        foreach($headers as $key => $val) {
-                            $oRequest->addHeader($key, $val);
-                        }
-                    }
-                    $oRequest->_timeout = 2;
-                }
-                if(isSiteID($this->upgletyle->domain)) $oRequest->addHeader('REQUESTURL', Context::getRequestUri().$this->upgletyle->domain);
-                else $oRequest->addHeader('REQUESTURL', $this->upgletyle->domain);
-                $oResponse = $oRequest->sendRequest();
-                $body = $oRequest->getResponseBody();
-                FileHandler::writeFile($cache_file, $body);
-            }
-
-            if(file_exists($cache_file)) {
-                $oXml = new XmlParser();
-                $buff = $oXml->parse(FileHandler::readFile($cache_file));
-
-                $item = $buff->news->item;
-                if($item) {
-                    if(!is_array($item)) $item = array($item);
-
-                    foreach($item as $key => $val) {
-                        $obj = null;
-                        $obj->title = $val->body;
-                        $obj->date = $val->attrs->date;
-                        $obj->url = $val->attrs->url;
-                        $news[] = $obj;
-                    }
-                    Context::set('news', $news);
-                }
-            }
 
             $time = time();
             $w = date("D");
