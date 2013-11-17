@@ -52,22 +52,7 @@
                     <li class="active"|cond="$type=='month'"><span class="line"></span><a href="{getUrl('type','month', 'host_srl','')}">{$lang->monthly}</a></li>
                 </ul>
             </div>
-            <div class="col-sm-3 col-xs-6 text-right" style="padding-left:0">
-                <ul class="statistics-label">
-                    <!--@if($type=='day')-->
-                        {@$_this=$lang->day_current}
-                        {@$_last=$lang->day_before}
-                    <!--@else if($type=='month')-->
-                        {@$_this=$lang->this_month}
-                        {@$_last=$lang->before_month}
-                    <!--@else-->
-                        {@$_this=$lang->this_week}
-                        {@$_last=$lang->last_week}
-                    <!--@end-->
-                    <li><img src="img/graphToday.gif" width="5" height="5" alt="{$_this}" class="today" /> {$_this}</li>
-                    <li><img src="img/graphYesterday.gif" width="5" height="5" alt="{$_last}" class="yesterday" /> {$_last}</li>
-                </ul>
-            </div>
+
         </div>
     </div>
 
@@ -82,56 +67,60 @@
         
     <!-- Table Data -->
     <!--@if($host_srl)-->
-    <h4 class="refererDomain">
+    <h5 class="pull-left well well-sm">
         {$lang->host} : <a href="http://{$referer_host->host}" onclick="window.open(this.href);return false;">{$referer_host->host}</a>
-        <span class="btnGray medium"><button type="button" onclick="location.href='{getUrl('page','','host_srl','')}';return false;">{$lang->cmd_back}</button></span>
-    </h4>
+        <button type="button" onclick="location.href='{getUrl('page','','host_srl','')}';return false;" class="bts_btn bts_btn-primary bts_btn-xs">{$lang->cmd_back}</button>
+    </h5>
     <table summary="" class="table table-hover table-upgle">
         <thead>
             <tr>
-                <th scope="col">{$lang->rank}</th>
-                <th scope="col" class="quarter">{$lang->referer}</th>
+                <th scope="col" width="50">{$lang->rank}</th>
+                <th scope="col" width="20%">{$lang->referer}</th>
                 <th scope="col" class="quarter">{$lang->link_word}</th>
                 <th scope="col" class="title quarter">{$lang->link_document}</th>
-                <th scope="col">{$lang->visitor}</th>
+                <th scope="col" width="20%">{$lang->visitor}</th>
             </tr>
         </thead>
         {@$_idx = 1;}
-        <!--@foreach($document_list as $key => $val)-->
-        <!--@if($page<2 &&($_idx == 1 || $_idx == 4))--><tbody<!--@if($_idx==1)--> class="top3"<!--@end-->><!--@end-->
-            <tr>
-                <td class="rank">{$_idx}</td>
-                <td class="uri quarter"><a href="{$val->get('referer_url')}" onclick="window.open(this.href);return false;">{htmlspecialchars(cut_str($val->get('referer_url'),40,'...'))}</a></td>
-                <td class="title quarter">{htmlspecialchars(urldecode($val->get('link_word')))}&nbsp;</td>
-                <td class="title postTitle quarter"><a href="{$val->getPermanentUrl()}" onclick="window.open(this.href); return false;">{$val->getTitle()}</a></td>
-                <td class="graph">{number_format($val->get('visitor'))}<span class="fullBarReferer"><img src="img/graphReferer.gif" alt="" style="width:{sprintf("%02d",$val->get('visitor')/$max_visitor*100)}%" /></span></td>
-            </tr>
-        <!--@if($page<2 && $_idx==3)--></tbody><!--@end-->
-        {@$_idx++}
-        <!--@end-->
+        <tr loop="$document_list => $key, $val">
+            <td class="rank">{$_idx}</td>
+            <td class="uri quarter"><a href="{$val->get('referer_url')}" onclick="window.open(this.href);return false;">{htmlspecialchars(cut_str($val->get('referer_url'),40,'...'))}</a></td>
+            <td class="title quarter">{htmlspecialchars(urldecode($val->get('link_word')))}&nbsp;</td>
+            <td class="title postTitle quarter"><a href="{$val->getPermanentUrl()}" onclick="window.open(this.href); return false;">{$val->getTitle()}</a></td>
+            <td class="graph">
+                <div class="progress" style="margin-bottom:0">
+                <div class="progress-bar progress-bar-warning"|cond="$_idx<=3" class="progress-bar progress-bar-info"|cond="$_idx>3" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {sprintf("%02d",$val->get('visitor')/$max_visitor*100)}%;">
+                <span class="text-left">{number_format($val->get('visitor'))}명</span>
+                </div>
+                </div>
+            </td>
+            {@$_idx++}
+        </tr>
     </table>
     <!--@else-->
     <table summary="" class="table table-hover table-upgle" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col">{$lang->rank}</th>
+                <th scope="col" width="50">{$lang->rank}</th>
                 <th scope="col">{$lang->host}</th>
                 <th scope="col" class="title">{$lang->link_document}</th>
-                <th scope="col">{$lang->visitor}</th>
+                <th scope="col" width="20%">{$lang->visitor}</th>
             </tr>
         </thead>
         {@$_idx = 1;}
-        <!--@foreach($document_list as $key => $val)-->
-        <!--@if($page<2 &&($_idx == 1 || $_idx == 4))--><tbody<!--@if($_idx==1)--> class="top3"<!--@end-->><!--@end-->
-            <tr>
-                <td class="rank">{$_idx}</td>
-                <td class="uri"><a href="{getUrl('page','1','host_srl',$val->get('host_srl'))}">{htmlspecialchars(cut_str($val->get('host'),40,'...'))}</a></td>
-                <td class="title postTitle"><a href="{$val->getPermanentUrl()}" onclick="window.open(this.href); return false;">{$val->getTitle()}</a></td>
-                <td class="graph">{number_format($val->get('visitor'))}<span class="fullBarReferer"><img src="img/graphReferer.gif" alt="" style="width:{sprintf("%02d",$val->get('visitor')/$max_visitor*100)}%" /></span></td>
-            </tr>
-        <!--@if($page<2 && $_idx==3)--></tbody><!--@end-->
+        <tr loop="$document_list => $key, $val">
+            <td>{$_idx}</td>
+            <td class="uri"><a href="{getUrl('page','1','host_srl',$val->get('host_srl'))}">{htmlspecialchars(cut_str($val->get('host'),40,'...'))}</a></td>
+            <td class="title postTitle"><a href="{$val->getPermanentUrl()}" onclick="window.open(this.href); return false;">{$val->getTitle()}</a></td>
+            <td class="graph">
+                <div class="progress" style="margin-bottom:0">
+                <div class="progress-bar progress-bar-warning"|cond="$_idx<=3" class="progress-bar progress-bar-info"|cond="$_idx>3" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {sprintf("%02d",$val->get('visitor')/$max_visitor*100)}%;">
+                <span class="text-left">{number_format($val->get('visitor'))}명</span>
+                </div>
+                </div>
+            </td>
         {@$_idx++}
-        <!--@end-->
+        </tr>
     </table>
     <!--@end-->
     <!-- /Table Data -->
