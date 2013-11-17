@@ -767,6 +767,10 @@ tr.item-communication-button td {
 .table > tfoot > tr > td {
 	vertical-align: middle;
 }
+.table .sum {
+	color:#ea3f22 !important;
+	font-weight:bold;
+}
 
 /* label */
 .label {
