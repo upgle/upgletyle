@@ -281,6 +281,30 @@
 
         }
 
+        function procUpgletyleDashboardConfigUpdate(){
+
+            $args = Context::getRequestVars();
+			$oModuleController = &getController('module');
+			$oUpgletyleModel = &getModel('upgletyle');
+
+			$config = array();
+			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
+
+            $config->dashboard_traffic_viewer = $args->traffic_viewer;
+            $config->dashboard_traffic_url = $args->traffic_url;
+            $config->dashboard_DBMS = $args->DBMS;
+            $config->dashboard_DBMS_capacity = $args->DBMS_capacity;
+            $config->dashboard_HDD_path = $args->HDD_path;
+            $config->dashboard_HDD_capacity = $args->HDD_capacity;
+
+            $oModuleController->insertModulePartConfig('upgletyle',abs($this->module_srl)*-1, $config);
+
+			$this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid',  Context::get('mid'), 'act', 'dispUpgletyleToolDashboard', 'vid', Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
+
+        }
+
         function insertUpgletyleFavicon($module_srl, $source) {
             $oUpgletyleModel = &getModel('upgletyle');
             $path = $oUpgletyleModel->getUpgletyleFaviconPath($module_srl);
@@ -654,6 +678,7 @@
         function procUpgletyleDenyInsertList(){
             $var = Context::getRequestVars();
             $deny = array();
+			debugPrint($var);
             $deny['S'] = explode('|',$var->homepage);
             $deny['M'] = explode('|',$var->email_address);
             $deny['I'] = explode('|',$var->ipaddress);
@@ -798,6 +823,7 @@
                 
                 $var->publish_date_yyyymmdd = preg_replace("/[^0-9]/",'',$var->publish_date_yyyymmdd);
                 if($var->subscription=='Y' && $var->publish_date_yyyymmdd) {
+
                     $var->publish_date_hh = preg_replace("/[^0-9]/",'',$var->publish_date_hh);
                     $var->publish_date_ii = preg_replace("/[^0-9]/",'',$var->publish_date_ii);
                     $var->publish_date_hh = $var->publish_date_hh ? $var->publish_date_hh : 0;

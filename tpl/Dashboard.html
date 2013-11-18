@@ -13,18 +13,96 @@
                     <div id="statsChart" style="height:190px"></div>
                 </div>
                 <div class="panel-footer text-center" style="position:relative;">
-                    <a href="#" style="position:absolute;font-size:14px;top:10px;right:10px"><span class="glyphicon glyphicon-cog"></span></a>
-                    <span class="item-easypiechart" data-percent="86">
+                    <a href="#" data-toggle="modal" data-target="#dashboardModal" style="position:absolute;font-size:14px;top:10px;right:10px"><span class="glyphicon glyphicon-cog"></span></a>
+
+                    <!-- Modal -->
+                    <div class="modal fade text-left" id="dashboardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">대시보드 위젯 세팅</h4>
+                                </div>
+                                <form action="./" method="post" class="form-horizontal" role="form">
+                                <input type="hidden" name="module" value="upgletyle" />
+                                <input type="hidden" name="act" value="procUpgletyleDashboardConfigUpdate" />
+                                <input type="hidden" name="vid" value="{$vid}" />
+                                <input type="hidden" name="mid" value="{$mid}" />
+                                <input type="hidden" name="xe_validator_id" value="modules/upgletyle/tpl/dashboard/1" />
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="traffic_viewer" class="col-sm-3 control-label">트래픽 뷰어</label>
+                                        <div class="col-sm-6">
+                                            <select name="traffic_viewer" class="form-control input-sm" id="traffic_viewer">
+                                                <option value="throttle-me/3.1.2p4">throttle-me/3.1.2p4 (CAFE24)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="traffic_url" class="col-sm-3 control-label">트래픽뷰어 주소</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="traffic_url" class="form-control input-sm" id="traffic_url" value="{$part_config->dashboard_traffic_url}">
+                                            <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DBMS" class="col-sm-3 control-label">DBMS종류</label>
+                                        <div class="col-sm-6">
+                                            <select name="DBMS" id="DBMS" class="form-control input-sm">
+                                                <option value="mysql">MYSQL/MYSQLI</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DBMS_capacity" class="col-sm-3 control-label">DBMS 제한용량</label>
+                                        <div class="col-sm-8">
+                                            <div class="row"><div class="col-sm-5">
+                                            <input type="text" name="DBMS_capacity" class="form-control input-sm" id="DBMS_capacity" value="{$part_config->dashboard_DBMS_capacity}">
+                                            </div></div>
+                                            <span class="help-block">무제한인경우에는 공란으로 두십시오. (단위 MB)</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="HDD_path" class="col-sm-3 control-label">HDD 절대경로</label>
+                                        <div class="col-sm-8">
+                                            <div class="row"><div class="col-sm-10">
+                                            <input type="text" name="HDD_path" class="form-control input-sm" id="inputEmail3" placeholder="{_XE_PATH_}" value="{$part_config->dashboard_HDD_path}">
+                                            </div></div>
+                                            <span class="help-block">특정폴더에 대한 용량을 확인하고 싶으면 절대경로를 입력할 수있습니다. 공란으로 둘 경우 XE절대경로를 참조합니다.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="HDD_capacity" class="col-sm-3 control-label">HDD 제한용량</label>
+                                        <div class="col-sm-8">
+                                            <div class="row"><div class="col-sm-5">
+                                            <input type="text" name="HDD_capacity" class="form-control input-sm" id="HDD_capacity" value="{$part_config->dashboard_HDD_capacity}">
+                                            </div></div>
+                                            <span class="help-block">무제한인경우에는 공란으로 두십시오. (단위 MB)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="bts_btn bts_btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="bts_btn bts_btn-primary">Save changes</button>
+                                </div>
+                                </form>
+
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+                    <span class="item-easypiechart" data-percent="{$traffic_info->percent}" data-toggle="tooltip" data-html="true" title="TRAFFIC<br />{$traffic_info->sent}MB / {$traffic_info->limit}MB ({$traffic_info->percent}%)">
                         <span class="title">트래픽</span>
-                        <span class="percent">891</span>
+                        <span class="percent">{$traffic_info->sent}</span>
                     </span>
-                    <span class="item-easypiechart" data-percent="46">
+                    <span class="item-easypiechart" data-percent="{$database_info->percent}"" data-toggle="tooltip" data-html="true" title="MYSQL<br />{$database_info->using}MB / {$database_info->capacity}MB ({$database_info->percent}%)">
                         <span class="title">DB</span>
-                        <span class="percent">116</span>
+                        <span class="percent">{$database_info->using}</span>
                     </span>
-                    <span class="item-easypiechart" data-percent="86">
+                    <span class="item-easypiechart" data-percent="{$hdd_info->percent}" data-toggle="tooltip" data-html="true" title="HDD<br />{$hdd_info->using}MB / {$hdd_info->capacity}MB ({$hdd_info->percent}%)">
                         <span class="title">HDD</span>
-                        <span class="percent">86</span>
+                        <span class="percent">{$hdd_info->using}</span>
                     </span>
                 </div>
             </div>
@@ -93,6 +171,8 @@
 
 <script type="text/javascript">
 jQuery(function($) {
+
+    $('.item-easypiechart').tooltip();
 
     $('.item-easypiechart').easyPieChart({
         lineWidth : 6,
