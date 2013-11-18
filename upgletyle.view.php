@@ -128,6 +128,14 @@
             if($_COOKIE['tclnb']) Context::addBodyClass('lnbClose');
             else Context::addBodyClass('lnbToggleOpen');
 
+			//회원이 가지고 있는 블로그리스트를 구함
+            $args->list_count = 20;
+            $args->list_order = 'regdate';
+			$args->s_member_srl = 4;
+            $output = $oUpgletyleModel->getUpgletyleList($args);
+            if(!$output->toBool()) return $output;
+			Context::set('bloglist',$output->data);
+
             // set browser title 
             Context::setBrowserTitle($upgletyle->get('browser_title') . ' - admin');
         }

@@ -34,7 +34,7 @@
             {$upgletyle->getUpgletyleTitle()} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-            <li><a href="{getSiteUrl($upgletyle->domain)}" target="_blank">{$upgletyle->getUpgletyleTitle()}</a></li>
+            <li loop="$bloglist => $no,$val"><a href="{getSiteUrl($val->domain)}" target="_blank">{$val->getBrowserTitle()}</a></li>
             </ul>
         </div>
         <div class="bts_btn-group">
