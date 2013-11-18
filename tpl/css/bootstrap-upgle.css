@@ -868,12 +868,6 @@ tr.item-communication-button td {
 }
 
 
-/* 오류신고 */
-.upgle-issue a {
-	font-weight: normal !important;
-	background:none !important;
-	padding: 7px 0 7px 21px !important;
-}
 
 
 .navbar-toggle { padding: 5px 10px; padding-right:0; border:1px solid silver}
@@ -892,143 +886,184 @@ tr.item-communication-button td {
 .upgle-container .page-header h4 {font-weight: bold}
 .upgle-container .page-header small {margin-left:5px}
 
+
+
+[class^="icon-"],
+[class*=" icon-"] {
+    margin-right:4px;
+}
+
+
+
+
+
 .navbar-upgle .navbar-collapse .navbar-nav ul {display:none;}
 .navbar-upgle .navbar-right {display:none}
 .navbar-upgle .navbar-brand {padding:0 17px;}
 
-[class^="icon-"],
-[class*=" icon-"] {
-  margin-right:4px;
+.navbar-upgle .navbar-collapse a {color: #5b5d60 !important;}
+.navbar-upgle .navbar-collapse .navbar-nav ul > li.active > a {
+    color: #ea3f22 !important;
+    font-weight:bold;
 }
 
+/* 오류신고 */
+.navbar-upgle .navbar-collapse .upgle-issue a {
+	font-weight: normal !important;
+	background:none !important;
+	padding: 7px 0 7px 21px !important;
+}
+
+
+@media (max-width: 859px) {
+
+    .navbar-collapse {
+        background-color:#fbfbfb;
+        border-top:0;
+        border-bottom:1px solid silver;
+    }
+    .navbar-collapse .navbar-nav {
+        margin-top:0;
+        margin-bottom:0;
+    }
+
+    .navbar-collapse .navbar-nav > li > .first_menu {
+        cursor:pointer;
+        padding: 11px 0 11px 21px;
+        font-weight:bold;
+        background:url(../img/iconLnbOpen.gif) right 16px no-repeat;
+        line-height:20px;
+
+        background-color:#f2f2f2;
+        border-top:1px solid #d2d2d2;
+    }
+    .navbar-collapse .navbar-nav > li > ul.second_menu {
+        list-style:none;
+        border-top:1px solid #e2e2e2;
+        padding-top:6px;
+        padding-bottom:6px;
+    }
+    .navbar-collapse .navbar-nav > li > ul.second_menu a{
+        display:block;
+        padding: 3px 0;
+    }
+
+
+}
 @media (min-width: 860px) {
-  body {
-    background:url(../img/vrLnb.gif) -8px 0 #fefefe repeat-y;
-  }
+    body {
+        background:url(../img/vrLnb.gif) -8px 0 #fefefe repeat-y;
+    }
+
+    /* input */
+    .input-xs {
+        height: 22px;
+        padding: 0px 0px 0px 6px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 0px;
+    }
+    select.input-xs {
+        height: 22px;
+        line-height: 22px;
+    }
+    textarea.input-xs {
+        height: auto;
+    }
+
+    .pull-right.search {
+        float:right !important;
+    }
+
+    .navbar-collapse.in {overflow-y:initial}
+
+    /* 언어 설정은 PC모드에서만 출력 */
+    .upgle-language {display:block}
 
 
-/* input */
-.input-xs {
-  height: 22px;
-  padding: 0px 0px 0px 6px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 0px;
-}
-select.input-xs {
-  height: 22px;
-  line-height: 22px;
-}
-textarea.input-xs {
-  height: auto;
-}
 
-  .pull-right.search {
-    float:right !important;
-  }
+    .navbar-upgle .navbar-right {
+        display:block; 
+        margin-right:24px;
+    }
+    .navbar-upgle .navbar-right .nav > li > a {
+        padding-top:11px; padding-bottom: 11px;
+        color:#d1d1d4;
+    }
+    .navbar-upgle .navbar-right .nav > li > a:hover,
+    .navbar-upgle .navbar-right .nav > li > a:focus {
+        background-color: #464c57;
+        color:#fff;
+    }
 
 
-  .navbar-collapse.in {overflow-y:initial}
+    /* 활성화된 메뉴는 숨기지 않음 */
+    .navbar-upgle .navbar-collapse .navbar-nav .active ul {display:block;}
 
-  /* 언어 설정은 PC모드에서만 출력 */
-  .upgle-language {display:block}
+    .navbar-upgle .navbar-collapse {
+        position:absolute;
+        margin:0; padding:0;
+        top:44px;
+        width:164px;
+    }
+    .navbar-upgle .navbar-collapse li {
+        float:none;	
+        width:164px;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li {
+        border-top: 1px solid #f8f8f8;
+        border-bottom:1px solid #d2d2d2;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li:hover {
+        background-color:#f7f7f7;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li > .first_menu {
+        cursor:pointer;
+        padding: 10px 0 10px 21px;
+        line-height:20px;
+        font-weight:bold;
+        background:url(../img/iconLnbOpen.gif) 143px 16px no-repeat;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li > .first_menu:hover {
+        background-color:#f7f7f7;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li.active{
+        background-color:#fbfbfb;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li.active > .first_menu {
+        background-color:#fefefe !important;
+        color:#ea3f22 !important;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li.active > .first_menu,
+    .navbar-upgle .navbar-collapse .navbar-nav > li.clicked > .first_menu,
+    .navbar-upgle .navbar-collapse .navbar-nav > li.active > .first_menu:hover,
+    .navbar-upgle .navbar-collapse .navbar-nav > li.active > .first_menu:focus { 
+        background:url(../img/iconLnbOpen.gif) 143px -30px no-repeat;
+        border-bottom:1px solid #e2e2e2;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li.nochild > .first_menu,
+    .navbar-upgle .navbar-collapse .navbar-nav > li.nochild > .first_menu:hover,
+    .navbar-upgle .navbar-collapse .navbar-nav > li.nochild > .first_menu:focus {
+        background:none !important;
+        border-bottom:0;
+    }
 
-  /* 활성화된 메뉴는 숨기지 않음 */
-  .navbar-upgle .navbar-collapse .navbar-nav .active ul {display:block;}
+    .navbar-upgle .navbar-collapse .navbar-nav > li > ul.second_menu {
+        list-style : none;
+        padding: 10px 0 6px 0;
+        background:url(../img/vrLnbSubmenu.gif) -8px 0;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li > ul.second_menu > li {
+        padding-left:40px;
+        margin-bottom:4px;
+    }
+    .navbar-upgle .navbar-collapse .navbar-nav > li.active > ul.second_menu {
+        background:none !important;
+        background-color:#fefefe !important;
+    }
 
-  .navbar-upgle .navbar-collapse a {color: #5b5d60 !important;}
-  .navbar-upgle .navbar-right {
-    display:block; 
-	margin-right:24px;
-   }
-  .navbar-upgle .navbar-right .nav > li > a {
-    padding-top:11px; padding-bottom: 11px;
-	color:#d1d1d4;
-   }
-  .navbar-upgle .navbar-right .nav > li > a:hover,
-  .navbar-upgle .navbar-right .nav > li > a:focus {
-    background-color: #464c57;
-	color:#fff;
-   }
-  .navbar-upgle .navbar-collapse {
-    position:absolute;
-    margin:0; padding:0;
-	top:44px;
-	width:164px;
-  }
-  .navbar-upgle .navbar-collapse li {
-    float:none;	
-	width:164px;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > li {
-    border-top: 1px solid #f8f8f8;
-	border-bottom:1px solid #d2d2d2;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > li:hover {
-    background-color:#f7f7f7;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > li > a {
-	padding: 10px 0 10px 21px;
-	font-weight:bold;
-	background:url(../img/iconLnbOpen.gif) 143px 16px no-repeat;
-
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > li > a:hover {
-    background-color:#f7f7f7;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav ul {
-    list-style : none;
-	padding: 10px 0 6px 0;
-	background:url(../img/vrLnbSubmenu.gif) -8px 0;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav ul > li {
-	padding-left:40px;
-	margin-bottom:4px;
-  }
-
-  .navbar-upgle .navbar-collapse .navbar-nav ul > li.active a {
-	color: #ea3f22 !important;
-	font-weight:bold;
-  }
-
-
-  .navbar-upgle .navbar-collapse .navbar-nav > .active ul {
-	background:none;
-	background-color:#fefefe;
-  }
-
-  .navbar-upgle .navbar-collapse .navbar-nav > .active,
-  .navbar-upgle .navbar-collapse .navbar-nav > .active:hover,
-  .navbar-upgle .navbar-collapse .navbar-nav > .active:focus{
-	background-color:#fbfbfb;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > .active > a {
-	background-color:#fefefe !important;
-	color:#ea3f22 !important;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > .active > a,
-  .navbar-upgle .navbar-collapse .navbar-nav > .clicked > a
-  {
-	background:url(../img/iconLnbOpen.gif) 143px -30px no-repeat;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > .active > a,
-  .navbar-upgle .navbar-collapse .navbar-nav > .clicked > a,
-  .navbar-upgle .navbar-collapse .navbar-nav > .active > a:hover,
-  .navbar-upgle .navbar-collapse .navbar-nav > .active > a:focus { 
-    border-bottom:1px solid #e2e2e2;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > .nochild > a {
-	background:none !important;
-	border-bottom:0;
-  }
-  .navbar-upgle .navbar-collapse .navbar-nav > .nochild > a:hover,
-  .navbar-upgle .navbar-collapse .navbar-nav > .nochild > a:focus {
-	background:none !important;
-	border-bottom:0;
-  }
-
-  .upgle-container {
-	padding:0 28px 0 0px;
-	margin-left:195px; 
-  }
+    .upgle-container {
+        padding:0 28px 0 0px;
+        margin-left:195px; 
+    }
 }
