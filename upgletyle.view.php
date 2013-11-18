@@ -216,75 +216,47 @@
 
 			global $lang;
 
-            $oCounterModel = &getModel('counter');
-            $oDocumentModel = &getModel('document');
-            $oCommentModel = &getModel('comment');
             $oUpgletyleModel = &getModel('upgletyle');
 
-            $time = time();
-            $w = date("D");
-            while(date("D",$time) != "Sun") {
-                $time += 60*60*24;
-            }
-            $time -= 60*60*24;
-            while(date("D",$time)!="Sun") {
-                $thisWeek[] = date("Ymd",$time);
-                $time -= 60*60*24;
-            }
-            $thisWeek[] = date("Ymd",$time);
-            asort($thisWeek);
-            $thisWeekCounter = $oCounterModel->getStatus($thisWeek, $this->site_srl);
-
-            $time -= 60*60*24;
-            while(date("D",$time)!="Sun") {
-                $lastWeek[] = date("Ymd",$time);
-                $time -= 60*60*24;
-            }
-            $lastWeek[] = date("Ymd",$time);
-            asort($lastWeek);
-            $lastWeekCounter = $oCounterModel->getStatus($lastWeek, $this->site_srl);
-
-            $max = 0;
-            foreach($thisWeek as $day) {
-                $v = (int)$thisWeekCounter[$day]->unique_visitor;
-                if($v && $v>$max) $max = $v;
-                $status->week[date("D",strtotime($day))]->this = $v;
-            }
-            foreach($lastWeek as $day) {
-                $v = (int)$lastWeekCounter[$day]->unique_visitor;
-                if($v && $v>$max) $max = $v;
-                $status->week[date("D",strtotime($day))]->last = $v;
-            }
-            $status->week_max = $max;
-            $idx = 0;
-            foreach($status->week as $key => $val) {
-                $_thisWeek[] = $val->this;
-                $_lastWeek[] = $val->last;
-                $idx++;
-            }
-
+            $oCounterModel = &getModel('counter');
             $counter = $oCounterModel->getStatus(array(0,date("Ymd")),$this->site_srl);
             $status->total_visitor = $counter[0]->unique_visitor;
             $status->visitor = $counter[date("Ymd")]->unique_visitor;
-
-			/*
-            $args->module_srl = $this->module_srl;
-            $args->regdate = date("Ymd");
-            $output = executeQuery('upgletyle.getTodayCommentCount', $args);
-            $status->comment_count = $output->data->count;
-			*/
-
-			/*
-            $args->module_srl = $this->module_srl;
-            $args->regdate = date("Ymd");
-            $output = executeQuery('upgletyle.getTodayTrackbackCount', $args);
-            $status->trackback_count = $output->data->count;
-			*/
             Context::set('status', $status);
 
+			//Get a Dashboard Config
+			$part_config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
+			Context::set('part_config',$part_config);
 
-			//카운터..
-			$detail_status = $oCounterModel->getHourlyStatus('week', date("Ymd",$time), $this->site_srl);
+			//TRAFFIC 사용량
+			$traffic_viewr = explode("/",$part_config->dashboard_traffic_viewer);
+			$throttle_me = $oUpgletyleModel->getUsedTraffic($traffic_viewr[0], $traffic_viewr[1], $part_config->dashboard_traffic_url, $this->module_srl);
+			Context::set('traffic_info',$throttle_me);
+
+			//DB 사용량(MYSQL)
+			$used_db = $oUpgletyleModel->getUsedDBStorage('MYSQL', $this->module_srl);
+			$database_info = new stdClass();
+			$database_info->using = $used_db;
+			$database_info->capacity = $part_config->dashboard_DBMS_capacity;
+			if($database_info->using!=0 && $database_info->capacity!=0) {
+				$percent = ($database_info->using/$database_info->capacity)*100;
+				$database_info->percent = sprintf("%d",$percent);
+			}
+			Context::set('database_info',$database_info);
+
+			//HDD 사용량
+			$hdd = exec("du -sm "._XE_PATH_);
+			$hdd_info = new stdClass();
+			$hdd_info->using = trim(str_replace(_XE_PATH_,'',$hdd));
+			$hdd_info->capacity = $part_config->dashboard_HDD_capacity;
+			if($hdd_info->using!=0 && $hdd_info->capacity!=0) {
+				$percent = ($hdd_info->using/$hdd_info->capacity)*100;
+				$hdd_info->percent = sprintf("%d",$percent);
+			}
+			Context::set('hdd_info',$hdd_info);
+
+			//차트 출력 (이번주 / 저번주)
+			$detail_status = $oCounterModel->getHourlyStatus('week', date("Ymd",time()), $this->site_srl);
 			$i=0;
 			foreach($detail_status->list as $key => $val) {
 				$_k = $lang->unit_week[date('l',strtotime($key))];
@@ -292,13 +264,12 @@
 				$chart_value_this[] = sprintf("[%d, %d]", $i, $val);
 				$i++;
 			}
-			$last_date = date("Ymd",strtotime(date("Ymd",$time))-60*60*24*7);
+			$last_date = date("Ymd",strtotime(date("Ymd",time()))-60*60*24*7);
 			$last_detail_status = $oCounterModel->getHourlyStatus('week', $last_date, $this->site_srl);
 
 			$i=0;
 			foreach($last_detail_status->list as $key => $val) {
-				$chart_value_last[] = sprintf("[%d, %02d]", $i, $val);
-				$i++;
+				$chart_value_last[] = sprintf("[%d, %02d]", $i++, $val);
 			}
 			Context::set('chart_ticks',implode(",",$chart_ticks));
 			Context::set('chart_value_this',implode(",",$chart_value_this));
@@ -309,6 +280,7 @@
             $doc_args->sort_index = 'list_order';
             $doc_args->order_type = 'asc';
             $doc_args->list_count = 3;
+            $oDocumentModel = &getModel('document');
             $output = $oDocumentModel->getDocumentList($doc_args, false, false);
             Context::set('newest_documents', $output->data);
 
@@ -316,6 +288,7 @@
             $com_args->sort_index = 'list_order';
             $com_args->order_type = 'asc';
             $com_args->list_count = 5;
+            $oCommentModel = &getModel('comment');
             $output = $oCommentModel->getTotalCommentList($com_args);
             Context::set('newest_comments', $output->data);
 

@@ -553,5 +553,79 @@
 			return file_exists($path);
 		}
 
+
+		function getCategoryHTML($module_srl)
+		{
+	        $oDocumentModel = &getModel('document');
+			$category_xml_file = $oDocumentModel->getCategoryXmlFile($module_srl);
+
+			Context::set('category_xml_file', $category_xml_file);
+
+			Context::loadJavascriptPlugin('ui.tree');
+
+			// Get a list of member groups
+			$oMemberModel = &getModel('member');
+			$group_list = $oMemberModel->getGroups($module_info->site_srl);
+			Context::set('group_list', $group_list);
+
+			$security = new Security();
+			$security->encodeHTML('group_list..title');
+
+			// Get information of module_grants
+			$oTemplate = &TemplateHandler::getInstance();
+			return $oTemplate->compile($this->module_path.'tpl', 'category_list');
+		}
+
+
+		function getUsedDBStorage($type = 'mysql', $module_srl) {
+
+            $cache_file = sprintf("%sfiles/cache/upgletyle/%sdashboard.used-database.cache", _XE_PATH_,getNumberingPath($module_srl));
+
+            if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
+				if($type == 'mysql')
+				{
+					$oDB = &DB::getInstance();
+					if(!in_array($oDB->db_type, array('mysql','mysqli'))) return false;
+
+					$query = $oDB->_query('SHOW TABLE STATUS');
+					$result = $oDB->_fetch($query);
+
+					$total_database = 0;
+					foreach($result as $key => $val) {
+						$total_database += $val->Data_length + $val->Index_length;
+					}
+					$total_database = sprintf("%d",$total_database/(1024*1024));
+				}
+				FileHandler::writeFile($cache_file, $total_database);
+			}
+			if(file_exists($cache_file)) {
+				return FileHandler::readFile($cache_file, $total_database);
+			}
+			return false;
+		}
+
+		function getUsedTraffic($type = 'throttle-me', $extend = '3.1.2p4', $url, $module_srl) {
+
+            $cache_file = sprintf("%sfiles/cache/upgletyle/%sdashboard.traffic.cache", _XE_PATH_,getNumberingPath($module_srl));
+
+            if(!file_exists($cache_file) || filemtime($cache_file)+ 10*60 < time()) {
+				$body = FileHandler::getRemoteResource($url);
+				if($body) FileHandler::writeFile($cache_file, $body);
+				else FileHandler::removeFile($cache_file);
+			}
+			if(file_exists($cache_file)) {
+				if($type =='throttle-me' && $extend=='3.1.2p4') {
+					$buff = file($cache_file);
+					$result = new stdClass();
+					$result->sent = sprintf("%d",strip_tags($buff[43]) / 1024);
+					$result->limit = sprintf("%d",strip_tags(eregi_replace("M", "",$buff[47])));
+					if($result->sent !=0 && $result->limit != 0) {
+						$percent = ($result->sent/$result->limit)*100;
+						$result->percent = sprintf("%d",$percent);
+					}
+				}
+			}
+			return $result;
+		}
 	}
 ?>
