@@ -52,6 +52,7 @@
                 $_sub = $lang->upgletyle_second_menus[$key];
                 $_attached = $custom_menu->attached_menu[$key];
                 if($act==$val[0]||in_array($act,array_keys($_sub))) $_sel = "active";
+                if($_sel == 'active') $eq = $i;                
             }
             <li class="{$_sel}"|cond="count($_sub)" class="nochild {$_sel}"|cond="!count($_sub)">
                 <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" class="first_menu" cond="$val[0]"><i class="{$_menu_icon[$i++]}"></i> {$val[1]}</a>
@@ -113,9 +114,19 @@ jQuery(function($) {
       $('.accordion > li > .first_menu:eq('+this+')').next().show();
       $('.accordion > li > .first_menu:eq('+this+')').parent().addClass('clicked');
     });
+
+    $(window).resize(function(){
+      if($(document).width() >= 860) {
+        $('.accordion > li > .first_menu:eq({$eq})').next().show();
+        $('.accordion > li > .first_menu:eq({$eq})').parent().addClass('clicked');
+      }
+    }).resize();
+
     $(".accordion > li > .first_menu").click(function(){
         var navIndex = $('.accordion > li > .first_menu').index(this);
-        if ($(this).parent().hasClass('active') || $(this).parent().hasClass('nochild')) return true;
+
+        if($(document).width() >= 860)
+            if ($(this).parent().hasClass('active') || $(this).parent().hasClass('nochild')) return true;
 
         $(this).next().slideToggle(160);
         if (!$(this).parent().hasClass('clicked')) {
