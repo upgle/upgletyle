@@ -242,7 +242,7 @@
 			Context::set('traffic_info',$throttle_me);
 
 			//DB 사용량(MYSQL)
-			$used_db = $oUpgletyleModel->getUsedDBStorage('MYSQL', $this->module_srl);
+			$used_db = $oUpgletyleModel->getUsedDBStorage('mysql', $this->module_srl);
 			$database_info = new stdClass();
 			$database_info->using = $used_db;
 			$database_info->capacity = $part_config->dashboard_DBMS_capacity;
