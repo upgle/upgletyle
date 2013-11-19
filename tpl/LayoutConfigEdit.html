@@ -38,7 +38,7 @@
 
             <!-- Button Area -->
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-4">
+                <div class="col-sm-3 col-sm-offset-9">
                     <input type="submit" value="변경사항 적용" class="bts_btn bts_btn-primary bts_btn-block" />
                 </div>
             </div>
@@ -46,37 +46,31 @@
         </form>
 
 
-        <div class="panel panel-default" style="margin-top:40px">
+        <div class="panel panel-silver" style="margin-top:40px">
             <div class="panel-heading">
                 <h3 class="panel-title">{$lang->upgletyle_skin_userimage}</h3>
             </div>
             <div class="panel-body">
-
-
                 <form action="{Context::getRequestUri()}" class="userImage" target="hidden_iframe" method="post" onsubmit="return checkUserImage(this,'{$lang->msg_check_userimage}')" enctype="multipart/form-data">
                     <input type="hidden" name="mid" value="{$mid}" />
                     <input type="hidden" name="vid" value="{$vid}" />
                     <input type="hidden" name="act" value="procUpgletyleToolUserImageUpload" />
                     
-
                     <div class="row">
-                        <div class="col-sm-2 col-sm-offset-1">
-    
-                           <button type="submit" class="bts_btn bts_btn-default bts_btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> {$lang->cmd_upload}</button>
-
-                        </div>
-                        <div class="col-sm-4 ">
+                        <div class="col-sm-5">
                             <input name="user_image" type="file" />
+                        </div>
+                        <div class="col-sm-7 ">
+                            <button type="submit" class="bts_btn bts_btn-default bts_btn-xs pull-right"><span class="glyphicon glyphicon-cloud-upload"></span> {$lang->cmd_upload}</button>
                             <em>{$lang->msg_check_userimage}</em>
                         </div>
-
                     </div> 
                     <!-- Uploaded image list -->
                     <ul class="list-group" cond="$user_image_list" style="margin-top:30px">
                         <li class="list-group-item" loop="$user_image_list => $no, $file">
                             {@$ext=substr(strrchr($file,'.'),1)}
                             <div class="row">
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <!--@if($ext=='swf'||$ext=='flv')-->
                                     <script>//<![CDATA[
                                     displayMultimedia('{getUrl('')}{$user_image_path}{$file}', '100%', '100%');
@@ -88,42 +82,55 @@
                                 <div class="col-sm-7">
                                     {$user_image_path}{$file}
                                 </div>
-                                <div class="col-sm-3">
-                                    <button type="button" onclick="deleteUserImage('{$file}')" class="delete"><span>{$lang->cmd_delete}</span></button>
+                                <div class="col-sm-2">
+                                    <button type="button" onclick="deleteUserImage('{$file}')" class="bts_btn bts_btn-danger bts_btn-xs pull-right">{$lang->cmd_delete}</button>
                                 </div>
                             </div>
 
                         </li>
                     </ul>
                     <!-- /Uploaded image list -->
-
                 </form>
-
             </div>
         </div>
 
 
         <div class="userDefineSkin">
             <div class="btnArea">
-                <span class="btn"><a href="{getUrl('','act','procUpgletyleToolUserSkinExport','mid',$mid,'vid',$vid)}">{$lang->cmd_upgletyle_skin_export}</a></span>
-                <span class="btn"><button type="button" onclick="jQuery('#rediscover').toggleClass('open')">{$lang->upgletyle_skin_import}</button></span>
-                <span class="btn"><input type="button" value="{$lang->cmd_reset}" onclick="if(confirm('{$lang->alert_reset_skin}')) doResetLayoutConfig(); return false;"/></span>
+                <a href="{getUrl('','act','procUpgletyleToolUserSkinExport','mid',$mid,'vid',$vid)}" class="bts_btn bts_btn-default bts_btn-sm">{$lang->cmd_upgletyle_skin_export}</a>
+                <button type="button" onclick="jQuery('#rediscover').toggle()" class="bts_btn bts_btn-default bts_btn-sm">{$lang->upgletyle_skin_import}</button>
+                <input type="button" value="{$lang->cmd_reset}" onclick="if(confirm('{$lang->alert_reset_skin}')) doResetLayoutConfig(); return false;" class="bts_btn bts_btn-danger bts_btn-sm"/>
             </div>
-            <div id="rediscover" class="">
-                <h4>{$lang->upgletyle_skin_import}</h4>
+        </div>
+
+
+        <div id="rediscover" class="panel panel-silver" style="display:none; margin-top:20px">
+            <div class="panel-heading">
+                <h3 class="panel-title">{$lang->upgletyle_skin_import}</h3>
+            </div>
+            <div class="panel-body">
                 <form action="./" method="post" enctype="multipart/form-data" class="upload">
                     <input type="hidden" name="module" value="upgletyle" />
                     <input type="hidden" name="act" value="procUpgletyleToolUserSkinImport" />
                     <input type="hidden" name="mid" value="{$mid}" />
                     <input type="hidden" name="vid" value="{$vid}" />
-                    <input type="file" name="file" /> <em>{$lang->about_upgletyle_skin_import}</em>
-                    <span class="btnGray medium"><button type="submit">{$lang->cmd_submit}</button></span>
-                </form>	
+                    
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input name="user_image" type="file" />
+                        </div>
+                        <div class="col-sm-8 ">
+                            <button type="submit" class="bts_btn bts_btn-default bts_btn-xs">{$lang->cmd_submit}</button>
+                        </div>
+                    </div> 
+                    <span class="help-block">
+                        {$lang->about_upgletyle_skin_import}
+                    </span>
+                </form>
             </div>
         </div>
 
     </div>
-
 </div>
 <!-- /Content -->
 

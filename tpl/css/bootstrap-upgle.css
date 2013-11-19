@@ -869,6 +869,21 @@ tr.item-communication-button td {
 
 
 
+.panel-silver {
+    box-shadow:none;
+    -webkit-box-shadow:none;
+}
+.panel-silver > .panel-heading {
+    padding:8px 3px;
+    background:none;
+}
+.panel-silver > .panel-body {
+    background-color:#f9f9f9;
+    padding-top:18px;
+    padding-bottom:18px;
+    border-top:2px solid #ddd;
+    border-bottom:1px solid #ddd;
+}
 
 .navbar-toggle { padding: 5px 10px; padding-right:0; border:1px solid silver}
 .navbar-upgle.navbar {
