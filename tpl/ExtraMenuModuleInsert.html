@@ -11,57 +11,75 @@
 
     <div class="setUp">
         <!--@if($selected_extra_menu)-->
-        <form action="" method="post" onsubmit="return procFilter(this, modify_extra_menu);">
+        <form action="" method="post" onsubmit="return procFilter(this, modify_extra_menu);" class="form-horizontal">
             <input type="hidden" name="menu_mid" value="{$selected_extra_menu->mid}" />
         <!--@else-->
-        <form action="" method="post" onsubmit="return procFilter(this, insert_extra_menu);">
+        <form action="" method="post" onsubmit="return procFilter(this, insert_extra_menu);" class="form-horizontal">
         <!--@end-->
         <fieldset>			
             <input type="hidden" name="mid" value="{$mid}" />
             <input type="hidden" name="vid" value="{$vid}" />
             <input type="hidden" name="insert_type" value="module_page" />
-            <table cellspacing="0" class="setupData">
-            <col width="100" />
-            <col width="" />
-            <tr>
-                <th scope="row">{$lang->module}</th>
-                <td>
+
+            <div class="page-header page-header-icon">
+            <h5>확장메뉴 추가</h5>
+            </div>
+
+            <div class="form-group">
+                <label for="module_type" class="col-sm-2 control-label">{$lang->module}</label>
+                <div class="col-sm-10">
                     <!--@if($selected_extra_menu)-->
-                        {$selected_extra_menu->module}
+                    <p class="form-control-static">
+                    {$selected_extra_menu->module}
+                    </p>
                     <!--@else-->
-                    <select name="module_type">
+                    <div class="row"><div class="col-sm-4">
+                    <select name="module_type" class="form-control input-sm">
                         <option>{$lang->cmd_select}</option> 
                         <!--@foreach($config->allow_service as $k => $v)-->
                         {@$_left=$v-$used_extra_menu_count[$k]}
                         <option value="{$k}" <!--@if($v<1 || $_left<1)-->disabled="disabled"<!--@end-->>{$k} [{sprintf($lang->msg_limit_module,$_left)}]</option>
                         <!--@end-->
                     </select>
+                    </div></div>
                     <!--@end-->
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">{$lang->url}</th>
-                <td>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="module_type" class="col-sm-2 control-label">{$lang->url}</label>
+                <div class="col-sm-10">
                     <!--@if($selected_extra_menu)-->
                         {getFullUrl('').'/'.$selected_extra_menu->mid}
                     <!--@else-->
-                        {str_replace('__mid__','<input type="text" name="menu_mid" value="" class="inputTypeText" />',getFullUrl('','mid','__mid__'))}
-                        <p>{$lang->msg_limit_upgletyle_extra_mid}</p>
+                    <div class="row"><div class="col-sm-8">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">{getFullUrl('')}/</span>
+                            <input type="text" name="menu_mid" class="form-control" placeholder="mid">
+                        </div>
+                    </div></div>    
+                    <span class="help-block">{$lang->msg_limit_upgletyle_extra_mid}</span>
                     <!--@end-->
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">{$lang->menu_name}</th>
-                <td>
-                    <input type="text" name="menu_name" id="menu_name" value="<!--@if($selected_extra_menu->name)-->{$selected_extra_menu->name}<!--@end-->" class="inputTypeText"/>
-                    <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','menu_name')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
-                    <p>{$lang->about_langcode}</p>
-                </td>
-            </tr>
-           </table>
-           <div class="buttonArea">
-           <span class="buttonAction actionWhite"><input type="submit" value="{$lang->cmd_save}" /></span>
-           </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="module_type" class="col-sm-2 control-label">{$lang->menu_name}</label>
+                <div class="col-sm-10">
+                    <div class="row"><div class="col-sm-8">
+                    <div class="input-group">
+                    <input type="text" name="menu_name" id="menu_name" value="<!--@if($selected_extra_menu->name)-->{$selected_extra_menu->name}<!--@end-->" class="form-control input-sm"/>
+                        <span class="input-group-btn">
+                            <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','menu_name')}" onclick="popopen(this.href);return false;" class="bts_btn bts_btn-default bts_btn-sm">{$lang->cmd_find_langcode}</a>
+                        </span>
+                    </div>
+                    </div></div>
+                    <span class="help-block">{$lang->about_langcode}</span>
+                </div>
+            </div>
+
+           <div class="pull-right">
+           <input type="submit" value="{$lang->cmd_save}" class="bts_btn bts_btn-primary" /></span>
            </fieldset>			
         </form>
     </div>
