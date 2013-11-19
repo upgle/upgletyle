@@ -7,7 +7,7 @@
     </div>
 				
     <div class="setUp">
-        <form action="./" method="post" onsubmit="return procFilter(this,<!--@if($logged_info->is_admin=='Y')-->export_upgletyle<!--@else-->request_export_upgletyle<!--@end-->);" class="form-horizontal form-config">
+        <form action="./" method="post" onsubmit="return procFilter(this,<!--@if($logged_info->is_admin=='Y')-->export_upgletyle<!--@else-->request_export_upgletyle<!--@end-->);"  class="form-horizontal" role="form">
         <input type="hidden" name="export_type" value="ttxml" />
         <input type="hidden" name="vid" value="{$vid}" />
         <input type="hidden" name="mid" value="{$mid}" />
@@ -15,30 +15,31 @@
                 <div class="page-header page-header-icon">
                 <h5>{$lang->data_export}</h5>
                 </div>
-                <!--@if($export)-->
-                    <dl>
-                        <dt style="font-weight:bold">{$lang->upgletyle_export_recode}</dt>
-                        <dd style="margin:0">
+
+                <div class="form-group" cond="$export">
+                    <label class="col-sm-3 control-label">{$lang->upgletyle_export_recode}</label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static">
                             <!--@if($export->export_status=='C')-->
                                 <a href="{$export->export_file}">{getUrl()}{$export->export_file}</a>
                             <!--@else-->
                                 {$lang->upgletyle_export_waiting}
                             <!--@end-->
-                        </dd>
-                    </dl>
-                <!--@end-->
+                        </p>
+                        <span class="help-block">* XML은 TT XML형식으로 출력됩니다.</span>
+                    </div>
+                </div>
 
-                <span class="btn"><button type="submit">{$lang->upgletyle_export_request}</button></span>
-
-                <dl class="progress">
-                <!-- class="progress" | class="progress open" -->
-                    <dt>{$lang->data_import_progress} : </dt>
-                    <dd><span class="bar"><span class="fill" style="width:0%"></span></span> <em>0%</em></dd>
-                </dl>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">백업 신청</label>
+                    <div class="col-sm-9">
+                        <button type="submit" class=" bts_btn bts_btn-sm bts_btn-info">{$lang->upgletyle_export_request}</button>
+                    </div>
+                </div>
             </fieldset>
         </form>
         
-        <form action="./" method="post" id="fo_process" onsubmit="return doPreProcessing(this)">
+        <form action="./" method="post" id="fo_process" onsubmit="return doPreProcessing(this)" class="form-horizontal" role="form">
             <input type="hidden" name="target_module" value="{$site_module_info->index_module_srl}" id="target_module"  class="form-horizontal" />
             <input type="hidden" name="unit_count" value="10" />
             <input type="hidden" name="user_id" value="{$logged_info->user_id}" />
@@ -49,40 +50,83 @@
                 <div class="page-header page-header-icon">
                 <h5>{$lang->data_import}</h5>
                 </div>
-                <table class="setupData" cellspacing="0" border="1">
-                    <tbody>
-                        <tr>
-                            <th scope="row"><input name="type" type="radio" value="module" id="xeXml" class="inputRadio" checked="checked"/> <label for="xeXml">XE XML</label></th>
-                            <td>{$lang->about_export_xexml}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><input name="type" type="radio" value="ttxml" id="ttXml" class="inputRadio" /> <label for="ttXml">TT XML</label></th>
-                            <td>{$lang->about_export_ttxml}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="fileLocation">{$lang->migration_file_path}</label></th>
-                            <td><input name="xml_file" type="text" class="iText" id="fileLocation" style="width:400px;" value="http://" /> <span class="btnGray medium"><button type="submit">{$lang->cmd_import}</button></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <dl class="progress prepare">
-                <!-- class="progress" | class="progress open" -->
-                    <dt>{$lang->migration_prepare} : </dt>
-                    <dd><span class="bar"><span class="fill preProgress" style="width:0%"></span></span></dd>
-                </dl>
-                <dl class="progress doing">
-                <!-- class="progress" | class="progress open" -->
-                    <dt>{$lang->data_export_progress} : </dt>
-                    <dd><span class="bar"><span class="fill" style="width:0%"></span></span> <em>0%</em></dd>
-                </dl>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">XML 형식</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input name="type" type="radio" value="module" id="xeXml" class="inputRadio" checked="checked"/> XE XML
+                        </label>
+                        <label class="radio-inline">
+                            <input name="type" type="radio" value="ttxml" id="ttXml" class="inputRadio" /> TT XML
+                        </label>
+                        <div class="well" style="margin-top:10px">
+                            <dl style="margin-top:0">
+                                <dt>XE XML</dt>
+                                <dd>{$lang->about_export_xexml}</dd>
+                            </dl>
+                            <dl style="margin-bottom:0">
+                                <dt>TT XML</dt>
+                                <dd>{$lang->about_export_ttxml}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">XML 파일 위치</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <input name="xml_file" type="text" class="form-control input-sm" id="fileLocation" value="http://" />
+                            <span class="input-group-btn">
+                                <button type="submit" class="bts_btn bts_btn-default bts_btn-sm">{$lang->cmd_import}</button>
+                            </span>
+                        </div>
+                        <span class="help-block">* XML의 URL 또는 파일이 위치한 경로를 입력해주세요.</span>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-prepare" style="display:none">
+                    <label class="col-sm-3 control-label">{$lang->migration_prepare}</label>
+                    <div class="col-sm-7">
+                        <div class="form-control-static">
+                        <div class="progress progress-striped active prepare">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span class="sr-only">60% Complete</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-doing" style="display:none">
+                    <label class="col-sm-3 control-label">{$lang->data_export_progress}</label>
+                    <div class="col-sm-7">
+                        <div class="form-control-static">
+                        <div class="progress progress-striped active doing">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span class="sr-only">60% Complete</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
             </fieldset>
         </form>
-        <fieldset>
+        <fieldset class="form-horizontal">
             <div class="page-header page-header-icon">
             <h5>{$lang->upgletyle_init}</h5>
             </div>
-            <p><strong>{$lang->msg_upgletyle_init_about}</strong></p>
-            <span class="btn"><button type="button" onclick="if(confirm('{$lang->msg_confirm_upgletyle_init}')){initUpgletyle();}">{$lang->cmd_upgletyle_init}</button></span>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{$lang->upgletyle_init}</label>
+                <div class="col-sm-9">
+                    <button type="button" onclick="if(confirm('{$lang->msg_confirm_upgletyle_init}')){initUpgletyle();}" class="bts_btn bts_btn-danger">{$lang->cmd_upgletyle_init}</button>
+                    <span class="help-block">{$lang->msg_upgletyle_init_about}</span>
+
+                </div>
+            </div>
+
         </fieldset>
     </div>
 

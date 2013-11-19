@@ -867,16 +867,17 @@ function completeUpgletyleLogin(ret_obj, response_tags, params, fo_obj) {
 
 var prepared = false;
 function doPreProcessing(fo_obj) {
+
     var xml_file = fo_obj.xml_file.value;
     if(!xml_file || xml_file == 'http://') return false;
 
     var type = 'module';
     if(fo_obj.type[1].checked) type = 'ttxml';
 
-    jQuery('dl.prepare').addClass('open');
+    jQuery('div.form-group-prepare').show();
     prepared = false;
     setTimeout(doPrepareDot, 50);
-
+	
     var params = new Array();
     params['xml_file'] = xml_file;
     params['type'] = type;
@@ -890,16 +891,18 @@ function doPreProcessing(fo_obj) {
 function doPrepareDot() {
     if(prepared) return;
 
-    var w = parseInt(jQuery('span.preProgress').css('width').replace(/%$/,''),10);
+    var w = parseInt(jQuery('div.prepare div.progress-bar').css('width').replace(/%$/,''),10);
     w++;
     if(w>100) w = 1;
-    jQuery('span.preProgress').css('width',w+'%');
+    jQuery('div.prepare div.progress-bar').css('width',w+'%');
     setTimeout(doPrepareDot, 50);
 }
 
 function completePreProcessing(ret_obj, response_tags) {
     prepared = true;
-    jQuery('dl.prepare').removeClass('open');
+
+    jQuery('div.form-group-prepare').hide();
+
 
     var status = ret_obj['status'];
     var message = ret_obj['message'];
@@ -936,7 +939,8 @@ function doImport() {
     params['unit_count'] = fo_obj.unit_count.value;
     params['user_id'] = fo_obj.user_id.value;
 
-    jQuery('dl.doing').addClass('open');
+
+    jQuery('div.form-group-doing').show();
     displayProgress(params['total'], params['cur']);
 
     var response_tags = new Array('error','message','type','total','cur','key');
@@ -967,7 +971,7 @@ function completeImport(ret_obj, response_tags) {
     else {
         alert(message);
         fo_obj.reset();
-        jQuery('dl.doing').removeClass('open');
+		jQuery('div.form-group-doing').hide();
     }
 }
 
@@ -977,8 +981,8 @@ function displayProgress(total, cur) {
     else per = 100;
     if(!per) per = 1;
 
-    jQuery('dl.progress').find('span.fill').css('width',per+'%');
-    jQuery('dl.progress').find('em').html(per+'%');
+    jQuery('div.doing div.progress-bar').css('width',per+'%');
+    //jQuery('div.doing div.progress-bar').html(per+'%');
 }
 
 function doCheckMe2day() {
