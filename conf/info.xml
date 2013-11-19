@@ -14,8 +14,8 @@
     <description xml:lang="jp">XpressEngine基盤のブログ専用モジュールです。</description>
     <description xml:lang="zh-TW">Upgletyle 是 XpressEngine 的部落格模組。</description>
     <description xml:lang="tr">Upgletyle, XpressEngine'de bulunan harici blog modülüdür.</description>
-    <version>0.1</version>
-    <date>2013-10-10</date>
+    <version>0.1.0.b2</version>
+    <date>2013-11-19</date>
     <category>package</category>
     <author email_address="admin@upgle.com" link="http://www.upgle.com">
         <name xml:lang="ko">Upgle</name>
