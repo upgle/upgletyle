@@ -500,6 +500,8 @@
 
 			$result = array();
 			$one_depth_categories = $xml_obj->result->entity->category;
+			if(!is_array($one_depth_categories)) return false;
+
 			foreach($one_depth_categories as $one_depth_category) {
 				foreach($one_depth_category->list->category as $two_depth_category) {
 					if($array == 'id')
