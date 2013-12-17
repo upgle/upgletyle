@@ -408,6 +408,7 @@
             if(count($oPublish->trackbacks)) $trackbacks = $oPublish->getTrackbacks();
             if(count($oPublish->blogapis)) $_apis = $oPublish->getApis();
 			
+
             Context::set('oDocument', $oDocument);
             Context::set('oUpgletyle', $oUpgletyleModel->getUpgletyle($this->module_srl));
             Context::set('oPublish', $oPublish);
@@ -416,8 +417,9 @@
             Context::set('_apis', $_apis);
 
 			$oUpgletyleModel = &getModel('upgletyle');
-			Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
 			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
+			if($oUpgletyleModel->checkDaumviewJoin())
+				Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
 
 			$output = $oUpgletyleModel->getDaumviewLog($document_srl);
 			if($output->data[0]) {
