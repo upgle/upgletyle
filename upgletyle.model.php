@@ -455,8 +455,8 @@
 		}
 
 		function getDaumviewWidget($document_srl, $type){
-			$output = $this->getDaumviewLog($document_srl);
-			$daumview_id = $output->data[0]->daumview_id;
+
+			$daumview_id = $this->getDaumviewID($document_srl);
 			if(!$daumview_id) return false;
 
 			if($type=='box'){

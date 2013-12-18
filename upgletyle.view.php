@@ -416,6 +416,7 @@
             Context::set('trackbacks', $trackbacks);
             Context::set('_apis', $_apis);
 
+			//Load Korean metablog daumview
 			$oUpgletyleModel = &getModel('upgletyle');
 			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
 			if($oUpgletyleModel->checkDaumviewJoin())
