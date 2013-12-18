@@ -287,7 +287,7 @@
             $doc_args->module_srl = array($this->upgletyle->get('member_srl'), $this->module_srl);
             $doc_args->sort_index = 'list_order';
             $doc_args->order_type = 'asc';
-            $doc_args->list_count = 3;
+            $doc_args->list_count = 4;
             $oDocumentModel = &getModel('document');
             $output = $oDocumentModel->getDocumentList($doc_args, false, false);
             Context::set('newest_documents', $output->data);
