@@ -12,7 +12,7 @@
                     <h3>방문자 통계 <small>{$lang->today} <strong style="font-size:22px">{number_format($status->visitor)}</strong> / {$lang->total} <strong>{number_format($status->total_visitor)}</strong></small></h3>
                     <div id="statsChart" style="height:190px"></div>
                 </div>
-                <div class="panel-footer text-center" style="position:relative;">
+                <div class="panel-footer text-center" style="position:relative;" cond="$logged_info->is_admin == 'Y'">
                     <a href="#" data-toggle="modal" data-target="#dashboardModal" style="position:absolute;font-size:14px;top:10px;right:10px"><span class="glyphicon glyphicon-cog"></span></a>
 
                     <!-- Modal -->
