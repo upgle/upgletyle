@@ -47,9 +47,6 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 
         </div>
         <div class="col-md-4">
-
-            <option value="">{$lang->category}&nbsp;</option>
-
             <div class="panel panel-primary">
                 <div class="panel-heading"><span class="glyphicon glyphicon-exclamation-sign"></span> 글쓰기 옵션</div>
                 <ul class="list-group">
@@ -156,6 +153,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                                 <button class="bts_btn bts_btn-default bts_btn-sm btnCalendar" type="button">{$lang->calendar}</button>
                                 </span>
                                 <input name="publish_date_yyyymmdd" type="text" class="form-control input-sm" value="{$publish_date_yyyymmdd}" maxlength="10"  title="{$lang->ymd}" readonly="readonly" id="publishDate" />
+
                                 <div id="calendar-holder" style="z-index:99"></div>
                             </div>
                         </div>
