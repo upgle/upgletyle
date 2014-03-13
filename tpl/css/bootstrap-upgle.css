@@ -11,7 +11,6 @@ body {
   padding-bottom:70px;
 }
 
-
 .modal-deny .modal-footer {
 	margin-top: 0px;
 	padding: 13px 20px 14px;
@@ -26,8 +25,6 @@ body {
     padding-bottom: 30px;
   }
 }
-
-
 
 
 /* filedset */
@@ -915,7 +912,7 @@ tr.item-communication-button td {
 
 .navbar-upgle .navbar-collapse .navbar-nav ul {display:none;}
 .navbar-upgle .navbar-right {display:none}
-.navbar-upgle .navbar-brand {padding:0 17px;}
+.navbar-upgle .navbar-brand {padding:0 17px; 42px}
 
 .navbar-upgle .navbar-collapse a {color: #5b5d60 !important;}
 .navbar-upgle .navbar-collapse .navbar-nav ul > li.active > a {
