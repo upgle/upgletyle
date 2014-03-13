@@ -1362,7 +1362,7 @@
 	                    }
 	                    $category_srl = $oDocument->get('category_srl');
 	                    if($tag && $category_srl >0) $tag = $category_list[$category_srl]->title .', ' . $tag;
-	                    Context::addHtmlHeader(sprintf('<meta name="keywords" content="%s" />',$tag));
+						Context::addMetaTag('keywords',$tag);
 	
 	                    if($this->grant->manager) $oDocument->setGrant();
 	
@@ -1684,8 +1684,7 @@
                 $tags .= ',' . implode(',', array_keys($recentTags));
             }
 
-            Context::addHtmlHeader(sprintf('<meta name="keywords" content="%s" />', $tags));
-
+			Context::addMetaTag('keywords',$tags);
             Context::addJsFilter($this->module_path . 'skins/' . $this->module_info->skin . '/filter', 'insert_comment.xml');
 
             Context::set('upgletyle_mode', $mode);
