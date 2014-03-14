@@ -416,6 +416,16 @@
             Context::set('trackbacks', $trackbacks);
             Context::set('_apis', $_apis);
 
+			//Set a Meta box 
+			$_metabox = new stdClass();
+			$triggerOutput = ModuleHandler::triggerCall('upgletyle.ToolPostManageWrite', 'metabox', $_metabox);
+			if(!$triggerOutput->toBool())
+			{
+				return $triggerOutput;
+			}
+			foreach($_metabox as $val=>$key) $metabox .= $key;
+			Context::set('metabox', $metabox);
+
 			//Load Korean metablog daumview
 			$oUpgletyleModel = &getModel('upgletyle');
 			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
