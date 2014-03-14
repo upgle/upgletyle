@@ -425,19 +425,6 @@
 			}
 			foreach($_metabox as $val=>$key) $metabox .= $key;
 			Context::set('metabox', $metabox);
-
-			//Load Korean metablog daumview
-			$oUpgletyleModel = &getModel('upgletyle');
-			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
-			if($oUpgletyleModel->checkDaumviewJoin())
-				Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
-
-			$output = $oUpgletyleModel->getDaumviewLog($document_srl);
-			if($output->data[0]) {
-				$daumview_log = $output->data[0];
-				$daumview_log->category_id = sprintf("%05s", $daumview_log->category_id);
-			}
-			Context::set('daumview_log', $daumview_log);
         }
 
         /**
@@ -1295,27 +1282,6 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'modify_password.xml');
         }
 
-
-
-        function dispUpgletyleToolMetablogDaumviewConfig(){
-
-			$oUpgletyleModel = &getModel('upgletyle');
-
-			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
-			Context::set('config',$config);
-
-			$home_url = getFullSiteUrl($this->upgletyle->domain);
-            Context::set('home_url', $home_url);
-
-			$code = $oUpgletyleModel->getDaumviewStautsCode($home_url);
-            Context::set('code', $code);
-
-			$category = $oUpgletyleModel->getDaumviewCategory();
-			Context::set('daumview_category', $category);
-        }
-
-
-
         /**
          * @brief Upgletyle home
          **/
@@ -1376,16 +1342,6 @@
 	
 	                    if($this->grant->manager) $oDocument->setGrant();
 	
-						//set Daumview Widget
-						if($this->upgletyle->get('use_daumview_widget')=='Y'){
-							$type = $this->upgletyle->get('type_daumview_widget');
-							$widget_code = $oUpgletyleModel->getDaumviewWidget($document_srl,$type);
-							if($this->upgletyle->get('location_daumview_widget')=='top' && $widget_code)
-								Context::set('post_prefix',Context::get('post_prefix').$widget_code);
-							elseif($this->upgletyle->get('location_daumview_widget')=='bottom' && $widget_code)
-								Context::set('post_suffix',Context::get('post_suffix').$widget_code);
-							Context::set('daumview_id',$oUpgletyleModel->getDaumviewID($document_srl));				
-						}
 
 	                } else {
 	                    Context::set('document_srl','',true);

@@ -4,16 +4,17 @@
         var $document_srl = null;
         var $oDocument = null;
 
-		var $daumview = array();
 		var $trackbacks_org = array();
-        var $trackbacks = array(); // [url]->charset, log
-        var $blogapis = array(); // [api_srl]->category, postid, log
-        var $publish_me2day = false; // true/false
+        var $trackbacks = array(); // [url]-> charset, log
+        var $blogapis = array(); // [api_srl]-> category, postid, log
+		
+		var $publish_me2day = false; // true/false
         var $published_me2day = false; // true/false
         var $publish_twitter = false; // true/false
         var $published_twitter = false; // true/false
 
         function publishObject($module_srl, $document_srl = 0) {
+
             $this->module_srl = $module_srl;
             $this->document_srl = $document_srl;
             if(!$document_srl) return;
@@ -27,14 +28,15 @@
             if(!$output->data) return;
             $data = unserialize($output->data->logs);
 
-            $this->daumview = is_array($data->daumview)?$data->daumview:array();
             $this->trackbacks_org = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->trackbacks = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->blogapis = is_array($data->blogapis)?$data->blogapis:array();
+
             $this->publish_me2day = $data->publish_me2day==true?true:false;
             $this->published_me2day = $data->publish_me2day==true?true:false;
             $this->publish_twitter = $data->published_twitter==true?true:false;
             $this->published_twitter = $data->published_twitter==true?true:false;
+
         }
 
         function getBlogAPIInfo($type, $url, $user_id, $password, $blogid) {
@@ -116,12 +118,6 @@
             $this->trackbacks[$trackback_url]->log = '';
         }
 
-        function addDaumview($trackback_url, $charset = 'UTF-8') {
-            if(!$trackback_url || isset($this->trackbacks[$trackback_url])) return;
-            $this->daumview['trackback_url'] = $trackback_url;
-            $this->daumview['charset'] = $charset;
-        }
-
         function addBlogApi($api_srl, $category = null) {
             if(!$api_srl) return;
             $this->blogapis[$api_srl]->reserve = true;
@@ -143,7 +139,6 @@
             $logs->published_me2day = $this->published_me2day;
             $logs->publish_twitter = $this->publish_twitter;
             $logs->published_twitter = $this->published_twitter;
-            $logs->daumview = $this->daumview;
 
             $args->document_srl = $this->document_srl;
             $args->module_srl = $this->module_srl;
@@ -155,28 +150,16 @@
         function publish() {
             $oUpgletyleModel = &getModel('upgletyle');
             $oUpgletyleController = &getController('upgletyle');
-
             $oTrackbackController = &getController('trackback');
-			$category = $oUpgletyleModel->getDaumviewCategory('trackback_url');
 
             if(!$this->oDocument->isExists()) return;
             $oUpgletyle = $oUpgletyleModel->getUpgletyle($this->module_srl);
 
-			//다음View 글 송고
-			if(count($this->daumview)) {
-				$output = $oUpgletyleController->sendDaumview($this->oDocument, $this->daumview['trackback_url'], $this->daumview['charset']);
-				$error = $output->response->error->body;
-				if(!$error){
-					$args->document_srl = $this->document_srl;
-					$args->module_srl = $this->module_srl;
-					$args->category_id = $category[$this->daumview['trackback_url']]['id'];
-					$args->daumview_id = trim($output->response->id->body);
-					$oUpgletyleController->insertDaumviewLog($args);
-					$this->daumview['log'] = Context::getLang('published').' ('.date("Y-m-d H:i").')';
-				}
-				else {
-					$this->daumview['log'] = sprintf('%s: %s', Context::getLang('msg_trackback_send_failed'), $xmlDoc->response->message->body);
-				}
+			//Call a trigger
+			$triggerOutput = ModuleHandler::triggerCall('upgletyle.publishObject.publish', 'before', $this->oDocument);
+			if(!$triggerOutput->toBool())
+			{
+				return $triggerOutput;
 			}
 
             if(count($this->trackbacks)) {
