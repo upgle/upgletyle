@@ -355,7 +355,7 @@
             'dispUpgletyleToolStatisticsPopular'=>'인기 콘텐트',
         ),
         array(
-            'dispUpgletyleToolMetablogDaumviewConfig'=>'플러그인 설정',
+            'dispUpgletyleToolPluginList'=>'플러그인 설정',
 		),
         array(
             'dispUpgletyleToolLayoutConfigSkin'=>'스킨선택',

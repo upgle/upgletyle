@@ -1829,7 +1829,20 @@
 			$this->setRedirectUrl($returnUrl);
         }
 
+		function procUpgletylePluginToggle() {
 
+			$plugin = Context::get('plugin');
+			$module_srl = Context::get('module_srl');
+
+			$oModuleModel = getModel('module');
+			$part_config = $oModuleModel->getModulePartConfig($plugin, $module_srl);
+
+			if(!$part_config->activated) $part_config->activated = true;
+			else $part_config->activated = false;
+
+			$oModuleController = getController('module');
+			$oModuleController->insertModulePartConfig($plugin, $module_srl, $part_config);
+		}
 
 
         function _checkDisabledFunction($str){
@@ -2227,6 +2240,16 @@
 
 		function procUpgletyleToolLive(){
 			$_SESSION['live'] = time();
+		}
+
+		function procUpgletylePluginConfigUpdate() {
+
+			$remote_module = Context::get('remote_module');
+			$remote_act = Context::get('remote_act');
+
+			$oRemoteController = &getController($remote_module);
+			$output = $oRemoteController->{$remote_act}();
+
 		}
 
 		function updateModuleSrlMinus($document_srl,$module_srl){

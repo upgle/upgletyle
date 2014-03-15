@@ -1041,6 +1041,42 @@
             Context::set('after_url',getUrl('selected_date',date("Ymd",strtotime($selected_date)+60*60*24*30)));
         }
 
+		function dispUpgletyleToolPluginList() {
+
+            $oModuleModel = &getModel('module');
+			$module_list = FileHandler::readDir(_XE_PATH_.'modules/');
+
+			//Get a only upgletyle plugin (upgletyle_plugin_%s)
+			$plugin_list = array();
+			foreach($module_list as $val) {
+				if(strstr($val, 'upgletyle_plugin'))
+				{
+					$module_info = $oModuleModel->getModuleInfoXml($val);
+					$module_info->part_config = $oModuleModel->getModulePartConfig($val, $this->module_info->module_srl);
+					$module_info->activated = $module_info->part_config->activated;
+					$module_info->plugin = $val;
+					$module_info->thumbnail_path = "./modules/".$val."/conf/thumbnail.gif";
+					$plugin_list[] = $module_info;
+				}
+			}
+            Context::set('plugin_list',$plugin_list);
+            Context::set('module_info',$this->module_info);
+
+		}
+
+		function dispUpgletyleToolPluginConfig() {
+
+			
+			$plugin = Context::get('plugin');
+            $oPluginView = &getView($plugin);
+			$config = $oPluginView->dispPluginConfig();
+
+            Context::set('config',$config);
+
+
+		}
+
+
         function dispUpgletyleToolLayoutConfigSkin() {
             $oModuleModel = &getModel('module');
 
