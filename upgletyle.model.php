@@ -470,6 +470,60 @@
 		}
 
 
+		/**
+		 * @brief Get information from conf/info.xml
+		 */
+		function getWidgetInfoXml($module)
+		{
+			// Get a path of the requested module. Return if not exists.
+			$module_path = ModuleHandler::getModulePath($module);
+			if(!$module_path) return;
+			// Read the xml file for module skin information
+			$xml_file = sprintf("%s/conf/info.xml", $module_path);
+			if(!file_exists($xml_file)) return;
+
+			$oXmlParser = new XmlParser();
+			$tmp_xml_obj = $oXmlParser->loadXmlFile($xml_file);
+			$xml_obj = $tmp_xml_obj->module;
+
+			if(!$xml_obj) return;
+			// module format 0.2
+			if(!is_array($xml_obj->widget)) $widget_list[] = $xml_obj->widget;
+			else $widget_list = $xml_obj->widget;
+
+			foreach($widget_list as $widget)
+			{
+				$widget_obj = new stdClass();
+				$widget_obj->title = $widget->title->body;
+				$widget_obj->description = $widget->description->body;
+				$widget_obj->act = $widget->attrs->act;
+				$widget_obj->type = $widget->attrs->type;
+
+				$widget_info[] = $widget_obj;
+			}
+			return $widget_info;
+		}
+
+
+		function getUpgletyleWidget($module_srl)
+		{
+			$args = new stdClass();
+			$args->module_srl = $module_srl;
+            $output = executeQuery('upgletyle.getUpgletyleWidget', $args);
+            return $output;		
+		}
+
+		function getUpgletyleWidgetConfig($module_srl,$plugin,$act)
+		{
+			$args = new stdClass();
+			$args->module_srl = $module_srl;
+			$args->plugin = $plugin;
+			$args->act = $act;
+            $output = executeQuery('upgletyle.getUpgletyleWidget', $args);
+            return $output;
+		}
+
+
 		function getUsedDBStorage($type = 'mysql', $module_srl) {
 
             $cache_file = sprintf("%sfiles/cache/upgletyle/%sdashboard.used-database.cache", _XE_PATH_,getNumberingPath($module_srl));

@@ -63,6 +63,9 @@
 		<permission action="dispUpgletyleToolExtraMenuModuleInsert" target="manager" />
 		<permission action="dispUpgletyleToolPluginConfig" target="manager" />
 		<permission action="dispUpgletyleToolPluginList" target="manager" />
+		<permission action="dispUpgletyleToolPluginWidgetConfig" target="manager" />
+
+		
 
 
 		<permission action="getUpgletyleAPITest" target="manager" />
@@ -148,6 +151,8 @@
 
 		<action name="dispUpgletyleToolPluginConfig" type="view" />
 		<action name="dispUpgletyleToolPluginList" type="view" />
+		<action name="dispUpgletyleToolPluginWidgetConfig" type="view" />
+
 
 		<action name="dispCommentEditor" type="view" />
 		<action name="dispModifyComment" type="view" />
@@ -252,6 +257,7 @@
 
 		<action name="procUpgletylePluginConfigUpdate" type="controller" />
 		<action name="procUpgletylePluginToggle" type="controller" />
+		<action name="procUpgletyleWidgetConfigSave" type="controller" />
 
 
 

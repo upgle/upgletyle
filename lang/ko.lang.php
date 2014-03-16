@@ -356,6 +356,7 @@
         ),
         array(
             'dispUpgletyleToolPluginList'=>'플러그인 설정',
+            'dispUpgletyleToolPluginWidgetConfig'=>'위젯 출력 설정',
 		),
         array(
             'dispUpgletyleToolLayoutConfigSkin'=>'스킨선택',

@@ -47,7 +47,33 @@
                 $deny = $oUpgletyleModel->checkDenySite($this->module_srl,$vars->homepage);
                 if($deny) $this->stop('msg_not_permitted');
             }
+			
+			$this->widgetCall();
         }
+
+
+		function widgetCall($plugin, $type, $called_method, &$obj) {
+
+			// todo why don't we call a normal class object ?
+			$oModule = getModule($plugin, $type);
+			if(!$oModule || !method_exists($oModule, $called_method))
+			{
+				return new Object();
+			}
+			$output = $oModule->{$called_method}($obj);
+			if(is_object($output) && method_exists($output, 'toBool') && !$output->toBool())
+			{
+				return $output;
+			}
+			elseif($output && !is_object($output)) 
+			{
+				$object = new Object();
+				$object->add('compiled_widget',$output);
+				return $object;
+			}
+			return new Object();
+		}
+
 
         function procUpgletyleConfigCommunicationInsert(){
         	$logged_info = Context::get('logged_info');
@@ -1843,6 +1869,56 @@
 			$oModuleController = getController('module');
 			$oModuleController->insertModulePartConfig($plugin, $module_srl, $part_config);
 		}
+
+
+		function procUpgletyleWidgetConfigSave(){
+
+			$list_order_group = explode("|@|",Context::get('list_order'));
+			if(count($list_order_group) != 3) return new Object(-1, 'msg_invalid_request');
+
+			$article_top = explode(",",$list_order_group[0]);
+			if(!is_array($article_top) || !$article_top) $article_top = array();
+
+			$article_bottom = explode(",",$list_order_group[1]);
+			if(!is_array($article_bottom) || !$article_bottom) $article_bottom = array();
+
+			$i = count($article_top);
+			foreach($article_top as $val)
+			{
+				if(!trim($val)) continue;
+				$tmp = explode("/",$val);
+				$_plugin_info = new stdClass();
+				$_plugin_info->plugin = $tmp[0]; $_plugin_info->act = $tmp[1]; 
+				$_plugin_info->type = $tmp[2];  $_plugin_info->list_order = $i--; 
+				$plugin_info[] = $_plugin_info;
+			}
+
+			$i = 0;
+			foreach($article_bottom as $val)
+			{
+				if(!trim($val)) continue;
+				$tmp = explode("/",$val);
+				$_plugin_info = new stdClass();
+				$_plugin_info->plugin = $tmp[0]; $_plugin_info->act = $tmp[1];
+				$_plugin_info->type = $tmp[2]; $_plugin_info->list_order = --$i; 
+				$plugin_info[] = $_plugin_info;
+			}
+
+			//Delete all database by module_srl
+            $args->module_srl = $this->module_info->module_srl;
+            $output = executeQuery('upgletyle.deleteUpgletyleWidget', $args);
+			if(!$output->toBool()) return $output;
+
+			//Insert database again
+			foreach($plugin_info as $args)
+			{
+				$args->module_srl = $this->module_info->module_srl;
+				$output = executeQuery('upgletyle.insertUpgletyleWidget', $args);
+				if(!$output->toBool()) return $output;
+			}
+			$this->setMessage('success_saved');
+		}
+
 
 
         function _checkDisabledFunction($str){

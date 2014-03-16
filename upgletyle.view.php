@@ -1066,14 +1066,55 @@
 
 		function dispUpgletyleToolPluginConfig() {
 
-			
 			$plugin = Context::get('plugin');
             $oPluginView = &getView($plugin);
 			$config = $oPluginView->dispPluginConfig();
 
             Context::set('config',$config);
+		}
 
+		function dispUpgletyleToolPluginWidgetConfig() {
 
+            $oUpgletyleModel = &getModel('upgletyle');
+
+            $oModuleModel = &getModel('module');
+			$module_list = FileHandler::readDir(_XE_PATH_.'modules/');
+
+			//Get a only upgletyle plugin (upgletyle_plugin_%s)
+			$plugin_list = array();
+			foreach($module_list as $val) {
+
+				//Check it is upgletyle plugin
+				if(!strstr($val, 'upgletyle_plugin')) continue;
+
+				//Check it is activated
+				$part_config = $oModuleModel->getModulePartConfig($val, $this->module_info->module_srl);
+				if(!$part_config->activated) continue;
+
+				$widget_info_xml = $oUpgletyleModel->getWidgetInfoXml($val);
+				foreach($widget_info_xml as $k => $v) {
+					//Set a position
+					$v->plugin = $val;
+					$output = $oUpgletyleModel->getUpgletyleWidgetConfig($this->module_info->module_srl, $val, $v->act);
+					if($output->data && $output->data->list_order)
+					{
+						$list_order = $output->data->list_order;
+						if($list_order > 0) { 
+							$widget_list->top[$list_order] = $v;
+						}
+						if($list_order < 0) {
+							$widget_list->bottom[$list_order] = $v;
+						}
+					}
+					else $widget_list->disabled[] = $v;
+				}
+			}
+			//Array key sort
+			krsort($widget_list->top); 
+			krsort($widget_list->bottom);
+
+            Context::set('widget_list',$widget_list);
+            Context::set('module_info',$this->module_info);
 		}
 
 
@@ -1426,7 +1467,30 @@
 	                    $oUpgletyleController->insertReferer($doc);
 	                }
 	            }
-	
+				//Load a widget
+				$output = $oUpgletyleModel->getUpgletyleWidget($this->module_info->module_srl);
+	            if(!$output->toBool()) return $output;
+				$widget_list = $output->data;
+
+				foreach($document_list as $val)
+				{
+					$content = $val->get('content');
+
+					foreach($widget_list as $widget)
+					{
+						$oUpgletyleController = &getController('upgletyle');
+						$output = $oUpgletyleController->widgetCall($widget->plugin,$widget->type,$widget->act, $val);
+			            if(!$output->toBool()) continue;
+						
+						if($widget->list_order > 0) {
+							$content = $output->get('compiled_widget').$content;
+						}
+						elseif($widget->list_order < 0) {
+							$content .= $output->get('compiled_widget');
+						}
+					}
+					$val->add('content',$content);
+				}
 	            Context::set('document_list', $document_list);
 	
 	            if(!$args->category_srl && !$args->search_keyword) {
