@@ -1110,8 +1110,10 @@
 				}
 			}
 			//Array key sort
-			krsort($widget_list->top); 
-			krsort($widget_list->bottom);
+			if(is_array($widget_list->top) && $widget_list->top)
+				krsort($widget_list->top); 
+			if(is_array($widget_list->bottom) && $widget_list->bottom)
+				krsort($widget_list->bottom);
 
             Context::set('widget_list',$widget_list);
             Context::set('module_info',$this->module_info);
@@ -1475,13 +1477,12 @@
 				foreach($document_list as $val)
 				{
 					$content = $val->get('content');
-
 					foreach($widget_list as $widget)
 					{
 						$oUpgletyleController = &getController('upgletyle');
 						$output = $oUpgletyleController->widgetCall($widget->plugin,$widget->type,$widget->act, $val);
 			            if(!$output->toBool()) continue;
-						
+	
 						if($widget->list_order > 0) {
 							$content = $output->get('compiled_widget').$content;
 						}
