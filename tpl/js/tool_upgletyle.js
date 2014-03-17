@@ -81,6 +81,9 @@ function completeInsertComment(ret_obj) {
 
 
 function deleteCommentItem(srl,page){
+
+	if (confirm("정말 삭제하시겠습니까?") == false) return;
+
 	var params = new Array();
 	params['comment_srl'] = srl;
 	params['page'] = page;
