@@ -47,8 +47,6 @@
                 $deny = $oUpgletyleModel->checkDenySite($this->module_srl,$vars->homepage);
                 if($deny) $this->stop('msg_not_permitted');
             }
-			
-			$this->widgetCall();
         }
 
 
@@ -56,6 +54,7 @@
 
 			// todo why don't we call a normal class object ?
 			$oModule = getModule($plugin, $type);
+
 			if(!$oModule || !method_exists($oModule, $called_method))
 			{
 				return new Object();
@@ -2325,6 +2324,10 @@
 
 			$oRemoteController = &getController($remote_module);
 			$output = $oRemoteController->{$remote_act}();
+
+			$this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url');
+			$this->setRedirectUrl($returnUrl);
 
 		}
 
