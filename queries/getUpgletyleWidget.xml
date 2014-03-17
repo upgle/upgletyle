@@ -1,0 +1,16 @@
+<query id="getUpgletyleWidget" action="select">
+    <tables>
+        <table name="upgletyle_widget" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <condition operation="equal" column="plugin" var="plugin" pipe="and" />
+        <condition operation="equal" column="act" var="act" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="list_order" default="list_order" order="desc" />
+    </navigation>
+</query>

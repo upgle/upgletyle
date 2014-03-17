@@ -429,7 +429,6 @@ function doTogglePostItem(srl, type) {
 	exec_xml('upgletyle', 'procUpgletylePostSettingToggle', params, completeReload, response_tags);
 }
 
-
 function trashPostItem(srl, page){
 	if(!confirm(xe.lang.msg_confirm_delete)) return false;
 
@@ -1142,20 +1141,6 @@ function doSyncDaumview(document_srl) {
 	exec_xml('upgletyle','procSyncDaumview', {document_srl:document_srl}, completeReload, new Array('error','message'));
 }
 
-function doSyncDaumviewCategory() {
-	exec_xml(
-		'upgletyle',
-		'procSyncDaumviewCategory',
-		{},
-		function(ret_obj){
-			var error = ret_obj['error'];
-			var message = ret_obj['message'];
-			alert(message);
-		},
-		['error','message']
-	);
-}
-
 function doSetupComponent(component_name) {
     popopen(request_uri.setQuery('module','editor').setQuery('act','dispEditorAdminSetupComponent').setQuery('component_name',component_name), 'SetupComponent');
 }
@@ -1248,6 +1233,28 @@ function completeExportUpgletyle(ret_obj){
 
 	location.reload();
 }
+
+
+
+function doTogglePlugin(plugin, module_srl) {
+
+	var params = new Array();
+	params['plugin'] = plugin;
+	params['module_srl'] = module_srl;
+
+	exec_xml(
+	'upgletyle',
+	'procUpgletylePluginToggle',
+	params,
+	function(ret_obj){
+		var error = ret_obj['error'];
+		var message = ret_obj['message'];
+		reloadDocument();
+	},
+	['error','message']);
+
+}
+
 
 
 (function($){

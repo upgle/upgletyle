@@ -416,18 +416,15 @@
             Context::set('trackbacks', $trackbacks);
             Context::set('_apis', $_apis);
 
-			//Load Korean metablog daumview
-			$oUpgletyleModel = &getModel('upgletyle');
-			Context::set('daumview', $oUpgletyleModel->checkDaumviewJoin());
-			if($oUpgletyleModel->checkDaumviewJoin())
-				Context::set('daumview_category', $oUpgletyleModel->getDaumviewCategory());
-
-			$output = $oUpgletyleModel->getDaumviewLog($document_srl);
-			if($output->data[0]) {
-				$daumview_log = $output->data[0];
-				$daumview_log->category_id = sprintf("%05s", $daumview_log->category_id);
+			//Set a Meta box 
+			$_metabox = new stdClass();
+			$triggerOutput = ModuleHandler::triggerCall('upgletyle.ToolPostManageWrite', 'metabox', $_metabox);
+			if(!$triggerOutput->toBool())
+			{
+				return $triggerOutput;
 			}
-			Context::set('daumview_log', $daumview_log);
+			foreach($_metabox as $val=>$key) $metabox .= $key;
+			Context::set('metabox', $metabox);
         }
 
         /**
@@ -1044,6 +1041,85 @@
             Context::set('after_url',getUrl('selected_date',date("Ymd",strtotime($selected_date)+60*60*24*30)));
         }
 
+		function dispUpgletyleToolPluginList() {
+
+            $oModuleModel = &getModel('module');
+			$module_list = FileHandler::readDir(_XE_PATH_.'modules/');
+
+			//Get a only upgletyle plugin (upgletyle_plugin_%s)
+			$plugin_list = array();
+			foreach($module_list as $val) {
+				if(strstr($val, 'upgletyle_plugin'))
+				{
+					$module_info = $oModuleModel->getModuleInfoXml($val);
+					$module_info->part_config = $oModuleModel->getModulePartConfig($val, $this->module_info->module_srl);
+					$module_info->activated = $module_info->part_config->activated;
+					$module_info->plugin = $val;
+					$module_info->thumbnail_path = "./modules/".$val."/conf/thumbnail.gif";
+					$plugin_list[] = $module_info;
+				}
+			}
+            Context::set('plugin_list',$plugin_list);
+            Context::set('module_info',$this->module_info);
+
+		}
+
+		function dispUpgletyleToolPluginConfig() {
+
+			$plugin = Context::get('plugin');
+            $oPluginView = &getView($plugin);
+			$config = $oPluginView->dispPluginConfig();
+
+            Context::set('config',$config);
+		}
+
+		function dispUpgletyleToolPluginWidgetConfig() {
+
+            $oUpgletyleModel = &getModel('upgletyle');
+
+            $oModuleModel = &getModel('module');
+			$module_list = FileHandler::readDir(_XE_PATH_.'modules/');
+
+			//Get a only upgletyle plugin (upgletyle_plugin_%s)
+			$plugin_list = array();
+			foreach($module_list as $val) {
+
+				//Check it is upgletyle plugin
+				if(!strstr($val, 'upgletyle_plugin')) continue;
+
+				//Check it is activated
+				$part_config = $oModuleModel->getModulePartConfig($val, $this->module_info->module_srl);
+				if(!$part_config->activated) continue;
+
+				$widget_info_xml = $oUpgletyleModel->getWidgetInfoXml($val);
+				foreach($widget_info_xml as $k => $v) {
+					//Set a position
+					$v->plugin = $val;
+					$output = $oUpgletyleModel->getUpgletyleWidgetConfig($this->module_info->module_srl, $val, $v->act);
+					if($output->data && $output->data->list_order)
+					{
+						$list_order = $output->data->list_order;
+						if($list_order > 0) { 
+							$widget_list->top[$list_order] = $v;
+						}
+						if($list_order < 0) {
+							$widget_list->bottom[$list_order] = $v;
+						}
+					}
+					else $widget_list->disabled[] = $v;
+				}
+			}
+			//Array key sort
+			if(is_array($widget_list->top) && $widget_list->top)
+				krsort($widget_list->top); 
+			if(is_array($widget_list->bottom) && $widget_list->bottom)
+				krsort($widget_list->bottom);
+
+            Context::set('widget_list',$widget_list);
+            Context::set('module_info',$this->module_info);
+		}
+
+
         function dispUpgletyleToolLayoutConfigSkin() {
             $oModuleModel = &getModel('module');
 
@@ -1285,27 +1361,6 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'modify_password.xml');
         }
 
-
-
-        function dispUpgletyleToolMetablogDaumviewConfig(){
-
-			$oUpgletyleModel = &getModel('upgletyle');
-
-			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
-			Context::set('config',$config);
-
-			$home_url = getFullSiteUrl($this->upgletyle->domain);
-            Context::set('home_url', $home_url);
-
-			$code = $oUpgletyleModel->getDaumviewStautsCode($home_url);
-            Context::set('code', $code);
-
-			$category = $oUpgletyleModel->getDaumviewCategory();
-			Context::set('daumview_category', $category);
-        }
-
-
-
         /**
          * @brief Upgletyle home
          **/
@@ -1366,16 +1421,6 @@
 	
 	                    if($this->grant->manager) $oDocument->setGrant();
 	
-						//set Daumview Widget
-						if($this->upgletyle->get('use_daumview_widget')=='Y'){
-							$type = $this->upgletyle->get('type_daumview_widget');
-							$widget_code = $oUpgletyleModel->getDaumviewWidget($document_srl,$type);
-							if($this->upgletyle->get('location_daumview_widget')=='top' && $widget_code)
-								Context::set('post_prefix',Context::get('post_prefix').$widget_code);
-							elseif($this->upgletyle->get('location_daumview_widget')=='bottom' && $widget_code)
-								Context::set('post_suffix',Context::get('post_suffix').$widget_code);
-							Context::set('daumview_id',$oUpgletyleModel->getDaumviewID($document_srl));				
-						}
 
 	                } else {
 	                    Context::set('document_srl','',true);
@@ -1424,7 +1469,29 @@
 	                    $oUpgletyleController->insertReferer($doc);
 	                }
 	            }
+				//Load a widget
+				$output = $oUpgletyleModel->getUpgletyleWidget($this->module_info->module_srl);
+	            if(!$output->toBool()) return $output;
+				$widget_list = $output->data;
+
+				foreach($document_list as $val)
+				{
+					$content = $val->get('content');
+					foreach($widget_list as $widget)
+					{
+						$oUpgletyleController = &getController('upgletyle');
+						$output = $oUpgletyleController->widgetCall($widget->plugin,$widget->type,$widget->act, $val);
+			            if(!$output->toBool()) continue;
 	
+						if($widget->list_order > 0) {
+							$content = $output->get('compiled_widget').$content;
+						}
+						elseif($widget->list_order < 0) {
+							$content .= $output->get('compiled_widget');
+						}
+					}
+					$val->add('content',$content);
+				}
 	            Context::set('document_list', $document_list);
 	
 	            if(!$args->category_srl && !$args->search_keyword) {

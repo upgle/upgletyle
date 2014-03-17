@@ -1,0 +1,12 @@
+<query id="insertUpgletyleWidget" action="insert">
+    <tables>
+        <table name="upgletyle_widget" />
+    </tables>
+    <columns>
+      <column name="module_srl" var="module_srl" notnull="notnull" />
+      <column name="plugin" var="plugin" notnull="notnull" />
+      <column name="type" var="type" notnull="notnull" />
+      <column name="act" var="act" notnull="notnull" />
+      <column name="list_order" var="list_order" notnull="notnull" />
+    </columns>
+</query>
