@@ -49,6 +49,31 @@
             }
         }
 
+
+		function widgetCall($plugin, $type, $called_method, &$obj) {
+
+			// todo why don't we call a normal class object ?
+			$oModule = getModule($plugin, $type);
+
+			if(!$oModule || !method_exists($oModule, $called_method))
+			{
+				return new Object();
+			}
+			$output = $oModule->{$called_method}($obj);
+			if(is_object($output) && method_exists($output, 'toBool') && !$output->toBool())
+			{
+				return $output;
+			}
+			elseif($output && !is_object($output)) 
+			{
+				$object = new Object();
+				$object->add('compiled_widget',$output);
+				return $object;
+			}
+			return new Object();
+		}
+
+
         function procUpgletyleConfigCommunicationInsert(){
         	$logged_info = Context::get('logged_info');
             $oModuleModel = &getModel('module');
@@ -257,28 +282,6 @@
 
             $this->setTemplatePath($this->module_path.'tpl');
             $this->setTemplateFile('move_myupgletyle');
-        }
-
-        function procUpgletyleDaumviewInfoUpdate(){
-
-			$vid = Context::get('vid');
-            $args = Context::getRequestVars();
-			$oModuleController = &getController('module');
-			$oUpgletyleModel = &getModel('upgletyle');
-
-			$config = array();
-			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
-
-            $config->use_daumview_widget = $args->use_daumview_widget;
-            $config->location_daumview_widget = $args->location_daumview_widget;
-            $config->type_daumview_widget = $args->type_daumview_widget;
-            $oModuleController->insertModulePartConfig('upgletyle',abs($this->module_srl)*-1, $config);
-
-			$this->setMessage('success_saved');
-			$returnUrl = getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolMetablogDaumviewConfig','vid',$vid);
-			$this->setRedirectUrl($returnUrl);
-			//return new Object(-1,'msg_invalid_request2');
-
         }
 
         function procUpgletyleDashboardConfigUpdate(){
@@ -787,11 +790,20 @@
 			$this->add('preview', $var->preview);
 			$this->add('type', 'save');
 
+			//Call a trigger
+			if(!$var->document_srl) $var->document_srl = $document_srl;
+			$triggerOutput = ModuleHandler::triggerCall('upgletyle.procUpgletylePostsave', 'before', $var);
+			if(!$triggerOutput->toBool())
+			{
+				return $triggerOutput;
+			}
+
             if($var->publish == 'Y') 
             {
                 $args->document_srl = $document_srl;
                 $output = executeQuery('upgletyle.getPublishLogs', $args);
                 $isPublished = (!$output->data) ? false : true;
+
 
                 if(!$isPublished){
                     $args->update_order = $args->list_order = getNextSequence()*-1;
@@ -810,9 +822,6 @@
                     else if($key == 'send_twitter' && $val == 'Y') $publish_option->send_twitter = true;
                 }
 
-				//다음VIEW 글 송고
-				if($var->daumview_category)
-					$oPublish->addDaumview($var->daumview_category, 'UTF-8');
 
                 if(count($publish_option->trackbacks)) foreach($publish_option->trackbacks as $key => $val) $oPublish->addTrackback($val['url'], $val['charset']);
                 if(count($publish_option->blogapis)) foreach($publish_option->blogapis as $key => $val) if($val->send_api) $oPublish->addBlogApi($key, $val->category);
@@ -820,7 +829,8 @@
                 $oPublish->setMe2day($publish_option->send_me2day);
                 $oPublish->setTwitter($publish_option->send_twitter);
                 $oPublish->save();
-                
+
+
                 $var->publish_date_yyyymmdd = preg_replace("/[^0-9]/",'',$var->publish_date_yyyymmdd);
                 if($var->subscription=='Y' && $var->publish_date_yyyymmdd) {
 
@@ -855,8 +865,11 @@
                     executeQuery('upgletyle.deleteUpgletyleSubscriptionByDocumentSrl', $args);
                     $oPublish->publish();
                 }
+
+
 				$this->add('type', 'publish');
 	            $this->setMessage('success_saved_published');
+
             }  
             else {
 	            $this->setMessage('success_saved');
@@ -1841,6 +1854,69 @@
 			$this->setRedirectUrl($returnUrl);
         }
 
+		function procUpgletylePluginToggle() {
+
+			$plugin = Context::get('plugin');
+			$module_srl = Context::get('module_srl');
+
+			$oModuleModel = getModel('module');
+			$part_config = $oModuleModel->getModulePartConfig($plugin, $module_srl);
+
+			if(!$part_config->activated) $part_config->activated = true;
+			else $part_config->activated = false;
+
+			$oModuleController = getController('module');
+			$oModuleController->insertModulePartConfig($plugin, $module_srl, $part_config);
+		}
+
+
+		function procUpgletyleWidgetConfigSave(){
+
+			$list_order_group = explode("|@|",Context::get('list_order'));
+			if(count($list_order_group) != 3) return new Object(-1, 'msg_invalid_request');
+
+			$article_top = explode(",",$list_order_group[0]);
+			if(!is_array($article_top) || !$article_top) $article_top = array();
+
+			$article_bottom = explode(",",$list_order_group[1]);
+			if(!is_array($article_bottom) || !$article_bottom) $article_bottom = array();
+
+			$i = count($article_top);
+			foreach($article_top as $val)
+			{
+				if(!trim($val)) continue;
+				$tmp = explode("/",$val);
+				$_plugin_info = new stdClass();
+				$_plugin_info->plugin = $tmp[0]; $_plugin_info->act = $tmp[1]; 
+				$_plugin_info->type = $tmp[2];  $_plugin_info->list_order = $i--; 
+				$plugin_info[] = $_plugin_info;
+			}
+
+			$i = 0;
+			foreach($article_bottom as $val)
+			{
+				if(!trim($val)) continue;
+				$tmp = explode("/",$val);
+				$_plugin_info = new stdClass();
+				$_plugin_info->plugin = $tmp[0]; $_plugin_info->act = $tmp[1];
+				$_plugin_info->type = $tmp[2]; $_plugin_info->list_order = --$i; 
+				$plugin_info[] = $_plugin_info;
+			}
+
+			//Delete all database by module_srl
+            $args->module_srl = $this->module_info->module_srl;
+            $output = executeQuery('upgletyle.deleteUpgletyleWidget', $args);
+			if(!$output->toBool()) return $output;
+
+			//Insert database again
+			foreach($plugin_info as $args)
+			{
+				$args->module_srl = $this->module_info->module_srl;
+				$output = executeQuery('upgletyle.insertUpgletyleWidget', $args);
+				if(!$output->toBool()) return $output;
+			}
+			$this->setMessage('success_saved');
+		}
 
 
 
@@ -2241,130 +2317,20 @@
 			$_SESSION['live'] = time();
 		}
 
-		function procSyncDaumview() {
+		function procUpgletylePluginConfigUpdate() {
 
-			$oUpgletyleModel = &getModel('upgletyle');
-            $document_srl = Context::get('document_srl');
+			$remote_module = Context::get('remote_module');
+			$remote_act = Context::get('remote_act');
 
-			$url = getFullSiteUrl($this->upgletyle->domain,'','document_srl',$document_srl);
-			$output = $oUpgletyleModel->getDaumviewByPermalink($url);
+			$oRemoteController = &getController($remote_module);
+			$output = $oRemoteController->{$remote_act}();
 
-			if($output->code=='404') $this->deleteDaumviewLog($document_srl);
-			else {
-				$daumview_log = $oUpgletyleModel->getDaumviewLog($document_srl);
-				if($daumview_log->data[0] && ($daumview_log->data[0]->daumview_id != $output->id || $daumview_log->data[0]->category_id != $output->category_id )){
-					$args->document_srl = $document_srl;
-					$args->category_id = $output->category_id;
-					$args->daumview_id = $output->id;
-					$output = $this->updateDaumviewLog($args);
-				}
-				else{
-					$args->document_srl = $document_srl;
-					$args->module_srl = $this->module_srl;
-					$args->category_id = $output->category_id;
-					$args->daumview_id = $output->id;
-					$output = $this->insertDaumviewLog($args);
-				}
-			}
+			$this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url');
+			$this->setRedirectUrl($returnUrl);
+
 		}
-		function procSyncDaumviewCategory(){
-			global $lang;
 
-			$this->updateDaumviewCategoryCache();
-			$this->setMessage($lang->msg_complete_daumview_sync);
-		}
-		function updateDaumviewUserinfoCache($url = null){
-
-			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
-
-			if(!$url) {
-				$url = getFullSiteUrl($this->upgletyle->domain);
-			}
-			$site_ping = "http://api.v.daum.net/open/user_info.xml?blogurl=".$url;
-			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
-			if(!$xml) return new Object(-1, 'msg_ping_test_error');
-			if(file_exists($cache_file)) FileHandler::removeFile($cache_file);
-			FileHandler::writeFile($cache_file, $xml);
-		}
-		function updateDaumviewCategoryCache(){
-
-			$cache_file = "./files/cache/upgletyle/daumview/category.xml";
-
-			$site_ping = "http://api.v.daum.net/open/category.xml";
-			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
-			if(!$xml) return new Object(-1, 'msg_ping_test_error');
-			if(file_exists($cache_file)) FileHandler::removeFile($cache_file);
-			FileHandler::writeFile($cache_file, $xml);
-		}
-		function insertDaumviewLog($args){
-            $output = executeQuery('upgletyle.insertDaumview',$args);
-            return $output;
-		}
-		function updateDaumviewLog($args){
-            $output = executeQuery('upgletyle.updateDaumview',$args);
-            return $output;
-		}
-		function deleteDaumviewLog($document_srl){
-            $args->document_srl = $document_srl;
-            $output = executeQuery('upgletyle.deleteDaumview',$args);
-            return $output;
-		}
-		function sendDaumview($oDocument, $trackback_url, $charset)
-		{
-			$oModuleController = &getController('module');
-
-			// Information sent by
-			$http = parse_url($trackback_url);
-
-			$obj->blog_name = str_replace(array('&lt;','&gt;','&amp;','&quot;'), array('<','>','&','"'), Context::getBrowserTitle());
-			$oModuleController->replaceDefinedLangCode($obj->blog_name);
-			$obj->title = $oDocument->getTitleText();
-			$obj->excerpt = $oDocument->getSummary(200);
-			$obj->url = getFullUrl('','document_srl',$oDocument->document_srl);
-
-			// blog_name, title, excerpt, url charset of the string to the requested change
-			if($charset && function_exists('iconv'))
-			{
-				foreach($obj as $key=>$val)
-				{
-					$obj->{$key} = iconv('UTF-8',$charset,$val);
-				}
-			}
-
-			$content = sprintf(
-				"title=%s&".
-				"url=%s&".
-				"blog_name=%s&".
-				"excerpt=%s",
-				urlencode($obj->title),
-				urlencode($obj->url),
-				urlencode($obj->blog_name),
-				urlencode($obj->excerpt)
-			);
-
-			$buff = FileHandler::getRemoteResource($trackback_url, $content, 3, 'POST', 'application/x-www-form-urlencoded');
-
-			$oXmlParser = new XmlParser();
-			$xmlDoc = $oXmlParser->parse($buff);
-
-			return $xmlDoc;
-
-			if($xmlDoc->response->error->body == '0')
-			{
-				return new Object(0, 'msg_trackback_send_success');
-			}
-			else
-			{
-				if($xmlDoc->response->message->body)
-				{
-					return new Object(-1, sprintf('%s: %s', Context::getLang('msg_trackback_send_failed'), $xmlDoc->response->message->body));
-				}
-				else
-				{
-					return new Object(-1, 'msg_trackback_send_failed');
-				}
-			}
-		}
 		function updateModuleSrlMinus($document_srl,$module_srl){
 			
 			$args->document_srl = $document_srl;

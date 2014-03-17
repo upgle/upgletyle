@@ -1,0 +1,7 @@
+<table name="upgletyle_widget">
+  <column name="module_srl" type="number" size="11" notnull="notnull" unique="idx_widget" />
+  <column name="plugin" type="varchar" size="80" notnull="notnull" unique="idx_widget" />
+  <column name="type" type="varchar" size="15" notnull="notnull" unique="idx_widget" />
+  <column name="act" type="varchar" size="80" notnull="notnull" unique="idx_widget" />
+  <column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order"/>
+</table>

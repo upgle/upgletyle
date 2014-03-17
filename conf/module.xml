@@ -61,7 +61,11 @@
 		<permission action="dispUpgletyleToolExtraMenuList" target="manager" />
 		<permission action="dispUpgletyleToolExtraMenuInsert" target="manager" />
 		<permission action="dispUpgletyleToolExtraMenuModuleInsert" target="manager" />
-		<permission action="dispUpgletyleToolMetablogDaumviewConfig" target="manager" />
+		<permission action="dispUpgletyleToolPluginConfig" target="manager" />
+		<permission action="dispUpgletyleToolPluginList" target="manager" />
+		<permission action="dispUpgletyleToolPluginWidgetConfig" target="manager" />
+
+		
 
 
 		<permission action="getUpgletyleAPITest" target="manager" />
@@ -145,7 +149,10 @@
 		<action name="dispUpgletyleToolExtraMenuInsert" type="view" />
 		<action name="dispUpgletyleToolExtraMenuModuleInsert" type="view" />
 
-		<action name="dispUpgletyleToolMetablogDaumviewConfig" type="view" />
+		<action name="dispUpgletyleToolPluginConfig" type="view" />
+		<action name="dispUpgletyleToolPluginList" type="view" />
+		<action name="dispUpgletyleToolPluginWidgetConfig" type="view" />
+
 
 		<action name="dispCommentEditor" type="view" />
 		<action name="dispModifyComment" type="view" />
@@ -247,9 +254,14 @@
         <action name="procUpgletyleToggleEnableAPI" type="controller" standalone="true" />
         <action name="procUpgletyleAdminInsertExtraMenuConfig" type="controller" standalone="true" />
         <action name="getBlogApiService" type="model" />
-		<action name="procSyncDaumview" type="controller" standalone="true" />
-		<action name="procSyncDaumviewCategory" type="controller" standalone="true" />
-	
+
+		<action name="procUpgletylePluginConfigUpdate" type="controller" />
+		<action name="procUpgletylePluginToggle" type="controller" />
+		<action name="procUpgletyleWidgetConfigSave" type="controller" />
+
+
+
+
 		<action name="dispUpgletyleCategory" type="mobile" />
 		<action name="dispUpgletylePasswordForm" type="mobile" />
 		<action name="dispUpgletyleGuestbookWrite" type="mobile" />

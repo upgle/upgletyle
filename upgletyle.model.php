@@ -441,115 +441,6 @@
 			return $configs[$module_srl];
 		}
 
-		function checkDaumviewJoin() {
-			$code = $this->getDaumviewStautsCode('',true);
-			if($code == '200') return true;
-			else return false;
-		}
-
-		function getDaumviewID($document_srl){
-			$output = $this->getDaumviewLog($document_srl);
-			$daumview_id = $output->data[0]->daumview_id;
-			if(!$daumview_id) return false;
-			return $daumview_id;
-		}
-
-		function getDaumviewWidget($document_srl, $type){
-
-			$daumview_id = $this->getDaumviewID($document_srl);
-			if(!$daumview_id) return false;
-
-			if($type=='box'){
-				return "<iframe width='100%' height='90' src='http://api.v.daum.net/widget1?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe>";
-			}
-			elseif($type=='button'){
-				return "<div style='width:100%;text-align:center'><iframe width='76' height='90' src='http://api.v.daum.net/widget2?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
-			}
-			elseif($type=='normal'){
-				return "<div style='width:100%;text-align:center'><iframe width='136' height='44' src='http://api.v.daum.net/widget3?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
-			}
-			elseif($type=='mini'){
-				return "<div style='width:100%;text-align:center'><iframe width='112' height='30' src='http://api.v.daum.net/widget4?nid=".$daumview_id."' frameborder='no' scrolling='no' allowtransparency='true'></iframe></div>";
-			}
-		}
-
-		function getDaumviewStautsCode($url = null, $use_cache = false){
-
-			$cache_file = "./files/cache/upgletyle/daumview/user_info.xml";	
-
-			if(!file_exists($cache_file) || !$use_cache) {
-				$oUpgletyleController = &getController('upgletyle');
-				$oUpgletyleController->updateDaumviewUserinfoCache($url);
-			}
-			$oXml = new XmlParser();
-			$xml_obj = $oXml->loadXmlFile($cache_file);
-
-			return $xml_obj->result->head->code->body;
-		}
-
-		function getDaumviewCategory($array = 'id'){
-			
-			$cache_file = "./files/cache/upgletyle/daumview/category.xml";
-
-			if(!file_exists($cache_file)) {
-				$oUpgletyleController = &getController('upgletyle');
-				$oUpgletyleController->updateDaumviewCategoryCache();
-			}
-			$oXml = new XmlParser();
-			$xml_obj = $oXml->loadXmlFile($cache_file);
-
-			$result = array();
-			$one_depth_categories = $xml_obj->result->entity->category;
-			if(!is_array($one_depth_categories)) return false;
-
-			foreach($one_depth_categories as $one_depth_category) {
-				foreach($one_depth_category->list->category as $two_depth_category) {
-					if($array == 'id')
-					$result[$two_depth_category->id->body] = 
-						array( 
-						 'name' => $two_depth_category->name->body,
-						 'full_name' => $one_depth_category->name->body."(".$two_depth_category->name->body.")",
-						 'category_name' => $two_depth_category->category_name->body,
-						 'trackback_url' => $two_depth_category->trackback_url->body, 
-						 'url' => $two_depth_category->url->body,
-						);
-					elseif($array == 'trackback_url')
-					$result[$two_depth_category->trackback_url->body] = 
-						array( 
-						 'name' => $two_depth_category->name->body,
-						 'full_name' => $one_depth_category->name->body."(".$two_depth_category->name->body.")",
-						 'category_name' => $two_depth_category->category_name->body,
-						 'id' => $two_depth_category->id->body, 
-						 'url' => $two_depth_category->url->body,
-						);
-				}
-			}
-			return $result;
-		}
-
-		function getDaumviewLog($document_srl){
-			$args->document_srl = $document_srl;
-            $output = executeQueryArray('upgletyle.getDaumview', $args);
-            return $output;
-		}
-
-		function getDaumviewByPermalink($permalink){
-
-			$oXml = new XmlParser();
-
-			$site_ping = "http://api.v.daum.net/open/news_info.xml?permlink=".$permalink;
-			$xml = FileHandler::getRemoteResource($site_ping, null, 3, 'GET', 'application/xml');
-			if(!$xml) return new Object(-1, 'msg_ping_test_error');
-			$xml_obj = $oXml->parse($xml);
-			
-			$result = new stdClass();
-			$result->code = $xml_obj->result->head->code->body; 
-			$result->category_id = $xml_obj->result->entity->news->category_id->body;
-			$result->id = $xml_obj->result->entity->news->id->body;
-
-			return $result;
-		}
-
 		function moduleExistCheck($module_name) {
 			$path = _XE_PATH_ . 'modules/'.$module_name;
 			return file_exists($path);
@@ -576,6 +467,60 @@
 			// Get information of module_grants
 			$oTemplate = &TemplateHandler::getInstance();
 			return $oTemplate->compile($this->module_path.'tpl', 'category_list');
+		}
+
+
+		/**
+		 * @brief Get information from conf/info.xml
+		 */
+		function getWidgetInfoXml($module)
+		{
+			// Get a path of the requested module. Return if not exists.
+			$module_path = ModuleHandler::getModulePath($module);
+			if(!$module_path) return;
+			// Read the xml file for module skin information
+			$xml_file = sprintf("%s/conf/info.xml", $module_path);
+			if(!file_exists($xml_file)) return;
+
+			$oXmlParser = new XmlParser();
+			$tmp_xml_obj = $oXmlParser->loadXmlFile($xml_file);
+			$xml_obj = $tmp_xml_obj->module;
+
+			if(!$xml_obj) return;
+			// module format 0.2
+			if(!is_array($xml_obj->widget)) $widget_list[] = $xml_obj->widget;
+			else $widget_list = $xml_obj->widget;
+
+			foreach($widget_list as $widget)
+			{
+				$widget_obj = new stdClass();
+				$widget_obj->title = $widget->title->body;
+				$widget_obj->description = $widget->description->body;
+				$widget_obj->act = $widget->attrs->act;
+				$widget_obj->type = $widget->attrs->type;
+
+				$widget_info[] = $widget_obj;
+			}
+			return $widget_info;
+		}
+
+
+		function getUpgletyleWidget($module_srl)
+		{
+			$args = new stdClass();
+			$args->module_srl = $module_srl;
+            $output = executeQueryArray('upgletyle.getUpgletyleWidget', $args);
+            return $output;		
+		}
+
+		function getUpgletyleWidgetConfig($module_srl,$plugin,$act)
+		{
+			$args = new stdClass();
+			$args->module_srl = $module_srl;
+			$args->plugin = $plugin;
+			$args->act = $act;
+            $output = executeQuery('upgletyle.getUpgletyleWidget', $args);
+            return $output;
 		}
 
 

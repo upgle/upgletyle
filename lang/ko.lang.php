@@ -326,8 +326,7 @@
         array('','글관리'),
         array('','대화관리'),
         array('','통계'),
-        array('','메타블로그'),
-
+        array('','플러그인'),
         array('','디자인'),
         array('','설정'),
 
@@ -356,7 +355,8 @@
             'dispUpgletyleToolStatisticsPopular'=>'인기 콘텐트',
         ),
         array(
-            'dispUpgletyleToolMetablogDaumviewConfig'=>'다음View 설정',
+            'dispUpgletyleToolPluginList'=>'플러그인 설정',
+            'dispUpgletyleToolPluginWidgetConfig'=>'위젯 출력 설정',
 		),
         array(
             'dispUpgletyleToolLayoutConfigSkin'=>'스킨선택',
@@ -506,18 +506,6 @@
     $lang->widget_print = array(
         'N'=>'출력안함',
         'Y'=>'출력함',
-    );
-
-    $lang->daumview_type = array(
-        'box'=>'박스타입',
-        'normal'=>'일반타입',
-        'mini'=>'미니타입',
-        'button'=>'버튼타입',
-    );
-
-    $lang->daumview_location = array(
-        'top'=>'본문 상단',
-        'bottom'=>'본문 하단',
     );
 
 ?>
