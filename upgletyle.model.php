@@ -509,7 +509,7 @@
 		{
 			$args = new stdClass();
 			$args->module_srl = $module_srl;
-            $output = executeQuery('upgletyle.getUpgletyleWidget', $args);
+            $output = executeQueryArray('upgletyle.getUpgletyleWidget', $args);
             return $output;		
 		}
 
