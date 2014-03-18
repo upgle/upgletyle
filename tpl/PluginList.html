@@ -1,4 +1,5 @@
 <include target="_tool_header.html" />
+<load target="js/masonry.pkgd.min.js" />
 <!-- Content -->
 <div class="upgle-container">		
     <div class="page-header">
@@ -8,26 +9,25 @@
     <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
-	
-	<div class="row">
-		<div class="col-sm-4 col-md-3" loop="$plugin_list => $key,$val">
+
+	<div id="container" class="row js-masonry" data-masonry-options='{ "itemSelector": ".plugin" }'>
+		<div class="plugin col-xs-12 col-sm-4 col-lg-3" loop="$plugin_list => $key,$val">
 			<div class="thumbnail">
 				<img src="{$val->thumbnail_path}">
 				<div class="caption">
 					<h4>{$val->title}</h4>
 					<p>{$val->description}</p>
 					<p>
-                        <!--@if($val->activated)-->
-                        <a href="#" class="bts_btn bts_btn-danger bts_btn-sm" onclick="doTogglePlugin('{$val->plugin}',{$module_info->module_srl});return false;">사용중</a> 
-                        <!--@else-->
-                        <a href="#" class="bts_btn bts_btn-default bts_btn-sm" onclick="doTogglePlugin('{$val->plugin}',{$module_info->module_srl});return false;">미사용</a> 
-                        <!--@end-->
+						<!--@if($val->activated)-->
+						<a href="#" class="bts_btn bts_btn-danger bts_btn-sm" onclick="doTogglePlugin('{$val->plugin}',{$module_info->module_srl});return false;">사용중</a> 
+						<!--@else-->
+						<a href="#" class="bts_btn bts_btn-default bts_btn-sm" onclick="doTogglePlugin('{$val->plugin}',{$module_info->module_srl});return false;">미사용</a> 
+						<!--@end-->
 						<a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act','dispUpgletyleToolPluginConfig','plugin',$val->plugin)}" class="bts_btn bts_btn-default bts_btn-sm" role="button"><span class="glyphicon glyphicon-cog"></span> 환경설정</a>
 					</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 <!-- /Content -->

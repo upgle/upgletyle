@@ -886,9 +886,14 @@ tr.item-communication-button td {
 .navbar-upgle.navbar {
 	height:42px;
 	background-color:#373c45;
+	background:linear-gradient(to bottom, #373c45, #333740);
+	box-shadow:0px 0px 4px #5e646e;
 	border:0;
+	border-bottom:1px solid #161a21;
 	min-height:42px !important;
 }
+.navbar-upgle.navbar .navbar-brand { height:42px; }
+
 .upgle-container {padding:0 20px}
 .upgle-container .page-header {
 	margin-top:0;
