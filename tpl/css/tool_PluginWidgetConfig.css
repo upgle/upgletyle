@@ -1,0 +1,51 @@
+#widgetList .page-header h5 {margin-top:25px}
+
+/* Sortable items */
+#widgetList .sortable-list {
+	list-style: none;
+	margin: 0; margin-top:7px;
+	padding: 0;
+	min-height: 90px;
+}
+#widgetList .sortable-item {
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	cursor: move;
+	display: block;
+	color:black;
+	margin-bottom: 10px;
+	padding: 12px 20px;
+	background-color: #fefefe;
+	background:linear-gradient(to top, #fafafa, #ffffff);
+}
+#widgetList .sortable-item:hover {	
+	background-color: #fafafa;
+	background:linear-gradient(to top, #f6f6f6, #fefefe);
+	border: 1px solid #c2c2c2;
+}
+
+#widgetList .activated_list {
+	margin-top:15px;
+	padding:10px;
+	border-radius: 5px;
+	background:#6f7c91;
+}
+#widgetList .activated_list .sortable-list {
+	border-radius: 5px;
+	background-color:#FFFDEC;
+	padding: 15px; padding-bottom:5px;
+
+}
+#widgetList .installed_list {
+	padding:12px 15px;
+	border:1px solid #e5e5e5;
+	background-color:#fafafa;
+}
+
+/* Item placeholder (visual helper) */
+#widgetList .placeholder {
+	background-color: #ddfcff;
+	border: 1px dashed #48d6ff;
+	height: 90px;
+	margin-bottom: 5px;
+}	
