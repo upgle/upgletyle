@@ -74,7 +74,6 @@
 		<permission action="procUpgletyleProfileImageUpload" target="manager" />
 		<permission action="procUpgletyleInfoUpdate" target="manager" />
 		<permission action="procUpgletyleDaumviewInfoUpdate" target="manager" />
-		<permission action="procUpgletyleDashboardConfigUpdate" target="manager" />
 		<permission action="procSyncDaumview" target="manager" />
 		<permission action="procSyncDaumviewCategory" target="manager" />
 
@@ -187,8 +186,6 @@
 		<action name="procUpgletyleProfileImageUpload" type="controller" />
 		<action name="procUpgletyleInfoUpdate" type="controller" />
 		<action name="procUpgletyleDaumviewInfoUpdate" type="controller" />
-
-		<action name="procUpgletyleDashboardConfigUpdate" type="controller" standalone="true" />
 
 		<action name="procUpgletyleConfigPostwriteInsert" type="controller" />
 		<action name="procUpgletyleCheckMe2day" type="controller" />

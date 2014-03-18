@@ -284,30 +284,6 @@
             $this->setTemplateFile('move_myupgletyle');
         }
 
-        function procUpgletyleDashboardConfigUpdate(){
-
-            $args = Context::getRequestVars();
-			$oModuleController = &getController('module');
-			$oUpgletyleModel = &getModel('upgletyle');
-
-			$config = array();
-			$config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
-
-            $config->dashboard_traffic_viewer = $args->traffic_viewer;
-            $config->dashboard_traffic_url = $args->traffic_url;
-            $config->dashboard_DBMS = $args->DBMS;
-            $config->dashboard_DBMS_capacity = $args->DBMS_capacity;
-            $config->dashboard_HDD_path = $args->HDD_path;
-            $config->dashboard_HDD_capacity = $args->HDD_capacity;
-
-            $oModuleController->insertModulePartConfig('upgletyle',abs($this->module_srl)*-1, $config);
-
-			$this->setMessage('success_updated');
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid',  Context::get('mid'), 'act', 'dispUpgletyleToolDashboard', 'vid', Context::get('vid'));
-			$this->setRedirectUrl($returnUrl);
-
-        }
-
         function insertUpgletyleFavicon($module_srl, $source) {
             $oUpgletyleModel = &getModel('upgletyle');
             $path = $oUpgletyleModel->getUpgletyleFaviconPath($module_srl);
@@ -450,7 +426,8 @@
             $obj->is_secret = $val->is_secret == 'Y' ?1:-1;
 
             // update
-            if($val->upgletyle_guestbook_srl>0){
+            if($val->upgletyle_guestbook_srl>0)
+			{
 				if($val->nick_name) $obj->user_name = $obj->nick_name = $val->nick_name;
 				if($val->email_address) $obj->email_address = $val->email_address;
                 if($obj->homepage) $obj->homepage = $obj->homepage;
@@ -458,9 +435,11 @@
 
                 $obj->upgletyle_guestbook_srl = $val->upgletyle_guestbook_srl;
                 $output = executeQuery('upgletyle.updateUpgletyleGuestbook', $obj);
+			}
 
             // insert
-            }else{
+            else
+			{
                 // if logined
                 if(Context::get('is_logged')) {
                     $logged_info = Context::get('logged_info');

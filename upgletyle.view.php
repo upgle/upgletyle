@@ -232,37 +232,6 @@
             $status->visitor = $counter[date("Ymd")]->unique_visitor;
             Context::set('status', $status);
 
-			//Get a Dashboard Config
-			$part_config = $oUpgletyleModel->getModulePartConfig(abs($this->module_srl)*-1);
-			Context::set('part_config',$part_config);
-
-			//TRAFFIC 사용량
-			$traffic_viewr = explode("/",$part_config->dashboard_traffic_viewer);
-			$throttle_me = $oUpgletyleModel->getUsedTraffic($traffic_viewr[0], $traffic_viewr[1], $part_config->dashboard_traffic_url, $this->module_srl);
-			Context::set('traffic_info',$throttle_me);
-
-			//DB 사용량(MYSQL)
-			$used_db = $oUpgletyleModel->getUsedDBStorage('mysql', $this->module_srl);
-			$database_info = new stdClass();
-			$database_info->using = $used_db;
-			$database_info->capacity = $part_config->dashboard_DBMS_capacity;
-			if($database_info->using!=0 && $database_info->capacity!=0) {
-				$percent = ($database_info->using/$database_info->capacity)*100;
-				$database_info->percent = sprintf("%d",$percent);
-			}
-			Context::set('database_info',$database_info);
-
-			//HDD 사용량
-			$hdd = exec("du -sm "._XE_PATH_);
-			$hdd_info = new stdClass();
-			$hdd_info->using = trim(str_replace(_XE_PATH_,'',$hdd));
-			$hdd_info->capacity = $part_config->dashboard_HDD_capacity;
-			if($hdd_info->using!=0 && $hdd_info->capacity!=0) {
-				$percent = ($hdd_info->using/$hdd_info->capacity)*100;
-				$hdd_info->percent = sprintf("%d",$percent);
-			}
-			Context::set('hdd_info',$hdd_info);
-
 			//차트 출력 (이번주 / 저번주)
 			$detail_status = $oCounterModel->getHourlyStatus('week', date("Ymd",time()), $this->site_srl);
 			$i=0;
@@ -299,6 +268,26 @@
             $oCommentModel = &getModel('comment');
             $output = $oCommentModel->getTotalCommentList($com_args);
             Context::set('newest_comments', $output->data);
+
+
+			$total_published_post = $oDocumentModel->getDocumentCount($this->module_srl);
+            Context::set('total_published_post', $total_published_post);
+
+			$total_comment = $oCommentModel->getCommentAllCount($this->module_srl);
+            Context::set('total_comment', $total_comment);
+
+			$oModule = getModule('trackback');
+			$total_trackback = '-';
+			if($oModule)
+			{
+		        $oTrackbackModel = &getModel('trackback');
+				$total_trackback = $oTrackbackModel->getTrackbackAllCount($this->module_srl);
+			}
+            Context::set('total_trackback', $total_trackback);
+
+			$total_guestbook = $oUpgletyleModel->getUpgletyleGuestbookAllCount($this->module_srl);
+            Context::set('total_guestbook', $total_guestbook);
+
 
             unset($args);
             $args->module_srl = $this->module_srl;
