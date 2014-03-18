@@ -186,6 +186,16 @@
             return $output;
         }
 
+		function getUpgletyleGuestbookAllCount($module_srl)
+		{
+			$args->module_srl = $module_srl;
+			$output = executeQuery('upgletyle.getUpgletyleGuestbookCount', $args);
+			$total_count = $output->data->count;
+
+			return (int)$total_count;
+		}
+
+
         function getDenyCacheFile($module_srl){
             return sprintf("./files/cache/upgletyle/textyle_deny/%d.php",$module_srl);
         }
