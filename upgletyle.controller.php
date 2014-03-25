@@ -268,8 +268,10 @@
             $favicon = Context::get('favicon');
             if(Context::isUploaded()&&is_uploaded_file($favicon['tmp_name'])) $this->insertUpgletyleFavicon($this->module_srl,$favicon['tmp_name']);
 
-            $this->setTemplatePath($this->module_path.'tpl');
-            $this->setTemplateFile('move_myupgletyle');
+			$this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolConfigInfo','vid',Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
+
         }
 
         function insertUpgletyleFavicon($module_srl, $source) {
