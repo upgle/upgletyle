@@ -1,5 +1,5 @@
 /**
- * SNS post jQuery plugin - supports 'twitter', 'me2day', 'facebook', 'del.icio.us'
+ * SNS post jQuery plugin - supports 'twitter', 'facebook', 'del.icio.us'
  * @author NHN (developers@xpressengine.com)
  * @example
  * Twitter
@@ -7,14 +7,6 @@
  *    type    : 'twitter',
  *    event   : 'click',
  *    content : 'Hello, world via @xe_team'
- * });
- *
- * Me2day
- * $('a.me2day').snspost({
- *    type    : 'me2day',
- *    event   : 'click',
- *    content : 'Let me to be your friend via @xe_team',
- *    tag     : 'Me2day friend'
  * });
  *
  * Facebook or Delicious
@@ -39,10 +31,6 @@ $.fn.snspost = function(opts) {
 	opts.content = encodeURIComponent(opts.content);
 
 	switch(opts.type) {
-		case 'me2day':
-			loc = 'http://me2day.net/posts/new?new_post[body]='+opts.content;
-			if (opts.tag) loc += '&new_post[tags]='+encodeURIComponent(opts.tag);
-			break;
 		case 'facebook':
 			loc = 'http://www.facebook.com/share.php?t='+opts.content+'&u='+encodeURIComponent(opts.url||location.href);
 			break;

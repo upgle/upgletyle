@@ -188,7 +188,6 @@
 		<action name="procUpgletyleDaumviewInfoUpdate" type="controller" />
 
 		<action name="procUpgletyleConfigPostwriteInsert" type="controller" />
-		<action name="procUpgletyleCheckMe2day" type="controller" />
 		<action name="procUpgletyleCheckTwitter" type="controller" />
 		<action name="procUpgletylePostsave" type="controller" />
 		<action name="procUpgletylePostPublish" type="controller" />

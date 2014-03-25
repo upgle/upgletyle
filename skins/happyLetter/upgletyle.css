@@ -656,14 +656,3 @@ a.skipToContent:focus{width:100%;height:auto;padding:5px 0;margin-bottom:-23px}
 .fold_button{text-align:left;margin:1em 0}
 .fold_button button{font-size:12px;border:0;background:none;cursor:pointer;color:#2200cc;overflow:visible;padding:0}
 .fold_button button:before{content:"» "}
-
-/* Me2day Widget */
-.me2day_daily_digest{line-height:1.5}
-.me2day_daily_digest ul{margin-left:0;padding-left:0;list-style:none}
-.me2day_daily_digest li{position:relative;clear:both;padding:0 0 16px 45px;margin-bottom:1em;zoom:1;background:url(img/iconMe2day.gif) no-repeat 0 0}
-.me2day_daily_digest .me2_tags{display:block;padding:5px 0 5px 30px;margin:0;font-size:11px;line-height:1.2;color:#767676;background:url(img/iconMe2tag.gif) no-repeat left 5px}
-.me2day_daily_digest .datetime{position:absolute !important;bottom:2px;display:none;font:11px/1 Tahoma;color:#66C;white-space:nowrap;text-decoration:none}
-.me2day_daily_digest li:hover .datetime{display:block}
-.me2day_daily_digest a:hover,
-.me2day_daily_digest a:active,
-.me2day_daily_digest a:focus{text-decoration:underline}

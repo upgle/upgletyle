@@ -168,18 +168,6 @@
             return $this->get('input_website');
         }
 
-        function getEnableMe2day() {
-            return $this->get('enable_me2day')=='Y'?true:false;
-        }
-
-        function getMe2dayUserID() {
-            return $this->get('me2day_userid');
-        }
-
-        function getMe2dayUserKey() {
-            return $this->get('me2day_userkey');
-        }
-        
     	function getTwitterConsumerKey() {
             return $this->get('twitter_consumer_key');
         }

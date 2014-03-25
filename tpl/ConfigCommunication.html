@@ -47,34 +47,8 @@
                         <p class="form-control-static pull-left unit">{$lang->item_unit}</p>
                     </div>
                 </div>
-
             </fieldset>
 
-            <fieldset>
-                <div class="page-header page-header-icon">
-                <h5>{$lang->send_me2} <small>{$lang->about_send_me2}</small></h5>
-                </div>
-                <div class="form-group row">
-                    <label for="postNum" class="col-sm-3 control-label">{$lang->me2day_userid}</label>
-                    <div class="col-sm-8">
-                        <div class="row"><div class="col-sm-7">
-                        <input name="me2day_userid" type="text" class="form-control input-sm" id="me2userid" value="{$upgletyle->getMe2dayUserID()}" />
-                        </div></div>
-                        <span class="help-block">{$lang->about_me2day_userid}</span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="postNum" class="col-sm-3 control-label">{$lang->me2day_userkey}</label>
-                    <div class="col-sm-8">
-                        <div class="row"><div class="col-sm-7">
-                        <input name="me2day_userkey" type="text" class="form-control input-sm" id="me2userkey" value="{$upgletyle->getMe2dayUserKey()}" />
-                        </div></div>
-                        <span class="help-block">{$lang->about_me2day_userkey}</span>
-                    </div>
-                </div>
-                <button type="button" onclick="doCheckMe2day(); return false;" class="bts_btn bts_btn-info bts_btn-sm pull-right">{$lang->check_me2day_info}</button>
-            </fieldset>
-            
             <fieldset>
                 <div class="page-header page-header-icon">
                 <h5>{$lang->send_twitter} <small>{$lang->about_send_twitter}</small></h5>

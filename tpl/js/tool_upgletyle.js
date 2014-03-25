@@ -987,13 +987,6 @@ function displayProgress(total, cur) {
     //jQuery('div.doing div.progress-bar').html(per+'%');
 }
 
-function doCheckMe2day() {
-    var params = new Array();
-    params['me2day_userid'] = jQuery('#me2userid').val();
-    params['me2day_userkey'] = jQuery('#me2userkey').val();
-	exec_xml('upgletyle', 'procUpgletyleCheckMe2day', params, function() {});
-}
-
 /* check twitter account */
 function doCheckTwitter() {
     var params = new Array();

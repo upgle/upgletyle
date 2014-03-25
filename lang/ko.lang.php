@@ -188,24 +188,15 @@
     $lang->migration_file_path = 'XML 파일 위치(URL 또는 경로)';
     $lang->msg_migration_file_is_null = '데이터 복원을 할 XML 파일의 위치를 입력해주세요';
     $lang->cmd_import = '가져오기';
-    $lang->send_me2 = '미투데이 발행';
-    $lang->about_send_me2 = '글작성시 제목을 지정된 미투데이로 발행하도록 설정합니다';
-    $lang->me2day_userid = '미투 아이디';
     $lang->twitter_consumer_key = 'Twitter consumer key';
-    $lang->about_me2day_userid = '"http://me2day.net/아이디"의 아이디값을 입력해주세요.';
     $lang->about_twitter_consumer_key = 'Twitter 앱을 위한 consumer key를 입력해 주세요.';
-    $lang->me2day_userkey = '미투 사용자키';
     $lang->twitter_consumer_secret = 'Twitter consumer secret';
-    $lang->about_me2day_userkey = '미투데이의 환경설정에 표시된 사용자키값을 입력해주세요.';
     $lang->about_twitter_consumer_secret = 'Twitter API를 위한 consumer secret을 입력해 주세요.';
     $lang->twitter_oauth_token = 'Twitter access token';
     $lang->about_twitter_oauth_token = 'Twitter를 위한 access token을 입력해 주세요.'; 
     $lang->twitter_oauth_token_secret = 'Twitter token secret'; 
     $lang->about_twitter_oauth_token_secret = 'Twitter 앱을 위한 twitter token을 입력해 주세요.';
-    $lang->check_me2day_info = '연결 확인';
     $lang->check_twitter_info = '연결 확인';
-    $lang->msg_success_to_me2day = '입력하신 미투데이 정보로 연결확인이 정상적으로 이루어졌습니다';
-    $lang->msg_fail_to_me2day = '미투데이 연결 실패하였습니다. 아이디와 사용자키를 확인해주세요';
 
     $lang->send_twitter = '트위터 발행';
     $lang->about_send_twitter = '글작성시 제목을 지정된 트위터로 발행하도록 설정합니다';

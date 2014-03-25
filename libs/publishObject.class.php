@@ -8,8 +8,6 @@
         var $trackbacks = array(); // [url]-> charset, log
         var $blogapis = array(); // [api_srl]-> category, postid, log
 		
-		var $publish_me2day = false; // true/false
-        var $published_me2day = false; // true/false
         var $publish_twitter = false; // true/false
         var $published_twitter = false; // true/false
 
@@ -32,8 +30,6 @@
             $this->trackbacks = is_array($data->trackbacks)?$data->trackbacks:array();
             $this->blogapis = is_array($data->blogapis)?$data->blogapis:array();
 
-            $this->publish_me2day = $data->publish_me2day==true?true:false;
-            $this->published_me2day = $data->publish_me2day==true?true:false;
             $this->publish_twitter = $data->published_twitter==true?true:false;
             $this->published_twitter = $data->published_twitter==true?true:false;
 
@@ -104,10 +100,6 @@
             return $apis;
         }
 
-        function isMe2dayPublished() {
-            return $this->published_me2day;
-        }
-
         function isTwitterPublished() {
             return $this->published_twitter;
         }
@@ -124,10 +116,6 @@
             $this->blogapis[$api_srl]->category = $category;
         }
 
-        function setMe2day($flag = false) {
-            $this->publish_me2day = $flag;
-        }
-
         function setTwitter($flag = false) {
             $this->publish_twitter = $flag;
         }
@@ -135,8 +123,6 @@
         function save() {
             $logs->trackbacks = array_merge($this->trackbacks_org, $this->trackbacks);
             $logs->blogapis = $this->blogapis;
-            $logs->publish_me2day = $this->publish_me2day;
-            $logs->published_me2day = $this->published_me2day;
             $logs->publish_twitter = $this->publish_twitter;
             $logs->published_twitter = $this->published_twitter;
 
@@ -197,7 +183,6 @@
                 }
             }
 
-            if($this->publish_me2day && $oUpgletyle->getEnableMe2day()) $this->sendMe2day($oUpgletyle->getMe2dayUserID(), $oUpgletyle->getMe2dayUserKey());
             if($this->publish_twitter && $oUpgletyle->getEnableTwitter()) $this->sendTwitter($oUpgletyle->getTwitterConsumerKey(), $oUpgletyle->getTwitterConsumerSecret(), $oUpgletyle->getTwitterOauthToken(), $oUpgletyle->getTwitterOauthTokenSecret());
 
             $this->save();
@@ -252,15 +237,6 @@
 
             }
             return $output;
-        }
-
-        function sendMe2day($user_id, $user_key) {
-            require_once(_XE_PATH_.'modules/upgletyle/libs/me2day.api.php');
-
-            if(!$user_id || !$user_key) return;
-            $oMe2 = new me2api($user_id, $user_key);
-            $output = $oMe2->doPost( sprintf('"%s":%s', $this->oDocument->getTitleText(), $this->oDocument->getPermanentUrl()) , $this->oDocument->get('tags'));
-            if($output->toBool()) $this->published_me2day = true;
         }
 
         function sendTwitter($consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret) {

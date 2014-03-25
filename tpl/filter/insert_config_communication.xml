@@ -15,9 +15,6 @@
         <node target="post_prefix" required="true" />
         <node target="post_suffix" required="true" />
         <node target="ping_back"  />
-        <node target="enable_me2day"  />
-        <node target="me2day_userid"  />
-        <node target="me2day_userkey"  />
         <node target="twitter_consumer_key"  />
         <node target="twitter_consumer_secret"  />
         <node target="twitter_oauth_token"  />

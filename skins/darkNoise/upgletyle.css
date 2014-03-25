@@ -84,7 +84,6 @@ a.skip:focus{width:100%;height:auto;padding:5px 0}
 #content .sns:after{content:"";display:block;clear:both}
 #content .sns li{margin:0 6px 0 0;float:left;background:url(img/iconSns.gif) no-repeat}
 #content .sns .twitter{background-position:0 0}
-#content .sns .me2day{background-position:-20px 0}
 #content .sns .facebook{background-position:-40px 0}
 #content .sns .delicious{background-position:-60px 0}
 #content .sns a{display:block;width:20px;height:0;padding:20px 0 0 0;overflow:hidden}

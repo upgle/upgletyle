@@ -15,7 +15,6 @@
 </div>
 <ul class="sns">
 	<li class="twitter"><a href="http://twitter.com/">Twitter</a></li>
-	<li class="me2day"><a href="http://me2day.net/">Me2day</a></li>
 	<li class="facebook"><a href="http://facebook.com/">Facebook</a></li>
 	<li class="delicious"><a href="http://delicious.com/">Delicious</a></li>
 </ul>
@@ -24,10 +23,6 @@
 		$('.twitter>a').snspost({
 			type : 'twitter',
 			content : '{$document->getTitle()} {$document->getPermanentUrl()}'
-		});
-		$('.me2day>a').snspost({
-			type : 'me2day',
-			content : '\"{$document->getTitle()}\":{$document->getPermanentUrl()}'
 		});
 		$('.facebook>a').snspost({
 			type : 'facebook',

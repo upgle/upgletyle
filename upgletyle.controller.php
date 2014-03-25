@@ -95,10 +95,7 @@
             $this->updateUpgletyleCommentEditor($this->module_srl, $args->comment_editor_skin, $args->comment_editor_colorset);
 
             $config = $oModuleModel->getModulePartConfig('upgletyle', $this->module_srl);
-            $config->me2day_userid = $args->me2day_userid;
-            $config->me2day_userkey = $args->me2day_userkey;
-            $config->enable_me2day = ($args->me2day_userid && $args->me2day_userkey) ? 'Y' :'N';
-			
+
             //set twitter api parammeters
             $config->twitter_consumer_key = $args->twitter_consumer_key;
             $config->twitter_consumer_secret = $args->twitter_consumer_secret;
@@ -153,15 +150,6 @@
             $this->setMessage($msg);
         }
 
-        function procUpgletyleCheckMe2day() {
-            require_once($this->module_path.'libs/me2day.api.php');
-            $vars = Context::gets('me2day_userid','me2day_userkey');
-
-            $oMe2 = new me2api($vars->me2day_userid, $vars->me2day_userkey);
-            $output = $oMe2->chkNoop($vars->me2day_userid, $vars->me2day_userkey);
-            if($output->toBool()) return new Object(-1,'msg_success_to_me2day');
-            return new Object(-1,'msg_fail_to_me2day');
-        }
         
     	function procUpgletyleCheckTwitter() {
             require_once($this->module_path.'libs/twitteroauth.php');
@@ -797,7 +785,6 @@
                     if(preg_match('/^trackback_(url|charset)([0-9]*)$/i', $key, $match)&&$val) $publish_option->trackbacks[(int)$match[2]][$match[1]] = $val;
                     else if(preg_match('/^blogapi_([0-9]+)$/i', $key, $match) && $val=='Y') $publish_option->blogapis[$match[1]]->send_api = true;
                     else if(preg_match('/^blogapi_category_([0-9]+)$/i', $key, $match)) $publish_option->blogapis[$match[1]]->category = $val;
-                    else if($key == 'send_me2day' && $val == 'Y') $publish_option->send_me2day = true;
                     else if($key == 'send_twitter' && $val == 'Y') $publish_option->send_twitter = true;
                 }
 
@@ -805,7 +792,6 @@
                 if(count($publish_option->trackbacks)) foreach($publish_option->trackbacks as $key => $val) $oPublish->addTrackback($val['url'], $val['charset']);
                 if(count($publish_option->blogapis)) foreach($publish_option->blogapis as $key => $val) if($val->send_api) $oPublish->addBlogApi($key, $val->category);
                 
-                $oPublish->setMe2day($publish_option->send_me2day);
                 $oPublish->setTwitter($publish_option->send_twitter);
                 $oPublish->save();
 
@@ -900,14 +886,12 @@
                 if(preg_match('/^trackback_(url|charset)([0-9]*)$/i', $key, $match)&&$val) $publish_option->trackbacks[(int)$match[2]][$match[1]] = $val;
                 else if(preg_match('/^blogapi_([0-9]+)$/i', $key, $match) && $val=='Y') $publish_option->blogapis[$match[1]]->send_api = true;
                 else if(preg_match('/^blogapi_category_([0-9]+)$/i', $key, $match)) $publish_option->blogapis[$match[1]]->category = $val;
-                else if($key == 'send_me2day' && $val == 'Y') $publish_option->send_me2day = true;
                 else if($key == 'send_twitter' && $val == 'Y') $publish_option->send_twitter = true;
             }
 
             if(count($publish_option->trackbacks)) foreach($publish_option->trackbacks as $key => $val) $oPublish->addTrackback($val['url'], $val['charset']);
             if(count($publish_option->blogapis)) foreach($publish_option->blogapis as $key => $val) if($val->send_api) $oPublish->addBlogApi($key, $val->category);
 
-            $oPublish->setMe2day($publish_option->send_me2day);
             $oPublish->setTwitter($publish_option->send_twitter);
             $oPublish->save();
             $var->publish_date_yyyymmdd = preg_replace("/[^0-9]/",'',$var->publish_date_yyyymmdd);

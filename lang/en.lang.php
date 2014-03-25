@@ -192,27 +192,18 @@
     $lang->migration_file_path = 'Location of XML file(URL or path)';
     $lang->msg_migration_file_is_null = 'Input the location of XML file for data import';
     $lang->cmd_import = 'Import';
-    $lang->send_me2 = 'Publish to Me2Day';
     $lang->send_twitter = 'Publish to Twitter';
-    $lang->about_send_me2 = 'Writing a post, publish the title to Me2Day.';
     $lang->about_send_twitter = 'Writing a post, publish the title to Twitter.';
-    $lang->me2day_userid = 'Me2Day ID';
     $lang->twitter_consumer_key = 'Twitter consumer key';
-    $lang->about_me2day_userid = 'Input ID for you Me2Day "http://me2day.net/ID".';
     $lang->about_twitter_consumer_key = 'Input consumer key for Twitter application.';
-    $lang->me2day_userkey = 'Me2Day UserKey';
     $lang->twitter_consumer_secret = 'Twitter consumer secret';
-    $lang->about_me2day_userkey = 'Input user key appeared in the configuration page of Me2Day.';
     $lang->about_twitter_consumer_secret = 'Input consumer secret for Twitter API.';
     $lang->twitter_oauth_token = 'Twitter access token';
     $lang->about_twitter_oauth_token = 'Input twitter access token for Twitter'; 
     $lang->twitter_oauth_token_secret = 'Twitter token secret'; 
     $lang->about_twitter_oauth_token_secret = 'Input twitter token secret for Twitter application';
-    $lang->check_me2day_info = 'Check Connection';
     $lang->check_twitter_info = 'Check Connection';
-    $lang->msg_success_to_me2day = 'The information you input is correct.';
     $lang->msg_success_to_twitter = 'The information you input is correct.';
-    $lang->msg_fail_to_me2day = 'Connection to Me2Day failed. Check ID and User Key';
     $lang->msg_fail_to_twitter = 'Connection to Twitter failed. Check the parameters';
 		
     $lang->send_twitter = 'Publish to Twitter';
