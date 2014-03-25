@@ -103,17 +103,18 @@
             $config->twitter_oauth_token_secret = $args->twitter_oauth_token_secret;
             $config->enable_twitter = ($config->twitter_consumer_key && $config->twitter_consumer_secret && $config->twitter_oauth_token && $config->twitter_oauth_token_secret) ? 'Y' :'N';
             
-            //$config->enable_twitter = $args->enable_twitter=='Y'?'Y':'N';
-            //$config->twitter_userid = $args->twitter_userid;
-            //$config->twitter_password = $args->twitter_password;
-            //$config->enable_twitter = ($args->twitter_userid && $args->twitter_password) ? 'Y' :'N';
-
             $config->comment_grant = (int)$args->comment_grant;
             $config->guestbook_grant = (int)$args->guestbook_grant;
             $oModuleController->insertModulePartConfig('textyle',$this->module_srl, $config);
 
 			$comment_config->comment_count = $args->comment_list_count;
             $oModuleController->insertModulePartConfig('comment',$this->module_srl, $comment_config);
+
+
+			$this->setMessage('success_updated');
+
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', 'dispUpgletyleToolConfigCommunication','vid',Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
         }
 
         function procUpgletyleLogin() {
@@ -213,6 +214,11 @@
             if(Context::get('delete_photo')=='Y') {
                 $this->deleteUpgletylePhoto($this->module_srl);
             }
+
+			$this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolConfigProfile','vid',Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
+
         }
 
         function procUpgletyleProfileImageUpload() {
@@ -1459,6 +1465,11 @@
             $editor_config->content_font_size = $vars->font_size;
 
             $oModuleController->insertModulePartConfig('editor',$this->module_srl,$editor_config);
+			
+            $this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', Context::get('mid'), 'act', 'dispUpgletyleToolConfigPostwrite','vid',Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
+
         }
 
 	    /**

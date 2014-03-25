@@ -1,16 +1,18 @@
 <include target="_tool_header.html" />
-<!--%import("./filter/insert_config_communication.xml")-->
+<include target="_tool_validator_message.html" />
 
 <!-- Content -->
 <div class="upgle-container">
     <div class="page-header">
         <h4>{$lang->upgletyle_second_menus[6]['dispUpgletyleToolConfigCommunication']} <small>블로그 발행·대화 정보를 설정합니다.</small></h4>
     </div>
-
-				
+	
     <div class="setUp">
-        <form action="./" method="post" onsubmit="return procFilter(this,insert_config_communication)" class="form-horizontal form-config">
-        <input type="hidden" name="mid" value="{$mid}" />
+        <form ruleset="tool_insertCommunicationConfig" action="{Context::getRequestUri()}" method="post" class="form-horizontal form-config">
+            <input type="hidden" name="act" value="procUpgletyleConfigCommunicationInsert" />
+            <input type="hidden" name="module" value="upgletyle" />
+            <input type="hidden" name="mid" value="{$mid}" />
+            <input type="hidden" name="vid" value="{$vid}" />
         
             <fieldset>
                 <div class="page-header page-header-icon">
@@ -20,11 +22,11 @@
                     <label class="col-sm-3 control-label">{$lang->blog_display_target}</label>
                     <div class="col-sm-8">
                         <label for="lastPost" class="radio-inline">
-                        <input name="post_style" type="radio" value="content" class="inputRadio" id="lastPost" <!--@if($upgletyle->getPostStyle()=='content')--> checked="checked"<!--@end--> />{$lang->content_body}</label>
+                        <input name="post_style" type="radio" value="content" class="inputRadio" id="lastPost" checked="checked"|cond="$upgletyle->getPostStyle()=='content'" />{$lang->content_body}</label>
                         <label for="lastSummary" class="radio-inline">
-                        <input name="post_style" type="radio" value="summary" class="inputRadio" id="lastSummary" <!--@if($upgletyle->getPostStyle()=='summary')--> checked="checked"<!--@end--> /> {$lang->content_summary}</label>
+                        <input name="post_style" type="radio" value="summary" class="inputRadio" id="lastSummary" checked="checked"|cond="$upgletyle->getPostStyle()=='summary'" /> {$lang->content_summary}</label>
                         <label for="lastList" class="radio-inline">
-                        <input name="post_style" type="radio" value="list" class="inputRadio" id="lastList" <!--@if($upgletyle->getPostStyle()=='list')--> checked="checked"<!--@end--> /> {$lang->content_list}</label>
+                        <input name="post_style" type="radio" value="list" class="inputRadio" id="lastList" checked="checked"|cond="$upgletyle->getPostStyle()=='list'" /> {$lang->content_list}</label>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -218,9 +220,7 @@
                     } );
                 </script>
             </fieldset>
-
             <input type="submit" value="{$lang->cmd_apply}" class="bts_btn bts_btn-primary pull-right" />
-
 
         </form>
     </div>

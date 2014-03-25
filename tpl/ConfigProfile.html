@@ -1,13 +1,5 @@
 <include target="_tool_header.html" />
-<!--%import("filter/insert_profile.xml")-->
-
-<script type="text/javascript" cond="$XE_VALIDATOR_MESSAGE" >
-var n = noty({
-	layout: 'topCenter', timeout: 4000, theme: 'default',
-	type: '{$XE_VALIDATOR_MESSAGE_TYPE}',
-	text: '{$XE_VALIDATOR_MESSAGE}'
-});
-</script>
+<include target="_tool_validator_message.html" />
 
 <!-- Content -->
 <div class="upgle-container">
@@ -16,7 +8,9 @@ var n = noty({
     </div>
 
     <div class="setUp">
-        <form action="{Context::getRequestUri()}" target="form_iframe" method="post" enctype="multipart/form-data" onsubmit="return procFilter(this,insert_profile)" id="foProfile" class="form-horizontal form-config">
+        <form ruleset="tool_insertProfile" action="{Context::getRequestUri()}" method="post" enctype="multipart/form-data" class="form-horizontal form-config">
+            <input type="hidden" name="act" value="procUpgletyleProfileUpdate" />
+            <input type="hidden" name="module" value="upgletyle" />
             <input type="hidden" name="vid" value="{$vid}" />
             <input type="hidden" name="mid" value="{$mid}" />
             <input type="hidden" name="module_srl" value="{$module_srl}" />

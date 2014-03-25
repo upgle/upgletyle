@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+    <customrules>
+    </customrules>
+    <fields>
+		<field name="mid" required="true" />
+		<field name="post_style" required="true" />
+		<field name="post_list_count" required="true" />
+		<field name="category_list_count" required="true" />
+		<field name="rss_list_count" required="true" />
+		<field name="commnet_list_count" required="true" />
+		<field name="guestbook_list_count" required="true" />
+		<field name="rss_type" required="true" />
+		<field name="input_email" required="true" />
+		<field name="input_website" required="true" />
+    </fields>
+</ruleset>

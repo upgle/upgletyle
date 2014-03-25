@@ -94,6 +94,7 @@
 				break;
 				case 'topCenter': case 'center': case 'bottomCenter': case 'inline':
 					this.$bar.css({
+						padding: '3px',
 						borderRadius: '5px',
 						border: '1px solid #eee',
 						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
@@ -137,10 +138,9 @@
 					this.$bar.css({backgroundColor: 'red', borderColor: 'darkred', color: '#FFF'});
 					this.$message.css({fontWeight: 'bold'});
 					this.$buttons.css({borderTop: '1px solid darkred'}); break;
-				case 'information':
+				case 'information': case 'info':
 					this.$bar.css({backgroundColor: '#57B7E2', borderColor: '#0B90C4', color: '#FFF'});
 					this.$buttons.css({borderTop: '1px solid #0B90C4'}); break;
-				case 'info':
 				case 'success':
 					this.$bar.css({backgroundColor: 'lightgreen', borderColor: '#50C24E', color: 'darkgreen'});
 					this.$buttons.css({borderTop: '1px solid #50C24E'});break;

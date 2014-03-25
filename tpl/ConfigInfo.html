@@ -8,12 +8,11 @@
     </div>
 				
     <div class="setUp">
-        <form action="{Context::getRequestUri()}" method="post" enctype="multipart/form-data"  class="form-horizontal form-config">
+        <form ruleset="tool_insertBlogConfig" action="{Context::getRequestUri()}" method="post" enctype="multipart/form-data"  class="form-horizontal form-config">
             <input type="hidden" name="act" value="procUpgletyleInfoUpdate" />
             <input type="hidden" name="module" value="upgletyle" />
             <input type="hidden" name="mid" value="{$mid}" />
             <input type="hidden" name="vid" value="{$vid}" />
-            <input type="hidden" name="delete_icon" value="" />
 
             <fieldset>
                 <div class="page-header page-header-icon">
@@ -95,14 +94,11 @@
                     </div>
                 </div>
             </fieldset>
-            
-            <div class="btnArea">
-                <span class="btn"><input type="submit" value="{$lang->cmd_apply}" /></span>
-            </div>
+
+            <input type="submit" class="bts_btn bts_btn-primary pull-right" value="{$lang->cmd_apply}" />
 
         </form>
     </div>
 
 </div>
 <!-- /Content -->
-<iframe name="form_iframe" style="visibility:hidden;width:0px;height:0px;"></iframe>
