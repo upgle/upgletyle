@@ -89,7 +89,7 @@
 						borderBottom: '2px solid #eee',
 						borderLeft: '2px solid #eee',
 						borderRight: '2px solid #eee',
-						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)"
 					});
 				break;
 				case 'topCenter': case 'center': case 'bottomCenter': case 'inline':
@@ -97,7 +97,7 @@
 						padding: '3px',
 						borderRadius: '5px',
 						border: '1px solid #eee',
-						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)"
 					});
 					this.$message.css({fontSize: '13px', textAlign: 'center'});
 				break;
@@ -105,9 +105,10 @@
 				case 'bottomLeft': case 'bottomRight':
 				case 'centerLeft': case 'centerRight':
 					this.$bar.css({
+						padding: '4px',
 						borderRadius: '5px',
 						border: '1px solid #eee',
-						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)"
 					});
 					this.$message.css({fontSize: '13px', textAlign: 'left'});
 				break;
@@ -117,13 +118,13 @@
 						borderTop: '2px solid #eee',
 						borderLeft: '2px solid #eee',
 						borderRight: '2px solid #eee',
-						boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.1)"
+						boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.3)"
 					});
 				break;
 				default:
 					this.$bar.css({
 						border: '2px solid #eee',
-						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+						boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)"
 					});
 				break;
 			}
