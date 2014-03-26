@@ -263,7 +263,7 @@
     $lang->select_calendar_layer = '달력에서 날짜를 선택하기';
 
     $lang->about_upgletyle_admin = '콤마(,)를 이용하면 더 많은 관리자를 입력할 수 있습니다.';
-    $lang->insert_title = '제목을 입력해 주세요';
+    $lang->insert_title = '이곳에 제목을 입력해 주세요';
     $lang->new_post = '새글 쓰기';
     $lang->modify_post = '글 수정하기';
     $lang->posting_option = '글쓰기 옵션';
