@@ -3,13 +3,23 @@
 {Context::addMetaTag('viewport','width=device-width, initial-scale=1.0')}
 
 <!-- Menu icon list -->
-{@$_menu_icon=array('icon-dashboard','icon-article','icon-comment','icon-chart','icon-metablog','icon-design','icon-setting')}
+{@$_menu_icon=array(
+	'fa fa-tachometer',
+	'glyphicon glyphicon-list',
+	'fa fa-comment',
+	'glyphicon glyphicon-stats',
+	'glyphicon glyphicon-link',
+	'fa fa-crop',
+	'glyphicon glyphicon-cog' 
+)}
 
 <!-- Style sheet load -->
 <load target="css/bootstrap.css" />
 <load target="css/bootstrap-upgle.css" />
+<load target="css/bootstrap-theme.css" />
+
 <load target="css/upgle-category.css" />
-<load target="css/upgle-iconset.css" />
+<load target="css/font-awesome.min.css" />
 
 <!-- Javascript load -->
 <load target="js/tool_upgletyle.js" />
@@ -31,8 +41,9 @@
         <a class="navbar-brand" href="http://blog.upgle.com"><img src="img/hUpgletyle.png" width="127" height="42" alt="Upgletyle"/></a>
     </div>
 
+
     <div class="navbar-right" style="margin-top:6px;">
-        <div class="bts_btn-group">
+		<div class="bts_btn-group">
             <button type="button" class="bts_btn bts_btn-black bts_btn-sm dropdown-toggle" data-toggle="dropdown" >
             {$upgletyle->getUpgletyleTitle()} <span class="caret"></span>
             </button>
@@ -58,8 +69,8 @@
                 if($_sel == 'active') $eq = $i;                
             }
             <li class="{$_sel}"|cond="count($_sub)" class="nochild {$_sel}"|cond="!count($_sub)">
-                <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" class="first_menu" cond="$val[0]"><i class="{$_menu_icon[$i++]}"></i> {$val[1]}</a>
-                <div class="first_menu" cond="!$val[0]"><i class="{$_menu_icon[$i++]}"></i> {$val[1]}</div>
+                <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" class="first_menu" cond="$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]}</a>
+                <div class="first_menu" cond="!$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]}</div>
 
                 <!--submenu-->
                 <ul class="second_menu" cond="count($_sub) || count($_attached)">
