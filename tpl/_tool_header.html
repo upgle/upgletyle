@@ -3,33 +3,20 @@
 {Context::addMetaTag('viewport','width=device-width, initial-scale=1.0')}
 
 <!-- Menu icon list -->
-{@$_menu_icon=array(
-	'fa fa-tachometer',
-	'glyphicon glyphicon-list',
-	'fa fa-comment',
-	'glyphicon glyphicon-stats',
-	'glyphicon glyphicon-link',
-	'fa fa-crop',
-	'glyphicon glyphicon-cog' 
-)}
+{@$_menu_icon=array( 'fa fa-tachometer', 'glyphicon glyphicon-list', 'fa fa-comment', 'glyphicon glyphicon-stats', 'glyphicon glyphicon-link', 'fa fa-crop', 'glyphicon glyphicon-cog' )}
 
 <!-- Style sheet load -->
-<load target="css/bootstrap.css" />
+<load target="css/style.css" />
 <load target="css/bootstrap-upgle.css" />
-<load target="css/bootstrap-theme.css" />
-
-<load target="css/upgle-category.css" />
 <load target="css/font-awesome.min.css" />
 
 <!-- Javascript load -->
 <load target="js/tool_upgletyle.js" />
 <load target="js/jquery.cookie.js" />
-<load target="js/bootstrap.js" cond="__DEBUG__" />
-<load target="js/bootstrap.min.js" cond="!__DEBUG__" />
+<load target="js/bootstrap.min.js" />
 <load target="js/respond.min.js" />
 <load target="js/jquery.noty.packaged.min.js" index="9999" />
 <load target="js/jquery.noty.packaged.theme-upgle.js" index="9999" />
-
 
 <div class="navbar navbar-upgle navbar-static-top">
     <div class="navbar-header">
@@ -75,7 +62,12 @@
                 <!--submenu-->
                 <ul class="second_menu" cond="count($_sub) || count($_attached)">
                     <li loop="$_sub => $k, $v" class="active"|cond="$k==$act" cond="!in_array(strtolower($k), $custom_menu->hidden_menu) && $k != 'dispUpgletyleToolConfigEditorComponents'">
-                        <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$k)}">{$v}</a>
+                        <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$k)}">
+						{$v} 
+							<block cond="false">
+							<span class="badge" style="font-size:10px;background-color:#e8e8e8;color:#393939">100+</span>
+							</block>
+						</a>
                     </li>
                     <li loop="$_attached => $k, $v" class="active"|cond="$k==$act">
                         <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$k)}">{$v}</a>

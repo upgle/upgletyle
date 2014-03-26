@@ -1,0 +1,96 @@
+.item-skinbedge {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 20%;
+  img {
+    width: 100%;
+    min-width: 40px;
+    max-width: 57px;
+  }
+}
+
+.item-skinlist {
+  ul {
+    zoom: 1;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  }
+  li {
+    float: left;
+    padding: 30px 20px 0 0;
+    height: 240px;
+    width: 180px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  dl {
+    position: relative;
+    margin: 0;
+  }
+  dt {
+    padding: 120px 0 0 0;
+    a {
+      font-weight: bold;
+      color: #262626;
+      text-decoration: none;
+      zoom: 1;
+    }
+  }
+  dd {
+    position: relative;
+    margin: 0;
+    &.thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid #ddd;
+      margin-bottom: 40px;
+      padding: 8px;
+      a {
+        display: block;
+        padding: 8px;
+      }
+      img {
+        display: block;
+        border: 1px solid #f2f2f2;
+      }
+      em {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        width: 38px;
+        height: 38px;
+        background: url(../img/iconBest.png) no-repeat;
+        _background: none;
+        _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/iconBest.png', sizingMethod='crop');
+        span {
+          position: absolute;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          font-size: 0;
+          line-height: 0;
+          z-index: -1;
+          visibility: hidden;
+        }
+      }
+    }
+    &.meta {
+      font-size: 11px;
+      color: #8b8b8b;
+    }
+    &.download {
+      padding: 10px 0;
+      .btnGray button {
+        _top: -1px !important;
+      }
+    }
+  }
+}

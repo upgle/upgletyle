@@ -1,0 +1,141 @@
+//
+// Category
+// --------------------------------------------------
+
+
+#menu {
+
+  border: 1px solid #e3e5e7;
+  border-top: 2px solid #cbd4df;
+  border-bottom: 2px solid #cbd4df;
+  margin: 0;
+
+  .simpleTree {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      &.root {
+        background: none;
+        _zoom: 1;
+      }
+      span {
+        position: relative;
+        display: block;
+        background-color: #fafafa;
+        padding: 15px 10px 20px 19px;
+        margin: 0 0 -5px 0;
+        color: #555;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 1;
+        &.active {
+          background-color: #f5f5f5;
+          border: 0;
+        }
+      }
+      ul {
+        position: relative;
+        z-index: 2;
+        zoom: 1;
+      }
+      li {
+        border-top: 1px solid #e3e5e7;
+        background: none;
+        z-index: 1;
+        zoom: 1;
+        overflow: hidden;
+        span {
+          padding: 10px;
+          padding-left: 45px;
+          margin: 0;
+          background-color: #fff;
+          background-image: url(../img/iconFolderCategory.gif);
+          background-repeat: no-repeat;
+          background-position: 19px 10px;
+          font-size: 12px;
+          font-weight: normal;
+          cursor: move;
+        }
+        li {
+          span {
+            background-image: url(../img/bgHierarchy.gif);
+            background-repeat: no-repeat;
+            background-position: 35px 11px;
+            padding-left: 60px;
+            background-position: 50px 11px;
+          }
+          li {
+            span {
+              padding-left: 75px;
+              background-position: 65px 11px;
+            }
+            li {
+              span {
+                padding-left: 90px;
+                background-position: 80px 11px;
+              }
+              li {
+                span {
+                  padding-left: 105px;
+                  background-position: 95px 11px;
+                }
+                li span {
+                  padding-left: 120px;
+                  background-position: 110px 11px;
+                }
+              }
+            }
+          }
+        }
+        &.line, &.line-last {
+          border: 0;
+          margin: 0 0 -5px 0;
+          height: 5px !important;
+          background: none;
+          z-index: 2;
+        }
+        &.line-over, &.line-over-last {
+          border-top: 1px solid #e3e5e7;
+          margin: 0;
+          height: 5px !important;
+          background-color: #FFC;
+          background-image: none;
+          z-index: 2;
+        }
+      }
+      .add, .modify, .delete {
+        position: absolute;
+        top: 16px;
+        z-index: 2;
+        width: 13px;
+        height: 13px;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      li {
+        .add, .modify, .delete {
+          top: 11px;
+        }
+      }
+      .add {
+        right: 50px;
+        background-image: url(../img/iconAddCategory.gif);
+      }
+      .modify {
+        right: 35px;
+        background-image: url(../img/iconSetupCategory.gif);
+      }
+      .delete {
+        right: 20px;
+        background-image: url(../img/iconDelCategory.gif);
+      }
+      li .trigger, .add img, .modify img, .delete img {
+        display: none;
+      }
+    }
+  }
+}

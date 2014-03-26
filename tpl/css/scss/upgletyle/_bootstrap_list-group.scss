@@ -1,0 +1,42 @@
+/* list-group */
+
+.list-group.list-group-dashboard {
+  .list-group-item {
+    color: #648AB9;
+    .title {
+      color: #648AB9;
+      font-weight: bold;
+    }
+  }
+  .author {
+    color: #555;
+    font-weight: bold;
+  }
+  .info {
+    color: #8b8b8b;
+    margin-top: 6px;
+    .info-comment, .info-trackback {
+      margin-left: 6px;
+      font-size: 11px;
+    }
+  }
+  button.close {
+    color: #ea3f22;
+    margin-right: -8px;
+    margin-top: -3px;
+    font-size: 13px;
+    padding: 7px;
+    opacity: 1;
+  }
+  .pull-left {
+    margin-right: 10px;
+  }
+}
+
+.list-group-item-text {
+  line-height: 1.8;
+}
+
+.list-group.list-trackback select.input-sm {
+  padding: 5px 3px !important;
+}

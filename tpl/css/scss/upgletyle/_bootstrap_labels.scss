@@ -1,0 +1,20 @@
+
+/* label */
+.label {
+	font-size : 12px;
+	font-weight: normal;
+	padding: 2px 3px;
+}
+.label-published {
+	background-color:#ea4630;
+}
+.label-saved {
+	background-color:#e8e8e8;
+	color:#393939 !important;
+}
+.label-secret {
+	background-color:#9697b1;
+}
+.label-reserved {
+	background-color:#8079bf;
+}

@@ -1,0 +1,187 @@
+@media (max-width: ($grid-float-breakpoint-max) ) {
+  .navbar-collapse {
+    background-color: #fbfbfb;
+    border-top: 0;
+    border-bottom: 1px solid silver;
+    .navbar-nav {
+      margin-top: 0;
+      margin-bottom: 0;
+      > li > {
+        .first_menu {
+          cursor: pointer;
+          padding: 11px 0 11px 21px;
+          font-weight: bold;
+          background: url(../img/iconLnbOpen.gif) right 16px no-repeat;
+          line-height: 20px;
+          background-color: #f2f2f2;
+          border-top: 1px solid #d2d2d2;
+        }
+        ul.second_menu {
+          list-style: none;
+          border-top: 1px solid #e2e2e2;
+          padding-top: 6px;
+          padding-bottom: 6px;
+          a {
+            display: block;
+            padding: 3px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: ($grid-float-breakpoint) ) {
+  body {
+    background: url(../img/vrLnb.gif) -8px 0 #fefefe repeat-y;
+  }
+  /* input */
+  .input-xs {
+    height: 22px;
+    padding: 0px 0px 0px 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 0px;
+  }
+  select.input-xs {
+    height: 22px;
+    line-height: 22px;
+  }
+  textarea.input-xs {
+    height: auto;
+  }
+  .pull-right.search {
+    float: right !important;
+  }
+  .navbar-collapse.in {
+    overflow-y: initial;
+  }
+  .navbar {
+    .navbar-right {
+      display: block;
+      margin-right: 24px;
+      .nav > li > a {
+        padding-top: 11px;
+        padding-bottom: 11px;
+        color: #d1d1d4;
+        &:hover, &:focus {
+          background-color: #464c57;
+          color: #fff;
+        }
+      }
+    }
+    .navbar-collapse {
+      .navbar-nav .active ul {
+        display: block;
+      }
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      top: 44px;
+      width: 164px;
+      li {
+        float: none;
+        width: 164px;
+      }
+      .navbar-nav > li {
+        border-top: 1px solid #f8f8f8;
+        border-bottom: 1px solid #d2d2d2;
+        &:hover {
+          background-color: #f7f7f7;
+        }
+        > .first_menu {
+          .glyphicon, .fa {
+            margin-right: 3px;
+          }
+          cursor: pointer;
+          padding: 10px 0 10px 21px;
+          line-height: 20px;
+          background: url(../img/iconLnbOpen.gif) 143px 16px no-repeat;
+          &:hover {
+            background-color: #f7f7f7;
+          }
+        }
+        &.active {
+          background-color: #fbfbfb;
+          > .first_menu {
+            background-color: #fefefe !important;
+            color: #ea3f22 !important;
+            background: url(../img/iconLnbOpen.gif) 143px -30px no-repeat;
+            border-bottom: 1px solid #e2e2e2;
+          }
+        }
+        &.clicked > .first_menu {
+          background: url(../img/iconLnbOpen.gif) 143px -30px no-repeat;
+          border-bottom: 1px solid #e2e2e2;
+        }
+        &.active > .first_menu {
+          &:hover, &:focus {
+            background: url(../img/iconLnbOpen.gif) 143px -30px no-repeat;
+            border-bottom: 1px solid #e2e2e2;
+          }
+        }
+        &.nochild > .first_menu {
+          background: none !important;
+          border-bottom: 0;
+          &:hover, &:focus {
+            background: none !important;
+            border-bottom: 0;
+          }
+        }
+        > ul.second_menu {
+          list-style: none;
+          padding: 10px 0 6px 0;
+          background: url(../img/vrLnbSubmenu.gif) -8px 0;
+          > li {
+            font-size: 12px;
+            padding-left: 33px;
+            margin-bottom: 5px;
+          }
+        }
+        &.active > ul.second_menu {
+          background: none !important;
+          background-color: #fefefe !important;
+        }
+      }
+    }
+  }
+}
+
+
+.navbar-upgle {
+  &.navbar {
+    height: 42px;
+    background-color: #373c45;
+    background: linear-gradient(to bottom, #373c45, #333740);
+    box-shadow: 0px 0px 4px #5e646e;
+    border: 0;
+    border-bottom: 1px solid #161a21;
+    min-height: 42px !important;
+    .navbar-brand {
+      height: 42px;
+    }
+  }
+  .navbar-collapse .navbar-nav ul {
+    display: none;
+  }
+  .navbar-brand {
+    padding: 0 17px;
+  }
+  .navbar-collapse {
+    a {
+      color: #5b5d60 !important;
+    }
+    .navbar-nav ul > li.active > a {
+      color: #ea3f22 !important;
+      font-weight: bold;
+    }
+  }
+}
+
+.navbar-upgle .navbar-collapse .upgle-issue a {
+	font-weight: normal !important;
+	background:none !important;
+	padding: 7px 0 7px 21px !important;
+}
+
+.navbar-toggle { padding: 5px 10px; padding-right:0; border:1px solid silver}

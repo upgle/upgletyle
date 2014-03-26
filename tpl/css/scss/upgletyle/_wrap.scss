@@ -1,0 +1,23 @@
+
+.wrap  {
+	padding: 1px 20px; 
+
+	.page-header {
+		margin-top:0;
+		margin-bottom:20px;
+		padding-bottom:3px;
+		border-bottom: 1px solid #D1D1D1;
+
+		h4 {font-weight: bold}
+		small {margin-left:5px}
+	}
+}
+
+@media (min-width: ($grid-float-breakpoint) ) {
+
+  .wrap {
+    padding: 3px 35px 0 15px;
+    margin-left: 185px;
+  }
+
+}

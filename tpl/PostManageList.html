@@ -2,7 +2,7 @@
 
 
 <!-- Content -->
-<div class="upgle-container">
+<div class="wrap">
     <div class="page-header">
         <h4>{$lang->upgletyle_second_menus[1]['dispUpgletyleToolPostManageList']} <small>작성하신 포스트를 확인합니다.</small></h4>
     </div>
@@ -21,11 +21,11 @@
         </li>
     </ul>
 
-    <div class="item-listheader clearfix">
+    <div class="item-listheader clearfix" style="margin-top:28px">
         <p class="info pull-left">
             <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end-->
         </p>
-        <fieldset class="search pull-right">
+        <fieldset class="pull-right">
             <legend>{$lang->cmd_search}</legend>
             <form action="{Context::getRequestUri()}" class="form-inline">
                 <input type="hidden" name="published" value="{$published}" />
@@ -57,25 +57,21 @@
 
     <!-- /listHeader -->
     <!-- Table Data -->
-    <fieldset>
+    <fieldset style="margin-top:15px">
         <legend>{$lang->my_document_management}</legend>
         <form action="" method="post">
 
-
-            <div class="table-responsive">
-            <table cellspacing="0" summary="{$lang->content_list}" class="table table-hover table-upgle table-condensed">
+            <table cellspacing="0" summary="{$lang->content_list}" class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th scope="col">
+                        <th scope="col" width="15" class="visible-lg visible-md visible-sm">
                             <input type="checkbox" class="inputCheck" onclick="jQuery('input.boxlist').click()" />
                         </th>
-                        <th scope="col">{$lang->category}</th>
-                        <th scope="col">{$lang->status}</th>
-                        <th scope="col" class="title">{$lang->title}</th>
-                        <th scope="col">{$lang->comment}</th>
-                        <th scope="col">{$lang->last_update}</th>
-                        <th scope="col" class="visible-lg visible-md">&nbsp;</th>
-                        <th scope="col" class="item-center">{$lang->cmd_delete}</th>
+                        <th scope="col" width="12%" class="visible-lg visible-md visible-sm"  >{$lang->category}</th>
+                        <th scope="col" width="44">{$lang->status}</th>
+                        <th scope="col">{$lang->title}</th>
+                        <th scope="col" width="148" class="visible-lg visible-md">&nbsp;</th>
+                        <th scope="col" class="visible-lg visible-md visible-sm">휴지통</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,10 +81,10 @@
                     </tr>
                     <!--@else-->
                     <tr loop="$post_list => $no, $post">
-                        <td>
+                        <td class="visible-lg visible-md visible-sm">
                             <input type="checkbox" name="document_srl" value="{$post->document_srl}" class="inputCheck boxlist" />
                         </td>
-                        <td>{$category_list[$post->get('category_srl')]->title}&nbsp;</td>
+                        <td class="visible-lg visible-md visible-sm">{$category_list[$post->get('category_srl')]->title}&nbsp;</td>
                         <td>
                             <!--@if($post->type=='temp')-->
                                 <a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" title="{$lang->click_publish}" alt="{$lang->click_publish}"><strong class="publishState draft"><span>{$lang->temp}</span></strong></a>
@@ -102,12 +98,20 @@
                                 <span class="label label-published">{$lang->publish}</span>
                             <!--@end-->
                         </td>
-                        <td class="title"><a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="postTitle" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a> 
-                        {$post->printExtraImages()}
+                        <td>
+							<div class="title">
+							<a href="{getUrl('act','dispUpgletyleToolPostManageWrite','document_srl',$post->document_srl,'page',$page)}" class="title" title="Tag : {$post->get('tags')}">{$post->getTitle()}</a>
+							<span class="hide_menu">
+							<a href="#"><i class="fa fa-sign-out"></i>새창</a> 
+							</span>
+							</div>
+							<div class="post_info">
+								필자: <strong>{$post->get('nick_name')}</strong> / 
+								최근 수정일: <strong>{zdate($post->get('last_update'),'Y.m.d')}</strong><block cond="$post->getCommentCount()"> / <i class="fa fa-comments-o"></i> <strong>{$post->getCommentCount()}</strong></block>
+							</div>
+
                         </td>
-                        <td>{$post->getCommentCount()}</td>
-                        <td>{zdate($post->get('last_update'),'Y.m.d')}</td>
-                        <td width="150" class="visible-lg visible-md">
+                        <td class="visible-lg visible-md">
 
                             <div class="bts_btn-group">
                             <button type="button" onclick="doTogglePostItem({$post->document_srl}, 'comment')" class="bts_btn bts_btn-default bts_btn-xs toggle-{$offon[$post->allowComment()]}"><span class="glyphicon glyphicon-comment"></span></button>
@@ -121,14 +125,13 @@
                             <a href="{getUrl('act','dispUpgletyleToolPostManagePublish','document_srl',$post->document_srl,'page',$page)}" class="bts_btn bts_btn-default bts_btn-xs">{$lang->publish_update_go}</a>
                             <!--@end-->
                         </td>
-                        <td width="50" class="text-center">
+                        <td width="50" class="visible-lg visible-md visible-sm text-center">
                             <button type="button" class="item-deletebutton" onclick="trashPostItem({$post->document_srl},{$page})"><span class="text-hide">{$lang->cmd_delete}</span></button>
                         </td>
                     </tr>
                     <!--@end-->
                 </tbody>
             </table>
-            </div>
 
             <div class="item-changecontroller pull-left">
                 {$lang->selected_articles}
