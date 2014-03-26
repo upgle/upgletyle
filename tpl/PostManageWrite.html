@@ -9,8 +9,8 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 <!-- Content -->
 <div class="upgle-container">
     <div class="page-header">
-        <h4 cond="$document_srl">{$lang->modify_post} <small>블로그의 종합정보를 출력합니다.</small></h4>
-        <h4 cond="!$document_srl">{$lang->new_post} <small>새 포스트를 작성합니다.</small></h4>
+        <h4 cond="$document_srl">{$lang->modify_post} <small>작성된 포스트를 수정합니다.</small></h4>
+        <h4 cond="!$document_srl">{$lang->new_post} <small>블로그에 새 포스트를 작성합니다.</small></h4>
     </div>
 
     <div class="row">
@@ -22,8 +22,8 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 
         <div class="col-md-8">
             
-            <div class="form-group well ">
-            <input type="text" name="title" class="form-control" value="{htmlspecialchars($oDocument->getTitleText())}"|cond="$oDocument->getTitleText()" placeholder="{$lang->insert_title}">
+            <div class="form-group well well-sm" style="border-radius:3px">
+            <input type="text" name="title" class="form-control input-lg" value="{htmlspecialchars($oDocument->getTitleText())}"|cond="$oDocument->getTitleText()" placeholder="{$lang->insert_title}" style="border-radius:3px">
             </div>
 
 			<!-- Upgletyle Editor -->
@@ -73,32 +73,11 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                           <input type="checkbox" id="checkTrackback" name="allow_trackback" value="Y" checked="checked"|cond="$from_saved || $oDocument->allowTrackback()" /> {$lang->allow_trackback}
                         </label>
                     </li>
-
                 </ul>
             </div>
-			
-			{$metabox}
 
-            <div class="panel panel-default" cond="$daumview">
-                <div class="panel-heading clearfix">
-                    <strong class="pull-left">메타 블로그</strong>
-                    <button type="button" onclick="doSyncDaumview({$document_srl});return false;" class="bts_btn bts_btn-default bts_btn-xs pull-right"><span class="glyphicon glyphicon-refresh"></span> 동기화</button>
-                </div>
-                <!-- 송고되지 않았을 경우 -->
-                <div class="panel-body" cond="!$daumview_log">
-                    <label for="daumview_category">다음 VIEW 송고</label>
-                    <select name="daumview_category" id="daumview_category" class="form-control input-sm">
-                        <option value=''>송고하지않음</option>
-                        <option loop="$daumview_category => $key, $val" value='{$val['trackback_url']}'>{$val['full_name']}</option>
-                    </select>
-                    <span class="help-block">카테고리를 선택하시면 발행과 함께 글을 송고합니다.</span>
-                </div>
-                <!-- 송고되었을 경우 -->
-                <div class="panel-body" cond="$daumview_log">
-                    <label for="daumview_category">다음 VIEW 송고</label>
-                    <span class="help-block">{$daumview_category[$daumview_log->category_id]['full_name']} 송고됨</span>
-                </div>
-            </div>
+			<!--메타박스 출력-->
+			{$metabox}
 
             <div class="panel panel-default">
                 <div class="panel-heading">
