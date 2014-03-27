@@ -59,3 +59,71 @@
     background: url(../img/iconH5.gif) 5px 3px no-repeat;
   }
 }
+
+
+/* item-subjectlist */
+.item-subjectlist {
+  position: relative;
+  margin-bottom: 20px;
+  border-top: 2px solid #cbd4df;
+  border-bottom: 2px solid #cbd4df;
+  overflow: hidden;
+  .item {
+    position: relative;
+    padding: 20px 0;
+    border-top: 1px solid #e3e5e7;
+    top: -1px;
+    a {
+      color: #648AB9;
+    }
+    dl {
+      margin: 0;
+    }
+    dt {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      font-size: 11px;
+      color: #bababa;
+      zoom: 1;
+    }
+    dd {
+      margin: 0;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+      font-size: 12px;
+      img, object, embed {
+        max-width: 100%;
+        _width: 100%;
+      }
+    }
+    .goPost {
+      margin: 0;
+      text-align: right;
+    }
+    .materialCart {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+    .btnDeleteSubject {
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      top: 15px;
+      right: 0;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      background: transparent url(../img/buttonTableDataX.gif) no-repeat center center;
+      span {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        font-size: 0;
+        line-height: 0;
+      }
+    }
+  }
+}

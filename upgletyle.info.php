@@ -228,7 +228,14 @@
             return $this->get('subscription_date');
         }
 
-        function getProfilePhotoSrc(){
+        function getProfilePhotoSrc($manual_src = false){
+            if(!$this->isExists()) return;
+            $oUpgletyleModel = &getModel('upgletyle');
+            $src = $oUpgletyleModel->getUpgletylePhotoSrc($this->member_srl, $manual_src);
+            return $src;
+        }
+
+        function getProfilePhotoSrcManualDefault(){
             if(!$this->isExists()) return;
             $oUpgletyleModel = &getModel('upgletyle');
             $src = $oUpgletyleModel->getUpgletylePhotoSrc($this->member_srl);

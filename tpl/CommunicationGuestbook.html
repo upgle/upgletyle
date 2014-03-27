@@ -3,24 +3,28 @@
 <!-- Content -->
 <div class="wrap">
     <div class="page-header">
-        <h4>{$lang->upgletyle_second_menus[2]['dispUpgletyleToolCommunicationGuestbook']} <small>블로그에 작성된 방명록을 모아볼 수 있습니다.</small></h4>
+        <h4><i class="fa fa-envelope"></i>  {$lang->upgletyle_second_menus[2]['dispUpgletyleToolCommunicationGuestbook']} <small>블로그에 작성된 방명록을 모아볼 수 있습니다.</small></h4>
     </div>
 
     <!-- listHeader -->
-    <div class="item-listheader clearfix">
-        <p class="info pull-left"> <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end--></p>
-        <fieldset class="search pull-right">
-            <legend>{$lang->cmd_search}</legend>
+    <div class="table-guide table-guide-responsive row clearfix">
+		<div class="col-md-4">
+			<p class="info"> <!--@if($search_keyword)-->{sprintf($lang->search_result_count,$page_navigation->total_count)}<!--@else-->{sprintf($lang->total_result_count,$page_navigation->total_count)}<!--@end--></p>
+		</div>
+		<div class="col-md-8 text-right">
+		<fieldset class="search_box">
+			<legend>{$lang->cmd_search}</legend>
             <form action="{Context::getRequestUri()}" class="form-inline">
                 <input type="hidden" name="act" value="{$act}" />
                 <input type="hidden" name="mid" value="{$mid}" />
                 <input type="hidden" name="vid" value="{$vid}" />
                 <div class="form-group">
-                <input name="search_keyword" type="text" value="{$search_keyword}" title="{$lang->cmd_search}" class="form-control input-xs" />
+                <input name="search_keyword" type="text" value="{$search_keyword}" title="{$lang->cmd_search}" class="form-control input-sm" />
                 </div>
-                <input type="submit" value="{$lang->cmd_search}" class="bts_btn bts_btn-default bts_btn-xs" />
+                <input type="submit" value="{$lang->cmd_search}" class="bts_btn bts_btn-default bts_btn-sm" />
             </form>
         </fieldset>
+		</div>
     </div>
     <!-- /listHeader -->
 				

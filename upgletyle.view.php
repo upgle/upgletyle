@@ -479,6 +479,7 @@
             $args->category_srl = Context::get('search_category_srl');
             $args->sort_index = Context::get('sort_index');
             //$args->order_type = Context::get('order_type');
+			$args->list_count = 18;
 
             $published = Context::get('published');
             $logged_info = Context::get('logged_info');

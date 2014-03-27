@@ -35,24 +35,6 @@
   body {
     background: url(../img/vrLnb.gif) -8px 0 #fefefe repeat-y;
   }
-  /* input */
-  .input-xs {
-    height: 22px;
-    padding: 0px 0px 0px 6px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 0px;
-  }
-  select.input-xs {
-    height: 22px;
-    line-height: 22px;
-  }
-  textarea.input-xs {
-    height: auto;
-  }
-  .pull-right.search {
-    float: right !important;
-  }
   .navbar-collapse.in {
     overflow-y: initial;
   }

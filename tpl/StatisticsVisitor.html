@@ -6,7 +6,7 @@
 <div class="wrap">
 				
     <div class="page-header">
-        <h4>{$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']} <small>방문자 현황을 그래프로 출력합니다.</small></h4>
+        <h4><span class="glyphicon glyphicon-stats"></span> {$lang->upgletyle_second_menus[3]['dispUpgletyleToolStatisticsVisitor']} <small>방문자 현황을 그래프로 출력합니다.</small></h4>
     </div>
 
     <!-- contentNavigation -->
@@ -132,20 +132,9 @@
 <load target="js/jquery.flot.min.js" cond="!__DEBUG__" />
 <load target="js/jquery.flot.resize.js" cond="__DEBUG__" />
 <load target="js/jquery.flot.resize.min.js" cond="!__DEBUG__" />
-<load target="js/jquery.easypiechart.js" cond="__DEBUG__" />
-<load target="js/jquery.easypiechart.min.js" cond="!__DEBUG__" />
 
 <script type="text/javascript">
 jQuery(function($) {
-
-    $('.easypiechart').easyPieChart({
-        lineWidth : 6,
-        lineCap : 'butt',
-        size : 90,
-        scaleColor : '#dddddd',
-        trackColor : '#cdcdcd',
-        barColor : '#eb3058'
-    });
 
     //  jQuery Flot Chart
     var visits = [{$chart_value_last}];

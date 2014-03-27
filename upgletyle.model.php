@@ -302,17 +302,19 @@
         /**
          * @brief get upgletyle photo source
          **/
-        function getUpgletylePhotoSrc($member_srl) {
+        function getUpgletylePhotoSrc($member_srl, $manual_src = false) {
             $oMemberModel = &getModel('member');
             $info = $oMemberModel->getProfileImage($member_srl);
             $filename = $info->file;
 
-            if(!file_exists($filename)) return $this->getUpgletyleDefaultPhotoSrc();
+            if(!file_exists($filename)) return $this->getUpgletyleDefaultPhotoSrc($manual_src);
             return $info->src;
         }
 
-        function getUpgletyleDefaultPhotoSrc(){
-            return sprintf("%s%s%s", Context::getRequestUri(), $this->module_path, 'tpl/img/iconNoProfile.gif');
+        function getUpgletyleDefaultPhotoSrc($manual_src){
+			if(!$manual_src) $manual_src = 'tpl/img/iconNoProfile.gif';
+            $default =  sprintf("%s%s%s", Context::getRequestUri(), $this->module_path, $manual_src);
+			return $default;
         }
 
         function getUpgletyleFaviconPath($module_srl) {

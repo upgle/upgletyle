@@ -3,26 +3,21 @@
 .table {
   border-top: 2px solid #919fb2;
   border-bottom: 2px solid #919fb2;
-  > thead > tr > th {
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
-    border-bottom: 1px solid #e3e5e7;
-    font-weight: normal !important;
-    font-size: 13px;
+  > thead > tr {
+  	  background-color:#f9f9f9 !important;
+	  > th {
+		border-bottom: 1px solid #e3e5e7;
+		font-weight: normal !important;
+		font-size: 13px;
+		a {
+			color:#252a2f;
+			font-weight:bold;
+		}
+	  }
   }
   .title {
-    margin-top: -3px;
     font-size: 13px;
     font-weight: bold;
-  }
-  .post_info {
-    margin-top: 4px;
-    color: #878787;
-    font-size: 11px;
-    strong {
-      font-weight: normal;
-      color: #7f7f7f;
-    }
   }
 }
 
@@ -30,7 +25,7 @@
   thead > tr > th, tbody > tr > th, 
   tfoot > tr > th, thead > tr > td, 
   tbody > tr > td, tfoot > tr > td {
-    padding: 11px 3px 9px 6px;
+    padding: 6px 3px 6px 6px;
   }
 }
 
@@ -42,7 +37,7 @@
 	thead > tr > td, 
 	tbody > tr > td, 
 	tfoot > tr > td {
-      vertical-align: top;
+      vertical-align: middle;
     }
     tbody > tr {
       .hide_menu {
@@ -63,4 +58,53 @@
     color: #ea3f22 !important;
     font-weight: bold;
   }
+}
+
+
+.table-bordered > thead > tr > th, 
+.table-bordered > thead > tr > td, 
+.table-bordered > tbody > tr > th, 
+.table-bordered > tbody > tr > td, 
+.table-bordered > tfoot > tr > th, 
+.table-bordered > tfoot > tr > td
+{
+	border:0;
+	border-top:1px solid #dddddd;
+	padding:9px 25px;
+}
+
+/* table-guide */
+.table-guide {
+	margin-top: 25px;
+	margin-bottom:10px;
+	.info {
+		margin: 0;
+		line-height:27px;
+		strong {
+			color:#ea3f22;
+		}
+	}
+	.input-sm {
+		height:28px;
+		padding: 5px 7px;
+	}
+	.bts_btn-sm, .bts_btn-group-sm > .bts_btn {
+		padding: 4px 10px;
+	}
+}
+@media (min-width: $screen-xs-min) and (max-width: $screen-sm-max) {
+	.table-guide.table-guide-responsive {
+		margin-left: 0;
+		margin-right: 0;
+		min-height: 20px;
+		padding: 14px 14px 16px 14px;
+		margin-bottom: 20px;
+		background-color: $well-bg;
+		border: 1px solid $well-border;
+		border-radius: $border-radius-base;
+
+		.search_box {
+			text-align:left !important;
+		}
+	}
 }

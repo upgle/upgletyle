@@ -57,3 +57,103 @@ fieldset legend {display:none;}
   padding-left: 23px;
   background: url(../img/iconH5.gif) 5px 3px no-repeat;
 }
+
+/* item-nodata */
+p.item-nodata {
+	display:inline-block !important;
+	margin-top:45px;
+	margin-bottom:45px;
+	padding:10px 30px;
+	color:#333;font-weight:bold;font-size:14px;text-align:center;
+	background:url(../img/iconNoData.gif) no-repeat left center;
+}
+
+/* change controller */
+.item-changecontroller {
+	padding:6px 0 0 45px;
+	float:left;
+	background:url(../img/lineListFooterL.gif) no-repeat 20px top;
+}
+
+
+
+/* item-deletebutton */
+.item-deletebutton {
+  border: 0;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background: transparent url(../img/buttonTableDataX.gif) no-repeat center 5px;
+  cursor: pointer;
+}
+
+/* item-favicon */
+.item-favicon {
+  position: relative;
+  width: 180px;
+  height: 140px;
+  background: url(../img/bgFavicon.gif) no-repeat;
+  .iconFavicon {
+    position: absolute;
+    left: 89px;
+    &.url {
+      top: 31px;
+    }
+    &.tab {
+      top: 63px;
+    }
+  }
+  .deleteFavicon {
+    position: absolute;
+    top: 105px;
+    right: 0;
+    width: 17px;
+    height: 17px;
+    padding: 0;
+    border: 0;
+    background: transparent url(../img/buttonTableDataX.gif) no-repeat center center;
+    cursor: pointer;
+    span {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      font-size: 0;
+      line-height: 0;
+      visibility: hidden;
+      z-index: -1;
+    }
+  }
+}
+
+/* Item Profile */
+.item-profile {
+  position: relative;
+  .profilePhoto {
+    display: block;
+    border: 1px solid #b0bfde;
+    clear: both;
+    margin-bottom: 5px;
+  }
+  .deletePhoto {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 17px;
+    height: 17px;
+    padding: 0;
+    border: 0;
+    background: transparent url(../img/buttonTableDataX.gif) no-repeat center center;
+    cursor: pointer;
+    span {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      font-size: 0;
+      line-height: 0;
+      visibility: hidden;
+      z-index: -1;
+    }
+  }
+}

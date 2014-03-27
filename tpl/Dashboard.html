@@ -9,7 +9,7 @@
 </style>
 <div class="wrap">
     <div class="page-header">
-        <h4>알림판 <small>블로그의 종합정보를 출력합니다.</small></h4>
+        <h4><span class="glyphicon glyphicon-dashboard"></span> 알림판 <small>블로그의 종합정보를 출력합니다.</small></h4>
     </div>
 
     <div class="row">
@@ -91,10 +91,14 @@
                     <block cond="!count($guestbook_list)">{$lang->newest_no_guestbooks}</block>
                     <div class="media" loop="$guestbook_list => $k, $v" cond="count($guestbook_list)">
                         <a class="pull-left" href="#">
-                            <img class="media-object" src="./img/iconEmoticonDefault.gif" alt="...">
+							<!--@if($v->profile_image)-->
+                            <img class="media-object" src="{$v->profile_image}" width="39" height="39" alt="{$v->nick_name}">
+							<!--@else-->
+                            <img class="media-object" src="./img/iconEmoticonDefault.gif" width="39" height="39" alt="profile">
+							<!--@end-->
                         </a>
                         <div class="media-body" style="line-height:20px">
-                            <strong>{$v->nick_name}</strong> <a href="{getUrl('','mid',$mid,'act','dispUpgletyleToolCommunicationGuestbookReply','upgletyle_guestbook_srl',$v->upgletyle_guestbook_srl)}">{strip_tags($v->content)}</a>
+                            <strong>{$v->nick_name}</strong> <a href="{getUrl('','mid',$mid,'act','dispUpgletyleToolCommunicationGuestbookReply','upgletyle_guestbook_srl',$v->upgletyle_guestbook_srl)}">{cut_str(strip_tags($v->content), 110, '...')}</a>
                         </div>
                     </div>
                 </div>
@@ -111,7 +115,11 @@
                 <li class="list-group-item">
                     <button type="button" class="close" onclick="deleteCommentItem({$val->comment_srl},1)" aria-hidden="true">&times;</button>
                     <p class="list-group-item-text clearfix">
-                        <img class="pull-left" style="margin-right:10px;" src="./img/iconEmoticonDefault.gif" alt="...">
+						<!--@if($_profile_image)-->
+						<img class="pull-left" src="{$_profile_image}" width="39" height="39" alt="profile">
+						<!--@else-->
+                        <img class="pull-left" style="margin-right:10px;" src="./img/iconEmoticonDefault.gif" alt="profile">
+						<!--@end-->
                         <span class="member_{$val->get('member_srl')} author">{$val->getNickName()}</span> <a href="{$val->getPermanentUrl()}" target="_blank">{$val->getSummary(70)}</a>
                     </p>
                 </li>

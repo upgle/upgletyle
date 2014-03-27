@@ -50,12 +50,18 @@
 
 // Upgletyle Admin
 @import "upgletyle/common";
+@import "upgletyle/login";
 @import "upgletyle/wrap";
 @import "upgletyle/category";
-@import "upgletyle/bookmarklet";
 @import "upgletyle/skinlist";
+@import "upgletyle/widgetlist";
 @import "upgletyle/pagination";
+@import "upgletyle/bookmarklet";
+@import "upgletyle/codearea";
+@import "upgletyle/communication";
 
+// Upgletyle Pageset
+@import "upgletyle/dashboard";
 
 // Bootstrap Theme
 @import "upgletyle/bootstrap_theme";

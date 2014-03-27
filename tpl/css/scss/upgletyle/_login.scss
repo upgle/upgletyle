@@ -1,0 +1,22 @@
+/* login page styleseet */
+
+.login-header {
+  background-color: #383D49;
+  margin-bottom: 80px;
+  height: 35px;
+  overflow: hidden;
+  .login-brand {
+    display: block;
+    margin-left: 20px;
+    margin-top: -4px;
+    width: 128px;
+    img {
+      width: 128px;
+      height: 42px;
+    }
+  }
+}
+
+.well.well-loginbox {
+  padding: 10px 29px !important;
+}

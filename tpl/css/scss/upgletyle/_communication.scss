@@ -1,0 +1,36 @@
+tr {
+  &.item-communication {
+    .thumb img {
+      width: 39px;
+      height: 39px;
+      border: 1px solid #afb7cc;
+    }
+    dl.content {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      > dt {
+        margin-bottom: 3px;
+      }
+    }
+    .state, .email, .ipaddress {
+      font-size: 11px;
+    }
+    .state {
+      color: #ea3f22;
+      em {
+        font-style: normal;
+        color: #8b8b8b;
+      }
+    }
+    .yymmdd, .hhmm {
+      color: #8b8b8b;
+      font-size: 11px;
+      font-weight: normal;
+    }
+  }
+  &.item-communication-button td {
+    border-top: 0 !important;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+  }
+}
