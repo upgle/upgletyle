@@ -1,4 +1,8 @@
 @media (max-width: ($grid-float-breakpoint-max) ) {
+  .navbar {
+    .navbar-right { display:none }
+   }
+
   .navbar-collapse {
     background-color: #fbfbfb;
     border-top: 0;
@@ -166,4 +170,10 @@
 	padding: 7px 0 7px 21px !important;
 }
 
-.navbar-toggle { padding: 5px 10px; padding-right:0; border:1px solid silver}
+.navbar-toggle { 
+	padding: 5px 6px;
+	border:1px solid #999eaa;
+	.icon-bar {
+		background-color:#b1b6c1;
+	}
+}
