@@ -7,8 +7,6 @@
 
 <!-- Style sheet load -->
 <load target="css/style.css" />
-<load target="css/bootstrap-upgle.css" />
-<load target="css/font-awesome.min.css" />
 
 <!-- Javascript load -->
 <load target="js/tool_upgletyle.js" />
@@ -55,7 +53,7 @@
                 if($_sel == 'active') $eq = $i;                
             }
             <li class="{$_sel}"|cond="count($_sub)" class="nochild {$_sel}"|cond="!count($_sub)">
-                <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" class="first_menu" cond="$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]} <span class="badge" style="font-size:10px;background-color:#59c1d7;">5</span></a>
+                <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" class="first_menu" cond="$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]}</a>
                 <div class="first_menu" cond="!$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]}</div>
 
                 <!--submenu-->
