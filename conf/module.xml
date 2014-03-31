@@ -71,7 +71,6 @@
 		<permission action="getUpgletyleAPITest" target="manager" />
 
 		<permission action="procUpgletyleProfileUpdate" target="manager" />
-		<permission action="procUpgletyleProfileImageUpload" target="manager" />
 		<permission action="procUpgletyleInfoUpdate" target="manager" />
 		<permission action="procUpgletyleDaumviewInfoUpdate" target="manager" />
 		<permission action="procSyncDaumview" target="manager" />
@@ -183,7 +182,6 @@
 		<action name="procUpgletyleDenyInsertList" type="controller" />
 		<action name="procUpgletyleDenyDelete" type="controller" />
 		<action name="procUpgletyleProfileUpdate" type="controller" />
-		<action name="procUpgletyleProfileImageUpload" type="controller" />
 		<action name="procUpgletyleInfoUpdate" type="controller" />
 		<action name="procUpgletyleDaumviewInfoUpdate" type="controller" />
 

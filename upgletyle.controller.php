@@ -215,22 +215,16 @@
                 $this->deleteUpgletylePhoto($this->module_srl);
             }
 
-			$this->setMessage('success_updated');
-			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolConfigProfile','vid',Context::get('vid'));
-			$this->setRedirectUrl($returnUrl);
-
-        }
-
-        function procUpgletyleProfileImageUpload() {
-            $oMemberController = &getController('member');
-
+			//profile image upload
             $photo = Context::get('photo');
             if($this->upgletyle && Context::isUploaded() && is_uploaded_file($photo['tmp_name'])) {
                 $oMemberController->insertProfileImage($this->upgletyle->member_srl, $photo['tmp_name']);
             }
 
-            $this->setTemplatePath($this->module_path.'tpl');
-            $this->setTemplateFile('move_myupgletyle');
+
+			$this->setMessage('success_updated');
+			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolConfigProfile','vid',Context::get('vid'));
+			$this->setRedirectUrl($returnUrl);
         }
 
         function deleteUpgletylePhoto($module_srl){
