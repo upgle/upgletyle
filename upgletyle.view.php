@@ -110,8 +110,7 @@
 
             Context::set('custom_menu', $custom_menu);
 
-
-            if($oUpgletyleModel->ishiddenMenu($oModule->act) || ($oModule->act == 'dispUpgletyleToolDashboard' && $oUpgletyleModel->isHiddenMenu(0)) ) {
+            if($oUpgletyleModel->isHiddenMenu($oModule->act) || ($oModule->act == 'dispUpgletyleToolDashboard' && $oUpgletyleModel->isHiddenMenu(0)) ) {
                 if($oUpgletyleModel->isHiddenMenu(0)) Context::set('act', $oModule->act = 'dispUpgletyleToolPostManageList', true);
                 else Context::set('act', $oModule->act= 'dispUpgletyleToolDashboard', true);
             }
@@ -1354,7 +1353,7 @@
         /**
          * @brief Upgletyle home
          **/
-    function dispUpgletyle()
+		function dispUpgletyle()
         {
 
         	//$this->module_info->skin
