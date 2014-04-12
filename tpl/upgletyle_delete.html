@@ -5,6 +5,8 @@
 <form action="./" method="get" onsubmit="return procFilter(this, delete_upgletyle)" class="section">
 	<input type="hidden" name="page" value="{$page}" />
 	<input type="hidden" name="site_srl" value="{$upgletyle_info->site_srl}" />
+	<input type="hidden" name="module_srl" value="{$upgletyle_info->module_srl}" />
+
 	<h1>{$lang->confirm_delete}</h1>
 	<table class="x_table x_table-striped x_table-hover">
 		<thead>

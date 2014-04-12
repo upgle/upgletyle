@@ -20,14 +20,16 @@
             $oModuleModel = &getModel('module');
 
             $user_id = Context::get('user_id');
+			if(!$user_id) return new Object(-1,'msg_invalid_request');
+
+            $access_type = Context::get('access_type');
             $domain = preg_replace('/^(http|https):\/\//i','', trim(Context::get('domain')));
             $vid = trim(Context::get('site_id'));
 
-            if($domain && $vid) unset($vid);
-            if(!$domain && $vid) $domain = $vid;
+			if($access_type == 'local') $domain = 0;
+			elseif($access_type == 'vid') $domain = $vid;
+			if($access_type != 'local' && !$domain) return new Object(-1,'msg_invalid_request');
 
-            if(!$user_id) return new Object(-1,'msg_invalid_request');
-            if(!$domain) return new Object(-1,'msg_invalid_request');
 
             $tmp_user_id_list = explode(',',$user_id);
             $user_id_list = array();
@@ -35,7 +37,9 @@
                 $v = trim($v);
                 if($v) $user_id_list[] = $v;
             }
+
             if(count($user_id_list)==0) return new Object(-1,'msg_invalid_request');
+
 
             $output = $this->insertUpgletyle($domain, $user_id_list);
             if(!$output->toBool()) return $output;
@@ -67,29 +71,34 @@
             	$member_srl = $oMemberModel->getMemberSrlByEmailAddress($user_id_list[0]);
             }
             if(!$member_srl) return new Object(-1,'msg_not_user');
-
             $member_info = $oMemberModel->getMemberInfoByMemberSrl($member_srl);
 
-            if(strpos($domain, '.') !== false) $domain = strtolower($domain);
-            $output = $oModuleController->insertSite($domain, 0);
-            if(!$output->toBool()) return $output;
-            $site_srl = $output->get('site_srl');
+			$site_srl = 0;
+			if($domain)
+			{
+				if(strpos($domain, '.') !== false) $domain = strtolower($domain);
+				$output = $oModuleController->insertSite($domain, 0);
+				if(!$output->toBool()) return $output;
+				$site_srl = $output->get('site_srl');
+			}
 
+			//insert a upgletyle module
             $upgletyle->site_srl = $site_srl;
             $upgletyle->mid = $this->upgletyle_mid;
             $upgletyle->module = 'upgletyle';
             $upgletyle->module_srl = getNextSequence();
             $upgletyle->skin = ($settings->skin) ? $settings->skin : $this->skin;
             $upgletyle->browser_title = ($settings->title) ? $settings->title : sprintf("%s's Upgletyle", $member_info->nick_name);
+
             $output = $oModuleController->insertModule($upgletyle);
-
             if(!$output->toBool()) return $output;
-            //$module_srl = $output->get('module_srl');
-            $module_srl = $upgletyle->module_srl;
 
-            $site->site_srl = $site_srl;
+
+			$module_srl = $upgletyle->module_srl;
+
+			$site->site_srl = $site_srl;
             $site->index_module_srl = $module_srl;
-			$site->domain = $domain;
+			if($domain) $site->domain = $domain;
             $output = $oModuleController->updateSite($site);
 
             $output = $oModuleController->insertSiteAdmin($site_srl, $user_id_list);
@@ -168,7 +177,7 @@
             if(!file_exists(FileHandler::getRealPath($file))){
                 $file = sprintf('%ssample/ko.html',$this->module_path);
             }
-            $oMemberModel = &getModel('member');
+            $oMemberModel = &getModel('member');         
 			if($identifierName == "user_id") {
             	$member_srl = $oMemberModel->getMemberSrlByUserID($user_id_list[0]);
             	}
@@ -185,7 +194,7 @@
             $doc->nick_name = $member_info->nick_name;
             $doc->email_address = $member_info->email_address;
             $doc->homepage = $member_info->homepage;
-            $oDocumentController->insertDocument($doc, true);
+            $output = $oDocumentController->insertDocument($doc, true);
 
             $output = new Object();
             $output->add('module_srl',$module_srl);
@@ -193,13 +202,69 @@
         }
 
         function procUpgletyleAdminUpdate(){
-            $vars = Context::gets('site_srl','user_id','domain','access_type','vid','module_srl','member_srl');
-            if(!$vars->site_srl) return new Object(-1,'msg_invalid_request');
 
-            if($vars->access_type == 'domain') $args->domain = strtolower($vars->domain);
-            else $args->domain = $vars->vid;
-            if(!$args->domain) return new Object(-1,'msg_invalid_request');
+			//get Module's model and controller
+			$oModuleModel = getModel('module');
+            $oModuleController = getController('module');
 
+			$vars = Context::gets('site_srl','user_id','domain','access_type','vid','module_srl','member_srl');
+			if(!$vars->module_srl) return new Object(-1,'msg_invalid_request');
+
+            if($vars->access_type == 'domain') 
+				$args->domain = strtolower($vars->domain);
+			else $args->domain = $vars->vid;
+            if(!$args->domain && $vars->access_type != 'local') 
+				return new Object(-1,'msg_invalid_request');
+
+			//Change site srl of upgletyle module
+			if($vars->access_type == 'local' && $vars->site_srl)
+			{
+				$_args->site_srl = 0;
+				$_args->module = 'upgletyle';
+				$local_module_list = $oModuleModel->getModuleSrlList($_args);		
+				unset($_args);
+
+				if($local_module_list) 
+					return new Object(-1,'msg_already_registed_domain');
+				
+				$_args->site_srl = $vars->site_srl;
+				$module_list = $oModuleModel->getModuleSrlList($_args);
+
+				foreach($module_list as $k => $v) {
+					$oModuleController->updateModuleSite($v->module_srl, 0);
+				}
+				executeQuery('module.deleteSite', $_args);
+				executeQuery('module.deleteSiteAdmin', $_args);
+				executeQuery('member.deleteMemberGroup', $_args);
+				executeQuery('member.deleteSiteGroup', $_args);
+				executeQuery('module.deleteLangs', $_args);
+				unset($_args);
+
+				//change site_srl to 0(default)
+				$vars->site_srl = 0;
+				$_args->site_srl = $vars->site_srl;
+				$_args->index_module_srl = $vars->module_srl;
+				$output = $oModuleController->updateSite($_args);
+				if(!$output->toBool()) return $output;
+				unset($_args);
+			}
+			elseif($vars->access_type != 'local' && $vars->site_srl == 0)
+			{
+				if(strpos($args->domain, '.') !== false) $args->domain = strtolower($args->domain);
+				$output = $oModuleController->insertSite($args->domain, 0);
+				if(!$output->toBool()) return $output;
+				$vars->site_srl = $output->get('site_srl');
+
+				$output = $oModuleController->updateModuleSite($vars->module_srl, $vars->site_srl);
+				if(!$output->toBool()) return $output;
+
+				$_args->site_srl = $vars->site_srl;
+				$_args->index_module_srl = $vars->module_srl;
+				$output = $oModuleController->updateSite($_args);
+				if(!$output->toBool()) return $output;
+				unset($_args);
+			}
+         
             $oMemberModel = &getModel('member');
 			$member_config = $oMemberModel->getMemberConfig();
 			
@@ -224,16 +289,13 @@
                 }
             }
 
-            $oModuleModel = &getModel('module');
             $site_info = $oModuleModel->getSiteInfo($vars->site_srl);
             if(!$site_info) return new Object(-1,'msg_invalid_request');
 
-            $oModuleController = &getController('module');
             $output = $oModuleController->insertSiteAdmin($vars->site_srl, $admin_list);
             if(!$output->toBool()) return $output;
 
             $oModuleController->deleteAdminId($vars->module_srl);
-
             foreach($admin_list as $k => $v){
                 $output = $oModuleController->insertAdminId($vars->module_srl, $v);
                 // TODO : insertAdminId return value
@@ -241,9 +303,11 @@
                 if(!$output->toBool()) return $output;
             }
 
-            $args->site_srl = $vars->site_srl;
-            $output = $oModuleController->updateSite($args);
-            if(!$output->toBool()) return $output;
+			if($vars->site_srl)	{
+				$args->site_srl = $vars->site_srl;
+				$output = $oModuleController->updateSite($args);
+				if(!$output->toBool()) return $output;
+			}
 
             unset($args);
             $args->module_srl = $vars->module_srl;
@@ -376,6 +440,7 @@
 		}
 
         function procUpgletyleAdminDelete() {
+
             $oModuleController = &getController('module');
             $oCounterController = &getController('counter');
             $oAddonController = &getController('addon');
@@ -384,10 +449,8 @@
             $oModuleModel = &getModel('module');
 
             $site_srl = Context::get('site_srl');
-            if(!$site_srl) return new Object(-1,'msg_invalid_request');
-
-            $site_info = $oModuleModel->getSiteInfo($site_srl);
-            $module_srl = $site_info->index_module_srl;
+            $module_srl = Context::get('module_srl');
+            if(!$module_srl) return new Object(-1,'msg_invalid_request');
 
             $oUpgletyle = new UpgletyleInfo($module_srl);
             if($oUpgletyle->module_srl != $module_srl) return new Object(-1,'msg_invalid_request');
@@ -395,32 +458,37 @@
             $output = $oModuleController->deleteModule($module_srl);
             if(!$output->toBool()) return $output;
 
-            $args->site_srl = $oUpgletyle->site_srl;
-            executeQuery('module.deleteSite', $args);
-            executeQuery('module.deleteSiteAdmin', $args);
-            executeQuery('member.deleteMemberGroup', $args);
-            executeQuery('member.deleteSiteGroup', $args);
-            executeQuery('module.deleteLangs', $args);
+			//Delete site info, except default site
+			if($oUpgletyle->site_srl)
+			{
+				$args->site_srl = $oUpgletyle->site_srl;
+				executeQuery('module.deleteSite', $args);
+				executeQuery('module.deleteSiteAdmin', $args);
+				executeQuery('member.deleteMemberGroup', $args);
+				executeQuery('member.deleteSiteGroup', $args);
+				executeQuery('module.deleteLangs', $args);
             
-        	//clear cache for default mid
-            $vid = $site_info->domain;
-            $mid = $site_info->mid;
-            $oCacheHandler = &CacheHandler::getInstance('object');
-            if($oCacheHandler->isSupport()){
-            	$cache_key = 'object_default_mid:'.$vid.'_'.$mid;
-            	$oCacheHandler->delete($cache_key);
-            	$cache_key = 'object_default_mid:'.$vid.'_';
-            	$oCacheHandler->delete($cache_key);
-            }
-            
-            $lang_supported = Context::get('lang_supported');
-            foreach($lang_supported as $key => $val) {
-                $lang_cache_file = _XE_PATH_.'files/cache/lang_defined/'.$args->site_srl.'.'.$key.'.php';
-                FileHandler::removeFile($lang_cache_file);
-            }
-            $oCounterController->deleteSiteCounterLogs($args->site_srl);
-            $oAddonController->removeAddonConfig($args->site_srl);
-            $oEditorController->removeEditorConfig($args->site_srl);
+				//clear cache for default mid
+				$site_info = $oModuleModel->getSiteInfo($site_srl);
+				$vid = $site_info->domain;
+				$mid = $site_info->mid;
+				$oCacheHandler = &CacheHandler::getInstance('object');
+				if($oCacheHandler->isSupport()){
+					$cache_key = 'object_default_mid:'.$vid.'_'.$mid;
+					$oCacheHandler->delete($cache_key);
+					$cache_key = 'object_default_mid:'.$vid.'_';
+					$oCacheHandler->delete($cache_key);
+				}
+				
+				$lang_supported = Context::get('lang_supported');
+				foreach($lang_supported as $key => $val) {
+					$lang_cache_file = _XE_PATH_.'files/cache/lang_defined/'.$args->site_srl.'.'.$key.'.php';
+					FileHandler::removeFile($lang_cache_file);
+				}
+				$oCounterController->deleteSiteCounterLogs($args->site_srl);
+				$oAddonController->removeAddonConfig($args->site_srl);
+				$oEditorController->removeEditorConfig($args->site_srl);
+			}
 
             $args->module_srl = $module_srl;
             executeQuery('upgletyle.deleteUpgletyle', $args);
