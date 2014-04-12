@@ -169,8 +169,12 @@
                 $file = sprintf('%ssample/ko.html',$this->module_path);
             }
             $oMemberModel = &getModel('member');
-            $member_info = $oMemberModel->getMemberInfoByEmailAddress($user_id_list[0]);
-
+			if($identifierName == "user_id") {
+            	$member_srl = $oMemberModel->getMemberSrlByUserID($user_id_list[0]);
+            	}
+            else {
+            	$member_srl = $oMemberModel->getMemberSrlByEmailAddress($user_id_list[0]);
+            }
             $doc->module_srl = $module_srl;
             $doc->title = Context::getLang('sample_title');
             $doc->tags = Context::getLang('sample_tags');
