@@ -89,6 +89,7 @@
             $upgletyle->module_srl = getNextSequence();
             $upgletyle->skin = ($settings->skin) ? $settings->skin : $this->skin;
             $upgletyle->browser_title = ($settings->title) ? $settings->title : sprintf("%s's Upgletyle", $member_info->nick_name);
+			$upgletyle->isMenuCreate = FALSE;
 
             $output = $oModuleController->insertModule($upgletyle);
             if(!$output->toBool()) return $output;
@@ -246,7 +247,7 @@
 				$_args->index_module_srl = $vars->module_srl;
 				$output = $oModuleController->updateSite($_args);
 				if(!$output->toBool()) return $output;
-				unset($_args);
+				unset($_args);		
 			}
 			elseif($vars->access_type != 'local' && $vars->site_srl == 0)
 			{
