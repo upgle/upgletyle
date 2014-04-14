@@ -83,7 +83,8 @@
             	if($item->isIdentifier) $identifierName = $item->name;
             }
             Context::set('identifier',$identifierName);
-            
+       
+
             $module_srl = Context::get('module_srl');
             if($module_srl) {
                 $oUpgletyleModel = &getModel('upgletyle');
@@ -97,7 +98,6 @@
                     	if($identifierName == 'user_id')  $site_admin[] = $v->user_id;
                     	   else $site_admin[] = $v->email_address;
                     }
-
                     Context::set('site_admin', join(',',$site_admin));
                 }
             }

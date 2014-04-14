@@ -45,8 +45,11 @@
             array('comment.deleteComment', 'upgletyle', 'controller', 'triggerDeleteComment', 'after'),
             array('trackback.insertTrackback', 'upgletyle', 'controller', 'triggerInsertTrackback', 'after'),
             array('trackback.deleteTrackback', 'upgletyle', 'controller', 'triggerDeleteTrackback', 'after'),
-            array('moduleHandler.proc', 'upgletyle', 'controller', 'triggerApplyLayout', 'after')
+            array('moduleHandler.proc', 'upgletyle', 'controller', 'triggerApplyLayout', 'after'),
+            array('module.deleteModule', 'upgletyle', 'controller', 'triggerDeleteModule', 'after')
         );
+
+
 
         /**
          * @brief module install

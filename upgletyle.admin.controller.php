@@ -89,7 +89,6 @@
             $upgletyle->module_srl = getNextSequence();
             $upgletyle->skin = ($settings->skin) ? $settings->skin : $this->skin;
             $upgletyle->browser_title = ($settings->title) ? $settings->title : sprintf("%s's Upgletyle", $member_info->nick_name);
-			$upgletyle->isMenuCreate = FALSE;
 
             $output = $oModuleController->insertModule($upgletyle);
             if(!$output->toBool()) return $output;
@@ -217,6 +216,8 @@
             if(!$args->domain && $vars->access_type != 'local') 
 				return new Object(-1,'msg_invalid_request');
 
+			$module_info = $oModuleModel->getModuleInfoByModuleSrl($vars->module_srl);
+
 			//Change site srl of upgletyle module
 			if($vars->access_type == 'local' && $vars->site_srl)
 			{
@@ -247,10 +248,61 @@
 				$_args->index_module_srl = $vars->module_srl;
 				$output = $oModuleController->updateSite($_args);
 				if(!$output->toBool()) return $output;
-				unset($_args);		
+				unset($_args);
+
+				//insert menu
+				$oMenuAdminModel = getAdminModel('menu');
+				$oMenuAdminController = getAdminController('menu');
+
+				$menuSrl = $oMenuAdminController->getUnlinkedMenu();
+				$menuArgs->menu_srl = $menuSrl;
+				$menuArgs->menu_item_srl = getNextSequence();
+				$menuArgs->parent_srl = 0;
+				$menuArgs->open_window = 'N';
+				$menuArgs->url = $module_info->mid;
+				$menuArgs->expand = 'N';
+				$menuArgs->is_shortcut = 'N';
+				$menuArgs->name = $module_info->browser_title;
+				$menuArgs->listorder = $menuSrl * -1;
+
+				$menuItemOutput = executeQuery('menu.insertMenuItem', $menuArgs);
+				if(!$menuItemOutput->toBool()) return $menuItemOutput;
+				$oMenuAdminController->makeXmlFile($menuSrl);
+
+				//updade module's menu_srl
+				$_args->menu_srl = $menuArgs->menu_srl;
+				$_args->mid = $module_info->mid;
+				$output = $oModuleController->updateModuleMenu($_args);
+				if(!$output->toBool()) return $output;
+				unset($_args);
 			}
 			elseif($vars->access_type != 'local' && $vars->site_srl == 0)
 			{
+				//Delete menu
+				$oMenuAdminModel = getAdminModel('menu');
+				$oMenuAdminController = getAdminController('menu');
+
+				$_args = new stdClass();
+				$_args->url = $module_info->mid;
+				$_args->site_srl = 0;
+				$output = executeQuery('menu.getMenuItemByUrl', $_args);
+				if($output->data)
+				{
+					unset($_args);
+					$_args = new stdClass;
+					$_args->menu_srl = $output->data->menu_srl;
+					$_args->menu_item_srl = $output->data->menu_item_srl;
+
+					$output = executeQuery('menu.getChildMenuCount', $_args);
+					if(!$output->toBool()) return $output;
+					if($output->data->count > 0)
+					{
+						return new Object(-1, 'msg_cannot_delete_for_child');
+					}
+					$output = executeQuery('menu.deleteMenuItem', $_args);
+					$oMenuAdminController->makeXmlFile($_args->menu_srl);
+				}
+
 				if(strpos($args->domain, '.') !== false) $args->domain = strtolower($args->domain);
 				$output = $oModuleController->insertSite($args->domain, 0);
 				if(!$output->toBool()) return $output;
@@ -442,72 +494,16 @@
 
         function procUpgletyleAdminDelete() {
 
-            $oModuleController = &getController('module');
-            $oCounterController = &getController('counter');
-            $oAddonController = &getController('addon');
-            $oEditorController = &getController('editor');
-            $oUpgletyleModel = &getModel('upgletyle');
-            $oModuleModel = &getModel('module');
-
             $site_srl = Context::get('site_srl');
             $module_srl = Context::get('module_srl');
             if(!$module_srl) return new Object(-1,'msg_invalid_request');
 
             $oUpgletyle = new UpgletyleInfo($module_srl);
             if($oUpgletyle->module_srl != $module_srl) return new Object(-1,'msg_invalid_request');
-
+            
+			$oModuleController = &getController('module');
             $output = $oModuleController->deleteModule($module_srl);
             if(!$output->toBool()) return $output;
-
-			//Delete site info, except default site
-			if($oUpgletyle->site_srl)
-			{
-				$args->site_srl = $oUpgletyle->site_srl;
-				executeQuery('module.deleteSite', $args);
-				executeQuery('module.deleteSiteAdmin', $args);
-				executeQuery('member.deleteMemberGroup', $args);
-				executeQuery('member.deleteSiteGroup', $args);
-				executeQuery('module.deleteLangs', $args);
-            
-				//clear cache for default mid
-				$site_info = $oModuleModel->getSiteInfo($site_srl);
-				$vid = $site_info->domain;
-				$mid = $site_info->mid;
-				$oCacheHandler = &CacheHandler::getInstance('object');
-				if($oCacheHandler->isSupport()){
-					$cache_key = 'object_default_mid:'.$vid.'_'.$mid;
-					$oCacheHandler->delete($cache_key);
-					$cache_key = 'object_default_mid:'.$vid.'_';
-					$oCacheHandler->delete($cache_key);
-				}
-				
-				$lang_supported = Context::get('lang_supported');
-				foreach($lang_supported as $key => $val) {
-					$lang_cache_file = _XE_PATH_.'files/cache/lang_defined/'.$args->site_srl.'.'.$key.'.php';
-					FileHandler::removeFile($lang_cache_file);
-				}
-				$oCounterController->deleteSiteCounterLogs($args->site_srl);
-				$oAddonController->removeAddonConfig($args->site_srl);
-				$oEditorController->removeEditorConfig($args->site_srl);
-			}
-
-            $args->module_srl = $module_srl;
-            executeQuery('upgletyle.deleteUpgletyle', $args);
-            executeQuery('upgletyle.deleteUpgletyleFavorites', $args);
-            executeQuery('upgletyle.deleteUpgletyleTags', $args);
-            executeQuery('upgletyle.deleteUpgletyleVoteLogs', $args);
-            executeQuery('upgletyle.deleteUpgletyleMemos', $args);
-            executeQuery('upgletyle.deleteUpgletyleReferer', $args);
-            executeQuery('upgletyle.deleteUpgletyleApis', $args);
-            executeQuery('upgletyle.deleteUpgletyleGuestbook', $args);
-            executeQuery('upgletyle.deleteUpgletyleSupporters', $args);
-            executeQuery('upgletyle.deleteUpgletyleDenies', $args);
-            executeQuery('upgletyle.deleteUpgletyleSubscriptions', $args);
-            executeQuery('upgletyle.deletePublishLogs', $args);
-
-            @FileHandler::removeFile(sprintf("files/cache/upgletyle/textyle_deny/%d.php",$module_srl));
-
-            FileHandler::removeDir($oUpgletyleModel->getUpgletylePath($module_srl));
 
             $this->add('module','upgletyle');
             $this->add('page',Context::get('page'));

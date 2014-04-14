@@ -42,13 +42,21 @@ function deleteBlogApiService(srl) {
 
 function toggleAccessType(target) {
 	switch(target) {
+		case 'local' :
+				xGetElementById('upgletyleFo').domain.value = '';
+				xGetElementById('accessLocal').style.display = 'block';
+				xGetElementById('accessDomain').style.display = 'none';
+				xGetElementById('accessVid').style.display = 'none';
+			break;
 		case 'domain' :
 				xGetElementById('upgletyleFo').domain.value = '';
+				xGetElementById('accessLocal').style.display = 'none';
 				xGetElementById('accessDomain').style.display = 'block';
 				xGetElementById('accessVid').style.display = 'none';
 			break;
 		case 'vid' :
 				xGetElementById('upgletyleFo').vid.value = '';
+				xGetElementById('accessLocal').style.display = 'none';
 				xGetElementById('accessDomain').style.display = 'none';
 				xGetElementById('accessVid').style.display = 'block';
 			break;

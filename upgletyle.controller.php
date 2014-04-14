@@ -1975,6 +1975,71 @@
         /**
          * @brief action forward apply layout
          **/
+        function triggerDeleteModule(&$obj) {
+
+            $oModuleController = &getController('module');
+            $oCounterController = &getController('counter');
+            $oAddonController = &getController('addon');
+            $oEditorController = &getController('editor');
+            $oUpgletyleModel = &getModel('upgletyle');
+            $oModuleModel = &getModel('module');
+
+            $oUpgletyle = new UpgletyleInfo($module_srl);
+
+			//Delete site info, except default site
+			if($oUpgletyle->site_srl)
+			{
+				$args->site_srl = $oUpgletyle->site_srl;
+				executeQuery('module.deleteSite', $args);
+				executeQuery('module.deleteSiteAdmin', $args);
+				executeQuery('member.deleteMemberGroup', $args);
+				executeQuery('member.deleteSiteGroup', $args);
+				executeQuery('module.deleteLangs', $args);
+            
+				//clear cache for default mid
+				$site_info = $oModuleModel->getSiteInfo($site_srl);
+				$vid = $site_info->domain;
+				$mid = $site_info->mid;
+				$oCacheHandler = &CacheHandler::getInstance('object');
+				if($oCacheHandler->isSupport()){
+					$cache_key = 'object_default_mid:'.$vid.'_'.$mid;
+					$oCacheHandler->delete($cache_key);
+					$cache_key = 'object_default_mid:'.$vid.'_';
+					$oCacheHandler->delete($cache_key);
+				}
+				
+				$lang_supported = Context::get('lang_supported');
+				foreach($lang_supported as $key => $val) {
+					$lang_cache_file = _XE_PATH_.'files/cache/lang_defined/'.$args->site_srl.'.'.$key.'.php';
+					FileHandler::removeFile($lang_cache_file);
+				}
+				$oCounterController->deleteSiteCounterLogs($args->site_srl);
+				$oAddonController->removeAddonConfig($args->site_srl);
+				$oEditorController->removeEditorConfig($args->site_srl);
+			}
+
+            $args->module_srl = $module_srl;
+            executeQuery('upgletyle.deleteUpgletyle', $args);
+            executeQuery('upgletyle.deleteUpgletyleFavorites', $args);
+            executeQuery('upgletyle.deleteUpgletyleTags', $args);
+            executeQuery('upgletyle.deleteUpgletyleVoteLogs', $args);
+            executeQuery('upgletyle.deleteUpgletyleMemos', $args);
+            executeQuery('upgletyle.deleteUpgletyleReferer', $args);
+            executeQuery('upgletyle.deleteUpgletyleApis', $args);
+            executeQuery('upgletyle.deleteUpgletyleGuestbook', $args);
+            executeQuery('upgletyle.deleteUpgletyleSupporters', $args);
+            executeQuery('upgletyle.deleteUpgletyleDenies', $args);
+            executeQuery('upgletyle.deleteUpgletyleSubscriptions', $args);
+            executeQuery('upgletyle.deletePublishLogs', $args);
+
+            @FileHandler::removeFile(sprintf("files/cache/upgletyle/textyle_deny/%d.php",$module_srl));
+            FileHandler::removeDir($oUpgletyleModel->getUpgletylePath($module_srl));
+		}
+
+
+        /**
+         * @brief action forward apply layout
+         **/
         function triggerApplyLayout(&$oModule) {
             if(!$oModule || $oModule->getLayoutFile()=='popup_layout.html') return new Object();
 
