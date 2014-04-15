@@ -46,10 +46,9 @@
             array('trackback.insertTrackback', 'upgletyle', 'controller', 'triggerInsertTrackback', 'after'),
             array('trackback.deleteTrackback', 'upgletyle', 'controller', 'triggerDeleteTrackback', 'after'),
             array('moduleHandler.proc', 'upgletyle', 'controller', 'triggerApplyLayout', 'after'),
-            array('module.deleteModule', 'upgletyle', 'controller', 'triggerDeleteModule', 'after')
+            array('module.deleteModule', 'upgletyle', 'controller', 'triggerDeleteModule', 'after'),
+            array('moduleHandler.init', 'upgletyle', 'controller', 'triggerModuleInitBefore', 'before')
         );
-
-
 
         /**
          * @brief module install
@@ -60,7 +59,6 @@
             foreach($this->add_triggers as $trigger) {
                 $oModuleController->insertTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
             }
-
         }
 
         /**
@@ -76,6 +74,7 @@
 
 			//post_list_count 컬럼 체크
 			if(!$oDB->isColumnExists("upgletyle","category_list_count")) return true;
+			if(!$oDB->isColumnExists("upgletyle","permalink")) return true;
 
             return false;
         }
@@ -95,7 +94,9 @@
             }
 
 			//post_list_count 컬럼 추가
-			if(!$oDB->isColumnExists("upgletyle","category_list_count")) $oDB->addColumn('upgletyle',"category_list_count","number",2,30,true);
+			if(!$oDB->isColumnExists("upgletyle","category_list_count")) $oDB->addColumn('upgletyle',"category_list_count","varchar",2,30,true);
+			if(!$oDB->isColumnExists("upgletyle","permalink")) $oDB->addColumn('upgletyle',"permalink","varchar",40,'permalink_default',true);
+
 
 			return new Object(0, 'success_updated');
         }

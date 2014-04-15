@@ -351,5 +351,24 @@
             $output = executeQueryArray('upgletyle.getApis', $args);
             return $output->data;
         }
+
+        function getPermalinkType() {
+			$type_arr = array('permalink_default','permalink_fulldate','permalink_shortdate');
+			if(in_array($this->get('permalink'),$type_arr)) {
+				$permalink_type = str_replace('permalink_','',$this->get('permalink'));
+			}
+			else {
+				$permalink_type = 'userdefined';
+			}
+
+            return $permalink_type;
+        }
+		function getUserdefinedPermalink() {
+			$type_arr = array('permalink_default','permalink_fulldate','permalink_shortdate');
+			if(!in_array($this->get('permalink'),$type_arr)) {
+				return $this->get('permalink');
+			}
+			else return;
+		}
    }
 ?>

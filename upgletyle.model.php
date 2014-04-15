@@ -536,55 +536,83 @@
 		}
 
 
-		function getUsedDBStorage($type = 'mysql', $module_srl) {
+		function getPermalinkUrl($type='default',$args)
+		{
 
-            $cache_file = sprintf("%sfiles/cache/upgletyle/%sdashboard.used-database.cache", _XE_PATH_,getNumberingPath($module_srl));
+			// retrieve virtual site information				
+			$site_module_info = Context::get('site_module_info');
 
-            if(!file_exists($cache_file) || filemtime($cache_file)+ 60*60 < time()) {
-				if($type == 'mysql')
+			// If $domain, $vid are not set, use current site information
+			if($site_module_info->domain && isSiteID($site_module_info->domain))
+			{
+				$vid = $site_module_info->domain;
+			}
+			else
+			{
+				$domain = $site_module_info->domain;
+			}
+
+			// if $domain is set, compare current URL. If they are same, remove the domain, otherwise link to the domain.
+			if($domain)
+			{
+				$domain_info = parse_url($domain);
+				$current_info = parse_url(($_SERVER['HTTPS'] == 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . getScriptPath());
+
+				if($domain_info['host'] . $domain_info['path'] == $current_info['host'] . $current_info['path']) unset($domain);
+				else
 				{
-					$oDB = &DB::getInstance();
-					if(!in_array($oDB->db_type, array('mysql','mysqli'))) return false;
-
-					$query = $oDB->_query('SHOW TABLE STATUS');
-					$result = $oDB->_fetch($query);
-
-					$total_database = 0;
-					foreach($result as $key => $val) {
-						$total_database += $val->Data_length + $val->Index_length;
-					}
-					$total_database = sprintf("%d",$total_database/(1024*1024));
-				}
-				FileHandler::writeFile($cache_file, $total_database);
-			}
-			if(file_exists($cache_file)) {
-				return FileHandler::readFile($cache_file, $total_database);
-			}
-			return false;
-		}
-
-		function getUsedTraffic($type = 'throttle-me', $extend = '3.1.2p4', $url, $module_srl) {
-
-            $cache_file = sprintf("%sfiles/cache/upgletyle/%sdashboard.traffic.cache", _XE_PATH_,getNumberingPath($module_srl));
-
-            if(!file_exists($cache_file) || filemtime($cache_file)+ 10*60 < time()) {
-				$body = FileHandler::getRemoteResource($url);
-				if($body) FileHandler::writeFile($cache_file, $body);
-				else FileHandler::removeFile($cache_file);
-			}
-			if(file_exists($cache_file)) {
-				if($type =='throttle-me' && $extend=='3.1.2p4') {
-					$buff = file($cache_file);
-					$result = new stdClass();
-					$result->sent = sprintf("%d",strip_tags($buff[43]) / 1024);
-					$result->limit = sprintf("%d",strip_tags(eregi_replace("M", "",$buff[47])));
-					if($result->sent !=0 && $result->limit != 0) {
-						$percent = ($result->sent/$result->limit)*100;
-						$result->percent = sprintf("%d",$percent);
+					$domain = preg_replace('/^(http|https):\/\//i', '', trim($domain));
+					if(substr_compare($domain, '/', -1) !== 0)
+					{
+						$domain .= '/';
 					}
 				}
+			}	
+
+
+			$args->p_month = sprintf("%02d",$args->p_month);
+			$args->p_day = sprintf("%02d",$args->p_day);
+
+			$target_map = array(
+				'default' => $args->document_srl,
+				'fulldate' => "$args->p_year/$args->p_month/$args->p_day/$args->entry",
+				'shortdate' => "$args->p_year/$args->p_month/$args->entry",
+			);
+			$query = $target_map[$type];
+
+			// If using SSL always
+			$_use_ssl = Context::get('_use_ssl');
+			if($_use_ssl == 'always')
+			{
+				$query = Context::getRequestUri(ENFORCE_SSL, $domain) . $query;
+				// optional SSL use
 			}
-			return $result;
+			elseif($_use_ssl == 'optional')
+			{
+				$ssl_mode = ($get_vars['act'] && Context::isExistsSSLAction($get_vars['act'])) ? ENFORCE_SSL : RELEASE_SSL;
+				$query = Context::getRequestUri($ssl_mode, $domain) . $query;
+				// no SSL
+			}
+			else
+			{
+				// currently on SSL but target is not based on SSL
+				if($_SERVER['HTTPS'] == 'on')
+				{
+					$query = Context::getRequestUri(ENFORCE_SSL, $domain) . $query;
+				}
+				else if($domain) // if $domain is set
+				{
+					$query = Context::getRequestUri(FOLLOW_REQUEST_SSL, $domain) . $query;
+				}
+				else
+				{
+					$query = getScriptPath() . $query;
+				}
+			}
+
+			return $query;
+			//return htmlspecialchars($query, ENT_COMPAT | ENT_HTML401, 'UTF-8', FALSE);
 		}
+
 	}
 ?>

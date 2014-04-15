@@ -246,7 +246,11 @@
 
             if(in_array(strtolower('dispUpgletyleToolConfigInfo'),$this->custom_menu->hidden_menu)) return new Object(-1,'msg_invalid_request');
 
-            $args = Context::gets('upgletyle_title','upgletyle_content','timezone');
+            $args = Context::gets('upgletyle_title','upgletyle_content','permalink','permalink_userdefined','timezone');
+			if($args->permalink == 'permalink_userdefined') {
+				$args->permalink = ($args->permalink_userdefined)? $args->permalink_userdefined : 'archive';
+			}
+
 			$args->module_srl = $this->module_srl;
             $output = executeQuery('upgletyle.updateUpgletyleInfo',$args);
             if(!$output->toBool()) return $output;
@@ -271,7 +275,6 @@
 			$this->setMessage('success_updated');
 			$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'mid', 'upgletyle', 'act', 'dispUpgletyleToolConfigInfo','vid',Context::get('vid'));
 			$this->setRedirectUrl($returnUrl);
-
         }
 
         function insertUpgletyleFavicon($module_srl, $source) {
@@ -1948,29 +1951,171 @@
             $oRssAdminController->setRssModuleConfig($myupgletyle->getModuleSrl(), 'N');
         }
 
-       /**
-         * @brief trigger member menu
-         **
-        function triggerMemberMenu(&$obj) {
-            $member_srl = Context::get('target_srl');
-            if(!$member_srl) return new Object();
 
-            $args->member_srl = $member_srl;
-            $output = executeQuery('upgletyle.getUpgletyle', $args);
-            if(!$output->toBool() || !$output->data) return new Object();
+        /**
+         * @brief action before module init
+         **/
+        function triggerModuleInitBefore(&$obj) {
+		
+			$up_act = Context::get('up_act');
+			switch($up_act)
+			{
+				case 'up-setup' :
+				  header('location:' . getNotEncodedUrl('', 'module', 'admin', 'act', 'dispUpgletyleAdminList'));
+				  Context::close();
+				  exit;				
+				  break;
+				case 'up-admin' :
+				  $obj->mid = 'upgletyle';
+				  $obj->act = 'dispUpgletyleToolLogin';
+				  Context::set('act','dispUpgletyleToolLogin');
+				  break;
+				case 'up-post' :
+				  $obj->mid = 'upgletyle';
+				  $obj->act = 'dispUpgletyleToolPostManageWrite';
+				  Context::set('act','dispUpgletyleToolPostManageWrite');
+				  break;
+			}
+			$this->_redirectToPermalink($obj);
+		}
 
-            $site_module_info = Context::get('site_module_info');
-            $default_url = Context::getDefaultUrl();
+		private function _getRequestUriPermalinkType() {
 
-            if($site_module_info->site_srl && !$default_url) return new Object();
+			$regexs = array(
+				'default' => '([0-9]+)',
+				'userdefined' => '([a-zA-Z0-9_]+)/([0-9]+)',
+				'shortdate' => '([0-9]{4})/([0-9]{2})/([^/]+)',
+				'fulldate' =>  '([0-9]{4})/([0-9]{2})/([0-9]{2})/([^/]+)',
+			);
 
-            $url = getSiteUrl($default_url, '','mid',$output->data->mid);
-            $oMemberController = &getController('member');
-            $oMemberController->addMemberPopupMenu($url, 'upgletyle', './modules/upgletyle/tpl/images/upgletyle.gif');
+			$site_module_info = Context::get('site_module_info');		
+			if($site_module_info->site_srl && isSiteID($site_module_info->domain))	{
+				foreach($regexs as $key => $regex)
+					$regexs[$key] = '([a-zA-Z0-9_]+)/'.$regex;
+			}
 
-            return new Object();
-        }
-        */
+			$uri = $_SERVER['REQUEST_URI'];
+			if (stripos($uri, $_SERVER['SCRIPT_NAME']) === 0)
+			{
+				$uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
+			}
+			elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0)
+			{
+				$uri = substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
+			}
+			$path = parse_url($uri, PHP_URL_PATH);
+			$path = str_replace(array('//', '../'), '/', trim($path, '/'));
+
+			foreach($regexs as $key => $regex)
+			{
+				if(preg_match('#^' . $regex . '$#', $path, $matches))
+				{
+					return $key; 
+				}
+			}
+			return;
+		}
+
+		private function _redirectToPermalink(&$obj) {
+
+			debugPrint($obj);
+
+			if($obj->act) return;
+			if(!Context::isAllowRewrite()) return;
+
+
+			$oModuleModel = getModel('module');
+			$site_module_info = Context::get('site_module_info');
+
+			$p_year = Context::get('p_year'); Context::set('p_year', '');
+			$p_month = Context::get('p_month'); Context::set('p_month', '');
+			$p_day = Context::get('p_day'); Context::set('p_day', '');
+
+			if(!$obj->document_srl && $obj->entry)
+			{
+				$oDocumentModel = getModel('document');
+				$obj->document_srl = $oDocumentModel->getDocumentSrlByAlias('upgletyle', $obj->entry);
+				if($obj->document_srl)
+				{
+					Context::set('document_srl', $obj->document_srl);
+				}
+			}
+			if(!$obj->document_srl) return;
+
+			//return if module is not upgletyle
+			$module_info = $oModuleModel->getModuleInfoByDocumentSrl($obj->document_srl);
+			if(!$module_info || $module_info->module != 'upgletyle') return;
+			$obj->module = $module_info->module;
+
+			$oUpgletyle = new UpgletyleInfo($module_info->module_srl);
+			$requested_permalink_type = $this->_getRequestUriPermalinkType();
+
+			switch($oUpgletyle->getPermalinkType())
+			{
+				//Userdefined (http://localhost/userdefined/12345)
+				case 'userdefined' : 
+					$permalink = $oUpgletyle->getUserdefinedPermalink();
+					if($requested_permalink_type != 'userdefined' || $obj->mid != $permalink)
+					{
+						header('location:' . getUrl('', 'mid', $permalink, 'document_srl', $obj->document_srl));
+						Context::close();
+						exit;						
+					}
+					break;
+
+				//Default (http://localhost/12345)
+				case 'default' :
+					if($requested_permalink_type != 'default') 
+					{
+						header('location:' . getUrl('', 'document_srl', $obj->document_srl));
+						Context::close();
+						exit;
+					}
+					break;
+				
+				//Fulldate (http://local/2014/01/15/DocumentEntry)
+				case 'fulldate' :
+					$oUpgletyleModel = getModel('upgletyle');
+					$oDocumentModel = getModel('document');
+					$entry = $oDocumentModel->getAlias($obj->document_srl);
+					$document_info = $oDocumentModel->getDocument($obj->document_srl);
+
+	 				if($requested_permalink_type != 'fulldate' && $entry)
+					{
+						$args->p_year = $document_info->getRegdate('Y');
+						$args->p_month = $document_info->getRegdate('m');
+						$args->p_day = $document_info->getRegdate('d');
+						$args->entry = $entry;
+
+						header('location:' . $oUpgletyleModel->getPermalinkUrl('fulldate',$args));
+	 					Context::close();
+						exit;
+					}
+					break;
+
+				//Shortdate (http://local/2014/01/DocumentEntry)
+				case 'shortdate' :
+					$oUpgletyleModel = getModel('upgletyle');
+					$oDocumentModel = getModel('document');
+					$entry = $oDocumentModel->getAlias($obj->document_srl);
+					$document_info = $oDocumentModel->getDocument($obj->document_srl);
+
+	 				if($requested_permalink_type != 'shortdate' && $entry)
+					{
+						$args->p_year = $document_info->getRegdate('Y');
+						$args->p_month = $document_info->getRegdate('m');
+						$args->entry = $entry;
+
+						header('location:' . $oUpgletyleModel->getPermalinkUrl('shortdate',$args));
+	 					Context::close();
+						exit;
+						
+					}
+					break;
+			}
+			$obj->mid = $module_info->mid;
+			Context::set('mid', $obj->mid);
+		}
 
         /**
          * @brief action forward apply layout

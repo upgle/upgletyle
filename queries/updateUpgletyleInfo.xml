@@ -3,8 +3,9 @@
         <table name="upgletyle" />
     </tables>
 	<columns>
-		<column name="upgletyle_content" var="upgletyle_content" default="" />
         <column name="upgletyle_title" var="upgletyle_title" default="" />
+		<column name="upgletyle_content" var="upgletyle_content" default="" />
+        <column name="permalink" var="permalink" />
 		<column name="timezone" var="timezone" />
     </columns>
     <conditions>

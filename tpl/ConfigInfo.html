@@ -63,7 +63,90 @@
 
 
             </fieldset>
-            
+            <fieldset>
+                <div class="page-header page-header-icon">
+                <h5>포스트 고유주소</h5>
+                </div>
+
+                <div class="form-group rows">
+                    <div class="col-sm-8 col-sm-offset-2">                      
+						<div class="radio" style="margin-bottom:10px">
+						  <label class="rows">
+							<div class="col-sm-4"> 
+							<input type="radio" name="permalink" value="permalink_default" checked|cond="$upgletyle->getPermalinkType() == 'default'">
+							기본 문서번호
+							</div>
+							<div class="col-sm-8"> 
+							http://localhost/123
+							</div>
+						  </label>
+						</div>
+						<div class="radio" style="margin-bottom:10px">
+						  <label class="rows">
+							<div class="col-sm-4"> 
+							<input type="radio" name="permalink" value="permalink_fulldate" checked|cond="$upgletyle->getPermalinkType() == 'fulldate'">
+							전체 날짜+글 이름
+							</div>
+							<div class="col-sm-8"> 
+							http://localhost/2014/04/14/글 이름
+							</div>
+						  </label>
+						</div>
+						<div class="radio" style="margin-bottom:10px">
+						  <label class="rows">
+							<div class="col-sm-4">
+							<input type="radio" name="permalink" value="permalink_shortdate"  checked|cond="$upgletyle->getPermalinkType() == 'shortdate'">
+							부분 날짜+글 이름
+							</div>
+							<div class="col-sm-8"> 							
+							http://localhost/2014/04/글 이름
+							</div>
+						  </label>
+						</div>
+						<div class="radio">
+						  <label class="rows">
+							<div class="col-sm-4">
+							<input type="radio" name="permalink" value="permalink_userdefined" checked|cond="$upgletyle->getPermalinkType() == 'userdefined'">
+							사용자정의+문서번호
+							</div>
+							<div class="col-sm-8"> 									
+							http://localhost/사용자정의/123
+							</div>
+						  </label>
+						  <div class="clearfix"></div>
+						  <div class="well" style="margin-top:17px" id="form_permalink_userdefined" hidden|cond="$upgletyle->getPermalinkType() != 'userdefined'">
+		                    <label for="permalink_userdefined" class="col-sm-3 control-label">사용자 정의 이름</label>
+
+	                        <div class="row">
+								<div class="col-sm-8">
+								<input name="permalink_userdefined" type="text" class="form-control input-sm" value="{$upgletyle->getUserdefinedPermalink()}" placeholder="archive"/>
+								<p class="help-block">등록하지 않을 경우 기본 값은 archive 입니다.<br />(ex. http://localhost/archive/123)</p>
+								</div>
+							</div>
+						  </div>
+						</div>
+
+                    </div>
+                </div>
+				<script type="text/javascript">
+				(function($) {
+					$(":radio[name='permalink']:checked").parent().css("font-weight","bold");
+
+					$(":radio[name='permalink']").click(function(){
+						
+						$(":radio[name='permalink']").parent().css("font-weight","normal");
+						$(":radio[name='permalink']:checked").parent().css("font-weight","bold");
+
+						if($(":radio[name='permalink']:checked").val() == 'permalink_userdefined')
+							$("#form_permalink_userdefined").show();
+						else $("#form_permalink_userdefined").hide();
+					});
+				})(jQuery);
+				</script>
+
+            </fieldset>
+
+
             <fieldset>
                 <div class="page-header page-header-icon">
                 <h5>{$lang->lang_time_zone}</h5>
@@ -94,6 +177,8 @@
                     </div>
                 </div>
             </fieldset>
+
+
 
             <input type="submit" class="bts_btn bts_btn-primary pull-right" value="{$lang->cmd_apply}" />
 

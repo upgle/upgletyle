@@ -346,6 +346,7 @@
             'dispUpgletyleToolStatisticsPopular'=>'인기 콘텐트',
         ),
         array(
+            'dispUpgletyleToolConfigAddon'=>'애드온 설정',
             'dispUpgletyleToolPluginList'=>'플러그인 설정',
             'dispUpgletyleToolPluginWidgetConfig'=>'위젯 출력 설정',
 		),
@@ -357,13 +358,12 @@
         array(
             'dispUpgletyleToolConfigProfile'=>'내 프로필',
             'dispUpgletyleToolConfigInfo'=>'블로그 설정',
-            'dispUpgletyleToolConfigPostwrite'=>'쓰기환경 설정',
+			'dispUpgletyleToolConfigPostwrite'=>'쓰기환경 설정',
             'dispUpgletyleToolConfigEditorComponents'=>'에디터콤포넌트 설정',
             'dispUpgletyleToolConfigCommunication'=>'발행&middot;대화 설정',
             //'dispUpgletyleToolConfigBlogApi'=>'원격발행 설정',
-            'dispUpgletyleToolConfigAddon'=>'애드온 관리',
             'dispUpgletyleToolConfigData'=>'데이터 관리',
-            'dispUpgletyleToolConfigChangePassword'=>'비밀번호 변경',
+            //'dispUpgletyleToolConfigChangePassword'=>'비밀번호 변경',
             'dispUpgletyleToolExtraMenuList'=>'확장메뉴 설정',
         ),
 
