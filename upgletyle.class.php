@@ -50,6 +50,8 @@
             array('moduleHandler.init', 'upgletyle', 'controller', 'triggerModuleInitBefore', 'before')
         );
 
+		var $htaccess = "# upgletyle start\nRewriteRule ^(up\-[a-zA-Z0-9_]+)$ ./index.php?up_act=$1 [L,QSA]\nRewriteRule ^([a-zA-Z0-9_]+)/(up\-[a-zA-Z0-9_]+)$ ./index.php?vid=$1&up_act=$2 [L,QSA]\nRewriteRule ^([a-zA-Z0-9_]+)/([0-9]{4})/([0-9]{2})/([^/]+)$ ./index.php?vid=$1&p_year=$2&p_month=$3&entry=$4 [L,QSA]\nRewriteRule ^([a-zA-Z0-9_]+)/([0-9]{4})/([0-9]{2})/([0-9]{2})/([^/]+)$ ./index.php?vid=$1&p_year=$2&p_month=$3&p_day=$4&entry=$5 [L,QSA]\nRewriteRule ^([0-9]{4})/([0-9]{2})/([^/]+)$ ./index.php?p_year=$1&p_month=$2&entry=$3 [L,QSA]\nRewriteRule ^([0-9]{4})/([0-9]{2})/([0-9]{2})/([^/]+)$ ./index.php?p_year=$1&p_month=$2&p_month=$3&entry=$4 [L,QSA]\n# upgletyle end\n\n";
+
         /**
          * @brief module install
          **/
@@ -59,6 +61,15 @@
             foreach($this->add_triggers as $trigger) {
                 $oModuleController->insertTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
             }
+
+			//.htaccess modify on install process
+			$htaccess = FileHandler::readFile(_XE_PATH_.'.htaccess');
+			if(!preg_match('/# upgletyle start/', $htaccess)) 
+			{
+				$find = "#shop / vid / [category|product] / identifier";
+				$buff = str_replace($find, $this->htaccess.$find, $htaccess);
+				FileHandler::writeFile(_XE_PATH_.'.htaccess', $buff);
+			}
         }
 
         /**
@@ -72,9 +83,13 @@
                 if(!$oModuleModel->getTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4])) return true;
             }
 
-			//post_list_count 컬럼 체크
+			//colum check
 			if(!$oDB->isColumnExists("upgletyle","category_list_count")) return true;
 			if(!$oDB->isColumnExists("upgletyle","permalink")) return true;
+
+			//.htaccess check
+			$htaccess = FileHandler::readFile(_XE_PATH_.'.htaccess');
+			if(!preg_match('/# upgletyle start/', $htaccess)) return true;
 
             return false;
         }
@@ -97,6 +112,11 @@
 			if(!$oDB->isColumnExists("upgletyle","category_list_count")) $oDB->addColumn('upgletyle',"category_list_count","varchar",2,30,true);
 			if(!$oDB->isColumnExists("upgletyle","permalink")) $oDB->addColumn('upgletyle',"permalink","varchar",40,'permalink_default',true);
 
+			//.htaccess update
+			$htaccess = FileHandler::readFile(_XE_PATH_.'.htaccess');
+			$find = "#shop / vid / [category|product] / identifier";
+			$buff = str_replace($find, $this->htaccess.$find, $htaccess);
+			FileHandler::writeFile(_XE_PATH_.'.htaccess', $buff);
 
 			return new Object(0, 'success_updated');
         }
