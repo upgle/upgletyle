@@ -653,7 +653,6 @@
         function procUpgletyleDenyInsertList(){
             $var = Context::getRequestVars();
             $deny = array();
-			debugPrint($var);
             $deny['S'] = explode('|',$var->homepage);
             $deny['M'] = explode('|',$var->email_address);
             $deny['I'] = explode('|',$var->ipaddress);
@@ -2017,8 +2016,6 @@
 		}
 
 		private function _redirectToPermalink(&$obj) {
-
-			debugPrint($obj);
 
 			if($obj->act) return;
 			if(!Context::isAllowRewrite()) return;
