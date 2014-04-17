@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="0.2">
-    <title xml:lang="ko">Upgletyle</title>
+    <title xml:lang="ko">설치형 블로그 업글타일</title>
     <title xml:lang="en">Upgletyle</title>
     <description xml:lang="ko">XpressEngine 기반의 블로그 전용 모듈 입니다.</description>
     <description xml:lang="en">Upgletyle is an exclusive blog module based on the XpressEngine.</description>
-    <version>0.1.2</version>
-    <date>2014-03-28</date>
+    <version>0.1.4</version>
+    <date>2014-04-17</date>
     <category>package</category>
     <author email_address="admin@upgle.com" link="http://www.upgle.com">
         <name xml:lang="ko">Upgle</name>
