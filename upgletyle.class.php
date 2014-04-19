@@ -132,7 +132,7 @@
 
 
         function checkXECoreVersion($requried_version){
-			$result = version_compare(__ZBXE_VERSION__,$requried_version,'>=');
+			$result = version_compare(__XE_VERSION__,$requried_version,'>=');
 			if($result != 1) return false;
 
 			return true;
