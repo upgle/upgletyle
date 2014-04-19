@@ -1,6 +1,6 @@
 <query id="getApiInfo" action="select">
     <tables>
-        <table name="textyle_api" />
+        <table name="upgletyle_api" />
     </tables>
     <columns>
         <column name="*" />
