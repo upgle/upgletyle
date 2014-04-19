@@ -361,7 +361,7 @@
 			'dispUpgletyleToolConfigPostwrite'=>'쓰기환경 설정',
             'dispUpgletyleToolConfigEditorComponents'=>'에디터콤포넌트 설정',
             'dispUpgletyleToolConfigCommunication'=>'발행&middot;대화 설정',
-            //'dispUpgletyleToolConfigBlogApi'=>'원격발행 설정',
+            'dispUpgletyleToolConfigBlogApi'=>'원격발행 설정',
             'dispUpgletyleToolConfigData'=>'데이터 관리',
             //'dispUpgletyleToolConfigChangePassword'=>'비밀번호 변경',
             'dispUpgletyleToolExtraMenuList'=>'확장메뉴 설정',
