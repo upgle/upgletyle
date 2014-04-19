@@ -1957,6 +1957,8 @@
         function triggerModuleInitBefore(&$obj) {
 		
 			$up_act = Context::get('up_act');
+			Context::set('up_act','');
+			
 			switch($up_act)
 			{
 				case 'up-setup' :
