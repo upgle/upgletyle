@@ -573,17 +573,17 @@
         function procUpgletyleAdminInsertBlogApiServices(){
             $args = Context::getRequestVars();
 
-            if($args->textyle_blogapi_services_srl){
+            if($args->blogapi_services_srl){
                 $output = executeQuery('upgletyle.updateBlogApiService',$args);
             }else{
-                $args->textyle_blogapi_services_srl = getNextSequence();
-                $args->list_order = $args->textyle_blogapi_services_srl * -1;
+                $args->blogapi_services_srl = getNextSequence();
+                $args->list_order = $args->blogapi_services_srl * -1;
                 $output = executeQuery('upgletyle.insertBlogApiService',$args);
             }
         }
 
         function procUpgletyleAdminDeleteBlogApiServices(){
-            $args->textyle_blogapi_services_srl = Context::get('textyle_blogapi_services_srl');
+            $args->blogapi_services_srl = Context::get('blogapi_services_srl');
             $output = executeQuery('upgletyle.deleteBlogApiService',$args);
             return $output;
         }

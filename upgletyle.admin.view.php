@@ -173,14 +173,14 @@
         }
 
         function dispUpgletyleAdminBlogApiConfig(){
-            $textyle_blogapi_services_srl = Context::get('textyle_blogapi_services_srl');
+            $blogapi_services_srl = Context::get('blogapi_services_srl');
 
             $oUpgletyleModel = &getModel('upgletyle');
             $output = $oUpgletyleModel->getBlogApiService();
             if($output->toBool() && $output->data){
-                if($textyle_blogapi_services_srl){
+                if($blogapi_services_srl){
                     foreach($output->data as $k => $v){
-                        if($v->textyle_blogapi_services_srl == $textyle_blogapi_services_srl){
+                        if($v->blogapi_services_srl == $blogapi_services_srl){
                             Context::set('service',$v);
                         }
                     }

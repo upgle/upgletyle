@@ -409,8 +409,8 @@
         }
 
         function getBlogApiService($args=null){
-            $srl = Context::get('textyle_blogapi_services_srl');
-            if($srl) $args->textyle_blogapi_services_srl = $srl;
+            $srl = Context::get('blogapi_services_srl');
+            if($srl) $args->blogapi_services_srl = $srl;
             $output = executeQueryArray('upgletyle.getBlogApiServices',$args);
             if($srl) $this->add('services',$output->data);
             return $output;

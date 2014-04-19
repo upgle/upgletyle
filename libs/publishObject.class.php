@@ -207,7 +207,7 @@
 
             }
 
-            $args->textyle_blogapi_logs_srl = getNextSequence();
+            $args->blogapi_logs_srl = getNextSequence();
             $args->document_srl = $this->oDocument->document_srl;
             $args->module_srl = $this->oDocument->get('module_srl');
             $args->blogapi_url = $api->blogapi_url;

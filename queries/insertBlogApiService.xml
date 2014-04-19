@@ -1,9 +1,9 @@
 <query id="insertBlogApiService" action="insert">
     <tables>
-        <table name="textyle_blogapi_services" />
+        <table name="upgletyle_blogapi_services" />
     </tables>
     <columns>
-	  <column name="textyle_blogapi_services_srl" var="textyle_blogapi_services_srl" notnull="notnull" />
+	  <column name="blogapi_services_srl" var="blogapi_services_srl" notnull="notnull" />
 	  <column name="service_name" var="service_name" notnull="notnull" />
 	  <column name="api_type" var="api_type" notnull="notnull" />
 	  <column name="url_description" var="url_description" />
