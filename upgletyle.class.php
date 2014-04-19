@@ -114,9 +114,12 @@
 
 			//.htaccess update
 			$htaccess = FileHandler::readFile(_XE_PATH_.'.htaccess');
-			$find = "#shop / vid / [category|product] / identifier";
-			$buff = str_replace($find, $this->htaccess.$find, $htaccess);
-			FileHandler::writeFile(_XE_PATH_.'.htaccess', $buff);
+			if(!preg_match('/# upgletyle start/', $htaccess)) 
+			{
+				$find = "#shop / vid / [category|product] / identifier";
+				$buff = str_replace($find, $this->htaccess.$find, $htaccess);
+				FileHandler::writeFile(_XE_PATH_.'.htaccess', $buff);
+			}
 
 			return new Object(0, 'success_updated');
         }
