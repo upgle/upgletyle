@@ -866,33 +866,30 @@
 		<value xml:lang="ko"><![CDATA[입력창 크기 조절]]></value>
 	</item>
 	<item name="upgletyle_first_menus" type="array">
-		<item name="0">
-			<value xml:lang="ko"><![CDATA[]]></value>
-		</item>
 		<item name="dispUpgletyleToolDashboard">
 			<value xml:lang="ko"><![CDATA[알림판]]></value>
 		</item>
-		<item name="2">
+		<item name="1">
 			<value xml:lang="ko"><![CDATA[글관리]]></value>
 		</item>
-		<item name="3">
+		<item name="2">
 			<value xml:lang="ko"><![CDATA[대화관리]]></value>
 		</item>
-		<item name="4">
+		<item name="3">
 			<value xml:lang="ko"><![CDATA[통계]]></value>
 		</item>
-		<item name="5">
+		<item name="4">
 			<value xml:lang="ko"><![CDATA[플러그인]]></value>
 		</item>
-		<item name="6">
+		<item name="5">
 			<value xml:lang="ko"><![CDATA[디자인]]></value>
 		</item>
-		<item name="7">
+		<item name="6">
 			<value xml:lang="ko"><![CDATA[설정]]></value>
 		</item>
 	</item>
 	<item name="upgletyle_second_menus" type="array">
-		<item name="2" type="array">
+		<item name="1" type="array">
 			<item name="dispUpgletyleToolPostManageWrite">
 				<value xml:lang="ko"><![CDATA[새글 쓰기]]></value>
 			</item>
@@ -912,7 +909,7 @@
 				<value xml:lang="ko"><![CDATA[휴지통]]></value>
 			</item>
 		</item>
-		<item name="3" type="array">
+		<item name="2" type="array">
 			<item name="dispUpgletyleToolCommunicationComment">
 				<value xml:lang="ko"><![CDATA[댓글]]></value>
 			</item>
@@ -926,7 +923,7 @@
 				<value xml:lang="ko"><![CDATA[스팸 차단]]></value>
 			</item>
 		</item>
-		<item name="4" type="array">
+		<item name="3" type="array">
 			<item name="dispUpgletyleToolStatisticsVisitor">
 				<value xml:lang="ko"><![CDATA[방문자]]></value>
 			</item>
@@ -940,7 +937,7 @@
 				<value xml:lang="ko"><![CDATA[인기 콘텐트]]></value>
 			</item>
 		</item>
-		<item name="5" type="array">
+		<item name="4" type="array">
 			<item name="dispUpgletyleToolConfigAddon">
 				<value xml:lang="ko"><![CDATA[애드온 설정]]></value>
 			</item>
@@ -951,7 +948,7 @@
 				<value xml:lang="ko"><![CDATA[위젯 출력 설정]]></value>
 			</item>
 		</item>
-		<item name="6" type="array">
+		<item name="5" type="array">
 			<item name="dispUpgletyleToolLayoutConfigSkin">
 				<value xml:lang="ko"><![CDATA[스킨선택]]></value>
 			</item>
@@ -962,7 +959,7 @@
 				<value xml:lang="ko"><![CDATA[모바일스킨선택]]></value>
 			</item>
 		</item>
-		<item name="7" type="array">
+		<item name="6" type="array">
 			<item name="dispUpgletyleToolConfigProfile">
 				<value xml:lang="ko"><![CDATA[내 프로필]]></value>
 			</item>
