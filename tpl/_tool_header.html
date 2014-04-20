@@ -46,16 +46,21 @@
             {@$i=0}
             <block loop="$lang->upgletyle_first_menus => $key, $val" cond="!in_array($val, $custom_menu->hidden_menu)">
             {@ 
-                unset($_sel);
+                unset($_sel, $href);
                 $_sub = $lang->upgletyle_second_menus[$key];
                 $_attached = $custom_menu->attached_menu[$key];
-                if($act==$val[0]||in_array($act,array_keys($_sub))) $_sel = "active";
-                if($_sel == 'active') $eq = $i;                
+                if($act==$key||in_array($act,array_keys($_sub))) $_sel = "active";
+                if($_sel == 'active') $eq = $i;
+				if(preg_match('/disp/',$key)) $href=true;
             }
             <li class="{$_sel}"|cond="count($_sub)" class="nochild {$_sel}"|cond="!count($_sub)">
-                <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$val[0])}"|cond="$val[0]" class="first_menu" cond="$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]}</a>
-                <div class="first_menu" cond="!$val[0]"><span class="{$_menu_icon[$i++]}"></span> {$val[1]}</div>
-
+				<!--mainmenu-->
+				<a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$key)}" class="first_menu" cond="$href">
+					<span class="{$_menu_icon[$i++]}"></span> {$val}
+				</a>
+                <div class="first_menu" cond="!$href">
+					<span class="{$_menu_icon[$i++]}"></span> {$val}
+				</div>
                 <!--submenu-->
                 <ul class="second_menu" cond="count($_sub) || count($_attached)">
                     <li loop="$_sub => $k, $v" class="active"|cond="$k==$act" cond="!in_array(strtolower($k), $custom_menu->hidden_menu) && $k != 'dispUpgletyleToolConfigEditorComponents'">
@@ -65,7 +70,6 @@
                         <a href="{getSiteUrl($upgletyle->domain,'','mid',$mid,'act',$k)}">{$v}</a>
                     </li>
                 </ul>
-                <!--/submenu-->
             </li>
             </block>
             <li class="upgle-issue nochild"><a href="https://github.com/upgle/upgletyle/issues" target="_blank"><!--오류신고-->{$lang->upgletyle_bug_report}</a></li>

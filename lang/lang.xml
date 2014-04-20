@@ -1,0 +1,1331 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="upgletyle">
+		<value xml:lang="ko"><![CDATA[Upgletyle]]></value>
+	</item>
+	<item name="about_upgletyle">
+		<value xml:lang="ko"><![CDATA[Upgletyle은 XpressEngine의 블로그 전문 모듈입니다.]]></value>
+	</item>
+	<item name="msg_requried_version">
+		<value xml:lang="ko"><![CDATA[Upgletyle은 XE코어 %s 버전 이상에서 동작합니다.]]></value>
+	</item>
+	<item name="cmd_open_id">
+		<value xml:lang="ko"><![CDATA[오픈 아이디 로그인]]></value>
+	</item>
+	<item name="cmd_common_id">
+		<value xml:lang="ko"><![CDATA[일반 아이디 로그인]]></value>
+	</item>
+	<item name="msg_create_upgletyle">
+		<value xml:lang="ko"><![CDATA[업글타일 생성이 되었습니다]]></value>
+	</item>
+	<item name="init_category_title">
+		<value xml:lang="ko"><![CDATA[기본 카테고리]]></value>
+	</item>
+	<item name="add_category">
+		<value xml:lang="ko"><![CDATA[카테고리 추가]]></value>
+	</item>
+	<item name="upgletyle_admin">
+		<value xml:lang="ko"><![CDATA[Upgletyle 관리자]]></value>
+	</item>
+	<item name="upgletyle_title">
+		<value xml:lang="ko"><![CDATA[Upgletyle 제목]]></value>
+	</item>
+	<item name="today_visitor">
+		<value xml:lang="ko"><![CDATA[오늘의 <strong>방문자 수</strong>]]></value>
+	</item>
+	<item name="today_comments">
+		<value xml:lang="ko"><![CDATA[오늘의 <strong>댓글 수</strong>]]></value>
+	</item>
+	<item name="today_trackbacks">
+		<value xml:lang="ko"><![CDATA[오늘의 <strong>엮인글/핑백 수</strong>]]></value>
+	</item>
+	<item name="upgletyle_summary">
+		<value xml:lang="ko"><![CDATA[블로그 요약정보]]></value>
+	</item>
+	<item name="item_unit">
+		<value xml:lang="ko"><![CDATA[개]]></value>
+	</item>
+	<item name="newest_documents">
+		<value xml:lang="ko"><![CDATA[최근 작성글]]></value>
+	</item>
+	<item name="newest_no_documents">
+		<value xml:lang="ko"><![CDATA[작성하신 글이 없습니다. 새 글을 써보세요.]]></value>
+	</item>
+	<item name="posts">
+		<value xml:lang="ko"><![CDATA[문서]]></value>
+	</item>
+	<item name="newest_materials">
+		<value xml:lang="ko"><![CDATA[최근 글감]]></value>
+	</item>
+	<item name="newest_no_materials">
+		<value xml:lang="ko"><![CDATA[글감이 없습니다. <a href="%s">글감 수집기를 설치하세요.</a>]]></value>
+	</item>
+	<item name="newest_comments">
+		<value xml:lang="ko"><![CDATA[최근 댓글]]></value>
+	</item>
+	<item name="newest_no_comments">
+		<value xml:lang="ko"><![CDATA[남겨진 댓글이 아직 없습니다.]]></value>
+	</item>
+	<item name="newest_guestbooks">
+		<value xml:lang="ko"><![CDATA[최근 방명록]]></value>
+	</item>
+	<item name="newest_no_guestbooks">
+		<value xml:lang="ko"><![CDATA[방명록에 남겨진 글이 아직 없습니다.]]></value>
+	</item>
+	<item name="temp">
+		<value xml:lang="ko"><![CDATA[임시]]></value>
+	</item>
+	<item name="reserve">
+		<value xml:lang="ko"><![CDATA[예약]]></value>
+	</item>
+	<item name="publish">
+		<value xml:lang="ko"><![CDATA[발행]]></value>
+	</item>
+	<item name="publish_go">
+		<value xml:lang="ko"><![CDATA[발행...]]></value>
+	</item>
+	<item name="publish_update_go">
+		<value xml:lang="ko"><![CDATA[재발행...]]></value>
+	</item>
+	<item name="published">
+		<value xml:lang="ko"><![CDATA[발행됨]]></value>
+	</item>
+	<item name="publish_option">
+		<value xml:lang="ko"><![CDATA[발행옵션]]></value>
+	</item>
+	<item name="publish_this_blog">
+		<value xml:lang="ko"><![CDATA[이 블로그로 발행합니다.]]></value>
+	</item>
+	<item name="ask_time_publish">
+		<value xml:lang="ko"><![CDATA[이 포스트를 지금 발행(또는 업데이트) 하시겠습니까?]]></value>
+	</item>
+	<item name="ask_micro_publish">
+		<value xml:lang="ko"><![CDATA[마이크로 블로그에 발행 하시겠습니까?]]></value>
+	</item>
+	<item name="noti_publish">
+		<value xml:lang="ko"><![CDATA[발행알림]]></value>
+	</item>
+	<item name="send_trackback">
+		<value xml:lang="ko"><![CDATA[엮인글 발송]]></value>
+	</item>
+	<item name="add_input_trackback">
+		<value xml:lang="ko"><![CDATA[엮인글 발송 주소 추가]]></value>
+	</item>
+	<item name="saved">
+		<value xml:lang="ko"><![CDATA[저장]]></value>
+	</item>
+	<item name="more">
+		<value xml:lang="ko"><![CDATA[더보기]]></value>
+	</item>
+	<item name="last_week">
+		<value xml:lang="ko"><![CDATA[지난주]]></value>
+	</item>
+	<item name="this_week">
+		<value xml:lang="ko"><![CDATA[이번주]]></value>
+	</item>
+	<item name="display_name">
+		<value xml:lang="ko"><![CDATA[표시할 이름]]></value>
+	</item>
+	<item name="about_display_name">
+		<value xml:lang="ko"><![CDATA[작성하지 않으면 아이디를 표시합니다]]></value>
+	</item>
+	<item name="about_email">
+		<value xml:lang="ko"><![CDATA[작성하지 않으면 비밀번호 분실시 이메일을 발송할 수 없습니다]]></value>
+	</item>
+	<item name="no_profile_image">
+		<value xml:lang="ko"><![CDATA[등록된 프로필 사진 없음]]></value>
+	</item>
+	<item name="allow_profile_image_type">
+		<value xml:lang="ko"><![CDATA[<strong>jpg, gif, png</strong> 파일 업로드 가능]]></value>
+	</item>
+	<item name="allow_profile_image_size">
+		<value xml:lang="ko"><![CDATA[이미지 크기는 <strong>%dx%d</strong>px 으로 자동 조정.]]></value>
+	</item>
+	<item name="signature">
+		<value xml:lang="ko"><![CDATA[자기 소개글]]></value>
+	</item>
+	<item name="default_config">
+		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
+	</item>
+	<item name="blog_title">
+		<value xml:lang="ko"><![CDATA[블로그 제목]]></value>
+	</item>
+	<item name="about_blog_title">
+		<value xml:lang="ko"><![CDATA[블로그의 제목으로 사용됩니다]]></value>
+	</item>
+	<item name="blog_description">
+		<value xml:lang="ko"><![CDATA[한줄 소개]]></value>
+	</item>
+	<item name="about_blog_description">
+		<value xml:lang="ko"><![CDATA[스킨 종류에 따라서 노출이 결정되거나 HTML&middot;CSS 편집기를 통해서 노출 여부를 결정할 수 있습니다.]]></value>
+	</item>
+	<item name="favicon">
+		<value xml:lang="ko"><![CDATA[파비콘]]></value>
+	</item>
+	<item name="registed_favicon">
+		<value xml:lang="ko"><![CDATA[등록된 파비콘]]></value>
+	</item>
+	<item name="about_favicon">
+		<value xml:lang="ko"><![CDATA[<strong>16x16px</strong> 크기의 <strong>ico</strong> 파일 업로드 가능.]]></value>
+	</item>
+	<item name="about_addon">
+		<value xml:lang="ko"><![CDATA[애드온은 html결과물을 출력하기 보다 동작을 제어하는 역할을 합니다. 원하시는 애드온을 on/ off하시는 것만으로 사이트 운영에 유용한 기능을 연동할 수 있습니다.]]></value>
+	</item>
+	<item name="addon_using">
+		<value xml:lang="ko"><![CDATA[사용중]]></value>
+	</item>
+	<item name="lang_time_zone">
+		<value xml:lang="ko"><![CDATA[언어/시간대]]></value>
+	</item>
+	<item name="language">
+		<value xml:lang="ko"><![CDATA[언어]]></value>
+	</item>
+	<item name="timezone">
+		<value xml:lang="ko"><![CDATA[시간대]]></value>
+	</item>
+	<item name="edit_style">
+		<value xml:lang="ko"><![CDATA[편집방식 선택]]></value>
+	</item>
+	<item name="upgletyle_editor">
+		<value xml:lang="ko"><![CDATA[단락별 편집기]]></value>
+	</item>
+	<item name="font_style">
+		<value xml:lang="ko"><![CDATA[글꼴 설정]]></value>
+	</item>
+	<item name="font_family">
+		<value xml:lang="ko"><![CDATA[글꼴 종류]]></value>
+	</item>
+	<item name="font_size">
+		<value xml:lang="ko"><![CDATA[글꼴 크기]]></value>
+	</item>
+	<item name="about_font_family">
+		<value xml:lang="ko"><![CDATA[편집과 발행시 내용의 기본 글꼴을 정할 수 있습니다. (예:%s)]]></value>
+	</item>
+	<item name="font_family_list" type="array">
+		<item name="돋움, Dotum">
+			<value xml:lang="ko"><![CDATA[돋움]]></value>
+		</item>
+		<item name="굴림, Gulim">
+			<value xml:lang="ko"><![CDATA[굴림]]></value>
+		</item>
+		<item name="바탕, Batang">
+			<value xml:lang="ko"><![CDATA[바탕]]></value>
+		</item>
+		<item name="맑은 고딕, Malgun Gothic">
+			<value xml:lang="ko"><![CDATA[맑은 고딕]]></value>
+		</item>
+		<item name="나눔고딕, NanumGothic">
+			<value xml:lang="ko"><![CDATA[나눔고딕]]></value>
+		</item>
+		<item name="나눔명조, NanumMyeongjo">
+			<value xml:lang="ko"><![CDATA[나눔명조]]></value>
+		</item>
+	</item>
+	<item name="about_font_size">
+		<value xml:lang="ko"><![CDATA[편집과 발행시 내용의 기본 글꼴 크기를 정할 수 있습니다. (예: 12px 또는 1em 등 단위 포함) ]]></value>
+	</item>
+	<item name="about_upgletyle_editor">
+		<value xml:lang="ko"><![CDATA[단락별 편집 방식의 글쓰기 도구 입니다.]]></value>
+	</item>
+	<item name="etc_editor">
+		<value xml:lang="ko"><![CDATA[기타 편집기]]></value>
+	</item>
+	<item name="about_etc_editor">
+		<value xml:lang="ko"><![CDATA[일반적인 리치 텍스트 편집기 입니다.]]></value>
+	</item>
+	<item name="set_editor_components">
+		<value xml:lang="ko"><![CDATA[에디터 콤포넌트 설정]]></value>
+	</item>
+	<item name="set_prefix">
+		<value xml:lang="ko"><![CDATA[머리말 설정]]></value>
+	</item>
+	<item name="about_prefix">
+		<value xml:lang="ko"><![CDATA[글마다 아래 내용을 자동으로 삽입 합니다. (HTML 사용가능)]]></value>
+	</item>
+	<item name="set_suffix">
+		<value xml:lang="ko"><![CDATA[꼬리말 설정]]></value>
+	</item>
+	<item name="about_suffix">
+		<value xml:lang="ko"><![CDATA[글마다 아래 내용을 자동으로 삽입 합니다. (HTML 사용가능)]]></value>
+	</item>
+	<item name="blogapi">
+		<value xml:lang="ko"><![CDATA[원격 발행]]></value>
+	</item>
+	<item name="blogapi_service">
+		<value xml:lang="ko"><![CDATA[API 서비스]]></value>
+	</item>
+	<item name="about_blogapi_service">
+		<value xml:lang="ko"><![CDATA[Blog API를 이용한 원격 발행을 지원하는 서비스를 선택하세요.<br/>서비스에 없을 경우 직접 입력을 선택하시면 됩니다]]></value>
+	</item>
+	<item name="blogapi_hosted">
+		<value xml:lang="ko"><![CDATA[서비스 블로그]]></value>
+	</item>
+	<item name="blogapi_custom">
+		<value xml:lang="ko"><![CDATA[직접 입력]]></value>
+	</item>
+	<item name="blogapi_host_provider">
+		<value xml:lang="ko"><![CDATA[서비스 제공자]]></value>
+	</item>
+	<item name="about_blogapi_host_provider">
+		<value xml:lang="ko"><![CDATA[등록을 원하는 서비스 제공자를 선택하세요]]></value>
+	</item>
+	<item name="blogapi_type">
+		<value xml:lang="ko"><![CDATA[API 형식]]></value>
+	</item>
+	<item name="about_blogapi_type">
+		<value xml:lang="ko"><![CDATA[등록하고자 하는 BlogAPI 의 형식을 선택하셔야 합니다]]></value>
+	</item>
+	<item name="blogapi_support">
+		<value xml:lang="ko"><![CDATA[Blog API(Meta Weblog API)를 이용한 원격 발행이 가능합니다.]]></value>
+	</item>
+	<item name="blogapi_example">
+		<value xml:lang="ko"><![CDATA[예) Window Live Writer, Google Docs, MS Word 2007 등]]></value>
+	</item>
+	<item name="not_permit_blogapi">
+		<value xml:lang="ko"><![CDATA[API 연결확인이 되지 않았습니다.]]></value>
+	</item>
+	<item name="blogapi_url">
+		<value xml:lang="ko"><![CDATA[API 주소]]></value>
+	</item>
+	<item name="blogapi_blogid">
+		<value xml:lang="ko"><![CDATA[Blog id]]></value>
+	</item>
+	<item name="cmd_upgletyle_blogapi_service">
+		<value xml:lang="ko"><![CDATA[Blog API 서비스 편집]]></value>
+	</item>
+	<item name="api_type">
+		<value xml:lang="ko"><![CDATA[API 타입]]></value>
+	</item>
+	<item name="service_name">
+		<value xml:lang="ko"><![CDATA[API 서비스 이름]]></value>
+	</item>
+	<item name="url_description">
+		<value xml:lang="ko"><![CDATA[API 주소 입력 방법]]></value>
+	</item>
+	<item name="id_description">
+		<value xml:lang="ko"><![CDATA[API 아이디 입력 방법]]></value>
+	</item>
+	<item name="password_description">
+		<value xml:lang="ko"><![CDATA[API 비밀번호 입력 방법]]></value>
+	</item>
+	<item name="target_site_url">
+		<value xml:lang="ko"><![CDATA[사이트 주소]]></value>
+	</item>
+	<item name="blog_first_page">
+		<value xml:lang="ko"><![CDATA[첫 페이지]]></value>
+	</item>
+	<item name="blog_display_target">
+		<value xml:lang="ko"><![CDATA[출력 대상]]></value>
+	</item>
+	<item name="content_body">
+		<value xml:lang="ko"><![CDATA[글 본문]]></value>
+	</item>
+	<item name="content_summary">
+		<value xml:lang="ko"><![CDATA[글 요약]]></value>
+	</item>
+	<item name="content_list">
+		<value xml:lang="ko"><![CDATA[글목록]]></value>
+	</item>
+	<item name="blog_display_count">
+		<value xml:lang="ko"><![CDATA[출력 개수]]></value>
+	</item>
+	<item name="feed_format">
+		<value xml:lang="ko"><![CDATA[출력할 피드(feed)형식]]></value>
+	</item>
+	<item name="rss_type">
+		<value xml:lang="ko"><![CDATA[발행 대상]]></value>
+	</item>
+	<item name="rss_total">
+		<value xml:lang="ko"><![CDATA[제목 + 본문 전체]]></value>
+	</item>
+	<item name="rss_summary">
+		<value xml:lang="ko"><![CDATA[제목 + 본문 요약]]></value>
+	</item>
+	<item name="visitor_editor_style">
+		<value xml:lang="ko"><![CDATA[댓글 및 방명록 입력양식]]></value>
+	</item>
+	<item name="host">
+		<value xml:lang="ko"><![CDATA[방문 도메인]]></value>
+	</item>
+	<item name="referer">
+		<value xml:lang="ko"><![CDATA[방문 경로]]></value>
+	</item>
+	<item name="link_word">
+		<value xml:lang="ko"><![CDATA[링크 단어 ]]></value>
+	</item>
+	<item name="link_document">
+		<value xml:lang="ko"><![CDATA[링크 게시물]]></value>
+	</item>
+	<item name="visitor">
+		<value xml:lang="ko"><![CDATA[방문자]]></value>
+	</item>
+	<item name="about_referer">
+		<value xml:lang="ko"><![CDATA[방문자의 방문경로를 확인할 수 있습니다.]]></value>
+	</item>
+	<item name="website_address">
+		<value xml:lang="ko"><![CDATA[웹사이트 주소]]></value>
+	</item>
+	<item name="required">
+		<value xml:lang="ko"><![CDATA[필수]]></value>
+	</item>
+	<item name="selected">
+		<value xml:lang="ko"><![CDATA[선택]]></value>
+	</item>
+	<item name="notaccepted">
+		<value xml:lang="ko"><![CDATA[받지 않음]]></value>
+	</item>
+	<item name="comment_editor">
+		<value xml:lang="ko"><![CDATA[댓글 편집기]]></value>
+	</item>
+	<item name="guestbook_editor">
+		<value xml:lang="ko"><![CDATA[방명록 편집기]]></value>
+	</item>
+	<item name="comment_list_count">
+		<value xml:lang="ko"><![CDATA[페이지당 댓글 수]]></value>
+	</item>
+	<item name="guestbook_list_count">
+		<value xml:lang="ko"><![CDATA[페이지당 방명록 수]]></value>
+	</item>
+	<item name="comment_grant">
+		<value xml:lang="ko"><![CDATA[댓글 쓰기 권한]]></value>
+	</item>
+	<item name="about_comment_grant">
+		<value xml:lang="ko"><![CDATA[댓글 쓰기 권한을 회원에게만 또는 모두에게 줄 수 있습니다]]></value>
+	</item>
+	<item name="disable_comment">
+		<value xml:lang="ko"><![CDATA[댓글 쓰기 권한이 없습니다. 회원 가입후에 사용 가능합니다]]></value>
+	</item>
+	<item name="grant_to_all">
+		<value xml:lang="ko"><![CDATA[모두]]></value>
+	</item>
+	<item name="grant_to_member">
+		<value xml:lang="ko"><![CDATA[회원]]></value>
+	</item>
+	<item name="guestbook_grant">
+		<value xml:lang="ko"><![CDATA[방명록 쓰기 권한]]></value>
+	</item>
+	<item name="about_guestbook_grant">
+		<value xml:lang="ko"><![CDATA[방명록 쓰기 권한을 회원에게만 또는 모두에게 줄 수 있습니다]]></value>
+	</item>
+	<item name="disable_guestbook">
+		<value xml:lang="ko"><![CDATA[방명록 쓰기 권한이 없습니다. 회원 가입후에 사용 가능합니다]]></value>
+	</item>
+	<item name="current_password">
+		<value xml:lang="ko"><![CDATA[현 비밀번호]]></value>
+	</item>
+	<item name="upgletyle_password1">
+		<value xml:lang="ko"><![CDATA[새 비밀번호]]></value>
+	</item>
+	<item name="upgletyle_password2">
+		<value xml:lang="ko"><![CDATA[새 비밀번호 확인]]></value>
+	</item>
+	<item name="about_change_password">
+		<value xml:lang="ko"><![CDATA[위에 입력한 새 비밀번호와 동일하게 다시 입력해 주세요.]]></value>
+	</item>
+	<item name="name_nick">
+		<value xml:lang="ko"><![CDATA[이름(닉네임)]]></value>
+	</item>
+	<item name="manage_trackback">
+		<value xml:lang="ko"><![CDATA[엮인글 관리]]></value>
+	</item>
+	<item name="manage_guestbook">
+		<value xml:lang="ko"><![CDATA[방명록 관리]]></value>
+	</item>
+	<item name="manage_comment">
+		<value xml:lang="ko"><![CDATA[댓글 관리]]></value>
+	</item>
+	<item name="document_list">
+		<value xml:lang="ko"><![CDATA[글 목록]]></value>
+	</item>
+	<item name="type">
+		<value xml:lang="ko"><![CDATA[타입]]></value>
+	</item>
+	<item name="trackback_site">
+		<value xml:lang="ko"><![CDATA[엮은글/ 사이트]]></value>
+	</item>
+	<item name="total_result_count">
+		<value xml:lang="ko"><![CDATA[모두 <strong>%d</strong>개의 글이 있습니다.]]></value>
+	</item>
+	<item name="search_result_count">
+		<value xml:lang="ko"><![CDATA[검색결과 <strong>%d</strong>개의 글이 있습니다.]]></value>
+	</item>
+	<item name="no_result_count">
+		<value xml:lang="ko"><![CDATA[글이 없습니다]]></value>
+	</item>
+	<item name="selected_articles">
+		<value xml:lang="ko"><![CDATA[선택한 글들을]]></value>
+	</item>
+	<item name="avatar">
+		<value xml:lang="ko"><![CDATA[아바타]]></value>
+	</item>
+	<item name="status">
+		<value xml:lang="ko"><![CDATA[상태]]></value>
+	</item>
+	<item name="pingback">
+		<value xml:lang="ko"><![CDATA[핑백]]></value>
+	</item>
+	<item name="recent_tags">
+		<value xml:lang="ko"><![CDATA[최근 사용한 태그]]></value>
+	</item>
+	<item name="total_tag_result">
+		<value xml:lang="ko"><![CDATA[모두 <strong>%d</strong>개의 태그를 사용하고 있습니다.]]></value>
+	</item>
+	<item name="align_by_char">
+		<value xml:lang="ko"><![CDATA[가나다순 정렬]]></value>
+	</item>
+	<item name="used_documents">
+		<value xml:lang="ko"><![CDATA[사용된 글수]]></value>
+	</item>
+	<item name="order_desc">
+		<value xml:lang="ko"><![CDATA[내림차순 정렬]]></value>
+	</item>
+	<item name="update_tag">
+		<value xml:lang="ko"><![CDATA[태그 수정/삭제]]></value>
+	</item>
+	<item name="tag_name">
+		<value xml:lang="ko"><![CDATA[태그명]]></value>
+	</item>
+	<item name="tag_with_tags">
+		<value xml:lang="ko"><![CDATA[함께 사용된 태그들]]></value>
+	</item>
+	<item name="total_materials">
+		<value xml:lang="ko"><![CDATA[모두 <strong>%d</strong>개의 글감이 보관되어 있습니다]]></value>
+	</item>
+	<item name="none_materials">
+		<value xml:lang="ko"><![CDATA[글감이 없습니다.]]></value>
+	</item>
+	<item name="install_bookmarklet">
+		<value xml:lang="ko"><![CDATA[글감 수집기를 설치하세요.]]></value>
+	</item>
+	<item name="none_tags">
+		<value xml:lang="ko"><![CDATA[태그가 없습니다]]></value>
+	</item>
+	<item name="bookmarklet_install">
+		<value xml:lang="ko"><![CDATA[북마클릿 설치하기]]></value>
+	</item>
+	<item name="about_bookmarklet">
+		<value xml:lang="ko"><![CDATA[언제 어디서나<br />블로깅할 글감을 수집하세요.]]></value>
+	</item>
+	<item name="about_set_bookmarklet">
+		<value xml:lang="ko"><![CDATA[글감 수집기]]></value>
+	</item>
+	<item name="data_export">
+		<value xml:lang="ko"><![CDATA[데이터 백업]]></value>
+	</item>
+	<item name="data_import">
+		<value xml:lang="ko"><![CDATA[데이터 복원 (이전)]]></value>
+	</item>
+	<item name="migration_prepare">
+		<value xml:lang="ko"><![CDATA[파일분석중]]></value>
+	</item>
+	<item name="data_import_progress">
+		<value xml:lang="ko"><![CDATA[백업 진행률]]></value>
+	</item>
+	<item name="data_export_progress">
+		<value xml:lang="ko"><![CDATA[복원 진행률]]></value>
+	</item>
+	<item name="about_export_xexml">
+		<value xml:lang="ko"><![CDATA[XpressEngine에서 사용하는 XE XML 형식으로 저장된 파일을 이용하여 데이터 이전을 할 수 있습니다]]></value>
+	</item>
+	<item name="about_export_ttxml">
+		<value xml:lang="ko"><![CDATA[Textcube에서 사용하는 TTXML 형식으로 저장된 파일을 이용하여 데이터 이전을 할 수 있습니다]]></value>
+	</item>
+	<item name="migration_file_path">
+		<value xml:lang="ko"><![CDATA[XML 파일 위치(URL 또는 경로)]]></value>
+	</item>
+	<item name="msg_migration_file_is_null">
+		<value xml:lang="ko"><![CDATA[데이터 복원을 할 XML 파일의 위치를 입력해주세요]]></value>
+	</item>
+	<item name="cmd_import">
+		<value xml:lang="ko"><![CDATA[가져오기]]></value>
+	</item>
+	<item name="twitter_consumer_key">
+		<value xml:lang="ko"><![CDATA[Twitter consumer key]]></value>
+	</item>
+	<item name="about_twitter_consumer_key">
+		<value xml:lang="ko"><![CDATA[Twitter 앱을 위한 consumer key를 입력해 주세요.]]></value>
+	</item>
+	<item name="twitter_consumer_secret">
+		<value xml:lang="ko"><![CDATA[Twitter consumer secret]]></value>
+	</item>
+	<item name="about_twitter_consumer_secret">
+		<value xml:lang="ko"><![CDATA[Twitter API를 위한 consumer secret을 입력해 주세요.]]></value>
+	</item>
+	<item name="twitter_oauth_token">
+		<value xml:lang="ko"><![CDATA[Twitter access token]]></value>
+	</item>
+	<item name="about_twitter_oauth_token">
+		<value xml:lang="ko"><![CDATA[Twitter를 위한 access token을 입력해 주세요.]]></value>
+	</item>
+	<item name="twitter_oauth_token_secret">
+		<value xml:lang="ko"><![CDATA[Twitter token secret]]></value>
+	</item>
+	<item name="about_twitter_oauth_token_secret">
+		<value xml:lang="ko"><![CDATA[Twitter 앱을 위한 twitter token을 입력해 주세요.]]></value>
+	</item>
+	<item name="check_twitter_info">
+		<value xml:lang="ko"><![CDATA[연결 확인]]></value>
+	</item>
+	<item name="send_twitter">
+		<value xml:lang="ko"><![CDATA[트위터 발행]]></value>
+	</item>
+	<item name="about_send_twitter">
+		<value xml:lang="ko"><![CDATA[글작성시 제목을 지정된 트위터로 발행하도록 설정합니다]]></value>
+	</item>
+	<item name="twitter_userid">
+		<value xml:lang="ko"><![CDATA[트위터 아이디]]></value>
+	</item>
+	<item name="about_twitter_userid">
+		<value xml:lang="ko"><![CDATA[트위터 아이디를 입력해주세요]]></value>
+	</item>
+	<item name="twitter_password">
+		<value xml:lang="ko"><![CDATA[트위터 비밀번호]]></value>
+	</item>
+	<item name="about_twitter_password">
+		<value xml:lang="ko"><![CDATA[트위터 비밀번호를 입력해주세요]]></value>
+	</item>
+	<item name="blogapi_publish">
+		<value xml:lang="ko"><![CDATA[BlogAPI 발행]]></value>
+	</item>
+	<item name="about_blog_api">
+		<value xml:lang="ko"><![CDATA[업글타일로 작성한 글을 BlogAPI를 이용하여 다른 블로그 또는 게시판등에 동시 발행/ 수정/ 삭제할 수 있습니다<br/>지원하는 BlogAPI는 MetaWebLog 뿐이며 다른 API는 곧 지원할 수 있도록 하겠습니다<br/>업글타일이 설치된 서버설정에 따라 BlogAPI 이용이 제한될 수 있습니다]]></value>
+	</item>
+	<item name="cmd_registration_blogapi">
+		<value xml:lang="ko"><![CDATA[BlogAPI 사이트 등록]]></value>
+	</item>
+	<item name="cmd_modification_blogapi">
+		<value xml:lang="ko"><![CDATA[BlogAPI 사이트 정보 수정]]></value>
+	</item>
+	<item name="blogapi_site_url">
+		<value xml:lang="ko"><![CDATA[발행 대상 사이트]]></value>
+	</item>
+	<item name="about_blogapi_site_url">
+		<value xml:lang="ko"><![CDATA[BlogAPI로 발행할 대상 사이트의 주소를 입력해주세요]]></value>
+	</item>
+	<item name="blogapi_site_title">
+		<value xml:lang="ko"><![CDATA[BlogAPI 사이트 제목]]></value>
+	</item>
+	<item name="about_blogapi_site_title">
+		<value xml:lang="ko"><![CDATA[BlogAPI로 발행할 사이트의 제목을 정할 수 있습니다]]></value>
+	</item>
+	<item name="blogapi_api_url">
+		<value xml:lang="ko"><![CDATA[API URL]]></value>
+	</item>
+	<item name="about_blogapi_url">
+		<value xml:lang="ko"><![CDATA[BlogAPI URL을 입력해주세요. (서비스 블로그의 경우 [id]값이나 도메인을 변경해주세요)]]></value>
+	</item>
+	<item name="blogapi_published">
+		<value xml:lang="ko"><![CDATA[발행 수]]></value>
+	</item>
+	<item name="blogapi_user_id">
+		<value xml:lang="ko"><![CDATA[사용자 아이디]]></value>
+	</item>
+	<item name="about_blogapi_user_id">
+		<value xml:lang="ko"><![CDATA[API 대상 사이트에서 사용하는 사용자 아이디를 입력해주세요]]></value>
+	</item>
+	<item name="blogapi_password">
+		<value xml:lang="ko"><![CDATA[사용자 비밀번호]]></value>
+	</item>
+	<item name="about_blogapi_password">
+		<value xml:lang="ko"><![CDATA[API 대상 사이트에서 사용하는 사용자 비밀번호를 입력해주세요]]></value>
+	</item>
+	<item name="cmd_get_site_info">
+		<value xml:lang="ko"><![CDATA[사이트 정보 구하기]]></value>
+	</item>
+	<item name="cmd_check_api_connect">
+		<value xml:lang="ko"><![CDATA[API 연결 확인]]></value>
+	</item>
+	<item name="msg_url_is_invalid">
+		<value xml:lang="ko"><![CDATA[입력하신 URL 접근을 할 수 없습니다. URL을 다시 확인해주세요]]></value>
+	</item>
+	<item name="msg_remove_api">
+		<value xml:lang="ko"><![CDATA[API 정보를 삭제하시겠습니까?]]></value>
+	</item>
+	<item name="msg_blogapi_registration" type="array">
+		<item name="0">
+			<value xml:lang="ko"><![CDATA[API대상 사이트 주소를 입력해주세요]]></value>
+		</item>
+		<item name="1">
+			<value xml:lang="ko"><![CDATA[사이트 제목을 입력해주세요]]></value>
+		</item>
+		<item name="2">
+			<value xml:lang="ko"><![CDATA[API주소를 입력해주세요]]></value>
+		</item>
+		<item name="3">
+			<value xml:lang="ko"><![CDATA[아이디를 입력해주세요]]></value>
+		</item>
+		<item name="4">
+			<value xml:lang="ko"><![CDATA[비밀번호를 입력해주세요]]></value>
+		</item>
+	</item>
+	<item name="about_use_bookmarklet">
+		<value xml:lang="ko"><![CDATA[북마클릿 이용방법]]></value>
+	</item>
+	<item name="about_use_bookmarklet_item" type="array">
+		<item name="0">
+			<value xml:lang="ko"><![CDATA[위의 "글감 수집기" 북마클릿을 브라우저에 추가하세요]]></value>
+		</item>
+		<item name="1">
+			<value xml:lang="ko"><![CDATA[글을 쓸 때 활용할 자료를 발견하셨다면, 설치해둔 북마클릿을 클릭하세요]]></value>
+		</item>
+		<item name="2">
+			<value xml:lang="ko"><![CDATA[텍스트, 이미지, 동영상 등 적절한 유형을 골라 편집한 후 저장하세요]]></value>
+		</item>
+		<item name="3">
+			<value xml:lang="ko"><![CDATA[그렇게 수집한 글감들은 지금 보고 계신 글감보관함 페이지에 저장됩니다.]]></value>
+		</item>
+	</item>
+	<item name="basket_management">
+		<value xml:lang="ko"><![CDATA[휴지통 관리]]></value>
+	</item>
+	<item name="basket_list">
+		<value xml:lang="ko"><![CDATA[휴지통 보관 목록]]></value>
+	</item>
+	<item name="basket_empty">
+		<value xml:lang="ko"><![CDATA[휴지통이 깨끗 하네요. ^^;]]></value>
+	</item>
+	<item name="document_all">
+		<value xml:lang="ko"><![CDATA[모든글 보기]]></value>
+	</item>
+	<item name="document_published">
+		<value xml:lang="ko"><![CDATA[발행된 글만 보기]]></value>
+	</item>
+	<item name="document_reserved">
+		<value xml:lang="ko"><![CDATA[저장된 글만 보기]]></value>
+	</item>
+	<item name="my_document_management">
+		<value xml:lang="ko"><![CDATA[내글 관리]]></value>
+	</item>
+	<item name="set_publish">
+		<value xml:lang="ko"><![CDATA[공개설정]]></value>
+	</item>
+	<item name="document_open">
+		<value xml:lang="ko"><![CDATA[공개]]></value>
+	</item>
+	<item name="document_close">
+		<value xml:lang="ko"><![CDATA[비공개]]></value>
+	</item>
+	<item name="category">
+		<value xml:lang="ko"><![CDATA[카테고리]]></value>
+	</item>
+	<item name="comm_management">
+		<value xml:lang="ko"><![CDATA[대화설정]]></value>
+	</item>
+	<item name="publish_date">
+		<value xml:lang="ko"><![CDATA[발행시간]]></value>
+	</item>
+	<item name="publish_now">
+		<value xml:lang="ko"><![CDATA[지금]]></value>
+	</item>
+	<item name="publish_reserve">
+		<value xml:lang="ko"><![CDATA[예약]]></value>
+	</item>
+	<item name="ymd">
+		<value xml:lang="ko"><![CDATA[년.월.일]]></value>
+	</item>
+	<item name="calendar">
+		<value xml:lang="ko"><![CDATA[달력]]></value>
+	</item>
+	<item name="close_calendar_layer">
+		<value xml:lang="ko"><![CDATA[달력 닫기]]></value>
+	</item>
+	<item name="select_calendar_layer">
+		<value xml:lang="ko"><![CDATA[달력에서 날짜를 선택하기]]></value>
+	</item>
+	<item name="about_upgletyle_admin">
+		<value xml:lang="ko"><![CDATA[콤마(,)를 이용하면 더 많은 관리자를 입력할 수 있습니다.]]></value>
+	</item>
+	<item name="insert_title">
+		<value xml:lang="ko"><![CDATA[이곳에 제목을 입력해 주세요]]></value>
+	</item>
+	<item name="new_post">
+		<value xml:lang="ko"><![CDATA[새글 쓰기]]></value>
+	</item>
+	<item name="modify_post">
+		<value xml:lang="ko"><![CDATA[글 수정하기]]></value>
+	</item>
+	<item name="posting_option">
+		<value xml:lang="ko"><![CDATA[글쓰기 옵션]]></value>
+	</item>
+	<item name="post_url">
+		<value xml:lang="ko"><![CDATA[포스트 주소]]></value>
+	</item>
+	<item name="about_tag">
+		<value xml:lang="ko"><![CDATA[여러 개의 태그는 쉼표(,)로 구분하세요]]></value>
+	</item>
+	<item name="success_temp_saved">
+		<value xml:lang="ko"><![CDATA[임시저장 되었습니다.]]></value>
+	</item>
+	<item name="success_saved_published">
+		<value xml:lang="ko"><![CDATA[저장 후 발행되었습니다.]]></value>
+	</item>
+	<item name="daily">
+		<value xml:lang="ko"><![CDATA[일간]]></value>
+	</item>
+	<item name="weekly">
+		<value xml:lang="ko"><![CDATA[주간]]></value>
+	</item>
+	<item name="monthly">
+		<value xml:lang="ko"><![CDATA[월간]]></value>
+	</item>
+	<item name="before_day">
+		<value xml:lang="ko"><![CDATA[하루 전]]></value>
+	</item>
+	<item name="after_day">
+		<value xml:lang="ko"><![CDATA[하루 후]]></value>
+	</item>
+	<item name="before_month">
+		<value xml:lang="ko"><![CDATA[이전 달]]></value>
+	</item>
+	<item name="after_month">
+		<value xml:lang="ko"><![CDATA[다음 달]]></value>
+	</item>
+	<item name="this_month">
+		<value xml:lang="ko"><![CDATA[이번 달]]></value>
+	</item>
+	<item name="today">
+		<value xml:lang="ko"><![CDATA[오늘]]></value>
+	</item>
+	<item name="day_current">
+		<value xml:lang="ko"><![CDATA[당일]]></value>
+	</item>
+	<item name="day_before">
+		<value xml:lang="ko"><![CDATA[전일]]></value>
+	</item>
+	<item name="none_visitor">
+		<value xml:lang="ko"><![CDATA[해당기간에 방문자가 없습니다.]]></value>
+	</item>
+	<item name="about_status" type="array">
+		<item name="day">
+			<value xml:lang="ko"><![CDATA[시간대별 방문 횟수를 확인하실 수 있습니다.]]></value>
+		</item>
+		<item name="week">
+			<value xml:lang="ko"><![CDATA[한주간 날짜별 방문 횟수를 확인하실 수 있습니다.]]></value>
+		</item>
+		<item name="month">
+			<value xml:lang="ko"><![CDATA[일년간 월별 방문 횟수를 확인하실 수 있습니다.]]></value>
+		</item>
+	</item>
+	<item name="about_unit" type="array">
+		<item name="day">
+			<value xml:lang="ko"><![CDATA[시간]]></value>
+		</item>
+		<item name="week">
+			<value xml:lang="ko"><![CDATA[년.월.일]]></value>
+		</item>
+		<item name="month">
+			<value xml:lang="ko"><![CDATA[년.월]]></value>
+		</item>
+	</item>
+	<item name="visit_count">
+		<value xml:lang="ko"><![CDATA[방문 횟수]]></value>
+	</item>
+	<item name="visit_per">
+		<value xml:lang="ko"><![CDATA[비율]]></value>
+	</item>
+	<item name="trackback_division">
+		<value xml:lang="ko"><![CDATA[트랙백 주소를 여러 개 넣을 때는 줄바꿈(Enter)으로 구분하세요]]></value>
+	</item>
+	<item name="about_supporter">
+		<value xml:lang="ko"><![CDATA[지지자란 댓글, 방명록, 엮인글 등을 달아준 사용자 입니다.]]></value>
+	</item>
+	<item name="supporter_rank">
+		<value xml:lang="ko"><![CDATA[지지자 순위]]></value>
+	</item>
+	<item name="rank">
+		<value xml:lang="ko"><![CDATA[순위]]></value>
+	</item>
+	<item name="user">
+		<value xml:lang="ko"><![CDATA[사용자]]></value>
+	</item>
+	<item name="guestbook">
+		<value xml:lang="ko"><![CDATA[방명록]]></value>
+	</item>
+	<item name="add_denylist">
+		<value xml:lang="ko"><![CDATA[차단목록에 추가]]></value>
+	</item>
+	<item name="summary">
+		<value xml:lang="ko"><![CDATA[합계]]></value>
+	</item>
+	<item name="no_supporter">
+		<value xml:lang="ko"><![CDATA[지지자가 없습니다.]]></value>
+	</item>
+	<item name="about_popular">
+		<value xml:lang="ko"><![CDATA[인기 콘텐츠란 열람, 댓글, 핑백, 트랙백이 많은 글입니다.]]></value>
+	</item>
+	<item name="popular_rank">
+		<value xml:lang="ko"><![CDATA[인기 콘텐츠 순위]]></value>
+	</item>
+	<item name="read">
+		<value xml:lang="ko"><![CDATA[열람]]></value>
+	</item>
+	<item name="no_popular">
+		<value xml:lang="ko"><![CDATA[인기 콘텐츠가 없습니다.]]></value>
+	</item>
+	<item name="resize_vertical">
+		<value xml:lang="ko"><![CDATA[입력창 크기 조절]]></value>
+	</item>
+	<item name="upgletyle_first_menus" type="array">
+		<item name="0">
+			<value xml:lang="ko"><![CDATA[]]></value>
+		</item>
+		<item name="dispUpgletyleToolDashboard">
+			<value xml:lang="ko"><![CDATA[알림판]]></value>
+		</item>
+		<item name="2">
+			<value xml:lang="ko"><![CDATA[글관리]]></value>
+		</item>
+		<item name="3">
+			<value xml:lang="ko"><![CDATA[대화관리]]></value>
+		</item>
+		<item name="4">
+			<value xml:lang="ko"><![CDATA[통계]]></value>
+		</item>
+		<item name="5">
+			<value xml:lang="ko"><![CDATA[플러그인]]></value>
+		</item>
+		<item name="6">
+			<value xml:lang="ko"><![CDATA[디자인]]></value>
+		</item>
+		<item name="7">
+			<value xml:lang="ko"><![CDATA[설정]]></value>
+		</item>
+	</item>
+	<item name="upgletyle_second_menus" type="array">
+		<item name="2" type="array">
+			<item name="dispUpgletyleToolPostManageWrite">
+				<value xml:lang="ko"><![CDATA[새글 쓰기]]></value>
+			</item>
+			<item name="dispUpgletyleToolPostManageList">
+				<value xml:lang="ko"><![CDATA[글 목록]]></value>
+			</item>
+			<item name="dispUpgletyleToolPostManageDeposit">
+				<value xml:lang="ko"><![CDATA[글감보관함]]></value>
+			</item>
+			<item name="dispUpgletyleToolPostManageCategory">
+				<value xml:lang="ko"><![CDATA[카테고리]]></value>
+			</item>
+			<item name="dispUpgletyleToolPostManageTag">
+				<value xml:lang="ko"><![CDATA[태그 관리]]></value>
+			</item>
+			<item name="dispUpgletyleToolPostManageBasket">
+				<value xml:lang="ko"><![CDATA[휴지통]]></value>
+			</item>
+		</item>
+		<item name="3" type="array">
+			<item name="dispUpgletyleToolCommunicationComment">
+				<value xml:lang="ko"><![CDATA[댓글]]></value>
+			</item>
+			<item name="dispUpgletyleToolCommunicationGuestbook">
+				<value xml:lang="ko"><![CDATA[방명록]]></value>
+			</item>
+			<item name="dispUpgletyleToolCommunicationTrackback">
+				<value xml:lang="ko"><![CDATA[엮인글]]></value>
+			</item>
+			<item name="dispUpgletyleToolCommunicationSpam">
+				<value xml:lang="ko"><![CDATA[스팸 차단]]></value>
+			</item>
+		</item>
+		<item name="4" type="array">
+			<item name="dispUpgletyleToolStatisticsVisitor">
+				<value xml:lang="ko"><![CDATA[방문자]]></value>
+			</item>
+			<item name="dispUpgletyleToolStatisticsVisitRoute">
+				<value xml:lang="ko"><![CDATA[방문경로]]></value>
+			</item>
+			<item name="dispUpgletyleToolStatisticsSupporter">
+				<value xml:lang="ko"><![CDATA[지지자]]></value>
+			</item>
+			<item name="dispUpgletyleToolStatisticsPopular">
+				<value xml:lang="ko"><![CDATA[인기 콘텐트]]></value>
+			</item>
+		</item>
+		<item name="5" type="array">
+			<item name="dispUpgletyleToolConfigAddon">
+				<value xml:lang="ko"><![CDATA[애드온 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolPluginList">
+				<value xml:lang="ko"><![CDATA[플러그인 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolPluginWidgetConfig">
+				<value xml:lang="ko"><![CDATA[위젯 출력 설정]]></value>
+			</item>
+		</item>
+		<item name="6" type="array">
+			<item name="dispUpgletyleToolLayoutConfigSkin">
+				<value xml:lang="ko"><![CDATA[스킨선택]]></value>
+			</item>
+			<item name="dispUpgletyleToolLayoutConfigEdit">
+				<value xml:lang="ko"><![CDATA[HTML&middot;CSS 편집]]></value>
+			</item>
+			<item name="dispUpgletyleToolLayoutConfigMobileSkin">
+				<value xml:lang="ko"><![CDATA[모바일스킨선택]]></value>
+			</item>
+		</item>
+		<item name="7" type="array">
+			<item name="dispUpgletyleToolConfigProfile">
+				<value xml:lang="ko"><![CDATA[내 프로필]]></value>
+			</item>
+			<item name="dispUpgletyleToolConfigInfo">
+				<value xml:lang="ko"><![CDATA[블로그 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolConfigPostwrite">
+				<value xml:lang="ko"><![CDATA[쓰기환경 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolConfigEditorComponents">
+				<value xml:lang="ko"><![CDATA[에디터콤포넌트 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolConfigCommunication">
+				<value xml:lang="ko"><![CDATA[발행&middot;대화 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolConfigBlogApi">
+				<value xml:lang="ko"><![CDATA[원격발행 설정]]></value>
+			</item>
+			<item name="dispUpgletyleToolConfigData">
+				<value xml:lang="ko"><![CDATA[데이터 관리]]></value>
+			</item>
+			<item name="dispUpgletyleToolExtraMenuList">
+				<value xml:lang="ko"><![CDATA[확장메뉴 설정]]></value>
+			</item>
+		</item>
+	</item>
+	<item name="cmd_go_help">
+		<value xml:lang="ko"><![CDATA[도움말]]></value>
+	</item>
+	<item name="cmd_upgletyle_setup">
+		<value xml:lang="ko"><![CDATA[기본 설정]]></value>
+	</item>
+	<item name="cmd_upgletyle_list">
+		<value xml:lang="ko"><![CDATA[Upgletyle 목록]]></value>
+	</item>
+	<item name="cmd_textyle_list">
+		<value xml:lang="ko"><![CDATA[Textyle 목록]]></value>
+	</item>
+	<item name="cmd_upgletyle_creation">
+		<value xml:lang="ko"><![CDATA[Upgletyle 생성]]></value>
+	</item>
+	<item name="cmd_upgletyle_modify">
+		<value xml:lang="ko"><![CDATA[Upgletyle 수정]]></value>
+	</item>
+	<item name="cmd_upgletyle_custom_menu">
+		<value xml:lang="ko"><![CDATA[Upgletyle 메뉴 편집]]></value>
+	</item>
+	<item name="cmd_new_post">
+		<value xml:lang="ko"><![CDATA[새글 쓰기]]></value>
+	</item>
+	<item name="cmd_go_blog">
+		<value xml:lang="ko"><![CDATA[블로그 보기]]></value>
+	</item>
+	<item name="cmd_send_suggestion">
+		<value xml:lang="ko"><![CDATA[사용의견 보내기]]></value>
+	</item>
+	<item name="cmd_view_help">
+		<value xml:lang="ko"><![CDATA[도움말 보기]]></value>
+	</item>
+	<item name="cmd_folding_menu">
+		<value xml:lang="ko"><![CDATA[메뉴 접기/ 펼치기]]></value>
+	</item>
+	<item name="cmd_folding_xe_news">
+		<value xml:lang="ko"><![CDATA[소식 열기/닫기]]></value>
+	</item>
+	<item name="cmd_apply">
+		<value xml:lang="ko"><![CDATA[적용하기]]></value>
+	</item>
+	<item name="cmd_delete_favicon">
+		<value xml:lang="ko"><![CDATA[파비콘 삭제]]></value>
+	</item>
+	<item name="cmd_change_password">
+		<value xml:lang="ko"><![CDATA[비밀번호 갱신]]></value>
+	</item>
+	<item name="cmd_deny">
+		<value xml:lang="ko"><![CDATA[차단]]></value>
+	</item>
+	<item name="cmd_reply_comment">
+		<value xml:lang="ko"><![CDATA[댓글 달기]]></value>
+	</item>
+	<item name="cmd_change_secret">
+		<value xml:lang="ko"><![CDATA[비밀전환]]></value>
+	</item>
+	<item name="cmd_write_relation">
+		<value xml:lang="ko"><![CDATA[관련 글 쓰기]]></value>
+	</item>
+	<item name="cmd_delete_materials">
+		<value xml:lang="ko"><![CDATA[글감 삭제]]></value>
+	</item>
+	<item name="cmd_delete_selected_materials">
+		<value xml:lang="ko"><![CDATA[선택된 글감 삭제]]></value>
+	</item>
+	<item name="cmd_delete_all_materials">
+		<value xml:lang="ko"><![CDATA[모든 글감 삭제]]></value>
+	</item>
+	<item name="cmd_restore">
+		<value xml:lang="ko"><![CDATA[복구]]></value>
+	</item>
+	<item name="cmd_empty">
+		<value xml:lang="ko"><![CDATA[비우기]]></value>
+	</item>
+	<item name="cmd_empty_basket">
+		<value xml:lang="ko"><![CDATA[휴지통 비우기]]></value>
+	</item>
+	<item name="cmd_change_category">
+		<value xml:lang="ko"><![CDATA[카테고리 변경]]></value>
+	</item>
+	<item name="cmd_save">
+		<value xml:lang="ko"><![CDATA[저장]]></value>
+	</item>
+	<item name="cmd_publish">
+		<value xml:lang="ko"><![CDATA[발행하기]]></value>
+	</item>
+	<item name="cmd_save_publish">
+		<value xml:lang="ko"><![CDATA[저장 후 발행]]></value>
+	</item>
+	<item name="cmd_edit_htmlcss">
+		<value xml:lang="ko"><![CDATA[HTML&middot;CSS 편집]]></value>
+	</item>
+	<item name="cmd_edit_html">
+		<value xml:lang="ko"><![CDATA[HTML 편집]]></value>
+	</item>
+	<item name="cmd_edit_css">
+		<value xml:lang="ko"><![CDATA[CSS 편집]]></value>
+	</item>
+	<item name="cmd_use_ing">
+		<value xml:lang="ko"><![CDATA[사용중]]></value>
+	</item>
+	<item name="cmd_new_window">
+		<value xml:lang="ko"><![CDATA[새창]]></value>
+	</item>
+	<item name="cmd_select_skin">
+		<value xml:lang="ko"><![CDATA[스킨적용]]></value>
+	</item>
+	<item name="msg_select_skin">
+		<value xml:lang="ko"><![CDATA[선택하신 스킨으로 Upgletyle 스킨을 변경합니다.\n\n지금 사용하시는 스킨 정보가 사라집니다.\n\n바꾸시겠습니까? ]]></value>
+	</item>
+	<item name="cmd_preview_skin">
+		<value xml:lang="ko"><![CDATA[미리보기]]></value>
+	</item>
+	<item name="cmd_generate_widget_code">
+		<value xml:lang="ko"><![CDATA[위젯 코드 생성]]></value>
+	</item>
+	<item name="msg_already_used_url">
+		<value xml:lang="ko"><![CDATA[이미 사용중인 주소입니다.]]></value>
+	</item>
+	<item name="alert_reset_skin">
+		<value xml:lang="ko"><![CDATA[초기화를 하시면 입력하신 HTML&middot;CSS 내용이 모두 사라집니다.\n\n초기화를 하시겠습니까?]]></value>
+	</item>
+	<item name="msg_used_disabled_function">
+		<value xml:lang="ko"><![CDATA[스킨에서 사용할 수 없는 구문이 있습니다.]]></value>
+	</item>
+	<item name="msg_close_before_write">
+		<value xml:lang="ko"><![CDATA[변경하신 내용이 저장되지 않았습니다.]]></value>
+	</item>
+	<item name="no_post">
+		<value xml:lang="ko"><![CDATA[작성하신 글이 없습니다. <a href="%s">새 글을 써보세요.</a>]]></value>
+	</item>
+	<item name="no_trash">
+		<value xml:lang="ko"><![CDATA[글 목록에서 삭제하신 글이 없습니다.]]></value>
+	</item>
+	<item name="no_comment">
+		<value xml:lang="ko"><![CDATA[남겨진 댓글이 아직 없습니다.]]></value>
+	</item>
+	<item name="no_guestbook">
+		<value xml:lang="ko"><![CDATA[방명록에 남겨진 글이 아직 없습니다.]]></value>
+	</item>
+	<item name="no_trackback">
+		<value xml:lang="ko"><![CDATA[남겨진 엮인글이 아직 없습니다.]]></value>
+	</item>
+	<item name="view_all">
+		<value xml:lang="ko"><![CDATA[전체글]]></value>
+	</item>
+	<item name="search_result">
+		<value xml:lang="ko"><![CDATA[검색결과]]></value>
+	</item>
+	<item name="category_result">
+		<value xml:lang="ko"><![CDATA[카테고리]]></value>
+	</item>
+	<item name="newest_document">
+		<value xml:lang="ko"><![CDATA[최근 글]]></value>
+	</item>
+	<item name="newest_comment">
+		<value xml:lang="ko"><![CDATA[최근 댓글]]></value>
+	</item>
+	<item name="newest_trackback">
+		<value xml:lang="ko"><![CDATA[최근 엮인글]]></value>
+	</item>
+	<item name="archive">
+		<value xml:lang="ko"><![CDATA[글 모음]]></value>
+	</item>
+	<item name="link">
+		<value xml:lang="ko"><![CDATA[링크 모음]]></value>
+	</item>
+	<item name="visitor_count">
+		<value xml:lang="ko"><![CDATA[방문자]]></value>
+	</item>
+	<item name="mail">
+		<value xml:lang="ko"><![CDATA[메일]]></value>
+	</item>
+	<item name="ip">
+		<value xml:lang="ko"><![CDATA[아이피]]></value>
+	</item>
+	<item name="cmd_hide">
+		<value xml:lang="ko"><![CDATA[숨김]]></value>
+	</item>
+	<item name="secret_comment">
+		<value xml:lang="ko"><![CDATA[비밀답글]]></value>
+	</item>
+	<item name="insert_comment">
+		<value xml:lang="ko"><![CDATA[댓글입력]]></value>
+	</item>
+	<item name="msg_input_email_address">
+		<value xml:lang="ko"><![CDATA[이메일을 입력해 주세요]]></value>
+	</item>
+	<item name="msg_input_homepage">
+		<value xml:lang="ko"><![CDATA[홈페이지를 입력해 주세요]]></value>
+	</item>
+	<item name="msg_confirm_delete_post">
+		<value xml:lang="ko"><![CDATA[임시저장글은 복구되지 않습니다. 삭제 하시겠습니까?]]></value>
+	</item>
+	<item name="sample_title">
+		<value xml:lang="ko"><![CDATA[업글타일의 세계로 오신것을 환영합니다!]]></value>
+	</item>
+	<item name="sample_tags">
+		<value xml:lang="ko"><![CDATA[upgletyle ,  업글타일 ,  업글타일에디터 ,  글감수집기]]></value>
+	</item>
+	<item name="msg_preparation">
+		<value xml:lang="ko"><![CDATA[준비중입니다]]></value>
+	</item>
+	<item name="msg_not_user">
+		<value xml:lang="ko"><![CDATA[해당 사용자가 없습니다.]]></value>
+	</item>
+	<item name="success_upgletyle_init">
+		<value xml:lang="ko"><![CDATA[업글타일을 초기화 하였습니다.]]></value>
+	</item>
+	<item name="upgletyle_init">
+		<value xml:lang="ko"><![CDATA[초기화]]></value>
+	</item>
+	<item name="cmd_upgletyle_init">
+		<value xml:lang="ko"><![CDATA[업글타일을 초기화 합니다.]]></value>
+	</item>
+	<item name="msg_upgletyle_init_about">
+		<value xml:lang="ko"><![CDATA[포스트/댓글/트랙백, 방명록, 레이아웃 정보를 모두 삭제 및 초기화를 합니다. 초기화 후 복구는 불가능 합니다.]]></value>
+	</item>
+	<item name="msg_confirm_upgletyle_init">
+		<value xml:lang="ko"><![CDATA[초기화를 하시겠습니까?]]></value>
+	</item>
+	<item name="upgletyle_skin_userimage">
+		<value xml:lang="ko"><![CDATA[사용자 이미지]]></value>
+	</item>
+	<item name="msg_check_userimage">
+		<value xml:lang="ko"><![CDATA[gif, png, jpg, swf 파일만 가능합니다.]]></value>
+	</item>
+	<item name="cmd_upgletyle_skin_export">
+		<value xml:lang="ko"><![CDATA[스킨 백업]]></value>
+	</item>
+	<item name="upgletyle_skin_import">
+		<value xml:lang="ko"><![CDATA[스킨 복원]]></value>
+	</item>
+	<item name="about_upgletyle_skin_import">
+		<value xml:lang="ko"><![CDATA[로컬 폴더에 있는 사용자 정의 스킨을 원격으로 업로드 합니다. 현재 스킨은 삭제됩니다.]]></value>
+	</item>
+	<item name="success_upload">
+		<value xml:lang="ko"><![CDATA[업로드 되었습니다.]]></value>
+	</item>
+	<item name="cmd_upgletyle_export_request">
+		<value xml:lang="ko"><![CDATA[백업신청내역]]></value>
+	</item>
+	<item name="upgletyle_export_recode">
+		<value xml:lang="ko"><![CDATA[백업신청내역]]></value>
+	</item>
+	<item name="upgletyle_export_waiting">
+		<value xml:lang="ko"><![CDATA[신청중]]></value>
+	</item>
+	<item name="upgletyle_export_request">
+		<value xml:lang="ko"><![CDATA[백업신청하기]]></value>
+	</item>
+	<item name="upgletyle_export_type">
+		<value xml:lang="ko"><![CDATA[데이타 타입]]></value>
+	</item>
+	<item name="upgletyle_export_date">
+		<value xml:lang="ko"><![CDATA[데이타 생성시간]]></value>
+	</item>
+	<item name="upgletyle_export_file">
+		<value xml:lang="ko"><![CDATA[데이타 파일]]></value>
+	</item>
+	<item name="cmd_upgletyle_export_file">
+		<value xml:lang="ko"><![CDATA[내보내기]]></value>
+	</item>
+	<item name="menu_name">
+		<value xml:lang="ko"><![CDATA[메뉴명]]></value>
+	</item>
+	<item name="msg_module_count_exceed">
+		<value xml:lang="ko"><![CDATA[추가 가능한 해당 모듈 수를 초과 하였습니다.]]></value>
+	</item>
+	<item name="msg_limit_module">
+		<value xml:lang="ko"><![CDATA[%s개 남음]]></value>
+	</item>
+	<item name="about_upgletyle_extra_menu">
+		<value xml:lang="ko"><![CDATA[XpressEngine에 설치된 모듈을 업글타일 메뉴로 추가할 수 있습니다.]]></value>
+	</item>
+	<item name="cmd_textyle_extra_menu_config">
+		<value xml:lang="ko"><![CDATA[추가메뉴 설정]]></value>
+	</item>
+	<item name="textyle_extra_menu_limit_count">
+		<value xml:lang="ko"><![CDATA[최대 생성 수]]></value>
+	</item>
+	<item name="msg_limit_upgletyle_extra_mid">
+		<value xml:lang="ko"><![CDATA[영문+[영문+숫자+_] 만 가능합니다.]]></value>
+	</item>
+	<item name="msg_microblog_setup">
+		<value xml:lang="ko"><![CDATA[마이크로블로그에 동시 발행을 원하시면 %s을 먼저 해야 합니다.]]></value>
+	</item>
+	<item name="config_edit_components">
+		<value xml:lang="ko"><![CDATA[에디터 콤포넌트 설정]]></value>
+	</item>
+	<item name="upgletyle_bug_report">
+		<value xml:lang="ko"><![CDATA[오류신고]]></value>
+	</item>
+	<item name="cmd_open_close">
+		<value xml:lang="ko"><![CDATA[열기/닫기]]></value>
+	</item>
+	<item name="msg_write_comment">
+		<value xml:lang="ko"><![CDATA[댓글쓰기]]></value>
+	</item>
+	<item name="msg_mobile_skin_use_not">
+		<value xml:lang="ko"><![CDATA[현재 모바일 스킨을 사용하지 않고 있습니다. 사용하려면 스킨적용 버튼을 누르세요.]]></value>
+	</item>
+	<item name="skip_content">
+		<value xml:lang="ko"><![CDATA[본문 건너뛰기]]></value>
+	</item>
+	<item name="switch_textyle">
+		<value xml:lang="ko"><![CDATA[텍스타일 변환]]></value>
+	</item>
+	<item name="switch_upgletyle">
+		<value xml:lang="ko"><![CDATA[업글타일 변환]]></value>
+	</item>
+	<item name="confirm_switch">
+		<value xml:lang="ko"><![CDATA[변환하시겠습니까?]]></value>
+	</item>
+	<item name="before_switch">
+		<value xml:lang="ko"><![CDATA[변환 전]]></value>
+	</item>
+	<item name="after_switch">
+		<value xml:lang="ko"><![CDATA[변환 후]]></value>
+	</item>
+	<item name="success_switched">
+		<value xml:lang="ko"><![CDATA[변환이 완료되었습니다.]]></value>
+	</item>
+	<item name="click_publish">
+		<value xml:lang="ko"><![CDATA[클릭하시면 글을 발행합니다.]]></value>
+	</item>
+	<item name="msg_complete_daumview_sync">
+		<value xml:lang="ko"><![CDATA[다음View서버와 동기화되었습니다.]]></value>
+	</item>
+	<item name="widget_print" type="array">
+		<item name="N">
+			<value xml:lang="ko"><![CDATA[출력안함]]></value>
+		</item>
+		<item name="Y">
+			<value xml:lang="ko"><![CDATA[출력함]]></value>
+		</item>
+	</item>
+</lang>
+</html>
