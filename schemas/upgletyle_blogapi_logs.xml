@@ -1,5 +1,5 @@
-<table name="textyle_blogapi_logs">
-  <column name="textyle_blogapi_logs_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+<table name="upgletyle_blogapi_logs">
+  <column name="blogapi_logs_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
   <column name="document_srl" type="number" size="11" notnull="notnull" index="idx_document_srl" />
   <column name="module_srl" type="number" size="11" notnull="notnull" indx="idx_module_srl" />
   <column name="blogapi_url" type="varchar" size="250" notnull="notnull" />

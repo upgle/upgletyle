@@ -1,5 +1,5 @@
-<table name="textyle_blogapi_services">
-  <column name="textyle_blogapi_services_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
+<table name="upgletyle_blogapi_services">
+  <column name="blogapi_services_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />
   <column name="service_name" type="varchar" size="50" notnull="notnull" />
   <column name="api_type" type="varchar" size="50" notnull="notnull" />
   <column name="url_description" type="varchar" size="50" notnull="notnull" />

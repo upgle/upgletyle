@@ -1,6 +1,6 @@
 <query id="deleteUpgletyleApi" action="delete">
     <tables>
-        <table name="textyle_api" />
+        <table name="upgletyle_api" />
     </tables>
     <conditions>
         <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />

@@ -1,6 +1,6 @@
 <query id="getBlogApiService" action="select">
     <tables>
-        <table name="textyle_blogapi_services" />
+        <table name="upgletyle_blogapi_services" />
     </tables>
     <columns>
         <column name="*" />

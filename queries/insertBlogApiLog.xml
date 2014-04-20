@@ -1,9 +1,9 @@
 <query id="insertBlogApiLog" action="insert">
     <tables>
-        <table name="textyle_blogapi_logs" />
+        <table name="upgletyle_blogapi_logs" />
     </tables>
     <columns>
-      <column name="textyle_blogapi_logs_srl" var="textyle_blogapi_logs_srl" notnull="notnull" />
+      <column name="blogapi_logs_srl" var="blogapi_logs_srl" notnull="notnull" />
       <column name="document_srl" var="document_srl" notnull="notnull" />
       <column name="module_srl" var="module_srl" notnull="notnull" />
       <column name="blogapi_url" var="blogapi_url" notnull="notnull" />

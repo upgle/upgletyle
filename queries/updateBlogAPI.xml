@@ -1,6 +1,6 @@
 <query id="updateBlogAPI" action="update">
     <tables>
-        <table name="textyle_api" />
+        <table name="upgletyle_api" />
     </tables>
     <columns>
       <column name="blogapi_service" var="blogapi_service" notnull="notnull" />
