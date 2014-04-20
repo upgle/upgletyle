@@ -83,7 +83,7 @@
                     </label>
                     <div class="col-sm-8">
 						<div class="row"><div class="col-sm-4">
-                        <input name="blogapi_userid" type="text" class="form-control input-sm" id="blogapi_userid" value="{htmlspecialchars($api_info->blogapi_user_id)}"/>
+                        <input name="blogapi_user_id" type="text" class="form-control input-sm" id="blogapi_user_id" value="{htmlspecialchars($api_info->blogapi_user_id)}"/>
 						</div></div>
                         <span id="blogapi_userid_label" class="help-block hosted"></span>
                     </div>
@@ -114,39 +114,47 @@
 				<div class="btnArea">
 					<button type="button" onclick="doBlogApiTest(); return false;" class="bts_btn bts_btn-default">{$lang->cmd_check_api_connect}</button>
 				</div>
+			</fieldset>
 
-				<table border="0" cellspacing="0" class="setupData" <!--@if(!$api_info->api_srl)-->style="display:none;"<!--@end--> id="response_info">
-					<tr>
-						<th scope="row" rowspan="2"><label for="site_title">{$lang->blogapi_site_title}</label></th>
-						<td>
-							<input name="blogapi_site_title" type="text" class="iText" id="site_title" value="{htmlspecialchars($api_info->blogapi_site_title)}" style="width:400px" />
-						</td>
-					</tr>
-					<tr>
-						<td>{$lang->about_blogapi_site_title}</td>
-					</tr>
-					<tr>
-						<th scope="row" rowspan="2"><label for="site_url">{$lang->blogapi_site_url}</label></th>
-						<td>
-							<input name="blogapi_site_url" type="text" class="iText" id="site_url" value="{htmlspecialchars($api_info->blogapi_site_url)}" style="width:400px" />
-						</td>
-					</tr>
-					<tr>
-						<td>{$lang->about_blogapi_site_url}</td>
-					</tr>
-				</table>
+			<fieldset hidden|cond="!$api_info->api_srl">
+                <div class="page-header page-header-icon" id="response_info">
+                <h5>API 원격 서버 정보</h5>
+                </div>
+                <div class="form-group row">
+                    <label for="site_title" class="col-sm-3 control-label">
+                        {$lang->blogapi_site_title}
+                    </label>
+                    <div class="col-sm-8">
+						<div class="row"><div class="col-sm-7">
+                        <input name="blogapi_site_title" type="text" class="form-control input-sm" id="site_title" value="{htmlspecialchars($api_info->blogapi_site_title)}"/>
+						</div></div>
+                        <span class="help-block">{$lang->about_blogapi_site_title}</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="site_url" class="col-sm-3 control-label">
+                        {$lang->blogapi_site_url}
+                    </label>
+                    <div class="col-sm-8">
+						<div class="row"><div class="col-sm-7">
+                        <input name="blogapi_site_url" type="text" class="form-control input-sm" id="site_url" value="{htmlspecialchars($api_info->blogapi_site_url)}"/>
+						</div></div>
+                        <span class="help-block">{$lang->about_blogapi_site_url}</span>
+                    </div>
+                </div>
+
 				<div class="btnArea submitButton" <!--@if(!$api_info->api_srl)-->style="display:none;"<!--@end-->>
 						<!--@if($api_info->api_srl)-->
-						<span class="btn"><button type="submit" >{$lang->cmd_modify}...</button></span>
+						<button type="submit" class="bts_btn bts_btn-default">{$lang->cmd_modify}...</button>
 						<!--@else-->
-						<span class="btn"><button type="submit" >{$lang->cmd_registration}</button></span>
+						<button type="submit" class="bts_btn bts_btn-default">{$lang->cmd_registration}</button>
 						<!--@end-->
 				</div>
 			</fieldset>
 		</form>
 
 		<!--@else-->
-        <table class="table table-hover table-upgle table-condensed" summary="Blog Api List">
+        <table class="table table-hover table-upgle table-condensed" summary="Blog Api List" style="margin-top:20px">
 			<thead>
 				<tr>
 					<th scope="col">{$lang->blogapi_site_url}</th>
@@ -169,18 +177,17 @@
 						<!--@else-->
 							{@$iconClass = 'buttonDisable'}
 						<!--@end-->
-						<button type="button" onclick="doToggleAPI(this,'{$val->api_srl}')" class="btn">{$lang->use}</button>
-						<a href="{getUrl('type','registration','api_srl',$val->api_srl)}" class="btn">{$lang->cmd_modify}</a>
-						<button type="button" onclick="if(confirm('{$lang->msg_remove_api}')) doRemoveApi({$val->api_srl})" class="btn">{$lang->cmd_delete}</button>
+						<button type="button" onclick="doToggleAPI(this,'{$val->api_srl}')" class="bts_btn bts_btn-xs bts_btn-default">{$lang->use}</button>
+						<a href="{getUrl('type','registration','api_srl',$val->api_srl)}" class="bts_btn bts_btn-xs  bts_btn-default">{$lang->cmd_modify}</a>
+						<button type="button" onclick="if(confirm('{$lang->msg_remove_api}')) doRemoveApi({$val->api_srl})" class="bts_btn bts_btn-xs  bts_btn-danger">{$lang->cmd_delete}</button>
 					</td>
 				</tr>
-			<!--@end-->
+				<!--@end-->
 			</tbody>
 		</table>
 		<div class="btnArea">
 			<input type="button" onclick="location.href=current_url.setQuery('type','registration').setQuery('api_srl','');return false;" value="{$lang->cmd_registration}" class="bts_btn bts_btn-default bts_btn-sm" />
 		</div>
-
 		<!--@end-->
 	</div>
 
