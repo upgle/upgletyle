@@ -1088,6 +1088,7 @@ function completeBlogApiTest(ret_obj) {
     if(site_url) {
         jQuery('.submitButton').css('display','block');
         jQuery('#response_info').show(); 
+		alert(ret_obj['message']);
 	}else{
         alert(ret_obj['message']);
     }

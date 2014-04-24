@@ -399,6 +399,8 @@
 
             $this->add('site_url', $url);
             $this->add('title', $output->get('name'));
+            $this->setMessage('원격 API서버에 정상적으로 연결되었습니다.');
+
         }
 
         function getTrackbackUrl($domain,$document_srl){
