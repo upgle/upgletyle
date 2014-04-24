@@ -84,7 +84,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                     <strong>API 원격발행</strong>
                 </div>
                 <ul class="list-group" loop="$_apis => $val">
-                    <li class="list-group-item clearfix item">
+                    <li class="list-group-item clearfix">
 
 						<h5>{$val->blogapi_site_title} <small>(<a href="{$val->blogapi_site_url}" onclick="window.open(this.href);return false;">{$val->blogapi_site_url}</a>)</small></h5>
 	
@@ -112,7 +112,7 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
                 </div>
 
                 <ul class="list-group list-trackback trackbackOption">
-                    <li class="list-group-item clearfix item">
+                    <li class="list-group-item clearfix trackback-item">
                         <div class="pull-left" style="width:100%;padding-right:95px">
                             <input type="text" name="trackback_url" class="form-control input-sm" />
                         </div>

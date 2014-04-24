@@ -1122,8 +1122,8 @@ function doRemoveApi(api_srl) {
 }
 
 function appendTrackbackForm() {
-    var o = jQuery(jQuery('li.item').get(0)).clone();
-    var l = jQuery('li.item').length;
+    var o = jQuery(jQuery('li.trackback-item').get(0)).clone();
+    var l = jQuery('li.trackback-item').length;
     o.find('input[name=trackback_url]').val('');
     o.find('select[name=trackback_charset]');
     o.html(o.html().replace(/trackback_(url|charset)/g, 'trackback_$1'+l));
