@@ -394,8 +394,8 @@
             }
             $oPublish = $oUpgletyleModel->getPublishObject($this->module_srl, $oDocument->document_srl);
             if(count($oPublish->trackbacks)) $trackbacks = $oPublish->getTrackbacks();
-            if(count($oPublish->blogapis)) $_apis = $oPublish->getApis();
-			
+            
+			$_apis = $oPublish->getApis();
 
             Context::set('oDocument', $oDocument);
             Context::set('oUpgletyle', $oUpgletyleModel->getUpgletyle($this->module_srl));

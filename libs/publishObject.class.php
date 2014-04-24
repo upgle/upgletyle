@@ -69,9 +69,8 @@
         }
 
         function getApis() {
-            if(!$this->oDocument->isExists()) return array();
 
-            $args->module_srl = $this->module_srl;
+			$args->module_srl = $this->module_srl;
             $output = executeQueryArray('upgletyle.getApis', $args);
             if(!$output->data) return array();
 
@@ -163,6 +162,7 @@
             // fixed link
             $original_content = $this->oDocument->get('content');
             $original_content = preg_replace('/href="(\.\/)([^"]*)"/i','href="'.getFullUrl().'$2"',$original_content);
+
             if(count($this->blogapis)) {
                 $apis = $this->getApis();
                 foreach($this->blogapis as $api_srl => $val) {

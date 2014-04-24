@@ -79,6 +79,32 @@ window.open('index.php?act=dispUpgletyle&preview={$preview}&document_srl={$oDocu
 			<!--메타박스 출력-->
 			{$metabox}
 
+            <div class="panel panel-default" cond="isset($_apis) && count($_apis)">
+                <div class="panel-heading">
+                    <strong>API 원격발행</strong>
+                </div>
+                <ul class="list-group" loop="$_apis => $val">
+                    <li class="list-group-item clearfix item">
+
+						<h5>{$val->blogapi_site_title} <small>(<a href="{$val->blogapi_site_url}" onclick="window.open(this.href);return false;">{$val->blogapi_site_url}</a>)</small></h5>
+	
+						<div class="input-group">
+							<span class="input-group-addon">
+								<input name="blogapi_{$val->api_srl}" type="checkbox" value="Y" checked="checked"|cond="$val->log" class="inputCheck" id="blog_{$val->api_srl}" />
+							</span>
+							<select name="blogapi_category_{$val->api_srl}" id="api_category" class="form-control input-sm">
+								<option value="">{$lang->category}</option>
+								<!--@foreach($val->categories as $v)-->
+								<option value="{$v}" selected="selected"|cond="$v==$val->category">{$v}</option>
+								<!--@end-->
+							</select>
+						</div>
+						<span class="help-block">{$lang->publish_checked_this_blog}</span>
+						{$val->log}
+					</li>
+                </ul>
+            </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>엮인글 발송</strong>

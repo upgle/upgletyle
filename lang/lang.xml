@@ -93,8 +93,8 @@
 	<item name="publish_option">
 		<value xml:lang="ko"><![CDATA[발행옵션]]></value>
 	</item>
-	<item name="publish_this_blog">
-		<value xml:lang="ko"><![CDATA[이 블로그로 발행합니다.]]></value>
+	<item name="publish_checked_this_blog">
+		<value xml:lang="ko"><![CDATA[체크박스 선택 시 이 블로그로 발행합니다.]]></value>
 	</item>
 	<item name="ask_time_publish">
 		<value xml:lang="ko"><![CDATA[이 포스트를 지금 발행(또는 업데이트) 하시겠습니까?]]></value>
