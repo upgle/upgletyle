@@ -2191,7 +2191,7 @@
 
             if(in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) return new Object();
 
-			if($oModule->act == 'dispMemberLogout') return new Object();
+			if($oModule->act == 'dispMemberLogout' || $oModule->act == 'dispEditorAdminSetupComponent') return new Object();
 
             $site_module_info = Context::get('site_module_info');
             if(!$site_module_info || $site_module_info->mid != $this->upgletyle_mid) return new Object();
