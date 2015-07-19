@@ -1,12 +1,11 @@
 upgletyle
 =========
 
-<p>
-UPGLETYLE 업글타일을 XE CMS에서 동작하는 블로그 모듈입니다.<br />
-누구나 이 모듈을 통해 설치형블로그를 운영하실 수 있습니다.
-</p>
+업글타일은 XE CMS에서 동작하는 블로그 모듈입니다
+누구나 이 모듈을 XE와 함께 설치하여 설치형블로그를 운영하실 수 있습니다.
 
-<p>
-<h4>설치위치</h4>
+업글타일은 XE-TEXTYLE 모듈(https://github.com/xpressengine/xe-module-textyle)을 FORK한 모듈이며 당시 기존 XE 개발팀에서 SVN으로 운영하여 GITHUB의 FORK 서비스를 사용할수 없어 자체적으로 깃허브를 생성하여 시작된 프로젝트입니다.
+
+
+### 설치위치
 /XE설치위치/modules/upgletyle/
-</p>
